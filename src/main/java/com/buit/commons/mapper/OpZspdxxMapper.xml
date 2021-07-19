@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊就诊队列 -->
+<mapper namespace="com.buit.commons.dao.OpZspdxxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        OID as oid,SJBB as sjbb,CJSJ as cjsj,XGSJ as xgsj,JGID as jgid,MZJZH as mzjzh,GHSJ as ghsj,SDDM as sddm,KSID as ksid,HLZDDM as hlzddm,GHYS as ghys,GHKS as ghks,JZXH as jzxh,PDXH as pdxh,JHSJ as jhsj,JHKS as jhks,JHYS as jhys,JHKSDM as jhksdm,JZBZ as jzbz,JZZT as jzzt,JHTDM as jhtdm,ZDYS as zdys,JHCS as jhcs,TZBZ as tzbz,ZDKSDM as zdksdm,SXSJ as sxsj,BRFJ as brfj,BRID as brid,JZLSH as jzlsh,BRXM as brxm,BRKH as brkh,CSRQ as csrq,XB as xb,SFXZ as sfxz,BRLX as brlx
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_ZSPDXX (
+            OID ,
+            SJBB ,
+            CJSJ ,
+            XGSJ ,
+            JGID ,
+            MZJZH ,
+            GHSJ ,
+            SDDM ,
+            KSID ,
+            HLZDDM ,
+            GHYS ,
+            GHKS ,
+            JZXH ,
+            PDXH ,
+            JHSJ ,
+            JHKS ,
+            JHYS ,
+            JHKSDM ,
+            JZBZ ,
+            JZZT ,
+            JHTDM ,
+            ZDYS ,
+            JHCS ,
+            TZBZ ,
+            ZDKSDM ,
+            SXSJ ,
+            BRFJ ,
+            BRID ,
+            JZLSH ,
+            BRXM ,
+            BRKH ,
+            CSRQ ,
+            XB ,
+            SFXZ ,
+            BRLX
+        ) VALUES (
+            #{oid} ,
+            #{sjbb} ,
+            #{cjsj} ,
+            #{xgsj} ,
+            #{jgid} ,
+            #{mzjzh} ,
+            #{ghsj} ,
+            #{sddm} ,
+            #{ksid} ,
+            #{hlzddm} ,
+            #{ghys} ,
+            #{ghks} ,
+            #{jzxh} ,
+            #{pdxh} ,
+            #{jhsj} ,
+            #{jhks} ,
+            #{jhys} ,
+            #{jhksdm} ,
+            #{jzbz} ,
+            #{jzzt} ,
+            #{jhtdm} ,
+            #{zdys} ,
+            #{jhcs} ,
+            #{tzbz} ,
+            #{zdksdm} ,
+            #{sxsj} ,
+            #{brfj} ,
+            #{brid} ,
+            #{jzlsh} ,
+            #{brxm} ,
+            #{brkh} ,
+            #{csrq} ,
+            #{xb} ,
+            #{sfxz} ,
+            #{brlx}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE OP_ZSPDXX SET
+            SJBB = #{sjbb} ,
+            CJSJ = #{cjsj} ,
+            XGSJ = #{xgsj} ,
+            JGID = #{jgid} ,
+            MZJZH = #{mzjzh} ,
+            GHSJ = #{ghsj} ,
+            SDDM = #{sddm} ,
+            KSID = #{ksid} ,
+            HLZDDM = #{hlzddm} ,
+            GHYS = #{ghys} ,
+            GHKS = #{ghks} ,
+            JZXH = #{jzxh} ,
+            PDXH = #{pdxh} ,
+            JHSJ = #{jhsj} ,
+            JHKS = #{jhks} ,
+            JHYS = #{jhys} ,
+            JHKSDM = #{jhksdm} ,
+            JZBZ = #{jzbz} ,
+            JZZT = #{jzzt} ,
+            JHTDM = #{jhtdm} ,
+            ZDYS = #{zdys} ,
+            JHCS = #{jhcs} ,
+            TZBZ = #{tzbz} ,
+            ZDKSDM = #{zdksdm} ,
+            SXSJ = #{sxsj} ,
+            BRFJ = #{brfj} ,
+            BRID = #{brid} ,
+            JZLSH = #{jzlsh} ,
+            BRXM = #{brxm} ,
+            BRKH = #{brkh} ,
+            CSRQ = #{csrq} ,
+            XB = #{xb} ,
+            SFXZ = #{sfxz} ,
+            BRLX = #{brlx}
+        WHERE
+            OID = #{oid}
+            -->
+    </update>
+    <update id="updateZdysByOid">
+        UPDATE OP_ZSPDXX SET
+            ZDYS = #{zdys}
+        WHERE
+            OID = #{oid}
+    </update>
+    <update id="updateZdysJzztByOid">
+        UPDATE OP_ZSPDXX SET
+            ZDYS = #{zdys},
+            JHKSDM = #{zsid},
+            JHSJ = now(),
+            JZZT = 1
+        WHERE
+            JZLSH = #{jzlsh}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_ZSPDXX WHERE
+        OID = #{oid}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_ZSPDXX <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpZspdxx">
+        SELECT <include refid="columns" />
+            FROM OP_ZSPDXX
+            WHERE
+        OID = #{oid}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(oid)"> -->
+<!--                     AND OID = #{oid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sjbb)"> -->
+<!--                     AND SJBB = #{sjbb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cjsj)"> -->
+<!--                     AND CJSJ = #{cjsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xgsj)"> -->
+<!--                     AND XGSJ = #{xgsj} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                     AND JGID = #{jgid}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzjzh)"> -->
+<!--                     AND MZJZH = #{mzjzh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+                    AND DATE_FORMAT(GHSJ,'%Y-%m-%d') = DATE_FORMAT(#{ghsj},'%Y-%m-%d')
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sddm)"> -->
+<!--                     AND SDDM = #{sddm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksid)"> -->
+<!--                     AND KSID = #{ksid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hlzddm)"> -->
+<!--                     AND HLZDDM = #{hlzddm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghys)"> -->
+<!--                     AND GHYS = #{ghys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghks)"> -->
+<!--                     AND GHKS = #{ghks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzxh)"> -->
+<!--                     AND JZXH = #{jzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pdxh)"> -->
+<!--                     AND PDXH = #{pdxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhsj)">-->
+<!--                     AND JHSJ BETWEEN #{beginOfDay} AND #{endOfDay}-->
+<!--                </if>-->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhks)"> -->
+<!--                     AND JHKS = #{jhks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhys)"> -->
+<!--                     AND JHYS = #{jhys} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jhksdm)">
+                     AND JHKSDM = #{jhksdm}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzbz)"> -->
+<!--                     AND JZBZ = #{jzbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzzt)"> -->
+<!--                     AND JZZT = #{jzzt} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jhtdm)">
+                     AND JHTDM = #{jhtdm}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdys)"> -->
+<!--                     AND ZDYS = #{zdys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhcs)"> -->
+<!--                     AND JHCS = #{jhcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tzbz)"> -->
+<!--                     AND TZBZ = #{tzbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdksdm)"> -->
+<!--                     AND ZDKSDM = #{zdksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sxsj)"> -->
+<!--                     AND SXSJ = #{sxsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brfj)"> -->
+<!--                     AND BRFJ = #{brfj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)"> -->
+<!--                     AND JZLSH = #{jzlsh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(brxm)">
+                    AND
+                    ( BRXM LIKE CONCAT(CONCAT('%',#{brxm}),'%')
+                    or BRKH LIKE CONCAT(CONCAT('%',#{brxm}),'%')
+                    )
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brkh)"> -->
+<!--                     AND BRKH = #{brkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(csrq)"> -->
+<!--                     AND CSRQ = #{csrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xb)"> -->
+<!--                     AND XB = #{xb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfxz)"> -->
+<!--                     AND SFXZ = #{sfxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brlx)"> -->
+<!--                     AND BRLX = #{brlx} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_ZSPDXX
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpZspdxx">
+        SELECT <include refid="columns" />
+        FROM OP_ZSPDXX
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <select id="getWaitQueueByDeptId" resultType="com.buit.commons.model.OpJzdlResult">
+        SELECT
+        ksid AS ksid,
+        COUNT( PDXH ) AS pdNums,
+        COUNT( JZXH ) AS jzNums,
+        sum( CASE JZZT WHEN '0' THEN 1 ELSE 0 END ) AS dzNums,
+        sum( CASE JZZT WHEN '1' THEN 1 ELSE 0 END ) AS zzNums,
+        sum( CASE JZZT WHEN '2' THEN 1 ELSE 0 END ) AS zbNums,
+        min(TIMESTAMPDIFF( MINUTE, GHSJ, JHSJ)) AS minWaitTime,
+        max(TIMESTAMPDIFF( MINUTE, GHSJ, JHSJ)) AS maxWaitTime,
+        avg(TIMESTAMPDIFF( MINUTE, GHSJ, JHSJ)) AS avgWaitTime
+        FROM
+        op_zspdxx
+        where 1=1
+        <if test="@sqlt.Ognl@isNotEmpty(ksid)">
+             AND KSID = #{ksid}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jhksdm)">
+            AND JHKSDM = #{jhksdm}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jhsj)">
+            AND JHSJ BETWEEN #{beginOfDay} AND #{endOfDay}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+            AND JGID = #{jgid}
+        </if>
+        GROUP BY
+        KSID
+    </select>
+    <select id="getWaitQueueByConsultCode" resultType="com.buit.commons.model.OpJzdlResult">
+        SELECT
+        pd.JHTDM AS queueConsultCode,
+        fwt.ZSMC AS roomName,
+        COUNT( pd.PDXH ) AS pdNums,
+        COUNT( pd.JZXH ) AS jzNums,
+        sum( CASE pd.JZZT WHEN '0' THEN 1 ELSE 0 END ) AS dzNums,
+        sum( CASE pd.JZZT WHEN '1' THEN 1 ELSE 0 END ) AS zzNums,
+        sum( CASE pd.JZZT WHEN '2' THEN 1 ELSE 0 END ) AS zbNums,
+        min(TIMESTAMPDIFF( MINUTE, GHSJ, JHSJ)) AS minWaitTime,
+        max(TIMESTAMPDIFF( MINUTE, GHSJ, JHSJ)) AS maxWaitTime,
+        avg(TIMESTAMPDIFF( MINUTE, GHSJ, JHSJ)) AS avgWaitTime
+        FROM
+        op_zspdxx pd
+        LEFT JOIN op_fwtxx fwt ON pd.JHTDM = fwt.RID
+        where 1=1
+        <if test="@sqlt.Ognl@isNotEmpty(ksid)">
+            AND pd.KSID = #{ksid}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jhksdm)">
+            AND pd.JHKSDM = #{jhksdm}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jhsj)">
+            AND pd.JHSJ BETWEEN #{beginOfDay} AND #{endOfDay}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+            AND pd.JGID = #{jgid}
+        </if>
+        GROUP BY
+        pd.JHTDM,
+        fwt.ZSMC
+    </select>
+    <!--     业务sql      -->
+    <update id="updatePdxhByOid">
+        UPDATE OP_ZSPDXX SET PDXH = #{pdxh} where OID = #{oid}
+    </update>
+
+    <update id="updateJzztByJzlsh">
+        UPDATE OP_ZSPDXX SET JZZT = #{jzzt} where JZLSH = #{jzlsh} and JZZT = '1'
+    </update>
+</mapper>
+

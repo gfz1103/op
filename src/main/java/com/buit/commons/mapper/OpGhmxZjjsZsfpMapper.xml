@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.OpGhmxZjjsZsfpDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SBXH as sbxh,GHMXXH as ghmxxh,ZSFPHM as zsfphm,JGID as jgid,CZGH as czgh,XJJE as xjje,QTYS as qtys,HBWC as hbwc,ZPJE as zpje,ZHJE as zhje,JZRQ as jzrq,HZRQ as hzrq,MZLB as mzlb,JZHM as jzhm,ZKBZ as zkbz
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_GHMX_ZJJS_ZSFP (
+            SBXH ,
+            GHMXXH ,
+            ZSFPHM ,
+            JGID ,
+            CZGH ,
+            XJJE ,
+            QTYS ,
+            HBWC ,
+            ZPJE ,
+            ZHJE ,
+            JZRQ ,
+            HZRQ ,
+            MZLB ,
+            JZHM ,
+            ZKBZ 
+        ) VALUES (
+            #{sbxh} ,
+            #{ghmxxh} ,
+            #{zsfphm} ,
+            #{jgid} ,
+            #{czgh} ,
+            #{xjje} ,
+            #{qtys} ,
+            #{hbwc} ,
+            #{zpje} ,
+            #{zhje} ,
+            #{jzrq} ,
+            #{hzrq} ,
+            #{mzlb} ,
+            #{jzhm} ,
+            #{zkbz} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_GHMX_ZJJS_ZSFP SET
+            SBXH = #{sbxh} ,
+            GHMXXH = #{ghmxxh} ,
+            ZSFPHM = #{zsfphm} ,
+            JGID = #{jgid} ,
+            CZGH = #{czgh} ,
+            XJJE = #{xjje} ,
+            QTYS = #{qtys} ,
+            HBWC = #{hbwc} ,
+            ZPJE = #{zpje} ,
+            ZHJE = #{zhje} ,
+            JZRQ = #{jzrq} ,
+            HZRQ = #{hzrq} ,
+            MZLB = #{mzlb} ,
+            JZHM = #{jzhm} ,
+            ZKBZ = #{zkbz} 
+        WHERE 
+-->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_GHMX_ZJJS_ZSFP WHERE
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_GHMX_ZJJS_ZSFP <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpGhmxZjjsZsfp">
+        SELECT <include refid="columns" />
+            FROM OP_GHMX_ZJJS_ZSFP 
+            WHERE 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghmxxh)"> -->
+<!--                     AND GHMXXH = #{ghmxxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsfphm)"> -->
+<!--                     AND ZSFPHM = #{zsfphm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xjje)"> -->
+<!--                     AND XJJE = #{xjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtys)"> -->
+<!--                     AND QTYS = #{qtys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hbwc)"> -->
+<!--                     AND HBWC = #{hbwc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zpje)"> -->
+<!--                     AND ZPJE = #{zpje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhje)"> -->
+<!--                     AND ZHJE = #{zhje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzrq)"> -->
+<!--                     AND HZRQ = #{hzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzhm)"> -->
+<!--                     AND JZHM = #{jzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zkbz)"> -->
+<!--                     AND ZKBZ = #{zkbz} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_GHMX_ZJJS_ZSFP 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpGhmxZjjsZsfp">
+        SELECT <include refid="columns" />
+        FROM OP_GHMX_ZJJS_ZSFP 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <update id="doUpdateJzrqToNull" parameterType="Map">
+    	UPDATE OP_GHMX_ZJJS_ZSFP 
+		SET JZRQ = NULL 
+		WHERE
+			JGID = #{jgid} 
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh} 
+			AND JZRQ = #{jzrq}
+    </update>
+</mapper>
+

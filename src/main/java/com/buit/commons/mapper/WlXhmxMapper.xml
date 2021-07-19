@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 消耗明细(WL_XHMX) -->
+<mapper namespace="com.buit.commons.dao.WlXhmxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,JGID as jgid,KFXH as kfxh,KSDM as ksdm,KSMC as ksmc,BRID as brid,BRHM as brhm,BRLY as brly,BRXM as brxm,XHRQ as xhrq,WZXH as wzxh,WZSL as wzsl,ZTBZ as ztbz,DJXH as djxh,XMJE as xmje,MZXH as mzxh,KCXH as kcxh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO WL_XHMX (
+            JLXH ,
+            JGID ,
+            KFXH ,
+            KSDM ,
+            KSMC ,
+            BRID ,
+            BRHM ,
+            BRLY ,
+            BRXM ,
+            XHRQ ,
+            WZXH ,
+            WZSL ,
+            ZTBZ ,
+            DJXH ,
+            XMJE ,
+            MZXH ,
+            KCXH 
+        ) VALUES (
+            #{jlxh} ,
+            #{jgid} ,
+            #{kfxh} ,
+            #{ksdm} ,
+            #{ksmc} ,
+            #{brid} ,
+            #{brhm} ,
+            #{brly} ,
+            #{brxm} ,
+            #{xhrq} ,
+            #{wzxh} ,
+            #{wzsl} ,
+            #{ztbz} ,
+            #{djxh} ,
+            #{xmje} ,
+            #{mzxh} ,
+            #{kcxh} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE WL_XHMX SET
+            JGID = #{jgid} ,
+            KFXH = #{kfxh} ,
+            KSDM = #{ksdm} ,
+            KSMC = #{ksmc} ,
+            BRID = #{brid} ,
+            BRHM = #{brhm} ,
+            BRLY = #{brly} ,
+            BRXM = #{brxm} ,
+            XHRQ = #{xhrq} ,
+            WZXH = #{wzxh} ,
+            WZSL = #{wzsl} ,
+            ZTBZ = #{ztbz} ,
+            DJXH = #{djxh} ,
+            XMJE = #{xmje} ,
+            MZXH = #{mzxh} ,
+            KCXH = #{kcxh} 
+        WHERE 
+            JLXH = #{jlxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM WL_XHMX WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM WL_XHMX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="WlXhmx">
+        SELECT <include refid="columns" />
+            FROM WL_XHMX 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                    AND JGID = #{jgid}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kfxh)"> -->
+<!--                     AND KFXH = #{kfxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksmc)"> -->
+<!--                     AND KSMC = #{ksmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brhm)"> -->
+<!--                     AND BRHM = #{brhm} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(brly)">
+                    AND BRLY = #{brly}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxm)"> -->
+<!--                     AND BRXM = #{brxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xhrq)"> -->
+<!--                     AND XHRQ = #{xhrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wzxh)"> -->
+<!--                     AND WZXH = #{wzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wzsl)"> -->
+<!--                     AND WZSL = #{wzsl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ztbz)"> -->
+<!--                     AND ZTBZ = #{ztbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djxh)"> -->
+<!--                     AND DJXH = #{djxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xmje)"> -->
+<!--                     AND XMJE = #{xmje} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(mzxh)">
+                    AND MZXH = #{mzxh}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kcxh)"> -->
+<!--                     AND KCXH = #{kcxh} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM WL_XHMX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="WlXhmx">
+        SELECT <include refid="columns" />
+        FROM WL_XHMX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <!-- 更新状态标志 -->
+    <update id="updateZtbz" parameterType="Map"> 
+    	update WL_XHMX set ZTBZ=#{ZTBZ} 
+    	<where>
+    		and MZXH=#{MZXH} 
+    		and BRLY=#{BRLY}
+    		<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+            	AND JGID=#{JGID}
+            </if>
+    	</where>
+    </update>
+</mapper>
+

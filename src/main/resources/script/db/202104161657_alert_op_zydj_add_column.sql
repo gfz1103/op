@@ -1,0 +1,2 @@
+ALTER TABLE `op_zydj`
+ADD COLUMN `JGID` varchar(20) NULL COMMENT '机构ID' AFTER `DJID`;

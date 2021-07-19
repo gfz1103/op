@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.SkinXmldsfxmDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JGID as jgid,PSID as psid,SFXMDM as sfxmdm,XH as xh,SL as sl,XMLX as xmlx
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SKIN_XMLDSFXM (
+            JGID ,
+            PSID ,
+            SFXMDM ,
+            XH ,
+            SL ,
+            XMLX 
+        ) VALUES (
+            #{jgid} ,
+            #{psid} ,
+            #{sfxmdm} ,
+            #{xh} ,
+            #{sl} ,
+            #{xmlx}
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE SKIN_XMLDSFXM SET
+            XH = #{xh} ,
+            SL = #{sl} 
+        WHERE 
+            JGID = #{jgid}  AND 
+                        PSID = #{psid}  AND 
+                         AND 
+                        SFXMDM = #{sfxmdm} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SKIN_XMLDSFXM WHERE
+        JGID = #{jgid}  AND 
+        PSID = #{psid}  AND 
+        SFXMDM = #{sfxmdm} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM SKIN_XMLDSFXM <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="SkinXmldsfxm">
+        SELECT <include refid="columns" />
+            FROM SKIN_XMLDSFXM 
+            WHERE 
+        JGID = #{jgid}  AND 
+        PSID = #{psid}  AND 
+        SFXMDM = #{sfxmdm} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+               <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                    AND JGID = #{jgid}
+               </if>
+               <if test="@sqlt.Ognl@isNotEmpty(psid)">
+                    AND PSID = #{psid}
+               </if>
+               <if test="@sqlt.Ognl@isNotEmpty(sfxmdm)">
+                    AND SFXMDM = #{sfxmdm}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xh)"> -->
+<!--                     AND XH = #{xh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sl)"> -->
+<!--                     AND SL = #{sl} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(xmlx)">
+                    AND XMLX = #{xmlx}
+               </if>
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SKIN_XMLDSFXM 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="SkinXmldsfxm">
+        SELECT <include refid="columns" />
+        FROM SKIN_XMLDSFXM 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="doQueryLdsfxmList" resultType="SkinXmldsfxmResp">
+		SELECT 
+			DISTINCT
+			ylsf.FYMC AS ypmc,
+			ylsf.FYXH AS sfxmdm,
+			'' AS ypgg,
+			ylsf.FYDW AS ypdw,
+			ylsfxmdj.FYDJ AS ypdj,
+			sfxm.xh AS xh,
+			sfxm.sl AS sl,
+			sfxm.XMLX AS xmlx,
+			sfxm.PSID AS psid
+		FROM
+			SKIN_XMLDSFXM sfxm
+			INNER JOIN FEE_YLSFXM ylsf ON sfxm.SFXMDM = ylsf.FYXH
+			INNER JOIN FEE_YLSFXMDJ ylsfxmdj ON ylsf.FYXH = ylsfxmdj.FYXH 
+		WHERE
+			sfxm.JGID = #{jgid} 
+			AND sfxm.PSID = #{psid}
+			<!--  AND sfxm.XMLX = 2-->
+		ORDER BY sfxm.xh
+    </select>
+    
+    <insert id="doSaveLdsfxm" parameterType="java.util.List">
+        insert into SKIN_XMLDSFXM
+        (
+            JGID,
+            PSID,
+            SFXMDM,
+            XH,
+            SL,
+            XMLX 
+        )
+        values
+        <foreach collection="list" item="item" index="index" open="" close="" separator=",">
+        (
+            #{item.jgid},
+            #{item.psid}, 
+            #{item.sfxmdm},
+            #{item.xh},
+            #{item.sl},
+            #{item.xmlx}
+        )
+        </foreach>
+    </insert>
+</mapper>
+

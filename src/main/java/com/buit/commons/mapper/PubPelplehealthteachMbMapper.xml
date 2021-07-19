@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 老年人健康教育 -->
+<mapper namespace="com.buit.commons.dao.PubPelplehealthteachMbDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        RECORDID as recordid,DIAGNOSENAME as diagnosename,ICD10 as icd10,HEALTHTEACH as healthteach,INPUTUNIT as inputunit,INPUTDATE as inputdate,INPUTUSER as inputuser,LASTMODIFYUSER as lastmodifyuser,LASTMODIFYUNIT as lastmodifyunit,LASTMODIFYDATE as lastmodifydate,RECIPENAME as recipename,JLXH as jlxh,ID as id,RECIPENAMEPY as recipenamepy,DIAGNOSENAMEPY as diagnosenamepy,DIAGNOSEID as diagnoseid
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO PUB_PELPLEHEALTHTEACH_MB (
+            RECORDID ,
+            DIAGNOSENAME ,
+            ICD10 ,
+            HEALTHTEACH ,
+            INPUTUNIT ,
+            INPUTDATE ,
+            INPUTUSER ,
+            LASTMODIFYUSER ,
+            LASTMODIFYUNIT ,
+            LASTMODIFYDATE ,
+            RECIPENAME ,
+            JLXH ,
+            ID ,
+            RECIPENAMEPY ,
+            DIAGNOSENAMEPY ,
+            DIAGNOSEID 
+        ) VALUES (
+            #{recordid} ,
+            #{diagnosename} ,
+            #{icd10} ,
+            #{healthteach} ,
+            #{inputunit} ,
+            #{inputdate} ,
+            #{inputuser} ,
+            #{lastmodifyuser} ,
+            #{lastmodifyunit} ,
+            #{lastmodifydate} ,
+            #{recipename} ,
+            #{jlxh} ,
+            #{id} ,
+            #{recipenamepy} ,
+            #{diagnosenamepy} ,
+            #{diagnoseid} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE PUB_PELPLEHEALTHTEACH_MB SET
+            RECORDID = #{recordid} ,
+            DIAGNOSENAME = #{diagnosename} ,
+            ICD10 = #{icd10} ,
+            HEALTHTEACH = #{healthteach} ,
+            INPUTUNIT = #{inputunit} ,
+            INPUTDATE = #{inputdate} ,
+            INPUTUSER = #{inputuser} ,
+            LASTMODIFYUSER = #{lastmodifyuser} ,
+            LASTMODIFYUNIT = #{lastmodifyunit} ,
+            LASTMODIFYDATE = #{lastmodifydate} ,
+            RECIPENAME = #{recipename} ,
+            JLXH = #{jlxh} ,
+            RECIPENAMEPY = #{recipenamepy} ,
+            DIAGNOSENAMEPY = #{diagnosenamepy} ,
+            DIAGNOSEID = #{diagnoseid} 
+        WHERE 
+            ID = #{id} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM PUB_PELPLEHEALTHTEACH_MB WHERE
+        ID = #{id} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM PUB_PELPLEHEALTHTEACH_MB <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="PubPelplehealthteachMb">
+        SELECT <include refid="columns" />
+            FROM PUB_PELPLEHEALTHTEACH_MB 
+            WHERE 
+        ID = #{id} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recordid)"> -->
+<!--                     AND RECORDID = #{recordid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(diagnosename)"> -->
+<!--                     AND DIAGNOSENAME = #{diagnosename} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(icd10)">
+                     AND ICD10 like CONCAT(CONCAT('%',UPPER(#{icd10})),'%')
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(healthteach)"> -->
+<!--                     AND HEALTHTEACH = #{healthteach} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(inputunit)"> -->
+<!--                     AND INPUTUNIT = #{inputunit} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(inputdate)"> -->
+<!--                     AND INPUTDATE = #{inputdate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(inputuser)"> -->
+<!--                     AND INPUTUSER = #{inputuser} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifyuser)"> -->
+<!--                     AND LASTMODIFYUSER = #{lastmodifyuser} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifyunit)"> -->
+<!--                     AND LASTMODIFYUNIT = #{lastmodifyunit} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifydate)"> -->
+<!--                     AND LASTMODIFYDATE = #{lastmodifydate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recipename)"> -->
+<!--                     AND RECIPENAME = #{recipename} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jlxh)">
+                     AND JLXH = #{jlxh}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND ID = #{id} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(recipenamepy)">
+                     AND RECIPENAMEPY like CONCAT(CONCAT('%',UPPER(#{recipenamepy})),'%')
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(diagnosenamepy)">
+                     AND DIAGNOSENAMEPY like CONCAT(CONCAT('%',UPPER(#{diagnosenamepy})),'%')
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(diagnoseid)"> -->
+<!--                     AND DIAGNOSEID = #{diagnoseid} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="Integer">
+        SELECT count(*) FROM PUB_PELPLEHEALTHTEACH_MB 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="PubPelplehealthteachMb">
+        SELECT <include refid="columns" />
+        FROM PUB_PELPLEHEALTHTEACH_MB 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+
+</mapper>
+

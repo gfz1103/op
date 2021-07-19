@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.HerHealthreciperecordMzDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id,EMPIID as empiid,PHRID as phrid,RECORDID as recordid,EXAMINEUNIT as examineunit,DIAGNOSENAME as diagnosename,ICD10 as icd10,GUIDEDATE as guidedate,GUIDEUSER as guideuser,HEALTHTEACH as healthteach,GUIDEWAY as guideway,INPUTUNIT as inputunit,INPUTDATE as inputdate,INPUTUSER as inputuser,LASTMODIFYUSER as lastmodifyuser,LASTMODIFYUNIT as lastmodifyunit,LASTMODIFYDATE as lastmodifydate,RECIPENAME as recipename,WAYID as wayid,DIAGNOSEID as diagnoseid
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO HER_HEALTHRECIPERECORD_MZ (
+            ID ,
+            EMPIID ,
+            PHRID ,
+            RECORDID ,
+            EXAMINEUNIT ,
+            DIAGNOSENAME ,
+            ICD10 ,
+            GUIDEDATE ,
+            GUIDEUSER ,
+            HEALTHTEACH ,
+            GUIDEWAY ,
+            INPUTUNIT ,
+            INPUTDATE ,
+            INPUTUSER ,
+            LASTMODIFYUSER ,
+            LASTMODIFYUNIT ,
+            LASTMODIFYDATE ,
+            RECIPENAME ,
+            WAYID ,
+            DIAGNOSEID 
+        ) VALUES (
+            #{id} ,
+            #{empiid} ,
+            #{phrid} ,
+            #{recordid} ,
+            #{examineunit} ,
+            #{diagnosename} ,
+            #{icd10} ,
+            #{guidedate} ,
+            #{guideuser} ,
+            #{healthteach} ,
+            #{guideway} ,
+            #{inputunit} ,
+            #{inputdate} ,
+            #{inputuser} ,
+            #{lastmodifyuser} ,
+            #{lastmodifyunit} ,
+            #{lastmodifydate} ,
+            #{recipename} ,
+            #{wayid} ,
+            #{diagnoseid} 
+        )
+    </insert>
+    
+    <update id="update" >
+        UPDATE HER_HEALTHRECIPERECORD_MZ SET
+            EMPIID = #{empiid} ,
+            PHRID = #{phrid} ,
+            RECORDID = #{recordid} ,
+            EXAMINEUNIT = #{examineunit} ,
+            DIAGNOSENAME = #{diagnosename} ,
+            ICD10 = #{icd10} ,
+            GUIDEDATE = #{guidedate} ,
+            GUIDEUSER = #{guideuser} ,
+            HEALTHTEACH = #{healthteach} ,
+            GUIDEWAY = #{guideway} ,
+            INPUTUNIT = #{inputunit} ,
+            INPUTDATE = #{inputdate} ,
+            INPUTUSER = #{inputuser} ,
+            LASTMODIFYUSER = #{lastmodifyuser} ,
+            LASTMODIFYUNIT = #{lastmodifyunit} ,
+            LASTMODIFYDATE = #{lastmodifydate} ,
+            RECIPENAME = #{recipename} ,
+            WAYID = #{wayid} ,
+            DIAGNOSEID = #{diagnoseid} 
+        WHERE 
+            ID = #{id} 
+
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM HER_HEALTHRECIPERECORD_MZ WHERE
+        ID = #{id} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM HER_HEALTHRECIPERECORD_MZ <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="HerHealthreciperecordMz">
+        SELECT <include refid="columns" />
+            FROM HER_HEALTHRECIPERECORD_MZ 
+            WHERE 
+        ID = #{id} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND ID = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(empiid)"> -->
+<!--                     AND EMPIID = #{empiid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(phrid)"> -->
+<!--                     AND PHRID = #{phrid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recordid)"> -->
+<!--                     AND RECORDID = #{recordid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(examineunit)"> -->
+<!--                     AND EXAMINEUNIT = #{examineunit} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(diagnosename)"> -->
+<!--                     AND DIAGNOSENAME = #{diagnosename} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(icd10)"> -->
+<!--                     AND ICD10 = #{icd10} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(guidedate)"> -->
+<!--                     AND GUIDEDATE = #{guidedate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(guideuser)"> -->
+<!--                     AND GUIDEUSER = #{guideuser} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(healthteach)"> -->
+<!--                     AND HEALTHTEACH = #{healthteach} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(guideway)">
+                     AND GUIDEWAY = #{guideway}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(inputunit)"> -->
+<!--                     AND INPUTUNIT = #{inputunit} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(inputdate)"> -->
+<!--                     AND INPUTDATE = #{inputdate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(inputuser)"> -->
+<!--                     AND INPUTUSER = #{inputuser} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifyuser)"> -->
+<!--                     AND LASTMODIFYUSER = #{lastmodifyuser} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifyunit)"> -->
+<!--                     AND LASTMODIFYUNIT = #{lastmodifyunit} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifydate)"> -->
+<!--                     AND LASTMODIFYDATE = #{lastmodifydate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recipename)"> -->
+<!--                     AND RECIPENAME = #{recipename} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(wayid)">
+                     AND WAYID = #{wayid}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(diagnoseid)"> -->
+<!--                     AND DIAGNOSEID = #{diagnoseid} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM HER_HEALTHRECIPERECORD_MZ 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="HerHealthreciperecordMz">
+        SELECT <include refid="columns" />
+        FROM HER_HEALTHRECIPERECORD_MZ 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+</mapper>
+

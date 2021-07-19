@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 输液/注射科室设置 -->
+<mapper namespace="com.buit.commons.dao.SyKsDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JGID as jgid,KSDM as ksdm,KSLB as kslb,TMSCGZ as tmscgz,QZ as qz,SXHWS as sxhws,XYSXH as xysxh,ZT as zt
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SY_KS (
+            JGID ,
+            KSDM ,
+            KSLB ,
+            TMSCGZ ,
+            QZ ,
+            SXHWS ,
+            XYSXH ,
+            ZT 
+        ) VALUES (
+            #{jgid} ,
+            #{ksdm} ,
+            #{kslb} ,
+            #{tmscgz} ,
+            #{qz} ,
+            #{sxhws} ,
+            #{xysxh} ,
+            #{zt} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE SY_KS SET
+            KSDM = #{ksdm} ,
+            KSLB = #{kslb} ,
+            TMSCGZ = #{tmscgz} ,
+            QZ = #{qz} ,
+            SXHWS = #{sxhws} ,
+            XYSXH = #{xysxh} ,
+            ZT = #{zt} 
+        WHERE 
+            JGID = #{jgid} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SY_KS WHERE
+        JGID = #{jgid} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM SY_KS <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="SyKs">
+        SELECT <include refid="columns" />
+            FROM SY_KS 
+            WHERE 
+        JGID = #{jgid} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kslb)"> -->
+<!--                     AND KSLB = #{kslb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tmscgz)"> -->
+<!--                     AND TMSCGZ = #{tmscgz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qz)"> -->
+<!--                     AND QZ = #{qz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sxhws)"> -->
+<!--                     AND SXHWS = #{sxhws} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xysxh)"> -->
+<!--                     AND XYSXH = #{xysxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zt)"> -->
+<!--                     AND ZT = #{zt} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SY_KS 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="SyKs">
+        SELECT <include refid="columns" />
+        FROM SY_KS 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="doQuerySyksList" resultType="SyKsResp">
+		SELECT
+		<include refid="columns" />
+		FROM SY_KS
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+				AND ZT = #{zt}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND KSDM = #{ksdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(kslb)">
+            	AND KSLB = #{kslb}
+            </if>
+		</where>
+	</select>
+    
+    <update id="doUpdateZt" >  
+    	UPDATE SY_KS SET ZT = #{zt} WHERE KSDM = #{ksdm} AND JGID = #{jgid} AND KSLB = #{kslb}
+    </update>
+    
+    <update id="doUpdateNextSxh" >  
+    	UPDATE SY_KS SET XYSXH = #{xysxh} WHERE KSDM = #{ksdm} AND JGID = #{jgid} AND KSLB = #{kslb} AND ZT = '0'
+    </update>
+    
+    <update id="doUpdateSyKs" >  
+    	UPDATE SY_KS
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(tmscgz)">
+				TMSCGZ = #{tmscgz},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(qz)">
+				QZ = #{qz},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sxhws)">
+				SXHWS = #{sxhws},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+				ZT = #{zt},
+			</if>
+		</trim>
+		where JGID = #{jgid} and KSDM = #{ksdm} and KSLB = #{kslb}
+    </update>
+    
+    <select id="doValidDjdh" resultType="java.lang.Integer">
+        SELECT count(1) as count FROM SY_KS 
+        <where>
+        	AND jgid = #{jgid} 
+        	AND TMSCGZ = #{tmscgz}
+        	AND kslb = #{kslb} 
+        	AND sxhws = #{sxhws}
+        	<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND KSDM != #{ksdm}
+			</if>
+        </where>
+    </select>
+    
+</mapper>
+

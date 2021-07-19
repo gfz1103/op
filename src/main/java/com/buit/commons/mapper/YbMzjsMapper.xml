@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 医保门诊结算表,暂时只增加主键和OP_MZXX关联的键,其他的键按地方返回的医保卡字段增加 -->
+<mapper namespace="com.buit.commons.dao.YbMzjsDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SBXH as sbxh,MZXH as mzxh,FPHM as fphm,JGID as jgid,ZFPB as zfpb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO YB_MZJS (
+            SBXH ,
+            MZXH ,
+            FPHM ,
+            JGID ,
+            ZFPB 
+        ) VALUES (
+            #{sbxh} ,
+            #{mzxh} ,
+            #{fphm} ,
+            #{jgid} ,
+            #{zfpb} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE YB_MZJS SET
+            MZXH = #{mzxh} ,
+            FPHM = #{fphm} ,
+            JGID = #{jgid} ,
+            ZFPB = #{zfpb} 
+        WHERE 
+            SBXH = #{sbxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM YB_MZJS WHERE
+        SBXH = #{sbxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM YB_MZJS <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="YbMzjs">
+        SELECT <include refid="columns" />
+            FROM YB_MZJS 
+            WHERE 
+        SBXH = #{sbxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzxh)"> -->
+<!--                     AND MZXH = #{mzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fphm)"> -->
+<!--                     AND FPHM = #{fphm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfpb)"> -->
+<!--                     AND ZFPB = #{zfpb} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM YB_MZJS 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="YbMzjs">
+        SELECT <include refid="columns" />
+        FROM YB_MZJS 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+</mapper>
+

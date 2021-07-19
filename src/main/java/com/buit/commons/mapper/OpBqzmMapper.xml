@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 病区证明 -->
+<mapper namespace="com.buit.commons.dao.OpBqzmDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        BQID as bqid,LX as lx,DJLX as djlx,MZHM as mzhm,ZYHM as zyhm,CARDNO as cardno,SFZH as sfzh,BRXM as brxm,BRXB as brxb,JZRQ as jzrq,JZYS as jzys,JZKS as jzks,BRZD as brzd,XXTS as xxts,KSSJ as kssj,JSSJ as jssj,BZ as bz,RYRQ as ryrq,CYRQ as cyrq,KSSXW as kssxw,JSSXW as jssxw,JZLSH as jzlsh,JYLX as jylx,JYZ as jyz,KJZMSJ as kjzmsj
+
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_BQZM (
+            BQID ,
+            LX ,
+            DJLX ,
+            MZHM ,
+            ZYHM ,
+            CARDNO ,
+            SFZH ,
+            BRXM ,
+            BRXB ,
+            JZRQ ,
+            JZYS ,
+            JZKS ,
+            BRZD ,
+            XXTS ,
+            KSSJ ,
+            JSSJ ,
+            BZ ,
+            RYRQ ,
+            CYRQ ,
+            KSSXW ,
+            JSSXW ,
+            JZLSH ,
+            JYLX ,
+            JYZ ,
+            KJZMSJ
+        ) VALUES (
+            #{bqid} ,
+            #{lx} ,
+            #{djlx} ,
+            #{mzhm} ,
+            #{zyhm} ,
+            #{cardno} ,
+            #{sfzh} ,
+            #{brxm} ,
+            #{brxb} ,
+            #{jzrq} ,
+            #{jzys} ,
+            #{jzks} ,
+            #{brzd} ,
+            #{xxts} ,
+            #{kssj} ,
+            #{jssj} ,
+            #{bz} ,
+            #{ryrq} ,
+            #{cyrq} ,
+            #{kssxw} ,
+            #{jssxw} ,
+            #{jzlsh} ,
+            #{jylx} ,
+            #{jyz} ,
+            #{kjzmsj}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE OP_BQZM SET
+            LX = #{lx} ,
+            MZHM = #{mzhm} ,
+            ZYHM = #{zyhm} ,
+            CARDNO = #{cardno} ,
+            SFZH = #{sfzh} ,
+            BRXM = #{brxm} ,
+            BRXB = #{brxb} ,
+            JZRQ = #{jzrq} ,
+            JZYS = #{jzys} ,
+            JZKS = #{jzks} ,
+            BRZD = #{brzd} ,
+            XXTS = #{xxts} ,
+            KSSJ = #{kssj} ,
+            JSSJ = #{jssj} ,
+            BZ = #{bz} ,
+            RYRQ = #{ryrq} ,
+            CYRQ = #{cyrq} ,
+            KSSXW = #{kssxw} ,
+            JSSXW = #{jssxw} ,
+            JZLSH = #{jzlsh} ,
+            JYLX = #{jylx},
+            JYZ = #{jyz}
+        WHERE
+            BQID = #{bqid}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_BQZM WHERE
+        BQID = #{bqid}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_BQZM <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpBqzm">
+        SELECT <include refid="columns" />
+        FROM OP_BQZM
+        WHERE
+        BQID = #{bqid}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bqid)"> -->
+<!--                     AND BQID = #{bqid} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(djlx)">
+                    AND DJLX = #{djlx}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(lx)">
+                     AND LX = #{lx}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)">
+                     AND JZLSH = #{jzlsh}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(zyhm)">
+                     AND ZYHM = #{zyhm}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardno)"> -->
+<!--                     AND CARDNO = #{cardno} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfzh)"> -->
+<!--                     AND SFZH = #{sfzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxm)"> -->
+<!--                     AND BRXM = #{brxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxb)"> -->
+<!--                     AND BRXB = #{brxb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jzys)">
+                     AND JZYS = #{jzys}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzks)"> -->
+<!--                     AND JZKS = #{jzks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brzd)"> -->
+<!--                     AND BRZD = #{brzd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xxts)"> -->
+<!--                     AND XXTS = #{xxts} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kssj)"> -->
+<!--                     AND KSSJ = #{kssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jssj)"> -->
+<!--                     AND JSSJ = #{jssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bz)"> -->
+<!--                     AND BZ = #{bz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ryrq)"> -->
+<!--                     AND RYRQ = #{ryrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cyrq)"> -->
+<!--                     AND CYRQ = #{cyrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kssxw)"> -->
+<!--                     AND KSSXW = #{kssxw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jssxw)"> -->
+<!--                     AND JSSXW = #{jssxw} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_BQZM
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpBqzm">
+        SELECT <include refid="columns" />
+        FROM OP_BQZM
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <!--病情证明打印数据-->
+    <select id="getBqzmPrintData" resultType="com.buit.cis.op.dctwork.response.BqzmPrintResponse">
+        SELECT
+        OP_BQZM.BRXM AS xm,
+        IF(OP_BQZM.BRXB=1,'男','女') AS xb,
+        CASE WHEN OP_BQZM.LX = 1 THEN DATE_FORMAT(MPI_BRDA.CSNY,'%Y-%m-%d')
+        ELSE DATE_FORMAT(IM_HZRY.CSNY,'%Y-%m-%d') END AS csrq,
+        CASE WHEN OP_BQZM.LX = 1 THEN TIMESTAMPDIFF(YEAR, DATE_FORMAT(MPI_BRDA.CSNY,'%Y-%m-%d'), CURDATE())
+        ELSE TIMESTAMPDIFF(YEAR, DATE_FORMAT(IM_HZRY.CSNY,'%Y-%m-%d'), CURDATE()) END AS nl,
+        IF(OP_BQZM.LX=1,OP_BQZM.MZHM,OP_BQZM.ZYHM) AS mz_jyh,
+        DATE_FORMAT(OP_BQZM.JZRQ,'%Y年%m月%d日') AS jzsj,
+        DIC_KSZD.OFFICENAME AS ksmc,
+        OP_BQZM.BRZD AS zd,
+        OP_BQZM.XXTS AS xxts,
+        CONCAT(DATE_FORMAT(OP_BQZM.KSSJ,'%Y年%m月%d日'),' ',IF(OP_BQZM.KSSXW=1,'上午','下午')) AS xxkssj,
+        CONCAT(DATE_FORMAT(OP_BQZM.JSSJ,'%Y年%m月%d日'),' ',IF(OP_BQZM.JSSXW=1,'上午','下午')) AS xxjssj,
+        (SELECT PERSONNAME FROM HR_PERSONNEL WHERE PERSONID = OP_BQZM.JZYS ) AS zzys,
+        DATE_FORMAT(OP_BQZM.KJZMSJ,'%Y年%m月%d日') AS zmsj,
+        OP_BQZM.BZ as bz
+        FROM OP_BQZM
+        left join op_ghmx on OP_BQZM.jzlsh=op_ghmx.jzlsh
+        LEFT JOIN MPI_BRDA ON op_ghmx.BRID = MPI_BRDA.BRID
+        LEFT JOIN DIC_KSZD ON OP_BQZM.JZKS = DIC_KSZD.ID
+        LEFT JOIN IM_HZRY ON OP_BQZM.ZYHM = IM_HZRY.ZYHM
+        WHERE OP_BQZM.BQID = #{bqid}
+    </select>
+
+    <!--疾病证明打印数据-->
+    <select id="getJbzmPrintData" resultType="com.buit.cis.op.dctwork.response.JbzmPrintResponse">
+        SELECT
+        OP_BQZM.JZLSH AS bh,
+        OP_BQZM.BRXM AS xm,
+        IF(OP_BQZM.BRXB=1,'男','女') AS xb,
+        TIMESTAMPDIFF(YEAR, DATE_FORMAT(MPI_BRDA.CSNY,'%Y-%m-%d'), CURDATE()) AS nl,
+        DIC_KSZD.OFFICENAME AS ksmc,
+        MPI_BRDA.MZHM as mzh,
+        -- OP_BQZM.JZLSH AS mzh,
+        DATE_FORMAT(OP_BQZM.JZRQ,'%Y%m%d') AS jzrq,
+        OP_BQZM.BRZD AS zd,
+        OP_BQZM.JYLX AS jylx,
+        OP_BQZM.JYZ AS jyz,
+        (SELECT PERSONNAME FROM HR_PERSONNEL WHERE PERSONID = OP_BQZM.JZYS ) AS zzys,
+        DATE_FORMAT(OP_BQZM.KJZMSJ,'%Y') AS zmsj_n,
+        DATE_FORMAT(OP_BQZM.KJZMSJ,'%m') AS zmsj_y,
+        DATE_FORMAT(OP_BQZM.KJZMSJ,'%d') AS zmsj_r
+        FROM OP_BQZM
+        left join op_ghmx on OP_BQZM.jzlsh=op_ghmx.jzlsh
+        LEFT JOIN MPI_BRDA ON op_ghmx.BRID = MPI_BRDA.BRID
+        LEFT JOIN DIC_KSZD ON OP_BQZM.JZKS = DIC_KSZD.ID
+        WHERE OP_BQZM.BQID = #{bqid}
+    </select>
+</mapper>
+

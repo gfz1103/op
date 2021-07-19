@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_作废发票 -->
+<mapper namespace="com.buit.commons.dao.OpZffpDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        MZXH as mzxh,JGID as jgid,FPHM as fphm,CZGH as czgh,JZRQ as jzrq,MZLB as mzlb,HZRQ as hzrq,ZFRQ as zfrq,JZLSH as jzlsh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_ZFFP (
+            MZXH ,
+            JGID ,
+            FPHM ,
+            CZGH ,
+            JZRQ ,
+            MZLB ,
+            HZRQ ,
+            ZFRQ ,
+            JZLSH
+        ) VALUES (
+            #{mzxh} ,
+            #{jgid} ,
+            #{fphm} ,
+            #{czgh} ,
+            #{jzrq} ,
+            #{mzlb} ,
+            #{hzrq} ,
+            #{zfrq} ,
+            #{jzlsh}
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_ZFFP SET
+            JGID = #{jgid} ,
+            FPHM = #{fphm} ,
+            CZGH = #{czgh} ,
+            JZRQ = #{jzrq} ,
+            MZLB = #{mzlb} ,
+            HZRQ = #{hzrq} ,
+            ZFRQ = #{zfrq} ,
+            JZLSH = #{jzlsh} 
+        WHERE 
+            MZXH = #{mzxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_ZFFP WHERE
+        MZXH = #{mzxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_ZFFP <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpZffp">
+        SELECT <include refid="columns" />
+            FROM OP_ZFFP 
+            WHERE 
+        MZXH = #{mzxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzxh)"> -->
+<!--                     AND MZXH = #{mzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fphm)"> -->
+<!--                     AND FPHM = #{fphm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzrq)"> -->
+<!--                     AND HZRQ = #{hzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfrq)"> -->
+<!--                     AND ZFRQ = #{zfrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)"> -->
+<!--                     AND JZLSH = #{jzlsh} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_ZFFP 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpZffp">
+        SELECT <include refid="columns" />
+        FROM OP_ZFFP 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+    <!-- 作废发票列表 -->
+    <select id="doQueryVoidInvoice" resultType="QueryVoidInvoiceResp">
+        SELECT
+			zffp.MZXH,
+			zffp.JGID,
+			zffp.FPHM,
+			mzxx.BRXM,
+			mzxx.BRXZ,
+			mzxx.SFRQ,
+			mzxx.CZGH,
+			su.USER_NAME AS czghText,
+			mzxx.ZJJE,
+			<!-- zffp.CZGH, -->
+			zffp.JZRQ,
+			zffp.MZLB,
+			zffp.HZRQ,
+			zffp.ZFRQ
+		FROM
+			OP_ZFFP zffp,
+			OP_MZXX mzxx,
+			sys_user su
+		WHERE
+			mzxx.MZXH = zffp.MZXH
+			AND mzxx.CZGH = su.USER_ID
+			AND ( zffp.JZRQ IS NULL ) 
+			AND zffp.CZGH = #{ygdm} 
+			AND zffp.JGID = #{jgid}
+		ORDER BY zffp.ZFRQ DESC
+    </select>
+    
+    <select id="doQueryZffpCount" resultType="java.lang.Integer">
+    	SELECT
+			count( 1 ) 
+		FROM
+			OP_ZFFP 
+		WHERE
+			JGID = #{jgid} 
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh} 
+			<if test="@sqlt.Ognl@isNotEmpty(jzrq)">
+            	AND ZFRQ <![CDATA[ >= ]]> #{jzrq}
+            </if>
+		<if test="@sqlt.Ognl@isNotEmpty(jzjsrq)">
+			AND ZFRQ &lt;= #{jzjsrq}
+		</if>
+			AND JZRQ IS NULL 
+    </select>
+    
+    <update id="doUpdateJzrq" parameterType="Map">
+    	UPDATE OP_ZFFP 
+		SET JZRQ = #{jzrq}
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ IS NULL
+    </update>
+    
+    <select id="doQueryZffp" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.FPHM AS FPHM,
+			ifnull ( b.FPZS, 1 ) AS FPZS,
+			b.ZFJE AS ZFJE,
+			b.BRXM AS BRXM,
+			d.FKMC AS FKMC,
+			c.FKJE AS FKJE 
+		FROM
+			OP_ZFFP a,
+			OP_MZXX b,
+			OP_FKXX c,
+			PUB_FKFS d 
+		WHERE
+			c.FKFS = d.FKFS 
+			AND c.MZXH = b.MZXH 
+			AND c.FKFS IN ( 1, 3, 12 ) 
+			AND a.MZXH = b.MZXH 
+			AND a.JGID = #{jgid} 
+			AND a.MZLB = #{mzlb} 
+			AND a.CZGH = #{czgh} 
+			AND a.JZRQ = #{jzrq}
+		order by a.FPHM
+    </select>
+    
+    <update id="doUpdateJzrqToNull" parameterType="Map">
+    	UPDATE OP_ZFFP 
+		SET JZRQ = NULL 
+		WHERE
+			JGID = #{jgid} 
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh} 
+			AND JZRQ = #{jzrq}
+    </update>
+    
+    <update id="doUpdateHzrq" parameterType="Map">
+        UPDATE OP_ZFFP 
+		SET HZRQ = #{ldt_hzrq} 
+		WHERE
+			JGID = #{gl_jgid} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NOT NULL 
+			AND HZRQ IS NULL
+    </update>
+    
+    <update id="updateHzrqToNull" parameterType="Map">
+        UPDATE OP_ZFFP 
+		SET HZRQ = NULL 
+		WHERE
+			JGID = #{jgid} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NOT NULL 
+			AND HZRQ = #{hzrq}
+    </update>
+</mapper>
+

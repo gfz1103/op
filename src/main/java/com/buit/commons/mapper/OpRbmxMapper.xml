@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_收费日报明细 -->
+<mapper namespace="com.buit.commons.dao.OpRbmxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        CZGH as czgh,JZRQ as jzrq,SFXM as sfxm,JGID as jgid,SFJE as sfje,MZLB as mzlb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_RBMX (
+            CZGH ,
+            RBID,
+            JZRQ ,
+            JZKSRQ,
+            SFXM ,
+            SFMC,
+            JGID ,
+            SFJE ,
+            ZJJE,
+            ZKJE,
+            SJJE,
+            MZLB 
+        ) VALUES (
+            #{czgh} ,
+            #{rbid},
+            #{jzrq} ,
+            #{jzksrq},
+            #{sfxm} ,
+            #{sfmc},
+            #{jgid} ,
+            #{sfje} ,
+            #{zjje},
+            #{zkje},
+            #{sjje},
+            #{mzlb} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_RBMX SET
+            JGID = #{jgid} ,
+            SFJE = #{sfje} ,
+            MZLB = #{mzlb} 
+        WHERE 
+            CZGH = #{czgh}  AND 
+                        JZRQ = #{jzrq}  AND 
+                        SFXM = #{sfxm} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_RBMX WHERE
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq}  AND 
+        SFXM = #{sfxm} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_RBMX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpRbmx">
+        SELECT <include refid="columns" />
+            FROM OP_RBMX 
+            WHERE 
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq}  AND 
+        SFXM = #{sfxm} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfxm)"> -->
+<!--                     AND SFXM = #{sfxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfje)"> -->
+<!--                     AND SFJE = #{sfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_RBMX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpRbmx">
+        SELECT <include refid="columns" />
+        FROM OP_RBMX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+    <delete id="doDeleteByCondition" parameterType="Map">
+        DELETE 
+		FROM
+			OP_RBMX 
+		WHERE
+			CZGH = #{czgh} 
+			AND JGID = #{jgid} 
+			AND JZRQ = #{jzrq} 
+			AND MZLB = #{mzlb}
+    </delete>
+    
+    <select id="doQueryRbmxje" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.SFXM AS SFXM,
+			sum( a.SFJE ) AS SFJE,
+			max( b.HZRQ ) AS JSRQ 
+		FROM
+			OP_RBMX a,
+			OP_HZRB b 
+		WHERE
+			b.CZGH = a.CZGH 
+			AND b.JZRQ = a.JZRQ 
+			AND b.JGID = #{al_jgid} 
+			AND b.MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND b.HZRQ <![CDATA[ >= ]]> #{adt_begin} 
+			AND b.HZRQ <![CDATA[ <= ]]> #{adt_end} 
+		GROUP BY
+			a.SFXM
+    </select>
+    
+    <select id="doQuerySfxmJe" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.SFXM AS SFXM,
+			sum( a.SFJE ) AS SFJE 
+		FROM
+			OP_RBMX a,
+			OP_HZRB b 
+		WHERE
+			b.CZGH = a.CZGH 
+			AND b.JZRQ = a.JZRQ 
+			AND b.JGID = #{al_jgid} 
+			AND b.MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND b.HZRQ <![CDATA[ >= ]]> #{adt_begin} 
+			AND b.HZRQ <![CDATA[ <= ]]> #{adt_end} 
+		GROUP BY
+			a.SFXM
+    </select>
+
+    <insert id="insertRbmxsfmx">
+        INSERT INTO op_rbmx_sfmx (
+            RBID,
+            CZGH,
+            JZRQ,
+            XJ,
+            ZP,
+            POS,
+            ZFB,
+            WX,
+            CZK,
+            HBWC,
+            KYCK,
+            YHJE,
+            JZJE,
+            QTYS,
+            SBJZ,
+            QTJZ,
+            ZJE,
+            YJJ_XJ,
+            YJJ_ZP,
+            YJJ_POS,
+            YJJ_HJ,
+            TJJ_XJ,
+            TJJ_ZP,
+            TJJ_POS,
+            TJJ_HJ,
+            SS_HJ,
+            SJH,
+            SJZS,
+            SJJE,
+            FPH,
+            FPZS,
+            FPJE,
+            JGID,
+            MZLB
+
+        ) VALUES (
+            #{rbid},
+            #{czgh},
+            #{jzrq},
+            #{xj},
+            #{zp},
+            #{pos},
+            #{zfb},
+            #{wx},
+            #{czk},
+            #{hbwc},
+            #{kyck},
+            #{yhje},
+            #{jzje},
+            #{qtys},
+            #{sbjz},
+            #{qtjz},
+            #{zje},
+            #{yjj_xj},
+            #{yjj_zp},
+            #{yjj_pos},
+            #{yjj_hj},
+            #{tjj_xj},
+            #{tjj_zp},
+            #{tjj_pos},
+            #{tjj_hj},
+            #{ss_hj},
+            #{sjh},
+            #{sjzs},
+            #{sjje},
+            #{fph},
+            #{fpzs},
+            #{fpje},
+            #{jgid},
+            #{mzlb}
+        )
+    </insert>
+
+
+    <delete id="doDeleteRbmxByJzrq">
+        DELETE FROM OP_RBMX WHERE
+        CZGH = #{czgh}  AND
+        JZRQ = #{jzrq}  AND
+        JGID = #{jgid}
+        AND MZLB = #{mzlb}
+    </delete>
+    <delete id="doDeleteByRbmxsfxmxJzrq">
+        DELETE FROM OP_RBMX_SFMX WHERE
+        CZGH = #{czgh}  AND
+        JZRQ = #{jzrq}  AND
+        JGID = #{jgid}
+        AND MZLB = #{mzlb}
+    </delete>
+
+    <update id="updateHzrq" >
+        UPDATE OP_RBMX SET
+            HZRQ = #{hzjsrq}
+        WHERE
+            MZLB = #{mzlb}
+            AND  JGID = #{jgid}
+            AND  jzrq>= #{hzksrq}
+            AND jzrq &lt;= #{hzjsrq}
+    </update>
+
+    <update id="updateHzrqToNull" >
+        UPDATE OP_RBMX SET
+            HZRQ = null
+        WHERE
+            MZLB = #{mzlb}
+            AND  JGID = #{jgid}
+            AND  hzrq>= #{hzrq}
+    </update>
+
+    <select id="doQueryHzCount" resultType="java.util.Map">
+        SELECT *  FROM op_rbmx_sfmx
+        WHERE JZRQ>= #{hzksrq}
+        and JZRQ &lt;= #{hzjsrq}
+        AND JGID= #{jgid}
+        AND MZLB= #{mzlb}
+    </select>
+
+</mapper>
+

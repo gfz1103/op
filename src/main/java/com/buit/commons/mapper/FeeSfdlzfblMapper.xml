@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 公用_自负比例 -->
+<mapper namespace="com.buit.commons.dao.FeeSfdlzfblDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SFXM as sfxm,BRXZ as brxz,ZFBL as zfbl
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO FEE_SFDLZFBL (
+            SFXM ,
+            BRXZ ,
+            ZFBL
+        ) VALUES (
+            #{sfxm} ,
+            #{brxz} ,
+            #{zfbl}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE FEE_SFDLZFBL SET ZFBL = #{zfbl}
+        WHERE SFXM = #{sfxm} AND BRXZ = #{brxz}
+    </update>
+    <update id="updateZfbl"></update>
+
+    <delete id="deleteById">
+        DELETE FROM FEE_SFDLZFBL WHERE
+        SFXM = #{sfxm}  AND
+        BRXZ = #{brxz}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM FEE_SFDLZFBL
+        <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="FeeSfdlzfbl">
+        SELECT
+        <include refid="columns"/>
+        FROM FEE_SFDLZFBL
+        WHERE
+        SFXM = #{sfxm} AND
+        BRXZ = #{brxz}
+    </select>
+
+    <sql id="where">
+        <where>
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(sfxm)"> -->
+            <!--                     AND SFXM = #{sfxm} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(brxz)"> -->
+            <!--                     AND BRXZ = #{brxz} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(zfbl)"> -->
+            <!--                     AND ZFBL = #{zfbl} -->
+            <!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM FEE_SFDLZFBL
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="FeeSfdlzfbl">
+        SELECT
+        <include refid="columns"/>
+        FROM FEE_SFDLZFBL
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <!-- 获取自负比例信息 -->
+    <select id="getZfblInfo" resultType="java.util.HashMap">
+        select ZFBL as ZFBL From FEE_SFDLZFBL
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(sfxm)">
+                AND SFXM = #{sfxm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(brxz)">
+                AND BRXZ = #{brxz}
+            </if>
+        </where>
+    </select>
+
+    <!-- 获取自负比例Map -->
+    <select id="getZfblMap" parameterType="Map" resultType="java.util.HashMap">
+        select ZFBL as ZFBL From FEE_SFDLZFBL
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(SFXM)">
+                AND SFXM = #{SFXM}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(BRXZ)">
+                AND BRXZ = #{BRXZ}
+            </if>
+        </where>
+    </select>
+    <select id="getByBrxzAndSfxm" resultType="com.buit.system.response.FeeSfdlzfbl">
+        SELECT
+        <include refid="columns"/>
+        FROM FEE_SFDLZFBL
+        where BRXZ=#{brxz} and SFXM=#{fyxm}
+    </select>
+
+    <!-- 获取病人性质 -->
+    <select id="getBrxzInfo" resultType="com.buit.system.response.FeeSfdlzfbl">
+       SELECT DISTINCT BRXZ as BRXZ FROM FEE_SFDLZFBL
+    </select>
+</mapper>
+

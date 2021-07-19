@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 输液/注射给药途径设置 -->
+<mapper namespace="com.buit.commons.dao.SyGytjDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JGID as jgid,KSDM as ksdm,GYTJDM as gytjdm,KSLB as kslb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SY_GYTJ (
+            JGID ,
+            KSDM ,
+            GYTJDM ,
+            KSLB 
+        ) VALUES (
+            #{jgid} ,
+            #{ksdm} ,
+            #{gytjdm} ,
+            #{kslb} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE SY_GYTJ SET
+            KSLB = #{kslb} 
+        WHERE 
+            JGID = #{jgid}  AND 
+                        KSDM = #{ksdm}  AND 
+                        GYTJDM = #{gytjdm} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SY_GYTJ WHERE
+        JGID = #{jgid}  AND 
+        KSDM = #{ksdm}  AND 
+        GYTJDM = #{gytjdm} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM SY_GYTJ <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="SyGytj">
+        SELECT <include refid="columns" />
+            FROM SY_GYTJ 
+            WHERE 
+        JGID = #{jgid}  AND 
+        KSDM = #{ksdm}  AND 
+        GYTJDM = #{gytjdm} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gytjdm)"> -->
+<!--                     AND GYTJDM = #{gytjdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kslb)"> -->
+<!--                     AND KSLB = #{kslb} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SY_GYTJ 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="SyGytj">
+        SELECT <include refid="columns" />
+        FROM SY_GYTJ 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="doQueryGytjList" resultType="SyGytjResp">
+		SELECT
+			gytj.JGID,
+			gytj.KSDM,
+			gytj.KSLB,
+			gytj.GYTJDM,
+			ypyf.XMMC,
+			ypyf.PYDM
+		FROM
+			SY_GYTJ gytj
+			INNER JOIN IM_DIC_YPYF ypyf ON gytj.GYTJDM = ypyf.YPYF
+		<where>
+			gytj.KSLB = #{kslb} 
+			AND gytj.JGID = #{jgid} 
+			AND gytj.KSDM = #{ksdm} 
+			<if test="@sqlt.Ognl@isNotEmpty(pydm)">
+				AND (
+				ypyf.PYDM LIKE CONCAT(CONCAT('%',#{pydm}),'%')
+				OR ypyf.XMMC LIKE CONCAT(CONCAT('%',#{pydm}),'%')
+				)
+			</if>
+		</where>
+	</select>
+	
+	<delete id="doDeleteGytj" > 
+		delete from sy_gytj 
+		where JGID = #{jgid} and KSDM = #{ksdm} and KSLB = #{kslb} and GYTJDM = #{gytjdm}
+    </delete>
+</mapper>
+

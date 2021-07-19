@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 输液/注射接药登记主表 -->
+<mapper namespace="com.buit.commons.dao.SyJydjzbDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JGID as jgid,KSDM as ksdm,DJDH as djdh,KSLB as kslb,DJSJ as djsj,BRID as brid,JZKH as jzkh,SYRQ as syrq,DJRDM as djrdm,ZT as zt,WCSJ as wcsj,WCCZRDM as wcczrdm
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SY_JYDJZB (
+            JGID ,
+            KSDM ,
+            DJDH ,
+            KSLB ,
+            DJSJ ,
+            BRID ,
+            JZKH ,
+            SYRQ ,
+            DJRDM ,
+            ZT ,
+            WCSJ ,
+            WCCZRDM 
+        ) VALUES (
+            #{jgid} ,
+            #{ksdm} ,
+            #{djdh} ,
+            #{kslb} ,
+            #{djsj} ,
+            #{brid} ,
+            #{jzkh} ,
+            #{syrq} ,
+            #{djrdm} ,
+            #{zt} ,
+            #{wcsj} ,
+            #{wcczrdm} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE SY_JYDJZB SET
+            KSLB = #{kslb} ,
+            DJSJ = #{djsj} ,
+            BRID = #{brid} ,
+            JZKH = #{jzkh} ,
+            SYRQ = #{syrq} ,
+            DJRDM = #{djrdm} ,
+            ZT = #{zt} ,
+            WCSJ = #{wcsj} ,
+            WCCZRDM = #{wcczrdm} 
+        WHERE 
+            JGID = #{jgid}  AND 
+                        KSDM = #{ksdm}  AND 
+                        DJDH = #{djdh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SY_JYDJZB WHERE
+        JGID = #{jgid}  AND 
+        KSDM = #{ksdm}  AND 
+        DJDH = #{djdh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM SY_JYDJZB <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="SyJydjzb">
+        SELECT <include refid="columns" />
+            FROM SY_JYDJZB 
+            WHERE 
+        JGID = #{jgid}  AND 
+        KSDM = #{ksdm}  AND 
+        DJDH = #{djdh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djdh)"> -->
+<!--                     AND DJDH = #{djdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kslb)"> -->
+<!--                     AND KSLB = #{kslb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djsj)"> -->
+<!--                     AND DJSJ = #{djsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzkh)"> -->
+<!--                     AND JZKH = #{jzkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(syrq)"> -->
+<!--                     AND SYRQ = #{syrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djrdm)"> -->
+<!--                     AND DJRDM = #{djrdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zt)"> -->
+<!--                     AND ZT = #{zt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wcsj)"> -->
+<!--                     AND WCSJ = #{wcsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wcczrdm)"> -->
+<!--                     AND WCCZRDM = #{wcczrdm} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SY_JYDJZB 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="SyJydjzb">
+        SELECT <include refid="columns" />
+        FROM SY_JYDJZB 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <!-- 输液接药分页查询 -->
+    <select id="doQuerySyJydjList" resultType="QuerySyJydjzbResp">
+		SELECT
+			dj.DJSJ,
+			dj.DJRDM,
+			dj.KSSJ,
+			dj.KSRDM,
+			dj.WCSJ,
+			dj.WCCZRDM,
+			brda.BRXM,
+			brda.BRXB,
+			brda.CSNY,
+			dj.SYRQ,
+			dj.ZT,
+			dj.KSLB,
+			dj.DJDH
+		FROM
+		SY_JYDJZB dj
+		LEFT JOIN MPI_BRDA brda on dj.BRID = brda.BRID
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+            	AND dj.JGID = #{jgid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+            	AND dj.KSDM = #{ksdm}
+            </if>
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+            	AND dj.ZT in 
+            	<foreach item="item" index="index" collection="zt.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(kslb)">
+            	AND dj.KSLB = #{kslb}
+            </if>
+		</where>
+		ORDER BY dj.DJSJ desc
+	</select>
+	<select id="findByDjdhs" resultType="com.buit.commons.response.QuerySyJydjzbResp">
+		SELECT
+		dj.DJSJ,
+		dj.DJRDM,
+		dj.KSSJ,
+		dj.KSRDM,
+		dj.WCSJ,
+		dj.WCCZRDM,
+		brda.BRXM,
+		brda.BRXB,
+		brda.CSNY,
+		dj.SYRQ,
+		dj.ZT,
+		dj.KSLB,
+		dj.DJDH
+		FROM
+		SY_JYDJZB dj
+		LEFT JOIN MPI_BRDA brda on dj.BRID = brda.BRID
+		<where>
+			dj.JGID = #{jgid}
+			<if test="@sqlt.Ognl@isNotEmpty(djdhs)">
+				AND dj.DJDH in
+				<foreach item="item" index="index" collection="djdhs.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		ORDER BY dj.DJSJ desc
+	</select>
+	
+	<select id="doQueryUnregistList" resultType="QueryUnRegistResp">
+		SELECT 
+			a.KFRQ as kfrq,
+			c.YPMC as ypmc,
+			c.YPGG as ypgg,
+			b.YPCD as ypcd,
+			b.YCJL as ypjl,
+			c.JLDW as jldw,
+			b.YPYF as sypc,
+			b.GYTJ as gytj,
+			b.YYTS as yyts,
+			b.YPSL as ypsl,
+			b.BZXX as bzmc,
+			a.KSDM as ksdm,
+			a.YSDM as ysdm,
+			ifnull(sypc.MRCS * b.YYTS,0) as xyzxzcs,
+			ifnull(b.YZXCS,0) as yzxcs,
+			a.MZXH as mzhm,
+			b.YPXH as ypxh,
+			a.FPHM as fphm,
+			b.CFSB as cfhm,
+			b.YPZH as cfzh,
+			b.PSJG as psjg
+		FROM OP_CF01 a 
+		INNER JOIN OP_CF02 b ON a.cfsb = b.cfsb 
+		INNER JOIN DRUGS_TYPK c ON b.YPXH = c.YPXH
+		INNER JOIN SY_GYTJ gytj ON b.gytj = gytj.GYTJDM 
+		LEFT JOIN DIC_SYPC sypc ON b.ypyf = sypc.PCBM 
+		<where>
+			a.FPHM is not null 
+			AND a.MZXH is not null 
+			AND a.ZFPB = 0 
+			AND a.FYBZ = 1 
+			AND ifnull(sypc.MRCS * b.YYTS,0) > ifnull(b.YZXCS,0) 
+			AND gytj.KSDM = #{ksdm}
+			AND gytj.KSLB = #{kslb} 
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND a.JZKH = #{jzkh}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fphm)">
+				AND a.FPHM = #{fphm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(syrq)">
+				AND (a.KFRQ <![CDATA[ < ]]> #{endDay} 
+					AND date_add(a.KFRQ, interval b.YYTS day) <![CDATA[ > ]]> #{beginDay})
+			</if>
+		</where>	
+		ORDER BY a.CFSB,b.YPZH 
+	</select>
+	
+	<select id="doQuerySyDjUser" resultType="SyJydjUser">
+		SELECT 
+		brda.BRXM,
+		brda.BRXB,
+		brda.CSNY,
+		brda.BRID,
+		cf01.JZKH   
+		FROM OP_CF01 cf01 
+		INNER JOIN OP_CF02 cf02 ON cf01.cfsb = cf02.cfsb 
+		INNER JOIN MPI_BRDA brda  ON cf01.BRID = brda.BRID 
+		<where>
+			cf01.FPHM is not null 
+			AND cf01.MZXH is not null 
+			AND cf01.ZFPB = 0 
+			AND cf01.FYBZ = 1 
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND cf01.JZKH = #{jzkh}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fphm)">
+				AND cf01.FPHM = #{fphm}
+			</if>
+			<!--  
+			<if test="@sqlt.Ognl@isNotEmpty(syrq)">
+				AND cf01.KFRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+				OR date_add(cf01.KFRQ, interval cf02.YYTS day) BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			-->
+		</where>	
+	</select>
+
+	<update id="startShuYe">
+		UPDATE SY_JYDJZB SET ZT = '1',KSRDM = #{ksrdm},KSSJ = #{kssj}
+		WHERE JGID = #{jgid}
+		AND DJDH IN
+		<foreach item="item" index="index" collection="djdhs.split(',')" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+	<update id ="doUpdateSyZt" >
+		UPDATE SY_JYDJZB SET ZT = '2',WCCZRDM = #{wcczrdm},WCSJ = #{wcsj}
+		WHERE JGID = #{jgid} 
+		AND DJDH IN 
+		<foreach item="item" index="index" collection="djdhs.split(',')" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+	<select id="doQueryAllDjCount" resultType="QueryAllDjCountResp">
+		select SYRQ as syrq,count(DJDH) as count
+		from sy_jydjzb 
+		where 
+		JGID = #{jgid} AND KSDM = #{ksdm} AND KSLB = #{kslb} 
+		AND SYRQ BETWEEN #{beginDay} AND #{endDay}
+		group by SYRQ 
+	</select>
+	
+	<select id="doQueryDjCfList" resultType="QueryDjCfListResp">
+		SELECT
+			t.ypmc,
+			t.XH,
+			t.DJSJ,
+			t.ypgg,
+			t.ypcd,
+			t.ypjl,
+			t.jldw,
+			t.sypc,
+			t.gytj,
+			t.yyts,
+			t.ypsl,
+			t.ysdm,
+			t.bzmc,
+			t.wcsj,
+			t.cfhm,
+			t.cfzh,
+			t.sbxh  
+		FROM
+			(
+			SELECT DISTINCT
+				typk.YPMC AS ypmc,
+				djmx.XH,
+				dj.DJSJ,
+				typk.YPGG AS ypgg,
+				cf02.YPCD AS ypcd,
+				cf02.YCJL AS ypjl,
+				typk.JLDW AS jldw,
+				cf02.YPYF AS sypc,
+				cf02.GYTJ AS gytj,
+				cf02.YYTS AS yyts,
+				cf02.YPSL AS ypsl,
+				cf01.YSDM AS ysdm,
+				cf02.BZXX AS bzmc,
+				dj.WCSJ AS wcsj,
+				cf02.CFSB AS cfhm,
+				cf02.YPZH AS cfzh,
+				cf01.CFSB AS cfsb,
+				cf02.SBXH AS sbxh 
+			FROM
+				SY_JYDJZB dj
+				INNER JOIN sy_jydjmx djmx ON dj.DJDH = djmx.DJDH
+				INNER JOIN OP_CF01 cf01 ON djmx.CFHM = cf01.CFSB
+				INNER JOIN OP_CF02 cf02 ON cf01.CFSB = cf02.CFSB 
+				AND djmx.YPXH = cf02.YPXH
+				INNER JOIN DRUGS_TYPK typk ON cf02.YPXH = typk.YPXH
+				INNER JOIN SY_GYTJ gytj ON cf02.gytj = gytj.GYTJDM 
+			WHERE
+				SYRQ BETWEEN #{beginDay} AND #{endDay}
+				AND dj.JGID = #{jgid} AND dj.KSDM = #{ksdm} AND dj.KSLB = #{kslb}
+			) t 
+		ORDER BY
+			t.XH,
+			t.sbxh,
+			t.cfhm,
+			t.cfzh 
+	</select>
+	
+	<!-- 输液接药分页查询 -->
+    <select id="doQuerySyptdy" resultType="QuerySyptdyResp">
+    	SELECT
+			brda.BRXM AS brxm,
+			brda.BRXB AS brxb,
+			brda.CSNY AS csny,
+			djzb.DJSJ AS djsj,
+			brda.BRID AS brid,
+			DATE_FORMAT(brda.CSNY,'%Y%m%d') AS csnyStr,
+			brda.JZKH AS jzkh, 
+			djzb.WCSJ AS wcsj 
+		FROM sy_jydjzb djzb
+		INNER JOIN mpi_brda brda ON djzb.BRID = brda.BRID
+		WHERE
+			djzb.DJDH = #{djdh}
+			AND djzb.JGID = #{jgid}
+			AND djzb.KSDM = #{ksdm}
+			AND djzb.KSLB = #{kslb}
+    </select>
+	<select id="queryBrzd" resultType="java.lang.String">
+	SELECT
+		GROUP_CONCAT(DISTINCT brzd.ZDMC)
+	FROM sy_jydjmx jymx
+		LEFT JOIN sy_jydjzb jy ON jymx.DJDH = jy.DJDH
+		LEFT JOIN op_cf01 cf01 ON cf01.CFSB = jymx.CFHM
+		LEFT JOIN op_brzd brzd ON brzd.JZLSH = cf01.JZLSH
+	WHERE
+		cf01.ZFPB = '0'
+		AND jy.JGID = #{jgid}
+		AND jy.KSDM = #{ksdm}
+		AND jy.KSLB = #{kslb}
+		AND jy.DJDH = #{djdh}
+	</select>
+
+</mapper>
+

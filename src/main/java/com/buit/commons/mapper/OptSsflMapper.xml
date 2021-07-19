@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.OptSsflDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id,SSNM as ssnm,SSMC as ssmc,KSDM as ksdm,YSDM as ysdm
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OPT_SSFL (
+            ID ,
+            SSNM ,
+            SSMC ,
+            KSDM ,
+            YSDM
+        ) VALUES (
+            #{id} ,
+            #{ssnm} ,
+            #{ssmc} ,
+            #{ksdm} ,
+            #{ysdm}
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OPT_SSFL SET
+            SSNM = #{ssnm} ,
+            SSMC = #{ssmc} ,
+            KSDM = #{ksdm} ,
+            YSDM = #{ysdm} 
+        WHERE 
+            ID = #{id} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OPT_SSFL WHERE
+        ID = #{id} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OPT_SSFL <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OptSsfl">
+        SELECT <include refid="columns" />
+            FROM OPT_SSFL 
+            WHERE 
+        ID = #{id} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND ID = #{id} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ssnm)">
+                     AND SSNM = #{ssnm}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ssmc)">
+                     AND SSMC = #{ssmc}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> 
+                     AND KSDM = #{ksdm} 
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+                     AND YSDM = #{ysdm}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(isHospital)">
+                    AND ksdm is null and ysdm is null
+                </if>
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="Integer">
+        SELECT count(*) FROM OPT_SSFL 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OptSsfl">
+        SELECT <include refid="columns" />
+        FROM OPT_SSFL 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="queryByReq" resultType="com.buit.commons.response.OptSsflResp">
+        SELECT
+            a.id,
+            a.ssnm,
+            a.ssmc,
+            a.ksdm,
+            a.ysdm,
+            b.fydj,
+            b.fygb,
+            ifnull(d.ssdj,4) as ssdj,
+            b.ZFPB
+        FROM
+            OPT_SSFL a
+            LEFT JOIN FEE_YLSFXM b ON a.ssnm = b.fyxh
+            left join cmo_ssxmgx c on b.fyxh=c.fyxh
+            left join dic_ssbm d on c.ssxh= d.id
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+                AND a.KSDM = #{ksdm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+                AND a.YSDM = #{ysdm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(isHospital)">
+                AND a.ksdm is null and a.ysdm is null
+            </if>
+        </where>
+    </select>
+</mapper>
+

@@ -1,0 +1,1112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_病人档案 -->
+ <mapper namespace="com.buit.commons.dao.MpiBrdaDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+    	BRID as brid,MZHM as mzhm,BRXM as brxm,FYZH as fyzh,SFZH as sfzh,BRXZ as brxz,BRXB as brxb,CSNY as csny,HYZK as hyzk,ZYDM as zydm,MZDM as mzdm,XXDM as xxdm,GMYW as gmyw,DWXH as dwxh,DWMC as dwmc,DWDH as dwdh,DWYB as dwyb,HKDZ as hkdz,JTDH as jtdh,HKYB as hkyb,JZCS as jzcs,JZRQ as jzrq,CZRQ as czrq,JZKH as jzkh,SFDM as sfdm,JGDM as jgdm,GJDM as gjdm,LXRM as lxrm,LXGX as lxgx,LXDZ as lxdz,LXDH as lxdh,DBRM as dbrm,DBGX as dbgx,SBHM as sbhm,YBKH as ybkh,ZZTX as zztx,JDJG as jdjg,JDSJ as jdsj,JDR as jdr,ZXBZ as zxbz,ZXR as zxr,ZXSJ as zxsj,XGSJ as xgsj,CSD_SQS as csdSqs,CSD_S as csdS,CSD_X as csdX,JGDM_SQS as jgdmSqs,JGDM_S as jgdmS,XZZ_SQS as xzzSqs,XZZ_S as xzzS,XZZ_X as xzzX,XZZ_YB as xzzYb,XZZ_DH as xzzDh,HKDZ_SQS as hkdzSqs,HKDZ_S as hkdzS,HKDZ_X as hkdzX,XZZ_QTDZ as xzzQtdz,HKDZ_QTDZ as hkdzQtdz,EMPIID as empiid,SRC as src,CARDTYPE as cardtype,GRBM as grbm,GSBJ as gsbj,JMBZ as jmbz,PZLX as pzlx,PZHM as pzhm,GSRDH as gsrdh,DBBZ as dbbz,SCBZ as scbz,PHOTO as photo,ZJLX as zjlx,BRDH as brdh,LXRDH as lxrdh,ISNH as isnh,HJBZ as hjbz,NATIONALITYCODE as nationalitycode,BXCABXBXCARDNO as bxcabxbxcardno,BXSTART as bxstart,BXEND as bxend,BXCOMPANY as bxcompany,XGR as xgr,LSH as lsh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO MPI_BRDA (
+            BRID ,
+            MZHM ,
+            BRXM ,
+            FYZH ,
+            SFZH ,
+            BRXZ ,
+            BRXB ,
+            CSNY ,
+            HYZK ,
+            ZYDM ,
+            MZDM ,
+            XXDM ,
+            GMYW ,
+            DWXH ,
+            DWMC ,
+            DWDH ,
+            DWYB ,
+            HKDZ ,
+            JTDH ,
+            HKYB ,
+            JZCS ,
+            JZRQ ,
+            CZRQ ,
+            JZKH ,
+            SFDM ,
+            JGDM ,
+            GJDM ,
+            LXRM ,
+            LXGX ,
+            LXDZ ,
+            LXDH ,
+            DBRM ,
+            DBGX ,
+            SBHM ,
+            YBKH ,
+            ZZTX ,
+            JDJG ,
+            JDSJ ,
+            JDR ,
+            ZXBZ ,
+            ZXR ,
+            ZXSJ ,
+            XGSJ ,
+            CSD_SQS ,
+            CSD_S ,
+            CSD_X ,
+            JGDM_SQS ,
+            JGDM_S ,
+            XZZ_SQS ,
+            XZZ_S ,
+            XZZ_X ,
+            XZZ_YB ,
+            XZZ_DH ,
+            HKDZ_SQS ,
+            HKDZ_S ,
+            HKDZ_X ,
+            XZZ_QTDZ ,
+            HKDZ_QTDZ ,
+            EMPIID ,
+            SRC ,
+            CARDTYPE ,
+            GRBM ,
+            GSBJ ,
+            JMBZ ,
+            PZLX ,
+            PZHM ,
+            GSRDH ,
+            DBBZ ,
+            SCBZ ,
+            PHOTO ,
+            ZJLX ,
+            BRDH ,
+            LXRDH ,
+            ISNH ,
+            HJBZ ,
+            NATIONALITYCODE ,
+            BXCABXBXCARDNO ,
+            BXSTART ,
+            BXEND ,
+            BXCOMPANY ,
+            XGR,
+            LSH
+        ) VALUES (
+            #{brid} ,
+            #{mzhm} ,
+            #{brxm} ,
+            #{fyzh} ,
+            #{sfzh} ,
+            #{brxz} ,
+            #{brxb} ,
+            #{csny} ,
+            #{hyzk} ,
+            #{zydm} ,
+            #{mzdm} ,
+            #{xxdm} ,
+            #{gmyw} ,
+            #{dwxh} ,
+            #{dwmc} ,
+            #{dwdh} ,
+            #{dwyb} ,
+            #{hkdz} ,
+            #{jtdh} ,
+            #{hkyb} ,
+            #{jzcs} ,
+            #{jzrq} ,
+            #{czrq} ,
+            #{jzkh} ,
+            #{sfdm} ,
+            #{jgdm} ,
+            #{gjdm} ,
+            #{lxrm} ,
+            #{lxgx} ,
+            #{lxdz} ,
+            #{lxdh} ,
+            #{dbrm} ,
+            #{dbgx} ,
+            #{sbhm} ,
+            #{ybkh} ,
+            #{zztx} ,
+            #{jdjg} ,
+            #{jdsj} ,
+            #{jdr} ,
+            #{zxbz} ,
+            #{zxr} ,
+            #{zxsj} ,
+            #{xgsj} ,
+            #{csdSqs} ,
+            #{csdS} ,
+            #{csdX} ,
+            #{jgdmSqs} ,
+            #{jgdmS} ,
+            #{xzzSqs} ,
+            #{xzzS} ,
+            #{xzzX} ,
+            #{xzzYb} ,
+            #{xzzDh} ,
+            #{hkdzSqs} ,
+            #{hkdzS} ,
+            #{hkdzX} ,
+            #{xzzQtdz} ,
+            #{hkdzQtdz} ,
+            #{empiid} ,
+            #{src} ,
+            #{cardtype} ,
+            #{grbm} ,
+            #{gsbj} ,
+            #{jmbz} ,
+            #{pzlx} ,
+            #{pzhm} ,
+            #{gsrdh} ,
+            #{dbbz} ,
+            #{scbz} ,
+            #{photo} ,
+            #{zjlx} ,
+            #{brdh} ,
+            #{lxrdh} ,
+            #{isnh} ,
+            #{hjbz} ,
+            #{nationalitycode} ,
+            #{bxcabxbxcardno} ,
+            #{bxstart} ,
+            #{bxend} ,
+            #{bxcompany} ,
+            #{xgr} ,
+            #{lsh}
+        )
+    </insert>
+
+    <update id="update" >
+    <!--
+        UPDATE MPI_BRDA
+        <trim prefix="SET" suffixOverrides=",">
+        <if test="@sqlt.Ognl@isNotEmpty(mzhm)">
+            MZHM = #{mzhm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(brxm)">
+            BRXM = #{brxm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(fyzh)">
+            FYZH = #{fyzh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(sfzh)">
+            SFZH = #{sfzh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(brxz)">
+            BRXZ = #{brxz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(brxb)">
+            BRXB = #{brxb} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(csny)">
+            CSNY = #{csny} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(hyzk)">
+            HYZK = #{hyzk} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zydm)">
+            ZYDM = #{zydm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(mzdm)">
+            MZDM = #{mzdm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(xxdm)">
+            XXDM = #{xxdm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(gmyw)">
+            GMYW = #{gmyw} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(dwxh)">
+            DWXH = #{dwxh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(dwmc)">
+            DWMC = #{dwmc} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(dwdh)">
+            DWDH = #{dwdh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(dwyb)">
+            DWYB = #{dwyb} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(hkdz)">
+            HKDZ = #{hkdz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jtdh)">
+            JTDH = #{jtdh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(hkyb)">
+            HKYB = #{hkyb} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jzcs)">
+            JZCS = #{jzcs} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jzrq)">
+            JZRQ = #{jzrq} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(czrq)">
+            CZRQ = #{czrq} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+            JZKH = #{jzkh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(sfdm)">
+            SFDM = #{sfdm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jgdm)">
+            JGDM = #{jgdm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(gjdm)">
+            GJDM = #{gjdm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(lxrm)">
+            LXRM = #{lxrm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(lxgx)">
+            LXGX = #{lxgx} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(lxdz)">
+            LXDZ = #{lxdz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(lxdh)">
+            LXDH = #{lxdh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(dbrm)">
+            DBRM = #{dbrm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(dbgx)">
+            DBGX = #{dbgx} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(sbhm)">
+            SBHM = #{sbhm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(ybkh)">
+            YBKH = #{ybkh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zztx)">
+            ZZTX = #{zztx} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jdjg)">
+            JDJG = #{jdjg} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jdsj)">
+            JDSJ = #{jdsj} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jdr)">
+            JDR = #{jdr} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zxbz)">
+            ZXBZ = #{zxbz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zxr)">
+            ZXR = #{zxr} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zxsj)">
+            ZXSJ = #{zxsj} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(xgsj)">
+            XGSJ = #{xgsj} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(csdSqs)">
+            CSD_SQS = #{csdSqs} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(csdS)">
+            CSD_S = #{csdS} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(csdX)">
+            CSD_X = #{csdX} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jgdmSqs)">
+            JGDM_SQS = #{jgdmSqs} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jgdmS)">
+            JGDM_S = #{jgdmS} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(xzzSqs)">
+            XZZ_SQS = #{xzzSqs} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(xzzS)">
+            XZZ_S = #{xzzS} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(xzzX)">
+            XZZ_X = #{xzzX} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(xzzYb)">
+            XZZ_YB = #{xzzYb} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(xzzDh)">
+            XZZ_DH = #{xzzDh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(hkdzSqs)">
+            HKDZ_SQS = #{hkdzSqs} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(hkdzS)">
+            HKDZ_S = #{hkdzS} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(hkdzX)">
+            HKDZ_X = #{hkdzX} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(xzzQtdz)">
+            XZZ_QTDZ = #{xzzQtdz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(hkdzQtdz)">
+            HKDZ_QTDZ = #{hkdzQtdz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(empiid)">
+            EMPIID = #{empiid} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(src)">
+            SRC = #{src} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(cardtype)">
+            CARDTYPE = #{cardtype} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(grbm)">
+            GRBM = #{grbm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(gsbj)">
+            GSBJ = #{gsbj} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jmbz)">
+            JMBZ = #{jmbz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(pzlx)">
+            PZLX = #{pzlx} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(pzhm)">
+            PZHM = #{pzhm} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(gsrdh)">
+            GSRDH = #{gsrdh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(dbbz)">
+            DBBZ = #{dbbz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(scbz)">
+            SCBZ = #{scbz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(photo)">
+            PHOTO = #{photo} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zjlx)">
+            ZJLX = #{zjlx} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(brdh)">
+            BRDH = #{brdh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(lxrdh)">
+            LXRDH = #{lxrdh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(isnh)">
+            ISNH = #{isnh} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(hjbz)">
+            HJBZ = #{hjbz} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(nationalitycode)">
+            NATIONALITYCODE = #{nationalitycode} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(bxcabxbxcardno)">
+            BXCABXBXCARDNO = #{bxcabxbxcardno} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(bxstart)">
+            BXSTART = #{bxstart} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(bxend)">
+            BXEND = #{bxend} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(bxcompany)">
+            BXCOMPANY = #{bxcompany} ,
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(xgr)">
+            XGR = #{xgr}
+        </if>
+        </trim>
+        -->
+        UPDATE MPI_BRDA
+			SET BRXM = #{brxm},
+			ZJLX = #{zjlx},
+			CSNY = #{csny},
+			BRXB = #{brxb},
+			JZKH = #{jzkh},
+			MZHM = #{mzhm},
+			FYZH = #{fyzh},
+			BRXZ = #{brxz},
+			ISNH = #{isnh},
+			BRDH = #{brdh},
+			LXRM = #{lxrm},
+			LXRDH = #{lxrdh},
+			HJBZ = #{hjbz},
+			MZDM = #{mzdm},
+			XXDM = #{xxdm},
+			HYZK = #{hyzk},
+			GJDM = #{gjdm},
+			XZZ_SQS = #{xzzSqs},
+			XZZ_S = #{xzzS},
+			XZZ_X = #{xzzX},
+			XZZ_QTDZ = #{xzzQtdz},
+			BXCABXBXCARDNO = #{bxcabxbxcardno},
+			BXSTART = #{bxstart},
+			BXEND = #{bxend},
+			BXCOMPANY = #{bxcompany},
+			XGR = #{xgr},
+			XGSJ = #{xgsj},
+			PHOTO = #{photo},
+			LXGX = #{lxgx},
+			LXDZ = #{lxdz},
+			ZYDM = #{zydm},
+            CSD_SQS = #{csdSqs},
+            CSD_S = #{csdS},
+            CSD_X = #{csdX},
+            JGDM_SQS = #{jgdmSqs},
+            JGDM_S = #{jgdmS},
+            HKDZ_SQS = #{hkdzSqs},
+            HKDZ_S = #{hkdzS},
+            HKDZ_X = #{hkdzX},
+            HKDZ = #{hkdz} ,
+            HKYB = #{hkyb},
+            HKDZ_QTDZ = #{hkdzQtdz}
+			WHERE
+			BRID = #{brid}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM MPI_BRDA WHERE
+        BRID = #{brid}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM MPI_BRDA <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="MpiBrda">
+        SELECT <include refid="columns" />
+            FROM MPI_BRDA
+            WHERE
+        BRID = #{brid}
+    </select>
+
+    <sql id="where">
+        <where>
+               <if test="@sqlt.Ognl@isNotEmpty(brid)">
+                    AND BRID = #{brid}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzhm)"> -->
+<!--                     AND MZHM = #{mzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxm)"> -->
+<!--                     AND BRXM = #{brxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyzh)"> -->
+<!--                     AND FYZH = #{fyzh} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(sfzh)">
+                    AND SFZH = #{sfzh}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxz)">
+                    AND BRXZ = #{brxz}
+               </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxb)"> -->
+<!--                     AND BRXB = #{brxb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(csny)"> -->
+<!--                     AND CSNY = #{csny} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hyzk)"> -->
+<!--                     AND HYZK = #{hyzk} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zydm)"> -->
+<!--                     AND ZYDM = #{zydm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzdm)"> -->
+<!--                     AND MZDM = #{mzdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xxdm)"> -->
+<!--                     AND XXDM = #{xxdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gmyw)"> -->
+<!--                     AND GMYW = #{gmyw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwxh)"> -->
+<!--                     AND DWXH = #{dwxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwmc)"> -->
+<!--                     AND DWMC = #{dwmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwdh)"> -->
+<!--                     AND DWDH = #{dwdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwyb)"> -->
+<!--                     AND DWYB = #{dwyb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hkdz)"> -->
+<!--                     AND HKDZ = #{hkdz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jtdh)"> -->
+<!--                     AND JTDH = #{jtdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hkyb)"> -->
+<!--                     AND HKYB = #{hkyb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzcs)"> -->
+<!--                     AND JZCS = #{jzcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czrq)"> -->
+<!--                     AND CZRQ = #{czrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzkh)"> -->
+<!--                     AND JZKH = #{jzkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfdm)"> -->
+<!--                     AND SFDM = #{sfdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgdm)"> -->
+<!--                     AND JGDM = #{jgdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gjdm)"> -->
+<!--                     AND GJDM = #{gjdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lxrm)"> -->
+<!--                     AND LXRM = #{lxrm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lxgx)"> -->
+<!--                     AND LXGX = #{lxgx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lxdz)"> -->
+<!--                     AND LXDZ = #{lxdz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lxdh)"> -->
+<!--                     AND LXDH = #{lxdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbrm)"> -->
+<!--                     AND DBRM = #{dbrm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbgx)"> -->
+<!--                     AND DBGX = #{dbgx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbhm)"> -->
+<!--                     AND SBHM = #{sbhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybkh)"> -->
+<!--                     AND YBKH = #{ybkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zztx)"> -->
+<!--                     AND ZZTX = #{zztx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jdjg)"> -->
+<!--                     AND JDJG = #{jdjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jdsj)"> -->
+<!--                     AND JDSJ = #{jdsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jdr)"> -->
+<!--                     AND JDR = #{jdr} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxbz)"> -->
+<!--                     AND ZXBZ = #{zxbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxr)"> -->
+<!--                     AND ZXR = #{zxr} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxsj)"> -->
+<!--                     AND ZXSJ = #{zxsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xgsj)"> -->
+<!--                     AND XGSJ = #{xgsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(csdSqs)"> -->
+<!--                     AND CSD_SQS = #{csdSqs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(csdS)"> -->
+<!--                     AND CSD_S = #{csdS} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(csdX)"> -->
+<!--                     AND CSD_X = #{csdX} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgdmSqs)"> -->
+<!--                     AND JGDM_SQS = #{jgdmSqs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgdmS)"> -->
+<!--                     AND JGDM_S = #{jgdmS} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzSqs)"> -->
+<!--                     AND XZZ_SQS = #{xzzSqs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzS)"> -->
+<!--                     AND XZZ_S = #{xzzS} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzX)"> -->
+<!--                     AND XZZ_X = #{xzzX} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzYb)"> -->
+<!--                     AND XZZ_YB = #{xzzYb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzDh)"> -->
+<!--                     AND XZZ_DH = #{xzzDh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hkdzSqs)"> -->
+<!--                     AND HKDZ_SQS = #{hkdzSqs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hkdzS)"> -->
+<!--                     AND HKDZ_S = #{hkdzS} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hkdzX)"> -->
+<!--                     AND HKDZ_X = #{hkdzX} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzQtdz)"> -->
+<!--                     AND XZZ_QTDZ = #{xzzQtdz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hkdzQtdz)"> -->
+<!--                     AND HKDZ_QTDZ = #{hkdzQtdz} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(empiid)">
+                     AND EMPIID = #{empiid}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(src)"> -->
+<!--                     AND SRC = #{src} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardtype)"> -->
+<!--                     AND CARDTYPE = #{cardtype} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(grbm)"> -->
+<!--                     AND GRBM = #{grbm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gsbj)"> -->
+<!--                     AND GSBJ = #{gsbj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jmbz)"> -->
+<!--                     AND JMBZ = #{jmbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pzlx)"> -->
+<!--                     AND PZLX = #{pzlx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pzhm)"> -->
+<!--                     AND PZHM = #{pzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gsrdh)"> -->
+<!--                     AND GSRDH = #{gsrdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbbz)"> -->
+<!--                     AND DBBZ = #{dbbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(scbz)"> -->
+<!--                     AND SCBZ = #{scbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(photo)"> -->
+<!--                     AND PHOTO = #{photo} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(zjlx)">
+                    AND ZJLX = #{zjlx}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brdh)"> -->
+<!--                     AND BRDH = #{brdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lxrdh)"> -->
+<!--                     AND LXRDH = #{lxrdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(isnh)"> -->
+<!--                     AND ISNH = #{isnh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hjbz)"> -->
+<!--                     AND HJBZ = #{hjbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nationalitycode)"> -->
+<!--                     AND NATIONALITYCODE = #{nationalitycode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bxcabxbxcardno)"> -->
+<!--                     AND BXCABXBXCARDNO = #{bxcabxbxcardno} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bxstart)"> -->
+<!--                     AND BXSTART = #{bxstart} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bxend)"> -->
+<!--                     AND BXEND = #{bxend} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bxcompany)"> -->
+<!--                     AND BXCOMPANY = #{bxcompany} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xgr)"> -->
+<!--                     AND XGR = #{xgr} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM MPI_BRDA
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="MpiBrda">
+        SELECT <include refid="columns" />
+        FROM MPI_BRDA
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!-- 根据brid获取病人性质 -->
+    <select id="getBrxzInfo" resultType="com.buit.commons.model.MpiBrdaInfo">
+		SELECT
+		brda.EMPIID AS empiid,
+		brda.BRID AS brid,
+		brda.MZHM AS mzhm,
+		brda.BRXM AS brxm,
+		brda.SFZH AS sfzh,
+		brda.BRXZ AS brxz,
+		brxz.XZDL AS xzdl,
+		brda.BRXB AS brxb,
+		brda.CSNY AS csny,
+        brda.GSRDH AS gsrdh,
+        brda.DWXH AS dwxh,
+        brda.DWMC AS dwmc,
+        brda.PZLX AS pzlx,
+        brda.PZHM AS pzhm,
+        brda.LXDZ as LXDZ,
+        brda.LXDH as lxdh,
+		brda.LXRDH as lxrdh
+		FROM
+		MPI_BRDA brda
+		INNER JOIN PUB_BRXZ brxz ON brda.BRXZ = brxz.BRXZ
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND brda.BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(mzhm)">
+				AND brda.MZHM = #{mzhm}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据brid查询病人档案 -->
+	<select id="getByCondition"  resultType="MpiBrda">
+		SELECT
+		<include refid="columns" />
+		FROM MPI_BRDA
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND BRID = #{brid}
+			</if>
+
+		</where>
+	</select>
+
+	<!-- 更新病人性质 -->
+	<update id="updateBrxz">
+		UPDATE MPI_BRDA
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(brxz)">
+				BRXZ = #{brxz},
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND BRID = #{brid}
+			</if>
+		</where>
+	</update>
+
+	<!-- 获取门诊号码 -->
+	<select id="getMzhmByGrbh" resultType="java.lang.String">
+		select brda.MZHM as mzhm
+		from MPI_BRDA brda
+		inner join YB_CBRYJBXX jbxx on brda.BRID=jbxx.BRID
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(grbh)">
+				AND jbxx.GRBH = #{grbh}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据卡号和病人id查询病人档案信息 -->
+	<select id="getBrdaInfo" parameterType="Map" resultType="java.util.Map">
+		SELECT brda.BRID as BRID , brda.BRXM as BRXM
+		FROM MPI_Card card INNER JOIN MPI_BRDA brda ON card.brid = brda.brid
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(CARDNO)">
+				AND card.CARDNO = #{CARDNO}
+			</if>
+		</where>
+	</select>
+
+	<update id="updateBrdaInfo">
+		<!--
+		UPDATE MPI_BRDA
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(brxm)">
+				BRXM = #{brxm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zjlx)">
+				ZJLX = #{zjlx},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(csny)">
+				CSNY = #{csny},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brxb)">
+				BRXB = #{brxb},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				JZKH = #{jzkh},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(mzhm)">
+				MZHM = #{mzhm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fyzh)">
+				FYZH = #{fyzh},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brxz)">
+				BRXZ = #{brxz},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(isnh)">
+				ISNH = #{isnh},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brdh)">
+				BRDH = #{brdh},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(lxrm)">
+				LXRM = #{lxrm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(lxrdh)">
+				LXRDH = #{lxrdh},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(hjbz)">
+				HJBZ = #{hjbz},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(mzdm)">
+				MZDM = #{mzdm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(xxdm)">
+				XXDM = #{xxdm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(hyzk)">
+				HYZK = #{hyzk},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(gjdm)">
+				GJDM = #{gjdm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(xzzSqs)">
+				XZZ_SQS = #{xzzSqs},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(xzzS)">
+				XZZ_S = #{xzzS},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(xzzX)">
+				XZZ_X = #{xzzX},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(xzzQtdz)">
+				XZZ_QTDZ = #{xzzQtdz},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(bxcabxbxcardno)">
+				BXCABXBXCARDNO = #{bxcabxbxcardno},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(bxstart)">
+				BXSTART = #{bxstart},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(bxend)">
+				BXEND = #{bxend},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(bxcompany)">
+				BXCOMPANY = #{bxcompany},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(xgr)">
+				XGR = #{xgr},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(xgsj)">
+				XGSJ = #{xgsj},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(photo)">
+				PHOTO = #{photo},
+			</if>
+		</trim>
+		-->
+			UPDATE MPI_BRDA
+				SET BRXM = #{brxm},
+				ZJLX = #{zjlx},
+				CSNY = #{csny},
+				BRXB = #{brxb},
+				JZKH = #{jzkh},
+				MZHM = #{mzhm},
+				FYZH = #{fyzh},
+				BRXZ = #{brxz},
+				ISNH = #{isnh},
+				BRDH = #{brdh},
+				LXRM = #{lxrm},
+				LXRDH = #{lxrdh},
+				HJBZ = #{hjbz},
+				MZDM = #{mzdm},
+				XXDM = #{xxdm},
+				HYZK = #{hyzk},
+				GJDM = #{gjdm},
+				XZZ_SQS = #{xzzSqs},
+				XZZ_S = #{xzzS},
+				XZZ_X = #{xzzX},
+				XZZ_QTDZ = #{xzzQtdz},
+				BXCABXBXCARDNO = #{bxcabxbxcardno},
+				BXSTART = #{bxstart},
+				BXEND = #{bxend},
+				BXCOMPANY = #{bxcompany},
+				XGR = #{xgr},
+				XGSJ = #{xgsj},
+				PHOTO = #{photo},
+				LXGX = #{lxgx},
+				LXDZ = #{lxdz},
+				ZYDM = #{zydm},
+				SFZH = #{sfzh} ,
+                GSRDH = #{gsrdh},
+                DWXH = #{dwxh},
+                DWMC = #{dwmc},
+                PZLX = #{pzlx} ,
+                PZHM = #{pzhm}
+				WHERE
+				BRID = #{brid}
+	</update>
+    <update id="updateLxdzLxdhLxRm">
+        UPDATE MPI_BRDA
+        <trim prefix="set" suffixOverrides=",">
+        <if test="@sqlt.Ognl@isNotEmpty(lxdz)">LXDZ = #{lxdz},</if>
+        <if test="@sqlt.Ognl@isNotEmpty(lxdh)">LXDH = #{lxdh},</if>
+        <if test="@sqlt.Ognl@isNotEmpty(lxrm)">LXRM = #{lxrm},</if>
+        <if test="@sqlt.Ognl@isNotEmpty(lxgx)">LXGX = #{lxgx},</if>
+    </trim>
+        WHERE
+            brid = #{brid}
+    </update>
+
+    <select id="getTfPersonInfo" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.BRXM AS BRXM,
+			0 AS TFJE,
+			b.ZFPB AS ZFPB,
+			b.MZXH AS MZXH
+		FROM
+			MPI_BRDA a,
+			OP_MZXX b
+			LEFT OUTER JOIN OP_ZFFP c ON b.MZXH = c.MZXH
+		WHERE
+			a.BRID = b.BRID
+			AND b.JGID =#{JGID}
+			AND b.FPHM =#{FPHM}
+	</select>
+    <!--通过病人id跟医疗机构id查询病人档案信息-->
+    <select id="getByBrid" resultType="com.buit.op.response.MpiBrda">
+        select
+        <include refid="columns" />
+        FROM MPI_BRDA
+        where brid=#{brid} and jdjg=#{jgid}
+    </select>
+    <select id="getCardInfo" resultType="java.util.Map">
+        SELECT
+            B.SJXZ AS SJXZ,
+            C.CARDNO,
+            C.CARDTYPECODE
+        FROM
+            MPI_BRDA A
+            LEFT JOIN MPI_CARD C ON A.brid = C.brid,
+            PUB_BRXZ B
+        WHERE
+            A.BRID = #{brid}
+            AND C.BRXZ = B.BRXZ
+    </select>
+
+    <select id="getbyCfsb" resultType="com.buit.op.response.MpiBrda">
+        select b.BRXM as BRXM,b.CSNY
+        from OP_CF01 a ,MPI_BRDA b
+        where a.BRID = b.brid and a.CFSB = #{cfsb}
+    </select>
+
+    <!-- 更新病人大病标志 -->
+    <update id="updateDbbz">
+        UPDATE MPI_BRDA
+         SET
+            DBBZ = #{dbtype},
+        where
+             BRID = #{brid}
+    </update>
+
+    <select id="getGsDb"  resultType="java.util.Map">
+    	SELECT
+    	    BRID,
+			GSRDH AS GSRDH,
+			DBBZ AS DBBZ
+		FROM
+			MPI_BRDA
+		WHERE
+		    BRID = #{brid}
+	</select>
+    <select id="getWnBrdaInfo" resultType="com.buit.op.response.MpiBrda">
+        select * from mpi_brda_wn where SFZH = #{sfz}
+    </select>
+    <select id="getBySfzh" resultType="com.buit.op.response.MpiBrda">
+        select * from mpi_brda where SFZH = #{sfz}
+    </select>
+
+    <update id="updateLshByJzkh">
+        UPDATE MPI_BRDA
+         SET
+            LSH = #{lsh}
+        where
+            JZKH = #{jzkh}
+    </update>
+
+    <!-- 更新病人工伤认定号 -->
+    <update id="updateGsrdh">
+        UPDATE MPI_BRDA
+         SET
+            GSRDH = #{gsrdh}
+        where
+             BRID = #{brid}
+    </update>
+
+
+    <select id="getHisPatientInfo" resultType="com.buit.op.response.PacsGetHisPatientInfoResponse">
+        select distinct oy01.SQID AS STUDY_ID, oy01.JZKH AS MZ_NO, mb.BRXM as PAT_NAME,
+        case mb.BRXB
+        when '1' then '男'
+        when '2' then '女'
+        else '其他'
+        END AS SEX, DATE_FORMAT(mb.CSNY,'%Y-%m-%d') AS BIRTHDATE, pb.XZMC AS JZ_CODE, og.OFFICENAME AS Department,oy01.KSDM AS DepartmentID,
+        mb.LXDZ AS HK_ADDR, mb.SFZH AS SFZ_NO, mb.LXDH AS HK_TELE, hp.PERSONNAME AS Doctor, hp.PERSONID AS DoctorID,
+        oy01.JZKH AS CardNO, oy01.FPHM AS FPNO, dz.ZLXMID AS CHKIT_ID, CONCAT(oy01.SQID,'_',dz.XMMC) AS CHKIT_NAME, oyz.YLDJ AS CHKIT_COST,
+        oyz.YLSL AS CAMT, cj01.ZXKS AS UT_ID,
+        sfdv.FLAGDATA_VALUE_REMARK AS EXAM_CLASS,
+        cj01.JCBW AS EXAM_SUB_CLASS,
+        mb.BRID AS Patient_id,
+        DATE_FORMAT(cj01.SQSJ,'%Y-%m-%d') AS SCHEDULED_DATE,
+        zd.DIAG AS CLIN_DIAG
+        from mpi_brda mb
+        left join op_yjcf01 oy01 on oy01.BRID = mb.BRID
+        left join cis_jcsq01 cj01 on cj01.JCXH = oy01.SQID
+        left join op_yjcf02 oy02  on oy02.YJXH = oy01.YJXH
+        left join op_yj02_zt oyz on oyz.SBXH = oy02.ZTYZSBXH
+        left join dic_zlxm dz on dz.ZLXMID = oyz.YLXH
+        left join dic_yjlx dy on dy.ID = dz.YJLX
+        left join dic_kszd og on og.ID = oy01.KSDM
+        left join hr_personnel hp on hp.PERSONID = oy01.YSDM
+        left join pub_brxz pb on pb.BRXZ = mb.BRXZ
+        left join sys_flag_data_value sfdv on sfdv.FLAGDATA_VALUE = dy.JCLX
+        left join sys_flag_data sfd on sfdv.flagdata_id = sfd.flagdata_id
+        left join (select JZLSH,GROUP_CONCAT(ZDMC) AS DIAG	from op_brzd group by JZLSH ORDER BY ZZBZ) zd on oy01.JZLSH = zd.JZLSH
+        where oy01.XMLX = 5 and oy01.ZFPB = 0 and oy01.FPHM is not null AND (oy02.zxcs = 0 or oy02.zxcs is null) AND sfd.flagdata_code = 'JCKS0001'
+        <if test="Input_NO != null">
+            AND (oy01.JZKH = #{Input_NO} or oy01.FPHM = #{Input_NO} or oy01.SQID = #{Input_NO})
+        </if>
+        <if test="Modality != null">
+            AND sfdv.FLAGDATA_VALUE_REMARK = #{Modality}
+        </if>
+        <if test="StartDate != null">
+            AND DATE_FORMAT(cj01.SQSJ,'%Y-%m-%d') >= #{StartDate}
+        </if>
+        <if test="EndDate != null">
+            AND #{EndDate} >= DATE_FORMAT(cj01.SQSJ,'%Y-%m-%d')
+        </if>
+        ORDER BY cj01.SQSJ DESC
+    </select>
+    <select id="getBrdaByName" resultType="com.buit.op.response.MpiBrda">
+        select * from MPI_BRDA where BRXM = #{name} and DATE_FORMAT(CSNY,'%Y-%m-%d') = #{csny} and brxb = #{brxb}
+    </select>
+</mapper>
+

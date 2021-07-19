@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MAC信息表(用于mac地址维护) -->
+<mapper namespace="com.buit.commons.dao.SysMacDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id,JGID as jgid,IP as ip,MAC as mac
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SYS_MAC (
+            ID ,
+            JGID ,
+            IP ,
+            MAC
+        ) VALUES (
+            #{id} ,
+            #{jgid} ,
+            #{ip} ,
+            #{mac}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE SYS_MAC SET
+            JGID = #{jgid} ,
+            IP = #{ip} ,
+            MAC = #{mac}
+        WHERE
+            ID = #{id}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SYS_MAC WHERE
+        ID = #{id}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM SYS_MAC <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="SysMac">
+        SELECT <include refid="columns" />
+            FROM SYS_MAC
+            WHERE
+        ID = #{id}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND ID = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ip)"> -->
+<!--                     AND IP = #{ip} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mac)"> -->
+<!--                     AND MAC = #{mac} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SYS_MAC
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="SysMac">
+        SELECT <include refid="columns" />
+        FROM SYS_MAC
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="getMacByIp" resultType="java.lang.String">
+        SELECT mac
+        FROM SYS_MAC
+        WHERE
+        ip = #{ip} and jgid = #{jgid} order by id desc limit 1
+    </select>
+</mapper>
+

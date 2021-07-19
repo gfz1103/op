@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_病人诊断 -->
+<mapper namespace="com.buit.commons.dao.OpBrzdDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLBH as jlbh,JGID as jgid,JZXH as jzxh,BRID as brid,ZDLB as zdlb,ZDXH as zdxh,ICD10 as icd10,ZDMC as zdmc,PLXH as plxh,ZDBW as zdbw,ZDYS as zdys,ZDSJ as zdsj,ZGQK as zgqk,ZGSJ as zgsj,ZZBZ as zzbz,FFBZ as ffbz,BLZD as blzd,YGZD as ygzd,SJZD as sjzd,DEEP as deep,FZBZ as fzbz,FBRQ as fbrq,CFLX as cflx,JBPB as jbpb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_BRZD (
+            JLBH ,
+            JGID ,
+            JZXH ,
+            BRID ,
+            ZDLB ,
+            ZDXH ,
+            ICD10 ,
+            ZDMC ,
+            PLXH ,
+            ZDBW ,
+            ZDYS ,
+            ZDSJ ,
+            ZGQK ,
+            ZGSJ ,
+            ZZBZ ,
+            FFBZ ,
+            BLZD ,
+            YGZD ,
+            SJZD ,
+            DEEP ,
+            FZBZ ,
+            FBRQ ,
+            CFLX ,
+            JBPB ,
+            JZLSH
+        ) VALUES (
+            #{jlbh} ,
+            #{jgid} ,
+            #{jzxh} ,
+            #{brid} ,
+            #{zdlb} ,
+            #{zdxh} ,
+            #{icd10} ,
+            #{zdmc} ,
+            #{plxh} ,
+            #{zdbw} ,
+            #{zdys} ,
+            #{zdsj} ,
+            #{zgqk} ,
+            #{zgsj} ,
+            #{zzbz} ,
+            #{ffbz} ,
+            #{blzd} ,
+            #{ygzd} ,
+            #{sjzd} ,
+            #{deep} ,
+            #{fzbz} ,
+            #{fbrq} ,
+            #{cflx} ,
+            #{jbpb} ,
+            #{jzlsh}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE OP_BRZD SET
+            JGID = #{jgid} ,
+            JZXH = #{jzxh} ,
+            BRID = #{brid} ,
+            ZDLB = #{zdlb} ,
+            ZDXH = #{zdxh} ,
+            ICD10 = #{icd10} ,
+            ZDMC = #{zdmc} ,
+            PLXH = #{plxh} ,
+            ZDBW = #{zdbw} ,
+            ZDYS = #{zdys} ,
+            ZDSJ = #{zdsj} ,
+            ZGQK = #{zgqk} ,
+            ZGSJ = #{zgsj} ,
+            ZZBZ = #{zzbz} ,
+            FFBZ = #{ffbz} ,
+            BLZD = #{blzd} ,
+            YGZD = #{ygzd} ,
+            SJZD = #{sjzd} ,
+            DEEP = #{deep} ,
+            FZBZ = #{fzbz} ,
+            FBRQ = #{fbrq} ,
+            CFLX = #{cflx} ,
+            JBPB = #{jbpb}
+        WHERE
+            JLBH = #{jlbh}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_BRZD WHERE
+        JLBH = #{jlbh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_BRZD <include refid="where"/>
+    </delete>
+    <delete id="deleteByBridJzxh">
+        DELETE FROM OP_BRZD
+        where JZXH = #{jzxh}
+        AND BRID = #{brid}
+    </delete>
+
+    <select id="getById" resultType="OpBrzd">
+        SELECT <include refid="columns" />
+            FROM OP_BRZD
+            WHERE
+        JLBH = #{jlbh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlbh)"> -->
+<!--                     AND JLBH = #{jlbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jzxh)">
+                     AND JZXH = #{jzxh}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdlb)"> -->
+<!--                     AND ZDLB = #{zdlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdxh)"> -->
+<!--                     AND ZDXH = #{zdxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(icd10)"> -->
+<!--                     AND ICD10 = #{icd10} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdmc)"> -->
+<!--                     AND ZDMC = #{zdmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(plxh)"> -->
+<!--                     AND PLXH = #{plxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdbw)"> -->
+<!--                     AND ZDBW = #{zdbw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdys)"> -->
+<!--                     AND ZDYS = #{zdys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdsj)"> -->
+<!--                     AND ZDSJ = #{zdsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zgqk)"> -->
+<!--                     AND ZGQK = #{zgqk} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zgsj)"> -->
+<!--                     AND ZGSJ = #{zgsj} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(zzbz)">
+                     AND ZZBZ = #{zzbz}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ffbz)"> -->
+<!--                     AND FFBZ = #{ffbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(blzd)"> -->
+<!--                     AND BLZD = #{blzd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ygzd)"> -->
+<!--                     AND YGZD = #{ygzd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sjzd)"> -->
+<!--                     AND SJZD = #{sjzd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(deep)"> -->
+<!--                     AND DEEP = #{deep} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fzbz)"> -->
+<!--                     AND FZBZ = #{fzbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fbrq)"> -->
+<!--                     AND FBRQ = #{fbrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cflx)"> -->
+<!--                     AND CFLX = #{cflx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jbpb)"> -->
+<!--                     AND JBPB = #{jbpb} -->
+<!--                </if> -->
+                    <if test="@sqlt.Ognl@isNotEmpty(jzlsh)">
+                         AND JZLSH = #{jzlsh}
+                    </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_BRZD
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpBrzd">
+        SELECT <include refid="columns" />
+        FROM OP_BRZD
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="customQuery" resultType="com.buit.commons.response.OpBrzdResp">
+        SELECT
+            c.JBBGK as jbbgk,
+            a.JLBH AS jlbh,
+            a.BRID AS brid,
+            a.JGID AS jgid,
+            a.JZXH AS jzxh,
+            a.DEEP AS deep,
+            a.SJZD AS sjzd,
+            a.ZDMC AS zdmc,
+            a.ZZBZ AS zzbz,
+            a.ZDXH AS zdxh,
+            a.PLXH AS plxh,
+            a.ICD10 AS icd10,
+            a.ZDBW AS zdbw,
+            a.ZDYS AS zdys,
+            a.ZDSJ AS zdsj,
+            a.ZDLB AS zdlb,
+            a.ZGQK AS zgqk,
+            a.ZGSJ AS zgsj,
+            a.FZBZ AS fzbz,
+            a.FBRQ AS fbrq,
+            b.ZHMC AS zhmc,
+            a.CFLX AS cflx,
+            a.JBPB AS jbpb,
+            a.FFBZ AS ffbz,
+            a.BLZD AS blzd
+        FROM
+            OP_BRZD a
+            LEFT JOIN DIC_ZYZH b ON a.ZDBW = b.ZHBS
+            LEFT JOIN DIC_JBBM c ON a.ZDXH = c.JBXH
+        WHERE
+            a.BRID = #{brid}
+            AND a.JZXH = #{jzxh}
+            AND a.JGID = #{jgid}
+        ORDER BY
+            a.PLXH ASC
+    </select>
+
+    <select id="patientDiagnosis" resultType="com.buit.commons.response.OpBrzdPatientResp">
+        SELECT
+            a.JLBH AS jlbh,
+            a.ZDXH AS zdxh,
+            a.ICD10 AS icd10,
+            a.ZDMC AS zdmc,
+            a.DEEP AS deep,
+            a.ZZBZ AS zzbz,
+            a.FZBZ AS fzbz,
+            a.CFLX AS cflx,
+            b.ZHMC AS zhmc,
+            IFNULL( ( SELECT ICD9 FROM DIC_JBBM c WHERE c.JBXH = a.ZDXH AND a.CFLX = 1 ), ICD10 ) AS icd9
+        FROM
+            OP_BRZD a
+            LEFT JOIN DIC_ZYZH b ON a.ZDBW = b.ZHBS
+
+            WHERE
+            JZXH = #{jzxh}
+            AND JGID = #{jgid}
+        ORDER BY
+        PLXH
+    </select>
+    <select id="queryBrzdListByJzxhList" resultType="java.util.Map">
+        SELECT
+            brzd.ZDMC  as zdmc, brzd.JZXH as jzxh
+        from
+            OP_BRZD brzd
+        where
+            brzd.JZXH in
+            <foreach collection="list" item="item" open="(" close=")" separator="," >
+                #{item.jzxh}
+            </foreach>
+            AND brzd.zzbz=1
+    </select>
+    <select id="queryBrzdByJzxh" resultType="java.lang.String">
+        SELECT
+            ZDMC AS ZDMC
+        FROM
+            OP_BRZD
+        WHERE
+            JZXH = #{jzxh}
+    </select>
+
+    <select id="getZd" resultType="java.util.Map">
+        SELECT
+        distinct b.icd10 as zdno,b.zdmc as zdmc
+        FROM
+        OP_BRZD b
+        where
+       b.jzxh in ( #{JZXHS} ) and
+       zzbz = 1 limit 1
+    </select>
+
+    <select id="getZdForSf" resultType="java.util.Map">
+        SELECT
+        distinct b.icd10 as zdno,b.zdmc as zdmc
+        FROM
+        OP_BRZD b
+        where
+       b.jzlsh = #{JZLSH} and
+       zzbz = 1 limit 1
+    </select>
+
+    <select id="doQueryCountByJzlsh" resultType="java.lang.Integer">
+    	select count(1) from OP_BRZD where JZLSH = #{jzlsh}
+    </select>
+    <select id="queryBrzdDtoByJzxh" resultType="com.buit.op.response.BrzdDto">
+        select ifnull(A.ZDMC,'') as ZDMC,A.CFLX as CFLX, ifnull(emr.ZHMC,'') AS ZHMC
+        from OP_BRZD A
+        LEFT JOIN dic_zyzh emr  ON A.ZDBW = emr.ZHBS
+        where JZXH=#{jzxh}
+    </select>
+    <select id="getZdmcByJzlsh" resultType="com.buit.op.response.EmrBrzdResp">
+        select ifnull(ZDMC,'') as ZDMC,ICD10 as icd10, zzbz
+        from OP_BRZD
+        where JZLSH=#{jzlsh}
+        order by zzbz desc
+    </select>
+
+    <select id="getBrzdByJzlsh" resultType="com.buit.op.response.BrzdResp">
+        SELECT <include refid="columns" />
+        FROM OP_BRZD
+        where  jzlsh = #{jzlsh}
+    </select>
+
+</mapper>
+

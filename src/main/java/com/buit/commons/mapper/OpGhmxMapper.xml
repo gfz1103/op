@@ -1,0 +1,2682 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_挂号明细表 -->
+<mapper namespace="com.buit.commons.dao.OpGhmxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SBXH as sbxh,JGID as jgid,BRID as brid,BRXZ as brxz,GHSJ as ghsj,GHLB as ghlb,KSDM as ksdm,YSDM as ysdm,JZYS as jzys,JZXH as jzxh,GHCS as ghcs,GHJE as ghje,ZLJE as zlje,ZJFY as zjfy,BLJE as blje,XJJE as xjje,ZPJE as zpje,ZHJE as zhje,HBWC as hbwc,QTYS as qtys,ZHLB as zhlb,JZJS as jzjs,ZDJG as zdjg,THBZ as thbz,CZGH as czgh,JZRQ as jzrq,HZRQ as hzrq,CZPB as czpb,JZHM as jzhm,MZLB as mzlb,YYBZ as yybz,YSPB as yspb,DZSB as dzsb,SFFS as sffs,JZZT as jzzt,YDGH as ydgh,ZDXH as zdxh,ZHBZ as zhbz,DBXM as dbxm,FJDDFFJ as fjddffj,TCDTC as tcdtc,ZFDLNZH as zfdlnzh,ZFDDNZH as zfddnzh,PDXH as pdxh,DQXH as dqxh,DDCS as ddcs,YYXH as yyxh,CZSJ as czsj,JKZSB as jkzsb,JZKH as jzkh,GHID as ghid,BXJE as bxje,NHBH as nhbh,NHBXID as nhbxid,NHBXRQ as nhbxrq,ZSID as zsid,JHHM as jhhm,YWLX as ywlx,ZKBZ as zkbz,PDHM as pdhm,HZYS as hzys,ZSFPHM as zsfphm,JMJE as jmje,GHLX as ghlx, SFMF as sfmf, BINVCODE as binvcode,BINVNR as binvnr,JLCH as jlch,XZQHDM as xzqhdm,DBBZ as dbbz,DBBM as dbbm,GZDWMC as gzdwmc,JZLSH as jzlsh,CKJE as ckje, WZJE as wzje, LSH as lsh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_GHMX (
+            SBXH ,
+            JGID ,
+            BRID ,
+            BRXZ ,
+            GHSJ ,
+            GHLB ,
+            KSDM ,
+            YSDM ,
+            JZYS ,
+            JZXH ,
+            GHCS ,
+            GHJE ,
+            ZLJE ,
+            ZJFY ,
+            BLJE ,
+            XJJE ,
+            ZPJE ,
+            ZHJE ,
+            HBWC ,
+            QTYS ,
+            ZHLB ,
+            JZJS ,
+            ZDJG ,
+            THBZ ,
+            CZGH ,
+            JZRQ ,
+            HZRQ ,
+            CZPB ,
+            JZHM ,
+            MZLB ,
+            YYBZ ,
+            YSPB ,
+            DZSB ,
+            SFFS ,
+            JZZT ,
+            YDGH ,
+            ZDXH ,
+            ZHBZ ,
+            DBXM ,
+            FJDDFFJ ,
+            TCDTC ,
+            ZFDLNZH ,
+            ZFDDNZH ,
+            PDXH ,
+            DQXH ,
+            DDCS ,
+            YYXH ,
+            CZSJ ,
+            JKZSB ,
+            JZKH ,
+            GHID ,
+            BXJE ,
+            NHBH ,
+            NHBXID ,
+            NHBXRQ ,
+            ZSID ,
+            JHHM ,
+            YWLX ,
+            ZKBZ ,
+            PDHM ,
+            HZYS ,
+            ZSFPHM ,
+            JMJE ,
+            GHLX ,
+            SFMF ,
+            BINVCODE ,
+            BINVNR ,
+            JLCH ,
+            XZQHDM ,
+            DBBZ ,
+            DBBM ,
+            GZDWMC,
+            JZLSH ,
+            CKJE  ,
+            WZJE  ,
+            LSH
+        ) VALUES (
+            #{sbxh} ,
+            #{jgid} ,
+            #{brid} ,
+            #{brxz} ,
+            #{ghsj} ,
+            #{ghlb} ,
+            #{ksdm} ,
+            #{ysdm} ,
+            #{jzys} ,
+            #{jzxh} ,
+            #{ghcs} ,
+            #{ghje} ,
+            #{zlje} ,
+            #{zjfy} ,
+            #{blje} ,
+            #{xjje} ,
+            #{zpje} ,
+            #{zhje} ,
+            #{hbwc} ,
+            #{qtys} ,
+            #{zhlb} ,
+            #{jzjs} ,
+            #{zdjg} ,
+            #{thbz} ,
+            #{czgh} ,
+            #{jzrq} ,
+            #{hzrq} ,
+            #{czpb} ,
+            #{jzhm} ,
+            #{mzlb} ,
+            #{yybz} ,
+            #{yspb} ,
+            #{dzsb} ,
+            #{sffs} ,
+            #{jzzt} ,
+            #{ydgh} ,
+            #{zdxh} ,
+            #{zhbz} ,
+            #{dbxm} ,
+            #{fjddffj} ,
+            #{tcdtc} ,
+            #{zfdlnzh} ,
+            #{zfddnzh} ,
+            #{pdxh} ,
+            #{dqxh} ,
+            #{ddcs} ,
+            #{yyxh} ,
+            #{czsj} ,
+            #{jkzsb} ,
+            #{jzkh} ,
+            #{ghid} ,
+            #{bxje} ,
+            #{nhbh} ,
+            #{nhbxid} ,
+            #{nhbxrq} ,
+            #{zsid} ,
+            #{jhhm} ,
+            #{ywlx} ,
+            #{zkbz} ,
+            #{pdhm} ,
+            #{hzys} ,
+            #{zsfphm} ,
+            #{jmje} ,
+            #{ghlx} ,
+            #{sfmf} ,
+            #{binvcode} ,
+            #{binvnr} ,
+            #{jlch} ,
+            #{xzqhdm} ,
+            #{dbbz} ,
+            #{dbbm} ,
+            #{gzdwmc},
+            #{jzlsh} ,
+            #{ckje}  ,
+            #{wzje}  ,
+            #{lsh}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE OP_GHMX SET
+            JGID = #{jgid} ,
+            BRID = #{brid} ,
+            BRXZ = #{brxz} ,
+            GHSJ = #{ghsj} ,
+            GHLB = #{ghlb} ,
+            KSDM = #{ksdm} ,
+            YSDM = #{ysdm} ,
+            JZYS = #{jzys} ,
+            JZXH = #{jzxh} ,
+            GHCS = #{ghcs} ,
+            GHJE = #{ghje} ,
+            ZLJE = #{zlje} ,
+            ZJFY = #{zjfy} ,
+            BLJE = #{blje} ,
+            XJJE = #{xjje} ,
+            ZPJE = #{zpje} ,
+            ZHJE = #{zhje} ,
+            HBWC = #{hbwc} ,
+            QTYS = #{qtys} ,
+            ZHLB = #{zhlb} ,
+            JZJS = #{jzjs} ,
+            ZDJG = #{zdjg} ,
+            THBZ = #{thbz} ,
+            CZGH = #{czgh} ,
+            JZRQ = #{jzrq} ,
+            HZRQ = #{hzrq} ,
+            CZPB = #{czpb} ,
+            JZHM = #{jzhm} ,
+            MZLB = #{mzlb} ,
+            YYBZ = #{yybz} ,
+            YSPB = #{yspb} ,
+            DZSB = #{dzsb} ,
+            SFFS = #{sffs} ,
+            JZZT = #{jzzt} ,
+            YDGH = #{ydgh} ,
+            ZDXH = #{zdxh} ,
+            ZHBZ = #{zhbz} ,
+            DBXM = #{dbxm} ,
+            FJDDFFJ = #{fjddffj} ,
+            TCDTC = #{tcdtc} ,
+            ZFDLNZH = #{zfdlnzh} ,
+            ZFDDNZH = #{zfddnzh} ,
+            PDXH = #{pdxh} ,
+            DQXH = #{dqxh} ,
+            DDCS = #{ddcs} ,
+            YYXH = #{yyxh} ,
+            CZSJ = #{czsj} ,
+            JKZSB = #{jkzsb} ,
+            JZKH = #{jzkh} ,
+            GHID = #{ghid} ,
+            BXJE = #{bxje} ,
+            NHBH = #{nhbh} ,
+            NHBXID = #{nhbxid} ,
+            NHBXRQ = #{nhbxrq} ,
+            ZSID = #{zsid} ,
+            JHHM = #{jhhm} ,
+            YWLX = #{ywlx} ,
+            ZKBZ = #{zkbz} ,
+            PDHM = #{pdhm} ,
+            HZYS = #{hzys} ,
+            ZSFPHM = #{zsfphm} ,
+            JMJE = #{jmje} ,
+            GHLX = #{ghlx} ,
+            BINVCODE = #{binvcode} ,
+            BINVNR = #{binvnr} ,
+            JLCH = #{jlch} ,
+            XZQHDM = #{xzqhdm} ,
+            DBBZ = #{dbbz} ,
+            DBBM = #{dbbm} ,
+            GZDWMC = #{gzdwmc},
+            JZLSH = #{jzlsh},
+            CKJE = #{ckje}
+        WHERE
+            SBXH = #{sbxh}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_GHMX WHERE
+        SBXH = #{sbxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_GHMX <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpGhmx">
+        SELECT <include refid="columns" />
+            FROM OP_GHMX
+            WHERE
+        SBXH = #{sbxh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                     AND JGID = #{jgid}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(brid)">
+                     AND BRID = #{brid}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxz)"> -->
+<!--                     AND BRXZ = #{brxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghsj)"> -->
+<!--                     AND GHSJ = #{ghsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghlb)"> -->
+<!--                     AND GHLB = #{ghlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ysdm)"> -->
+<!--                     AND YSDM = #{ysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzys)"> -->
+<!--                     AND JZYS = #{jzys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzxh)"> -->
+<!--                     AND JZXH = #{jzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghcs)"> -->
+<!--                     AND GHCS = #{ghcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghje)"> -->
+<!--                     AND GHJE = #{ghje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zlje)"> -->
+<!--                     AND ZLJE = #{zlje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjfy)"> -->
+<!--                     AND ZJFY = #{zjfy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(blje)"> -->
+<!--                     AND BLJE = #{blje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xjje)"> -->
+<!--                     AND XJJE = #{xjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zpje)"> -->
+<!--                     AND ZPJE = #{zpje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhje)"> -->
+<!--                     AND ZHJE = #{zhje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hbwc)"> -->
+<!--                     AND HBWC = #{hbwc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtys)"> -->
+<!--                     AND QTYS = #{qtys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhlb)"> -->
+<!--                     AND ZHLB = #{zhlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzjs)"> -->
+<!--                     AND JZJS = #{jzjs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdjg)"> -->
+<!--                     AND ZDJG = #{zdjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(thbz)"> -->
+<!--                     AND THBZ = #{thbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzrq)"> -->
+<!--                     AND HZRQ = #{hzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czpb)"> -->
+<!--                     AND CZPB = #{czpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzhm)"> -->
+<!--                     AND JZHM = #{jzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yybz)"> -->
+<!--                     AND YYBZ = #{yybz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yspb)"> -->
+<!--                     AND YSPB = #{yspb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dzsb)"> -->
+<!--                     AND DZSB = #{dzsb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sffs)"> -->
+<!--                     AND SFFS = #{sffs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzzt)"> -->
+<!--                     AND JZZT = #{jzzt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ydgh)"> -->
+<!--                     AND YDGH = #{ydgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdxh)"> -->
+<!--                     AND ZDXH = #{zdxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhbz)"> -->
+<!--                     AND ZHBZ = #{zhbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbxm)"> -->
+<!--                     AND DBXM = #{dbxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fjddffj)"> -->
+<!--                     AND FJDDFFJ = #{fjddffj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tcdtc)"> -->
+<!--                     AND TCDTC = #{tcdtc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfdlnzh)"> -->
+<!--                     AND ZFDLNZH = #{zfdlnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfddnzh)"> -->
+<!--                     AND ZFDDNZH = #{zfddnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pdxh)"> -->
+<!--                     AND PDXH = #{pdxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dqxh)"> -->
+<!--                     AND DQXH = #{dqxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ddcs)"> -->
+<!--                     AND DDCS = #{ddcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyxh)"> -->
+<!--                     AND YYXH = #{yyxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czsj)"> -->
+<!--                     AND CZSJ = #{czsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jkzsb)"> -->
+<!--                     AND JKZSB = #{jkzsb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzkh)"> -->
+<!--                     AND JZKH = #{jzkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghid)"> -->
+<!--                     AND GHID = #{ghid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bxje)"> -->
+<!--                     AND BXJE = #{bxje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nhbh)"> -->
+<!--                     AND NHBH = #{nhbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nhbxid)"> -->
+<!--                     AND NHBXID = #{nhbxid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nhbxrq)"> -->
+<!--                     AND NHBXRQ = #{nhbxrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsid)"> -->
+<!--                     AND ZSID = #{zsid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhhm)"> -->
+<!--                     AND JHHM = #{jhhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ywlx)"> -->
+<!--                     AND YWLX = #{ywlx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zkbz)"> -->
+<!--                     AND ZKBZ = #{zkbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pdhm)"> -->
+<!--                     AND PDHM = #{pdhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzys)"> -->
+<!--                     AND HZYS = #{hzys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsfphm)"> -->
+<!--                     AND ZSFPHM = #{zsfphm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jmje)"> -->
+<!--                     AND JMJE = #{jmje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghlx)"> -->
+<!--                     AND GHLX = #{ghlx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(binvcode)"> -->
+<!--                     AND BINVCODE = #{binvcode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(binvnr)"> -->
+<!--                     AND BINVNR = #{binvnr} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlch)"> -->
+<!--                     AND JLCH = #{jlch} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzqhdm)"> -->
+<!--                     AND XZQHDM = #{xzqhdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbbz)"> -->
+<!--                     AND DBBZ = #{dbbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbbm)"> -->
+<!--                     AND DBBM = #{dbbm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gzdwmc)"> -->
+<!--                     AND GZDWMC = #{gzdwmc} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)">
+                     AND JZLSH = #{jzlsh}
+                </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="Integer">
+        SELECT count(*) FROM OP_GHMX
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpGhmx">
+        SELECT <include refid="columns" />
+        FROM OP_GHMX
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="queryDz" resultType="com.buit.commons.response.OpGhmxResp">
+        SELECT
+            *
+        FROM
+            (
+                SELECT
+                    a.HZYS AS hzys,
+                    a.YWLX AS ywlx,
+                    a.YSDM AS ysdm,
+                    a.PDHM AS pdhm,
+                    a.YYXH AS yyxh,
+                    a.ZSID AS zsid,
+                    a.DDCS AS ddcs,
+                    a.BRXZ AS brxz,
+                    c.CSNY AS csny,
+                    a.JHHM,
+                    a.PDXH AS pdxh,
+                    NULL AS JZXH,
+                    a.JZZT AS jzzt,
+                    a.SBXH AS sbxh,
+                    a.JGID AS jgid,
+                    a.BRID AS brid,
+                    a.JZHM AS jzhm,
+                    c.EMPIID AS empiid,
+                    c.MZHM AS mzhm,
+                    c.BRXM AS brxm,
+                    c.BRXB AS brxb,
+                    a.GHSJ AS ghsj,
+                    0 AS ghtype,
+                    a.JZYS AS jzys,
+                    a.JZKH AS jzkh,
+                    a.DQXH AS dqxh,
+                    a.JLCH AS jlch,
+                    c.SFZH AS sfzh,
+                    c.LXRM AS lxrm,
+                    c.LXDZ AS lxdz,
+                    c.LXRDH AS lxdh,
+                    c.LXGX as lxgx,
+                    a.jzlsh as jzlsh,
+                    (select distinct 1 FROM skin_psjl WHERE
+                      BRID = c.BRID AND JGID = a.JGID and PSJG = 3) as sfgm
+                FROM
+                    OP_GHMX a
+                    LEFT JOIN MPI_BRDA c ON a.BRID = c.BRID
+                WHERE
+                    a.JZZT = 0
+                    AND a.THBZ = 0
+                    AND a.HZRQ IS NULL
+                    <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                         AND a.JGID = #{jgid}
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(ghks)">
+                         AND a.KSDM = #{ghks}
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+                        AND ( a.YSDM = #{ysdm} OR a.YSDM IS NULL )
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(nowDate)">
+                        AND a.GHSJ <![CDATA[ >= ]]> CONCAT(#{nowDate}, ' 00:00:00')
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(nowDateEnd)">
+                        AND a.GHSJ <![CDATA[ <= ]]> CONCAT(#{nowDateEnd}, ' 23:59:59')
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+                         AND a.JZKH = #{jzkh}
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(hzxm)">
+                        AND c.BRXM LIKE CONCAT(CONCAT('%',#{hzxm}),'%')
+                    </if>
+
+                <!--UNION ALL
+
+                SELECT
+                    a.HZYS AS hzys,
+                    a.YWLX AS ywlx,
+                    a.YSDM AS ysdm,
+                    a.PDHM AS pdhm,
+                    a.YYXH AS yyxh,
+                    a.ZSID AS zsid,
+                    a.DDCS AS ddcs,
+                    a.BRXZ AS brxz,
+                    c.CSNY AS csny,
+                    a.JHHM AS jhhm,
+                    a.PDXH AS pdxh,
+                    1 AS jzxh,
+                    a.SBXH AS sbxh,
+                    a.JGID AS jgid,
+                    a.BRID AS brid,
+                    a.JZHM AS jzhm,
+                    c.EMPIID AS empiid,
+                    c.MZHM AS mzhm,
+                    c.BRXM AS brxm,
+                    c.BRXB AS brxb,
+                    a.GHSJ AS ghsj,
+                    1 AS ghtype,
+                    a.JZYS AS jzys,
+                    a.JZKH AS jzkh,
+                    a.DQXH AS dqxh,
+                    a.JLCH AS jlch,
+                    c.SFZH AS sfzh,
+                    c.LXRM AS lxrm,
+                    c.XZZ_QTDZ AS lxdz,
+                    c.LXRDH AS lxdh,
+                    a.jzlsh as jzlsj
+                FROM
+                    DIY_GHMX_ZZGH a
+                    left join MPI_BRDA c on a.BRID = c.BRID
+                WHERE
+                    a.JZZT = 0
+                    AND a.THBZ = 0
+                    AND a.HZRQ IS NULL
+                    <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                        AND a.JGID = #{jgid}
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(ghks)">
+                        AND a.KSDM = #{ghks}
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+                        AND ( a.YSDM = #{ysdm} OR a.YSDM IS NULL )
+                    </if>
+                    AND a.GHSJ <![CDATA[ >= ]]> CONCAT(#{nowDate}, ' 00:00:00')
+                    AND a.GHSJ <![CDATA[ <= ]]> CONCAT(#{nowDate}, ' 23:59:59')
+                    <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+                        AND a.JZKH = #{jzkh}
+                    </if>-->
+            ) t
+        ORDER BY
+            t.GHSJ
+    </select>
+
+    <select id="queryZg" resultType="com.buit.commons.response.OpGhmxResp">
+        SELECT
+            a.YSDM AS ysdm,
+            b.HZYS AS hzys,
+            b.YWLX AS ywlx,
+            b.PDHM AS pdhm,
+            b.YYXH AS yyxh,
+            b.ZSID AS zsid,
+            b.DDCS AS ddcs,
+            b.BRXZ AS brxz,
+            c.CSNY AS csny,
+            b.JHHM AS jhhm,
+            b.PDXH AS pdxh,
+            a.JZXH AS jzxh,
+            a.JZZT AS jzzt,
+            a.GHXH AS sbxh,
+            a.JGID AS jgid,
+            b.BRID AS brid,
+            b.JZHM AS jzhm,
+            c.EMPIID AS empiid,
+            c.MZHM AS mzhm,
+            c.BRXM AS brxm,
+            c.BRXB AS brxb,
+            a.KSSJ AS ghsj,
+            0 AS ghtype,
+            a.YSDM AS jzys,
+            b.JZKH AS jzkh,
+            b.DQXH AS dqxh,
+            b.JLCH AS jlch,
+            c.SFZH AS sfzh,
+            c.LXRM AS lxrm,
+            c.LXDZ AS lxdz,
+            c.LXRDH AS lxdh,
+            c.LXGX as lxgx,
+            a.jzlsh as jzlsh,
+            (select distinct 1 FROM skin_psjl WHERE
+            BRID = c.BRID AND JGID = a.JGID and PSJG = 3) as sfgm
+        FROM
+            OP_YS_JZLS a
+            LEFT JOIN OP_GHMX b ON a.GHXH = b.SBXH
+            LEFT JOIN MPI_BRDA c ON b.BRID = c.BRID
+        WHERE
+            ( a.JZZT = 2 OR a.JZZT = 1 )
+            AND b.THBZ = 0
+            <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                AND a.JGID = #{jgid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ghks)">
+                AND b.KSDM = #{ghks}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+                AND ( a.YSDM = #{ysdm} OR a.YSDM IS NULL )
+            </if>
+
+            <if test="@sqlt.Ognl@isNotEmpty(nowDate)">
+                AND (a.KSSJ <![CDATA[ >= ]]>  CONCAT(#{nowDate}, ' 00:00:00') or (a.GHFZ != 1 AND a.FZRQ <![CDATA[ >= ]]>  CONCAT(#{nowDate}, ' 00:00:00')))
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(nowDateEnd)">
+                AND (a.KSSJ <![CDATA[ <= ]]>  CONCAT(#{nowDateEnd}, ' 23:59:59') or (a.GHFZ != 1 AND a.FZRQ <![CDATA[ <= ]]>  CONCAT(#{nowDateEnd}, ' 23:59:59')))
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+                AND b.JZKH = #{jzkh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(hzxm)">
+                AND c.BRXM LIKE CONCAT(CONCAT('%',#{hzxm}),'%')
+            </if>
+        ORDER BY
+            a.KSSJ
+    </select>
+    <select id="queryYz" resultType="com.buit.commons.response.OpGhmxResp">
+        SELECT
+            a.YSDM AS ysdm,
+            b.HZYS AS hzys,
+            b.YWLX AS ywlx,
+            b.PDHM AS pdhm,
+            b.YYXH AS yyxh,
+            b.ZSID AS zsid,
+            b.DDCS AS ddcs,
+            b.BRXZ AS brxz,
+            c.CSNY AS csny,
+            b.JHHM AS jhhm,
+            b.PDXH AS pdxh,
+            a.JZXH AS jzxh,
+            a.JZZT AS jzzt,
+            a.GHXH AS sbxh,
+            a.JGID AS jgid,
+            b.BRID AS brid,
+            b.JZHM AS jzhm,
+            c.EMPIID AS empiid,
+            c.MZHM AS mzhm,
+            c.BRXM AS brxm,
+            c.BRXB AS brxb,
+            a.KSSJ AS ghsj,
+            0 AS ghtype,
+            a.YSDM AS jzys,
+            b.JZKH AS jzkh,
+            b.DQXH AS dqxh,
+            b.JLCH AS jlch,
+            c.SFZH AS sfzh,
+            c.LXRM AS lxrm,
+            c.LXDZ AS lxdz,
+            c.LXRDH AS lxdh,
+            c.LXGX as lxgx,
+            a.jzlsh as jzlsh,
+            (select distinct 1 FROM skin_psjl WHERE
+            BRID = c.BRID AND JGID = a.JGID and PSJG = 3) as sfgm
+        FROM
+        OP_YS_JZLS a
+        LEFT JOIN OP_GHMX b ON a.GHXH = b.SBXH
+        LEFT JOIN MPI_BRDA c ON b.BRID = c.BRID
+        WHERE
+            a.JZZT = 9
+            AND b.THBZ = 0
+            <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                AND a.JGID = #{jgid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ghks)">
+                AND b.KSDM = #{ghks}
+            </if>
+<!--束诊的患者可以被其他同科室医生看到 -->
+<!--            <if test="@sqlt.Ognl@isNotEmpty(ysdm)">-->
+<!--                AND a.YSDM = #{ysdm}-->
+<!--            </if>-->
+            <if test="@sqlt.Ognl@isNotEmpty(nowDate)">
+                AND a.KSSJ <![CDATA[ >= ]]>  CONCAT(#{nowDate}, ' 00:00:00')
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(nowDateEnd)">
+                AND a.KSSJ <![CDATA[ <= ]]>  CONCAT(#{nowDateEnd}, ' 23:59:59')
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+                AND b.JZKH = #{jzkh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(hzxm)">
+                AND c.BRXM LIKE CONCAT(CONCAT('%',#{hzxm}),'%')
+            </if>
+        ORDER BY
+        a.KSSJ
+    </select>
+
+    <!-- 当前班次的收费挂号预约到当前班次就不再是预约了,而变成了挂号 -->
+    <update id="updateYybz">
+		UPDATE OP_GHMX SET YYBZ = 0
+		<where>
+			AND YYBZ = 1
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND GHSJ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+		</where>
+	</update>
+
+    <update id="updateBySbxh" >
+        UPDATE OP_GHMX
+        SET ZDXH = #{zdxh}
+        WHERE
+            SBXH = #{jzxh}
+
+    </update>
+
+    <!-- 根据条件查询挂号信息 -->
+    <select id="getGhmxByCondition" resultType="com.buit.commons.model.OpGhmxInfo">
+		SELECT
+		ghmx.SBXH AS SBXH,
+		ghmx.KSDM AS KSDM,
+		ghks.KSMC AS KSMC,
+		ghks.MZKS AS MZKS,
+		ghmx.YSDM AS YSDM,
+        ghmx.BRXZ AS BRXZ
+		FROM
+		OP_GHMX ghmx
+		INNER JOIN OP_GHKS ghks ON ghmx.KSDM = ghks.KSDM
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ghmx.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND ghmx.BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND ghmx.THBZ = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND ghmx.GHSJ <![CDATA[ > ]]> #{beginOfDay} AND ghmx.GHSJ <![CDATA[ < ]]> #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sbxh)">
+				AND ghmx.SBXH = #{sbxh}
+			</if>
+		</where>
+		ORDER BY ghmx.SBXH DESC
+	</select>
+
+	<select id="getGhf" resultType="java.math.BigDecimal">
+		select sum(GHJE+ZLJE) as GHF from OP_GHMX
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(sbxh)">
+				AND SBXH = #{sbxh}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND THBZ = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND GHSJ <![CDATA[ > ]]> #{beginOfDay} AND GHSJ <![CDATA[ < ]]> #{endOfDay}
+			</if>
+		</where>
+	</select>
+
+	<!-- 第一次挂免费号，第二个正常挂号收取挂号费 -->
+	<select id="getGhmxInfo" resultType="com.buit.commons.model.OpGhmxInfo">
+		SELECT SBXH AS SBXH, MZLB AS MZLB FROM OP_GHMX
+		<where>
+			AND GHJE + ZLJE <![CDATA[ > ]]> 0
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND THBZ = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND GHSJ <![CDATA[ > ]]> #{beginOfDay} AND GHSJ <![CDATA[ < ]]> #{endOfDay}
+			</if>
+		</where>
+		ORDER BY SBXH DESC
+	</select>
+
+	<!-- 获取挂号明细数量 -->
+	<select id="getGhmxCount" resultType="java.lang.Integer">
+		select count(1) from OP_GHMX
+		<where>
+			<!--  AND JZZT IN ('0','2') -->
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND BRID = #{brid}
+			</if>
+            <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+                AND JZKH = #{jzkh}
+            </if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzjs)">
+				AND JZJS = #{jzjs}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND THBZ = #{thbz}
+			</if>
+            <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+                AND KSDM = #{ksdm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+                AND YSDM = #{ysdm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ghlb)">
+                AND GHLB = #{ghlb}
+            </if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND GHSJ <![CDATA[ > ]]>
+				#{beginOfDay} AND GHSJ <![CDATA[ < ]]> #{endOfDay}
+			</if>
+		</where>
+	</select>
+
+	<!-- 处方识别数量 -->
+	<select id="getCfsbCount" resultType="java.lang.Integer">
+		SELECT
+		COUNT( cf02.CFSB ) count
+		FROM
+		OP_GHMX ghmx
+		INNER JOIN OP_YS_JZLS jzls ON ghmx.SBXH = jzls.GHXH
+		INNER JOIN OP_CF01 cf01 ON jzls.JZXH = cf01.JZXH
+		INNER JOIN OP_CF02 cf02 ON cf01.CFSB = cf02.CFSB
+		<where>
+			AND ghmx.JZZT IN ( '0', '2' )
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND ghmx.BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ghmx.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzjs)">
+				AND ghmx.JZJS = #{jzjs}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND ghmx.THBZ = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND ghmx.GHSJ <![CDATA[ >= ]]> #{beginOfDay} AND ghmx.GHSJ <![CDATA[ < ]]> #{endOfDay}
+			</if>
+		</where>
+	</select>
+
+	<!-- 医技序号数量 -->
+	<select id="getYjxhCount" resultType="java.lang.Integer">
+		SELECT
+		COUNT( yj02.YJXH ) count
+		FROM
+		OP_GHMX ghmx
+		INNER JOIN OP_YS_JZLS jzls ON ghmx.SBXH = jzls.GHXH
+		INNER JOIN OP_YJCF01 yj01 ON jzls.JZXH = yj01.JZXH
+		INNER JOIN OP_YJCF02 yj02 ON yj01.YJXH = yj02.YJXH
+		<where>
+			AND ghmx.JZZT IN ( '0', '2' )
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND ghmx.BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ghmx.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzjs)">
+				AND ghmx.JZJS = #{jzjs}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND ghmx.THBZ = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND ghmx.GHSJ <![CDATA[ >= ]]>
+				#{beginOfDay} AND ghmx.GHSJ <![CDATA[ < ]]>
+				#{endOfDay}
+			</if>
+		</where>
+	</select>
+
+	<!-- 条件查询挂号明细信息 -->
+	<select id="getGhmx" resultType="com.buit.commons.model.OpGhmxInfo">
+		SELECT
+		ghmx.SBXH AS sbxh,
+		ghmx.GHSJ AS ghsj,
+		ghmx.KSDM AS ksdm,
+		ghks.KSMC AS ksmc,
+		ghmx.YSDM AS ysdm,
+		personnel.PERSONNAME AS ghys,
+		ghmx.JZHM AS jzhm,
+		ghmx.GHJE AS ghje,
+		ghmx.ZLJE AS zlje,
+		ghmx.ZJFY AS zjfy,
+		ghmx.BLJE AS blje,
+		ghmx.XJJE AS xjje,
+		brda.BRXM AS brxm,
+		brxz.XZMC AS xzmc,
+		ghmx.BRXZ AS brxz,
+		ghmx.JZLSH AS jzlsh ,
+ 		1 AS FKFS ,
+		ghmx.CKJE AS CKJE,
+		ghmx.JZZT AS JZZT,
+		ghmx.ZPJE As zpje,
+		ghmx.JMJE AS jmje
+		FROM
+		OP_GHMX ghmx
+		LEFT JOIN HR_PERSONNEL personnel ON ghmx.YSDM = personnel.PERSONID
+		INNER JOIN OP_GHKS ghks ON ghmx.KSDM = ghks.KSDM
+		INNER JOIN MPI_BRDA brda ON ghmx.BRID = brda.BRID
+		INNER JOIN PUB_BRXZ brxz ON ghmx.BRXZ = brxz.BRXZ
+        <!--INNER JOIN OP_GH_FKXX fkxx ON ghmx.SBXH = fkxx.SBXH-->
+        <where>
+            <!--  AND ghmx.JZZT IN ( '0', '2' )-->
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND ghmx.BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ghmx.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzjs)">
+				AND ghmx.JZJS = #{jzjs}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND ghmx.THBZ = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND ghmx.GHSJ <![CDATA[ >= ]]> #{beginOfDay} AND ghmx.GHSJ <![CDATA[ < ]]> #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzhm)">
+				AND ghmx.JZHM = #{jzhm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND ghmx.JZKH = #{jzkh}
+			</if>
+		</where>
+		ORDER BY ghmx.SBXH DESC
+	</select>
+
+	<!-- 查询处方和处置数量 -->
+	<select id="getJzxhCount" resultType="java.lang.Integer">
+		SELECT
+		SUM( t.COUNT) AS COUNT
+		FROM
+		(
+		SELECT
+		COUNT( cf01.JZXH ) AS COUNT
+		FROM
+		OP_CF01 cf01
+		INNER JOIN OP_YS_JZLS jzls ON cf01.JZXH = jzls.JZXH
+		INNER JOIN OP_GHMX ghmx ON jzls.GHXH = ghmx.SBXH
+		INNER JOIN OP_CF02 cf02 ON cf01.CFSB = cf02.CFSB
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jzxh)">
+				AND ghmx.SBXH = #{jzxh}
+			</if>
+		</where>
+		UNION ALL
+		SELECT
+		COUNT( yj01.JZXH ) AS COUNT
+		FROM
+		OP_YJCF01 yj01
+		INNER JOIN OP_YS_JZLS jzls ON yj01.JZXH = jzls.JZXH
+		INNER JOIN OP_GHMX ghmx ON jzls.GHXH = ghmx.SBXH
+		INNER JOIN OP_YJCF02 yj02 ON yj01.YJXH = yj02.YJXH
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jzxh)">
+				AND ghmx.SBXH = #{jzxh}
+			</if>
+		</where>
+		) t
+	</select>
+
+	<!-- 查询医保挂号数量 -->
+	<select id="getYbghCount" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM
+		OP_GHMX ghmx
+		INNER JOIN YB_MZJS mzjs ON ghmx.MZXH = mzjs.MZXH
+		<where>
+			AND ghmx.JZZT IN ( '0', '2' )
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND ghmx.BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ghmx.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzjs)">
+				AND ghmx.JZJS = #{jzjs}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND ghmx.THBZ = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND ghmx.GHSJ <![CDATA[ >= ]]>
+				#{beginOfDay} AND ghmx.GHSJ <![CDATA[ < ]]>
+				#{endOfDay}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据识别序号更改退号标志 -->
+	<update id="updateThbz" parameterType="Map">
+		UPDATE OP_GHMX
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				THBZ = #{thbz} ,
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(SBXH)">
+				AND SBXH = #{SBXH}
+			</if>
+		</where>
+	</update>
+    <select id="findMzks" resultType="java.util.Map">
+        SELECT
+            c.MZKS AS mzks
+        FROM
+            OP_GHMX a,
+            OP_GHKS c
+        WHERE
+            a.KSDM = c.KSDM
+
+    </select>
+    <select id="findDeptInfo" resultType="java.util.Map">
+        SELECT
+            c.MZKS AS MZKS,
+            b.OFFICENAME AS KSMC
+        FROM
+            OP_GHMX a,
+            DIC_KSZD b,
+            OP_GHKS c
+        WHERE
+            a.KSDM = c.KSDM
+            AND c.MZKS = b.ID
+            AND a.SBXH = #{sbxh}
+    </select>
+
+    <!-- 查询挂号数量 -->
+    <select id="getSbxhCount" parameterType="Map" resultType="java.util.Map">
+		SELECT count( SBXH ) AS GHJG FROM OP_GHMX
+		<where>
+			<!--  AND instr( JZHM, 'MGH' )= 0-->
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND THBZ = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GHSJ)">
+				AND GHSJ BETWEEN #{GHSJ_B} AND #{GHSJ_E}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(JZKH)">
+				AND JZKH = #{JZKH}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据病人id和机构id查询挂号明细 -->
+	<select id="getGhmxCzpbl" parameterType="Map" resultType="java.lang.Integer">
+		select count(1) from OP_GHMX
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(BRID)">
+				AND BRID = #{BRID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+		</where>
+	</select>
+
+	<!-- 获取最大排队序号 -->
+	<select id="getMaxPdxh" parameterType="Map" resultType="java.lang.Integer">
+			SELECT ifnull(max( t.PDXH ),0)+ 1 AS PDXH FROM
+			(
+			SELECT PDXH FROM OP_GHMX
+			<where>
+				and ghsj between CONCAT(#{today},' ', '00:00:00') and CONCAT(#{today}, ' ' ,'23:59:59')
+				<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+					AND KSDM = #{KSDM}
+				</if>
+				<if test="@sqlt.Ognl@isNotEmpty(ZSID)">
+					AND ZSID = #{ZSID}
+				</if>
+			</where>
+			UNION ALL
+			SELECT PDXH FROM DIY_GHMX_ZZGH
+			<where>
+				and ghsj between CONCAT(#{today},' ', '00:00:00') and CONCAT(#{today}, ' ' ,'23:59:59')
+				<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+					AND KSDM = #{KSDM}
+				</if>
+				<if test="@sqlt.Ognl@isNotEmpty(ZSID)">
+					AND ZSID = #{ZSID}
+				</if>
+			</where>
+			UNION ALL
+			SELECT PDXH FROM OP_YYGH
+			<where>
+				and yyrq between CONCAT(#{today},' ', '00:00:00') and CONCAT(#{today}, ' ' ,'23:59:59')
+				<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+					AND KSDM = #{KSDM}
+				</if>
+				<if test="@sqlt.Ognl@isNotEmpty(ZSID)">
+					AND ZSID = #{ZSID}
+				</if>
+			</where>
+			) t
+		</select>
+
+		<!-- 获取等待次数和 -->
+	<select id="getSumDdcs" parameterType="Map" resultType="java.lang.Integer">
+		SELECT
+		ifnull(sum( t.DDCS ),0) AS DDCS
+		FROM
+		(
+		SELECT
+		count(1) AS DDCS
+		FROM
+		OP_GHMX
+		<where>
+			AND thbz = 0
+			AND jzzt= 0
+			AND JZJS= 0
+			<if test="@sqlt.Ognl@isNotEmpty(today)">
+				AND ghsj between CONCAT(#{today},' ', '00:00:00') and CONCAT(#{today}, ' ' ,'23:59:59')
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZSID)">
+				AND ZSID = #{ZSID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(SBXH)">
+				AND sbxh != #{SBXH}
+			</if>
+		</where>
+		UNION ALL
+		SELECT
+		count( 1 ) AS DDCS
+		FROM
+		DIY_GHMX_ZZGH
+		<where>
+			AND thbz = 0
+			AND jzzt= 0
+			AND JZJS= 0
+			<if test="@sqlt.Ognl@isNotEmpty(today)">
+				AND ghsj between CONCAT(#{today},' ', '00:00:00') and CONCAT(#{today}, ' ' ,'23:59:59')
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZSID)">
+				AND ZSID = #{ZSID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(SBXH)">
+				AND sbxh != #{SBXH}
+			</if>
+		</where>
+		UNION ALL
+		SELECT
+		count( 1 ) AS DDCS
+		FROM
+		OP_YYGH
+		<where>
+			AND SFQH = 0
+			<if test="@sqlt.Ognl@isNotEmpty(YYRQ)">
+				AND yyrq between CONCAT(#{YYRQ},' ', '00:00:00') and CONCAT(#{YYRQ}, ' ' ,'23:59:59')
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZSID)">
+				AND ZSID = #{ZSID}
+			</if>
+		</where>
+		) t
+	</select>
+
+	<!-- 更新挂号信息 -->
+     <update id="updateGhmxInfo" parameterType="Map">
+		UPDATE OP_GHMX
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(pdxh)">
+				PDXH = #{pdxh},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ddcs)">
+				DDCS = #{ddcs},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zsid)">
+				ZSID = #{zsid},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jhhm)">
+				JHHM = #{jhhm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(now)">
+				GHSJ = #{now},
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(sbxh)">
+				AND sbxh = #{sbxh}
+			</if>
+		</where>
+	</update>
+
+	<!-- 转科根据卡号查询信息 -->
+	<select id="getTurnDeptInfo" parameterType="Map" resultType="java.util.Map">
+		SELECT
+		tmp.*,
+		person.PERSONNAME AS YGXM
+		FROM
+		(
+		SELECT
+		ghmx.BRID AS BRID,
+		brda.brxm AS BRXM,
+		ghmx.JZHM AS JZHM,
+		ghmx.KSDM AS KSDM,
+		ghks.KSMC AS GHKS,
+		ghmx.YSDM AS YSDM,
+		ghmx.GHSJ AS GHSJ,
+		ghmx.JZZT AS JZZT,
+		ghmx.GHJE AS GHF,
+		ghmx.ZLJE AS ZLF,
+		ghmx.sbxh AS sbxh,
+		ghmx.zjfy AS ZJFY,
+		ghmx.JZLSH AS JZLSH ,
+		brda.BRXB AS BRXB,
+		brda.CSNY AS CSNY
+		FROM
+		OP_GHMX ghmx
+		INNER JOIN OP_GHKS ghks ON ghmx.KSDM = ghks.KSDM
+		INNER JOIN MPI_BRDA brda ON ghmx.BRID = brda.BRID
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(al_JZHM)">
+				AND ghmx.JZKH = #{al_JZHM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(al_jgid)">
+				AND ghmx.jgid = #{al_jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND ghmx.thbz = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GHSJ)">
+				AND ghmx.ghsj BETWEEN #{adt_begin} AND #{adt_end}
+			</if>
+		</where>
+		) tmp
+		LEFT JOIN HR_PERSONNEL person ON tmp.YSDM = person.PERSONID
+	</select>
+
+
+	<!-- 更新挂号明细 -->
+	<update id="updateGhmx" parameterType="Map">
+		UPDATE OP_GHMX
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				KSDM = #{KSDM} ,
+			</if>
+			<if test="YSDM == ''">
+				YSDM = null ,
+			</if>
+            <if test="@sqlt.Ognl@isNotEmpty(YSDM)">
+                YSDM = #{YSDM} ,
+            </if>
+			<if test="@sqlt.Ognl@isNotEmpty(GHSJ)">
+				GHSJ = #{GHSJ} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(JZHM)">
+				JZHM = #{JZHM} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZSID)">
+				ZSID = #{ZSID} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(CZGH)">
+				CZGH = #{CZGH} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(CZSJ)">
+				CZSJ = #{CZSJ} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZKBZ)">
+				ZKBZ = #{ZKBZ} ,
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(SBXH)">
+				AND SBXH = #{SBXH}
+			</if>
+		</where>
+	</update>
+
+
+
+
+
+
+
+    <update id="updateJzzt">
+        UPDATE OP_GHMX
+        SET JZZT = #{JZZT}
+        WHERE
+            SBXH =(
+            SELECT
+                GHXH
+            FROM
+                OP_YS_JZLS
+        WHERE
+            JZXH = #{JZXH})
+    </update>
+    <update id="updateJzztNotOver">
+        UPDATE OP_GHMX
+        SET JZZT = #{JZZT}
+        WHERE
+            ( JZZT = 1 OR JZZT = 2 )
+            AND SBXH =(
+                    SELECT
+                        GHXH
+                    FROM
+                        OP_YS_JZLS
+                    WHERE
+                    JZXH = #{JZXH}
+                )
+    </update>
+    <update id="updateJzztJzys">
+        UPDATE OP_GHMX
+        SET JZZT = #{JZZT},
+        JZYS = #{JZYS}
+        WHERE
+            ( JZZT = 1 OR JZZT = 2 )
+            AND SBXH =(
+            SELECT
+                GHXH
+            FROM
+                OP_YS_JZLS
+        WHERE
+            JZXH = #{JZXH})
+    </update>
+
+    <!-- 获取诊断序号-->
+	<select id="getZdxh" parameterType="Map" resultType="java.util.Map">
+		SELECT
+		ghmx.ZDXH AS ZDXH,
+		jbbm.JBMC AS JBMC
+		FROM
+		OP_GHMX ghmx
+		INNER JOIN DIC_JBBM jbbm ON ghmx.ZDXH = jbbm.JBXH
+		<where>
+			AND ghmx.JGID = #{JGID}
+			AND ghmx.BRID = #{BRID}
+			AND ghmx.THBZ = #{THBZ}
+			AND ghmx.GHSJ BETWEEN #{GHSJ} AND #{NOW}
+		</where>
+	</select>
+
+    <!-- 获取科室代码和科室名称 -->
+    <select id="getKsInfo" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			c.MZKS AS KSDM,
+			b.OFFICENAME AS KSMC
+		FROM
+			OP_GHMX a,
+			DIC_KSZD b,
+			OP_GHKS c
+		WHERE
+			a.KSDM = c.KSDM
+			AND c.MZKS = b.ID
+			AND a.SBXH = #{ghgl}
+	</select>
+
+	<!-- 获取自助挂号科室 -->
+	<select id="getZzghksList" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			a.brid AS brid,
+			a.ksdm AS ksdm,
+			a.sbxh AS sbxh,
+			b.ghf AS ghf,
+			b.zlf AS zlf,
+			0 AS zjfy,
+			0 AS blje
+		FROM
+			OP_GHMX a
+			LEFT JOIN OP_GHKS b ON a.ksdm = b.ksdm
+			AND b.JGID = #{jgid}
+		WHERE
+			instr( a.jzhm, 'MGH' ) = 1
+			AND a.ywlx IN ( 3, 4 )
+			AND a.thbz = 0
+			AND a.jzkh = #{jzkh}
+	</select>
+
+	<!-- 更新挂号金额 -->
+	<update id="updateGhmxGhje" parameterType="Map">
+		UPDATE OP_GHMX SET GHJE = #{GHJE}, ZLJE = #{ZLJE}, BLJE = #{BLJE}, ZJFY = #{ZJFY}, JZHM = #{GHFP}, CZGH = #{uid} WHERE SBXH = #{SBXH}
+	</update>
+
+	<!-- 更新就诊状态 -->
+	<update id="updateJzztByCondition" parameterType="Map">
+		update OP_GHMX set JZZT = 9  WHERE BRID =#{BRBH} and SBXH = #{GHXH}
+	</update>
+
+	<!-- 根据识别序号更新诊断序号 -->
+	<update id="updateZdxhBySbxh" parameterType="Map">
+		update OP_GHMX set ZDXH=#{zdxh} where SBXH=#{ghgl}
+	</update>
+
+    <!-- 挂号明细信息查询 -->
+	<select id="getGhmxDetail" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			(
+			SELECT
+				b.BRXM AS BRXM,
+				c.cardNo AS JZKH,
+				b.MZHM AS MZHM,
+				c.BRXZ AS BRXZ,
+				a.JZZT AS JZZT,
+				a.KSDM AS KSDM,
+				a.GHSJ
+			FROM
+				OP_GHMX a,
+				MPI_BRDA b
+				LEFT OUTER JOIN MPI_Card c ON b.brid = c.brid
+				AND c.cardTypeCode = #{KLX}
+			WHERE
+				( b.BRID = a.BRID )
+				AND ( a.GHSJ <![CDATA[ >= ]]> #{adt_begin} )
+				AND ( a.THBZ = 0 )
+				AND ( a.JGID = #{al_jgid} )
+				UNION
+			SELECT
+				b.BRXM AS BRXM,
+				a.jzkh AS JZKH,
+				b.MZHM AS MZHM,
+				c.BRXZ AS BRXZ,
+				a.JZZT AS JZZT,
+				a.KSDM AS KSDM,
+				a.GHSJ
+			FROM
+				OP_GHMX a,
+				MPI_BRDA b
+				LEFT OUTER JOIN MPI_Card c ON b.brid = c.brid
+			WHERE
+				a.ghsj <![CDATA[ > ]]> curdate() + INTERVAL -2 DAY
+				AND ( b.BRID = a.BRID )
+				AND ( a.THBZ = 0 )
+				AND ( a.JGID = #{al_jgid} )
+				AND EXISTS ( SELECT * FROM OP_YJCF01 aa WHERE aa.zxks IS NOT NULL AND aa.brid = b.brid )
+			)
+		ORDER BY
+			GHSJ DESC
+	</select>
+    <select id="getMaxSbxh" resultType="java.lang.Integer">
+        SELECT
+            max( SBXH ) AS SBXH
+        FROM
+            OP_GHMX
+        WHERE
+            BRID = #{brid}
+            AND KSDM = #{ksdm}
+            AND THBZ = 0
+            AND GHSJ > #{ghsj}
+    </select>
+    <update id="updateInConsultationBySbxh">
+        UPDATE OP_GHMX
+        SET JZZT = 1
+        WHERE
+            SBXH = #{sbxh}
+    </update>
+    <update id="updateInConsultationBySbxhAndJzys">
+        UPDATE OP_GHMX
+        SET JZZT = 1,
+        JZYS = #{jzys}
+        WHERE
+            SBXH = #{sbxh}
+    </update>
+    <update id="updateJzztByJzxh">
+        UPDATE OP_GHMX
+        SET JZZT = #{jzzt}
+        WHERE
+            SBXH =(
+            SELECT
+                GHXH
+            FROM
+                OP_YS_JZLS
+        WHERE
+            JZXH = #{jzxh})
+    </update>
+    <update id="updateJzztByJzztSbxh">
+        UPDATE OP_GHMX
+        SET
+        <if test="jzzt != null and jzzt == 9">
+            JZJS = 1,
+        </if>
+        JZZT = #{jzzt}
+        WHERE
+            ( JZZT = 1 OR JZZT = 2 )
+            AND SBXH =(
+            SELECT
+                GHXH
+            FROM
+                OP_YS_JZLS
+        WHERE
+            JZXH = #{jzxh})
+    </update>
+    <update id="updateJzztJzysByJzztSbxh">
+        UPDATE OP_GHMX
+        SET
+        <if test="jzzt != null and jzzt == 9">
+            JZJS = 1,
+        </if>
+        JZZT = #{jzzt},
+        JZYS = #{ysdm}
+        WHERE
+            ( JZZT = 1 OR JZZT = 2 )
+            AND SBXH =(
+            SELECT
+                GHXH
+            FROM
+                OP_YS_JZLS
+        WHERE
+            JZXH = #{jzxh})
+    </update>
+
+    <select id="getGhInfoList" resultType="com.buit.commons.model.MsGhInfo">
+		SELECT
+		ghmx.JZLSH AS JZLSH,
+		ghmx.KSDM AS KSDM,
+		ghks.KSMC AS KSMC,
+		ghmx.YSDM AS YSDM,
+		ghmx.GHSJ AS GHSJ,
+		ghmx.SBXH AS GHGL,
+		ghmx.ZDXH AS ZDXH,
+        ghmx.BRXZ AS BRXZ
+		FROM
+		OP_GHMX ghmx
+		INNER JOIN OP_GHKS ghks ON ghmx.KSDM = ghks.KSDM
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ghmx.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND ghmx.BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thbz)">
+				AND ghmx.THBZ = #{thbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+				AND ghmx.GHSJ <![CDATA[ > ]]> #{beginOfDay} AND ghmx.GHSJ <![CDATA[ < ]]> #{endOfDay}
+			</if>
+		</where>
+		ORDER BY ghmx.GHSJ DESC
+	</select>
+
+	<select id="doQueryCountByGhsj" parameterType="Map" resultType="java.lang.Integer">
+		SELECT
+			count( 1 )
+		FROM
+			OP_GHMX
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			<if test="@sqlt.Ognl@isNotEmpty(jzrq)">
+				AND GHSJ <![CDATA[ >= ]]> #{jzrq}
+			</if>
+			AND JZRQ IS NULL
+	</select>
+
+	<select id="doQueryMaxPdxh" parameterType="Map" resultType="java.util.Map">
+		SELECT max(PDXH)+1 as JZXH from OP_GHMX
+	</select>
+
+	<select id="doQueryGhmxInfo" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			( SELECT xz.xzmc FROM PUB_BRXZ xz WHERE xz.brxz = ghmx.brxz ) AS YBLX,
+			ifnull ( ali.totalamount, 0 ) AS zfbje,
+			ghmx.ghje AS JCF,
+			ghmx.zjfy AS ZJFY,
+			ghmx.jmje AS JMJE,
+			buser.PERSONNAME AS YSMC,
+			ghmx.zlje AS ZLF,
+			ghmx.blje AS BLJE,
+			ghmx.ckje AS CKJE,
+		    ghmx.xjje + ghmx.zpje AS ZJJE,
+            ghmx.wzje AS WZJE
+		FROM
+			OP_GHMX ghmx
+			LEFT JOIN OP_ALIPAY ali ON ghmx.jzhm = ali.fphm
+			LEFT JOIN hr_personnel buser ON ghmx.ysdm = buser.PERSONID
+		WHERE
+			ghmx.jzhm = #{jzhm}
+	</select>
+
+	<select id="doQueryJzkh" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			a.jzkh AS SHBZK
+		FROM
+			OP_GHMX a
+		WHERE
+			a.jzhm = #{jzhm}
+	</select>
+
+	<select id="doQueryDdcsAndPdxh" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			ifnull ( DDCS, 0 ) AS DDCS,
+			ifnull ( PDXH, 1 ) AS PDXH,
+			JHHM
+		FROM
+			OP_GHMX
+		WHERE
+			SBXH = #{SBXH}
+	</select>
+
+	<update id="doUpdateJzrq" parameterType="Map">
+    	UPDATE OP_GHMX
+		SET JZRQ = #{jzrq}
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ IS NULL
+    </update>
+
+    <update id="doUpdateJzrqByCondition" parameterType="Map">
+    	UPDATE OP_GHMX_ZJJS_ZSFP
+		SET JZRQ = #{jzrq}
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ IS NULL
+    </update>
+
+    <update id="doUpdateJzrqToNull" parameterType="Map">
+    	UPDATE OP_GHMX
+		SET JZRQ = NULL
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ = #{jzrq}
+    </update>
+
+    <select id="doQueryGhfy" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			czgh AS czgh,
+			sum( blje ) AS blf,
+			sum( zjfy ) AS zjf,
+			sum( ghje ) AS ghf2,
+			sum( zlje ) AS zlf2
+		FROM
+			(
+			SELECT
+				a.czgh,
+				a.blje,
+				a.zjfy,
+				a.ghje,
+				a.zlje
+			FROM
+				OP_GHMX a
+			WHERE
+				a.jgid = #{jgid}
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+				AND a.mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				b.czgh,- a.blje,- a.zjfy,- a.ghje,- a.zlje
+			FROM
+				OP_GHMX a,
+				OP_THMX b
+			WHERE
+				a.sbxh = b.sbxh
+				AND a.jgid = #{jgid}
+				AND b.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND b.jzrq <![CDATA[ <= ]]> #{enddate}
+				AND a.mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) t
+		GROUP BY
+			czgh
+    </select>
+
+    <select id="doQueryGhfyByJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			czgh AS czgh,
+			sum( blje ) AS blf,
+			sum( zjfy ) AS zjf,
+			sum( ghje ) AS ghf2,
+			sum( zlje ) AS zlf2
+		FROM
+			(
+			SELECT
+				a.czgh,
+				a.blje,
+				a.zjfy,
+				a.ghje,
+				b.fkje -(
+					a.blje + a.zjfy + a.ghje
+				) AS zlje
+			FROM
+				OP_GHMX a,
+				OP_GH_FKXX b
+			WHERE
+				b.fkfs = 1
+				AND b.fkje > 0
+				AND a.sbxh = b.sbxh
+				AND a.jgid = #{jgid}
+				AND a.mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+			UNION ALL
+			SELECT
+				b.czgh,- a.blje,- a.zjfy,- a.ghje,(
+					a.blje + a.zjfy + a.ghje - c.fkje
+				) AS zlje
+			FROM
+				OP_GHMX a,
+				OP_THMX b,
+				OP_GH_FKXX c
+			WHERE
+				c.fkfs = 1
+				AND c.fkje > 0
+				AND a.sbxh = c.sbxh
+				AND a.sbxh = b.sbxh
+				AND a.jgid = #{jgid}
+				AND a.mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.jzrq <![CDATA[>=]]> #{begindate}
+				AND b.jzrq <![CDATA[<=]]> #{enddate}
+			) t
+		GROUP BY
+			czgh
+    </select>
+
+    <select id="doQuerySumGhje" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.*,
+			ifnull ( b.khje, 0 ) AS KHJE,
+			ifnull ( b.jkje, 0 ) AS JKJE,
+			ifnull ( b.tkje, 0 ) AS TKJE
+		FROM
+			(
+			SELECT
+				CZGH,
+				sum( GHCS ) GHCS,
+				sum( ghjehj ) GHJEHJ,
+				sum( fpzs ) FPZS,
+				sum( zjje ) ZJJE,
+				sum( XJJE ) XJJE,
+				sum( ZPJE ) ZPJE,
+				sum( ZHJE ) ZHJE,
+				sum( QTYS ) QTYS,
+				sum( HBWC ) HBWC
+			FROM
+				(
+				SELECT
+					CZGH,
+					sum( GHCS ) ghcs,
+					sum( GHJE + ZLJE + BLJE + ZJFY ) ghjehj,
+					0 fpzs,
+					0 zjje,
+					sum( XJJE ) xjje,
+					sum( ZPJE ) zpje,
+					sum( ZHJE ) zhje,
+					sum( QTYS ) qtys,
+					sum( HBWC ) hbwc
+				FROM
+					OP_GHMX
+				WHERE
+					JZRQ IS NULL
+					AND mzlb in
+					<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+					AND ghsj <![CDATA[>=]]> #{beginDay}
+					AND ghsj <![CDATA[<=]]> #{endDay}
+				GROUP BY
+					CZGH
+				UNION ALL
+				SELECT
+					OP_THMX.CZGH,
+					- sum( OP_GHMX.GHCS ) ghcs,
+					- sum( GHJE + ZLJE + BLJE + ZJFY ) ghjehj,
+					0 fpzs,
+					0 zjje,
+					- sum( XJJE ) xjje,
+					- sum( ZPJE ) zpje,
+					- sum( ZHJE ) zhje,
+					- sum( QTYS ) qtys,
+					- sum( HBWC ) hbwc
+				FROM
+					OP_GHMX,
+					OP_THMX
+				WHERE
+					OP_THMX.SBXH = OP_GHMX.SBXH
+					AND OP_THMX.JZRQ IS NULL
+					AND OP_GHMX.mzlb in
+					<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+					AND OP_GHMX.ghsj <![CDATA[>=]]> #{beginDay}
+					AND OP_GHMX.ghsj <![CDATA[<=]]> #{endDay}
+				GROUP BY
+					OP_THMX.CZGH
+				UNION ALL
+				SELECT
+					CZGH,
+					0 ghcs,
+					0 ghjehj,
+					count(*) fpzs,
+					sum( ZJJE ) zjje,
+					sum( XJJE ) xjje,
+					sum( ZPJE ) zpje,
+					sum( ZHJE ) zhje,
+					sum( QTYS ) qtys,
+					sum( HBWC ) hbwc
+				FROM
+					OP_MZXX
+				WHERE
+					JZRQ IS NULL
+					AND mzlb in
+					<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+					AND SFRQ <![CDATA[>=]]> #{beginDay}
+					AND SFRQ <![CDATA[<=]]> #{endDay}
+				GROUP BY
+					CZGH
+				UNION ALL
+				SELECT
+					OP_ZFFP.CZGH,
+					0 ghcs,
+					0 ghjehj,
+					- count(*) fpzs,
+					- sum( ZJJE ) zjje,
+					- sum( XJJE ) zjje,
+					- sum( ZPJE ) zpje,
+					- sum( ZHJE ) zhje,
+					- sum( QTYS ) qtys,
+					- sum( HBWC ) hbwc
+				FROM
+					OP_MZXX,
+					OP_ZFFP
+				WHERE
+					OP_ZFFP.FPHM = OP_MZXX.FPHM
+					AND OP_ZFFP.JZRQ IS NULL
+					AND OP_MZXX.mzlb in
+					<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+					AND OP_MZXX.SFRQ <![CDATA[>=]]> #{beginDay}
+					AND OP_MZXX.SFRQ <![CDATA[<=]]> #{endDay}
+				GROUP BY
+					OP_ZFFP.CZGH
+				) t
+			GROUP BY
+				t.czgh
+			) a LEFT JOIN
+			(
+			SELECT
+				MS_SZMX.CZGH,
+				SUM( if ( ms_szmx.szlb=1, MS_SZMX.JFJE - MS_SZMX.DFJE, 0 ) ) AS khje,
+				SUM( if ( ms_szmx.szlb=2, MS_SZMX.JFJE - MS_SZMX.DFJE, 0 ) ) AS jkje,
+				SUM( if ( ms_szmx.szlb=- 2, MS_SZMX.JFJE - MS_SZMX.DFJE, 0 ) ) AS tkje
+			FROM
+				MS_SZMX
+			WHERE
+				(
+				MS_SZMX.SZLB IN ( 1, 2, - 2 ))
+				AND ( MS_SZMX.JZRQ IS NULL )
+				AND HZRQ <![CDATA[>=]]> #{beginDay}
+				AND HZRQ <![CDATA[<=]]> #{endDay}
+				<!--
+				AND OP_GHMX.mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				-->
+			GROUP BY
+				MS_SZMX.CZGH
+			) b
+			on a.czgh = b.czgh
+		ORDER BY
+			a.czgh
+    </select>
+
+    <select id="doQuerySumGhmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			czgh,
+			sum( cs ) cs,
+			sum( ldrk ) ldrk,
+			sum( jhsy ) jhsy,
+			sum( sc ) sc,
+			sum( ptzf ) ptzf,
+			sum( ptyb ) ptyb,
+			sum( zqgh ) zqgh,
+			sum( lx ) lx,
+			sum( wdzf ) wdzf,
+			sum( pkjsb ) pkjsb,
+			sum( mzbk ) mzbk,
+			sum( ldrkpkyf ) ldrkpkyf,
+			sum( lnys ) lnys,
+			sum( wblr ) wblr,
+			sum( zcry ) zcry,
+			sum( bk ) bk,
+			sum( zybk ) zybk,
+			sum( ybjhsy ) ybjhsy,
+			sum( zxxshyye ) zxxshyye,
+			sum( qtjm ) qtjm,
+			sum( jkjm ) jkjm,
+			sum( nchzyl ) nchzyl,
+			sum( ylhzbk ) ylhzbk,
+			sum( fksz ) fksz
+		FROM
+			(
+			SELECT
+				czgh,
+				brxz,
+				ifnull( sum( if( brxz=9, qtys, 0 )), 0 ) cs,
+				ifnull( sum( if( brxz=15, qtys, 0 )), 0 ) ldrk,
+				ifnull( sum( if( brxz=18, qtys, 0 )), 0 ) jhsy,
+				ifnull( sum( if( brxz=19, qtys, 0 )), 0 ) sc,
+				ifnull( sum( if( brxz=20, qtys, 0 )), 0 ) ptzf,
+				ifnull( sum( if( brxz=4001, qtys, 0 )), 0 ) ptyb,
+				ifnull( sum( if( brxz=21, qtys, 0 )), 0 ) zqgh,
+				ifnull( sum( if( brxz=23, qtys, 0 )), 0 ) lx,
+				ifnull( sum( if( brxz=24, qtys, 0 )), 0 ) wdzf,
+				ifnull( sum( if( brxz=25, qtys, 0 )), 0 ) pkjsb,
+				ifnull( sum( if( brxz=28, qtys, 0 )), 0 ) mzbk,
+				ifnull( sum( if( brxz=30, qtys, 0 )), 0 ) ldrkpkyf,
+				ifnull( sum( if( brxz=32, qtys, 0 )), 0 ) lnys,
+				ifnull( sum( if( brxz=33, qtys, 0 )), 0 ) wblr,
+				ifnull( sum( if( brxz=34, qtys, 0 )), 0 ) zcry,
+				ifnull( sum( if( brxz=35, qtys, 0 )), 0 ) zxxshyye,
+				ifnull( sum( if( brxz=36, qtys, 0 )), 0 ) qtjm,
+				ifnull( sum( if( brxz=37, qtys, 0 )), 0 ) jkjm,
+				ifnull( sum( if( brxz=38, qtys, 0 )), 0 ) nchzyl,
+				ifnull( sum( if( brxz=39, qtys, 0 )), 0 ) ylhzbk,
+				ifnull( sum( if( brxz=61, qtys, 0 )), 0 ) fksz,
+				ifnull( sum( if( brxz=62, qtys, 0 )), 0 ) xnh,
+				ifnull( sum( if( brxz=1000, qtys, 0 )), 0 ) zf,
+				ifnull( sum( if( brxz=6021, qtys, 0 )), 0 ) yb,
+				ifnull( sum( if( brxz=6023, qtys, 0 )), 0 ) bk,
+				ifnull( sum( if( brxz=6024, qtys, 0 )), 0 ) zybk,
+				ifnull( sum( if( brxz=6022, qtys, 0 )), 0 ) ybjhsy
+			FROM
+				(
+				SELECT
+					ifnull( czgh, '未知' ) czgh,
+					brxz,
+					sum( qtys ) AS qtys
+				FROM
+					(
+					SELECT
+						CZGH,
+						BRXZ,
+						sum( QTYS ) AS qtys
+					FROM
+						OP_GHMX
+					WHERE
+						JZRQ <![CDATA[>=]]> #{datefrom}
+						AND JZRQ <![CDATA[<=]]> #{dateTo}
+						AND MZLB in
+						<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					GROUP BY
+						CZGH,
+						BRXZ
+					UNION ALL
+					SELECT
+						OP_THMX.CZGH,
+						BRXZ,
+						- sum( QTYS ) AS qtys
+					FROM
+						OP_GHMX,
+						OP_THMX
+					WHERE
+						OP_THMX.SBXH = OP_GHMX.SBXH
+						AND OP_THMX.JZRQ <![CDATA[>=]]> #{datefrom}
+						AND OP_THMX.JZRQ <![CDATA[<=]]> #{dateTo}
+						AND OP_THMX.MZLB in
+						<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					GROUP BY
+						OP_THMX.CZGH,
+						BRXZ
+					UNION ALL
+					SELECT
+						CZGH,
+						BRXZ,
+						sum( QTYS ) AS qtys
+					FROM
+						OP_MZXX
+					WHERE
+						JZRQ <![CDATA[>=]]> #{datefrom}
+						AND JZRQ <![CDATA[<=]]> #{dateTo}
+						AND MZLB in
+						<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					GROUP BY
+						CZGH,
+						BRXZ
+					UNION ALL
+					SELECT
+						OP_ZFFP.CZGH AS czgh,
+						BRXZ,
+						- sum( QTYS ) AS qtys
+					FROM
+						OP_MZXX,
+						OP_ZFFP
+					WHERE
+						OP_MZXX.FPHM = OP_ZFFP.FPHM
+						AND OP_ZFFP.JZRQ <![CDATA[>=]]> #{datefrom}
+						AND OP_ZFFP.JZRQ <![CDATA[<=]]> #{dateTo}
+						AND OP_ZFFP.MZLB in
+						<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					GROUP BY
+						OP_ZFFP.CZGH,
+						BRXZ
+					) k
+				GROUP BY
+					CZGH,
+					BRXZ
+				) x
+			GROUP BY
+				CZGH,
+				BRXZ
+			) t
+		GROUP BY
+			CZGH
+    </select>
+
+    <select id="doQuerySfygzl" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			u.PERSONNAME AS XM,
+			sum( ghrc ) AS GHRC,
+			sum( thrc ) AS THRC,
+			sum( sfrc ) AS SFRC,
+			sum( tfrc ) AS TFRC,
+			sum( bkrc ) AS BKRC
+		FROM
+			(
+			SELECT
+				a.czgh,
+				count( 1 ) AS ghrc,
+				0 AS thrc,
+				0 AS sfrc,
+				0 AS tfrc,
+				0 AS bkrc
+			FROM
+				OP_GHMX a,
+				HR_PERSONNEL b
+			WHERE
+				a.czgh = b.personid
+				AND a.czgh IS NOT NULL
+				AND a.jzrq IS NOT NULL
+				AND ghsj BETWEEN #{datefrom} AND #{dateto}
+			GROUP BY
+				a.czgh
+			UNION ALL
+			SELECT
+				c.czgh,
+				0 AS ghrc,
+				count( 1 ) AS thrc,
+				0 AS sfrc,
+				0 AS tfrc,
+				0 AS bkrc
+			FROM
+				OP_THMX c,
+				HR_PERSONNEL d
+			WHERE
+				c.czgh = d.personid
+				AND c.czgh IS NOT NULL
+				AND thrq BETWEEN #{datefrom} AND #{dateto}
+			GROUP BY
+				c.czgh
+			UNION ALL
+			SELECT
+				e.czgh,
+				0 AS ghrc,
+				0 AS thrc,
+				count( 1 ) AS sfrc,
+				0 AS tfrc,
+				0 AS bkrc
+			FROM
+				OP_MZXX e,
+				HR_PERSONNEL f
+			WHERE
+				e.czgh = f.personid
+				AND e.czgh IS NOT NULL
+				AND sfrq BETWEEN #{datefrom} AND #{dateto}
+			GROUP BY
+				e.czgh
+			UNION ALL
+			SELECT
+				g.czgh,
+				0 AS ghrc,
+				0 AS thrc,
+				0 AS sfrc,
+				count( 1 ) AS tfrc,
+				0 AS bkrc
+			FROM
+				OP_ZFFP g,
+				HR_PERSONNEL h
+			WHERE
+				g.czgh = h.personid
+				AND g.czgh IS NOT NULL
+				AND zfrq BETWEEN #{datefrom} AND #{dateto}
+			GROUP BY
+				g.czgh
+			UNION ALL
+			SELECT
+				o.createuser,
+				0 AS ghrc,
+				0 AS thrc,
+				0 AS sfrc,
+				0 AS tfrc,
+				count( 1 ) AS bkrc
+			FROM
+				mpi_card o,
+				HR_PERSONNEL n
+			WHERE
+				o.createuser = n.personid
+				AND o.cardtypecode = '01'
+				AND o.createuser IS NOT NULL
+				AND createtime BETWEEN #{datefrom}  AND #{dateto}
+			GROUP BY
+				o.createuser
+			UNION ALL
+			SELECT
+				q.czgh,
+				0 AS ghrc,
+				0 AS thrc,
+				0 AS sfrc,
+				0 AS tfrc,
+				0 AS bkrc
+			FROM
+				yb_slry_dj q,
+				HR_PERSONNEL r
+			WHERE
+				q.czgh = r.personid
+				AND q.czgh IS NOT NULL
+				AND bdsj BETWEEN #{datefrom} AND #{dateto}
+			GROUP BY
+				q.czgh
+			) t,
+			hr_personnel u
+		WHERE
+			t.czgh = u.PERSONID
+		GROUP BY
+			u.PERSONNAME
+		HAVING
+			sum( ghrc )> 0
+    </select>
+
+    <select id="getGhjl" resultType="long">
+        SELECT  count(1) as NUM
+          FROM OP_GHMX
+          WHERE SBXH=#{ssbxh}
+    </select>
+
+    <insert id="insertShybbf">
+        INSERT INTO MS_GHMX_YBBF (
+            SBXH ,
+            JGID ,
+            BRID ,
+            BRXZ ,
+            GHSJ ,
+            GHLB ,
+            KSDM ,
+            YSDM ,
+            JZYS ,
+            JZXH ,
+            GHCS ,
+            GHJE ,
+            ZLJE ,
+            ZJFY ,
+            BLJE ,
+            XJJE ,
+            ZPJE ,
+            ZHJE ,
+            HBWC ,
+            QTYS ,
+            ZHLB ,
+            JZJS ,
+            ZDJG ,
+            THBZ ,
+            CZGH ,
+            JZRQ ,
+            HZRQ ,
+            CZPB ,
+            JZHM ,
+            MZLB ,
+            YYBZ ,
+            YSPB ,
+            DZSB ,
+            SFFS ,
+            JZZT ,
+            YDGH ,
+            ZDXH ,
+            ZHBZ ,
+            DBXM ,
+            FJDDFFJ ,
+            TCDTC ,
+            ZFDLNZH ,
+            ZFDDNZH ,
+            PDXH ,
+            DQXH ,
+            DDCS ,
+            YYXH ,
+            CZSJ ,
+            JKZSB ,
+            JZKH ,
+            GHID ,
+            BXJE ,
+            NHBH ,
+            NHBXID ,
+            NHBXRQ ,
+            ZSID ,
+            JHHM ,
+            YWLX ,
+            ZKBZ ,
+            PDHM ,
+            HZYS ,
+            ZSFPHM ,
+            JMJE ,
+            GHLX ,
+            BINVCODE ,
+            BINVNR ,
+            JLCH ,
+            XZQHDM ,
+            DBBZ ,
+            DBBM ,
+            GZDWMC,
+            JZLSH
+        ) VALUES (
+            #{sbxh} ,
+            #{jgid} ,
+            #{brid} ,
+            #{brxz} ,
+            #{ghsj} ,
+            #{ghlb} ,
+            #{ksdm} ,
+            #{ysdm} ,
+            #{jzys} ,
+            #{jzxh} ,
+            #{ghcs} ,
+            #{ghje} ,
+            #{zlje} ,
+            #{zjfy} ,
+            #{blje} ,
+            #{xjje} ,
+            #{zpje} ,
+            #{zhje} ,
+            #{hbwc} ,
+            #{qtys} ,
+            #{zhlb} ,
+            #{jzjs} ,
+            #{zdjg} ,
+            #{thbz} ,
+            #{czgh} ,
+            #{jzrq} ,
+            #{hzrq} ,
+            #{czpb} ,
+            #{jzhm} ,
+            #{mzlb} ,
+            #{yybz} ,
+            #{yspb} ,
+            #{dzsb} ,
+            #{sffs} ,
+            #{jzzt} ,
+            #{ydgh} ,
+            #{zdxh} ,
+            #{zhbz} ,
+            #{dbxm} ,
+            #{fjddffj} ,
+            #{tcdtc} ,
+            #{zfdlnzh} ,
+            #{zfddnzh} ,
+            #{pdxh} ,
+            #{dqxh} ,
+            #{ddcs} ,
+            #{yyxh} ,
+            #{czsj} ,
+            #{jkzsb} ,
+            #{jzkh} ,
+            #{ghid} ,
+            #{bxje} ,
+            #{nhbh} ,
+            #{nhbxid} ,
+            #{nhbxrq} ,
+            #{zsid} ,
+            #{jhhm} ,
+            #{ywlx} ,
+            #{zkbz} ,
+            #{pdhm} ,
+            #{hzys} ,
+            #{zsfphm} ,
+            #{jmje} ,
+            #{ghlx} ,
+            #{binvcode} ,
+            #{binvnr} ,
+            #{jlch} ,
+            #{xzqhdm} ,
+            #{dbbz} ,
+            #{dbbm} ,
+            #{gzdwmc},
+            #{jzlsh}
+        )
+    </insert>
+
+
+    <delete id="deleteBySbxh">
+        DELETE FROM OP_GHMX WHERE
+        SBXH = #{ssbxh}
+    </delete>
+
+    <update id="doUpdateHzrq" parameterType="Map">
+        UPDATE OP_GHMX
+		SET HZRQ = #{ldt_hzrq}
+		WHERE
+			JGID = #{gl_jgid}
+			AND MZLB in
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NOT NULL
+			AND HZRQ IS NULL
+    </update>
+
+    <update id="updateHzrqToNull" >
+        UPDATE OP_GHMX
+		SET HZRQ = NULL
+		WHERE
+			JGID = #{jgid}
+			AND MZLB =#{mzlb}
+			AND JZRQ IS NOT NULL
+			AND HZRQ = #{hzrq}
+    </update>
+    <update id="updateYsdmByJzlsh">
+        UPDATE OP_GHMX
+		SET ysdm = #{ysdm}
+		WHERE jzlsh = #{jzlsh}
+    </update>
+
+    <select id="doQueryFpzsAndZjje" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( FPZS ) AS FPZS,
+			sum( ZJJE ) AS ZJJE
+		FROM
+			(
+			SELECT
+				count(*) AS FPZS,
+				sum( GHJE + ZLJE + ZJFY + BLJE ) AS ZJJE
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND JZRQ IS NULL
+				AND THBZ = 0
+			UNION ALL
+			SELECT
+				count(*) AS FPZS,
+				0 AS ZJJE
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+			AND JZRQ IS NULL
+			AND THBZ = 1) t
+    </select>
+
+    <select id="doQueryCountByCondition" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			count( 1 ) AS NUM
+		FROM
+			OP_GHMX
+		WHERE
+			JGID = #{jgid}
+			AND MZLB in
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NULL
+			AND THBZ =1
+    </select>
+
+    <select id="doQueryHbwcByDay" parameterType="Map" resultType="java.math.BigDecimal">
+    	SELECT
+			SUM( HBWC ) AS hbwc
+		FROM
+			op_ghmx
+		WHERE
+			GHSJ BETWEEN #{beginOfDay} AND #{endOfDay}
+    </select>
+
+    <select id="doQueryZfFphm" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			gh.JZHM AS PJHM,
+			gh.XJJE AS XJJE,
+			c.BRXM AS BRXM,
+			e.FKMC AS FKMC,
+			d.FKJE AS FKJE
+		FROM
+			OP_GHMX gh,
+			OP_THMX th,
+			MPI_BRDA c,
+			OP_GH_FKXX d,
+			PUB_FKFS e
+		WHERE
+			gh.SBXH = d.SBXH
+			AND d.FKFS = e.FKFS
+			AND gh.BRID = c.BRID
+			AND gh.SBXH = th.SBXH
+			AND th.JGID = #{jgid}
+			AND th.MZLB = #{mzlb}
+			AND d.FKFS IN (1,2,3,12,18,36)
+			AND gh.GHSJ BETWEEN #{beginOfDay} AND #{endOfDay}
+			AND th.CZGH = #{CZGH}
+		ORDER BY
+			gh.JZHM
+    </select>
+    <select id="getByConditions" resultType="com.buit.op.model.OpGhmx">
+        select *
+        from op_ghmx
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(ghsj)">
+                AND date_format(GHSJ, '%Y-%m-%d') =  date_format(#{ghsj}, '%Y-%m-%d')
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                AND jgid = #{jgid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+                AND jzkh = #{jzkh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+                AND ksdm = #{ksdm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(sbxh)">
+                AND sbxh = #{sbxh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jzlsh)">
+                AND jzlsh = #{jzlsh}
+            </if>
+        </where>
+    </select>
+    <select id="checkRefund" resultType="java.lang.Boolean">
+        <choose>
+            <when test="type == 1">
+                select count(1)
+                from op_ghmx og
+                left join op_thmx ot on ot.JZLSH = og.JZLSH
+                where (ot.SBXH IS NOT NULL or og.THBZ = 1) and og.JZLSH = #{parma} and og.JGID = #{jgid}
+            </when>
+            <otherwise>
+                select count(1)
+                from op_cf01 where ZFPB = 1 AND FPHM = #{parma} and JGID = #{jgid}
+            </otherwise>
+        </choose>
+    </select>
+
+    <update id="updateJzztBySbxh">
+        update op_ghmx
+        set
+        <if test="jzzt != null and jzzt == 9">
+            JZJS = 1,
+        </if>
+        JZZT = #{jzzt}
+        where SBXH = #{ghxh}
+    </update>
+
+    <select id="sfekks" resultType="java.lang.Integer">
+        select count(*)
+        from op_ghks
+        where KSDM = #{ghks} and PEDIATRICS = 1
+    </select>
+
+    <select id="getwjz" resultType="com.buit.op.model.OpGhmx">
+        SELECT * FROM OP_GHMX
+        WHERE 1=1 AND DATE_FORMAT(GHSJ,'%Y-%m-%d') &lt;= DATE_FORMAT(DATE_SUB(#{currentDate},INTERVAL #{day} DAY),'%Y-%m-%d')
+        AND JZZT = 0
+    </select>
+    <select id="getGhKsByGhmx" resultType="com.buit.commons.model.OpGhks">
+        select  b.KSDM as ksdm, b.KSMC as ksmc
+        from OP_GHMX a left join OP_GHKS b on a.KSDM = b.KSDM
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                AND a.JGID = #{jgid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(thbz)">
+                AND a.THBZ = #{thbz}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jzjs)">
+                AND JZJS = #{jzjs}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+                AND a.KSDM = #{ksdm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+                AND a.YSDM = #{ysdm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ghlb)">
+                AND a.GHLB = #{ghlb}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(beginOfDay)">
+                AND a.GHSJ <![CDATA[ > ]]>
+                #{beginOfDay} AND a.GHSJ <![CDATA[ < ]]> #{endOfDay}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <update id="doUpdateJzrqByRb" parameterType="Map">
+    	UPDATE OP_GHMX
+		SET JZRQ = #{jzjsrq}
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ IS NULL
+			AND ghsj>=#{jzksrq} AND ghsj&lt;=#{jzjsrq}
+    </update>
+    <update id="doUpdateThJzrqByRb" parameterType="Map">
+    	UPDATE OP_THMX
+		SET JZRQ = #{jzjsrq}
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ IS NULL
+			AND thrq>=#{jzksrq} AND thrq&lt;=#{jzjsrq}
+    </update>
+
+    <update id="updateHzrq">
+        UPDATE OP_GHMX
+        SET HZRQ= #{hzjsrq}
+        WHERE
+          JGID= #{jgid}
+          AND MZLB= #{mzlb}
+          AND JZRQ >= #{hzksrq} and JZRQ&lt;= #{hzjsrq}
+    </update>
+
+    <update id="updateThHzrq">
+        UPDATE OP_THMX
+        SET HZRQ= #{hzjsrq}
+        WHERE
+          JGID= #{jgid}
+          AND MZLB= #{mzlb}
+          AND JZRQ >= #{hzksrq} and JZRQ&lt;= #{hzjsrq}
+    </update>
+
+    <update id="updateThHzrqToNull">
+        UPDATE OP_THMX
+        SET HZRQ= NULL
+        WHERE
+          JGID= #{jgid}
+          AND MZLB= #{mzlb}
+          AND HZRQ = #{hzrq}
+    </update>
+
+    <select id="queryGhybxx"  resultType="java.util.Map">
+        SELECT ( SELECT xz.xzmc FROM PUB_BRXZ xz where xz.brxz = ghmx.brxz ) as YBLX,
+			sh02.cardid as SHBZK, ghmx.ghje as JCF,
+             ghmx.zlje as ZLF,
+             ghmx.zjfy+ghmx.blje+ghmx.ckje+ghmx.wzje as QTF,
+             case ghmx.zjfy when 0 then '普通号' else '专家号' end as GHLB,
+             ghmx.xjje+ghmx.zpje+ghmx.qtys-ghmx.hbwc as HJJE,
+             sh02.FYBJSFWFYZE+sh02.TCDXJZFS+sh02.FJDXJZFS+sh02.ZFDXJZFS as XJZF,
+             sh02.HISACCOUNTPAY+sh02.CURACCOUNTPAY as GRZHZF,
+             sh02.TCZFS as YBTCZF,
+             sh02.FJZFS as FJZF,
+             sh02.YBJSFWFYZE-sh02.TOTALEXPENSE as FLZF,
+             sh02.TCDXJZFS+sh02.FJDXJZFS+sh02.ZFDXJZFS as ZF,
+             sh02.FYBJSFWFYZE as ZFEI,
+             sh02.CURACCOUNTAMT as DNZHYE,
+             sh02.HISACCOUNTAMT  as LNZHYE,
+             sh02.LSH as ZXLSH
+            FROM shyb_sh02 sh02,
+                        OP_GHMX ghmx
+            where sh02.ghxh = ghmx.sbxh and sh02.zfpb = 0 and ghmx.sbxh = #{sbxh}
+    </select>
+
+</mapper>
+

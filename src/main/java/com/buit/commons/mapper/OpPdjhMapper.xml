@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.OpPdjhDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,BRXM as brxm,KSDM as ksdm,YSDM as ysdm,ZSID as zsid,PMID as pmid,JHHM as jhhm,JHTX as jhtx,JHZT as jhzt,JHSJ as jhsj,BRID as brid,GHSB as ghsb,GHLB as ghlb,PDXH as pdxh,TSRY as tsry,JHLY as jhly,FZFS as fzfs
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_PDJH (
+            JLXH ,
+            BRXM ,
+            KSDM ,
+            YSDM ,
+            ZSID ,
+            PMID ,
+            JHHM ,
+            JHTX ,
+            JHZT ,
+            JHSJ ,
+            BRID ,
+            GHSB ,
+            GHLB ,
+            PDXH ,
+            TSRY ,
+            JHLY ,
+            FZFS 
+        ) VALUES (
+            #{jlxh} ,
+            #{brxm} ,
+            #{ksdm} ,
+            #{ysdm} ,
+            #{zsid} ,
+            #{pmid} ,
+            #{jhhm} ,
+            #{jhtx} ,
+            #{jhzt} ,
+            #{jhsj} ,
+            #{brid} ,
+            #{ghsb} ,
+            #{ghlb} ,
+            #{pdxh} ,
+            #{tsry} ,
+            #{jhly} ,
+            #{fzfs} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_PDJH SET
+            BRXM = #{brxm} ,
+            KSDM = #{ksdm} ,
+            YSDM = #{ysdm} ,
+            ZSID = #{zsid} ,
+            PMID = #{pmid} ,
+            JHHM = #{jhhm} ,
+            JHTX = #{jhtx} ,
+            JHZT = #{jhzt} ,
+            JHSJ = #{jhsj} ,
+            BRID = #{brid} ,
+            GHSB = #{ghsb} ,
+            GHLB = #{ghlb} ,
+            PDXH = #{pdxh} ,
+            TSRY = #{tsry} ,
+            JHLY = #{jhly} ,
+            FZFS = #{fzfs} 
+        WHERE 
+            JLXH = #{jlxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_PDJH WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_PDJH <include refid="where"/>  
+    </delete>
+
+    <select id="getById" resultType="OpPdjh">
+        SELECT <include refid="columns" />
+            FROM OP_PDJH 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxm)"> -->
+<!--                     AND BRXM = #{brxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ysdm)"> -->
+<!--                     AND YSDM = #{ysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsid)"> -->
+<!--                     AND ZSID = #{zsid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pmid)"> -->
+<!--                     AND PMID = #{pmid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhhm)"> -->
+<!--                     AND JHHM = #{jhhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhtx)"> -->
+<!--                     AND JHTX = #{jhtx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhzt)"> -->
+<!--                     AND JHZT = #{jhzt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhsj)"> -->
+<!--                     AND JHSJ = #{jhsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghsb)"> -->
+<!--                     AND GHSB = #{ghsb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghlb)"> -->
+<!--                     AND GHLB = #{ghlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pdxh)"> -->
+<!--                     AND PDXH = #{pdxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tsry)"> -->
+<!--                     AND TSRY = #{tsry} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhly)"> -->
+<!--                     AND JHLY = #{jhly} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fzfs)"> -->
+<!--                     AND FZFS = #{fzfs} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_PDJH 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpPdjh">
+        SELECT <include refid="columns" />
+        FROM OP_PDJH 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <select id="findByMapCount" resultType="java.lang.Long">
+        SELECT
+            count (*)
+        FROM
+            OP_PDJH
+        WHERE
+            KSDM = #{KSDM}
+            AND YSDM = #{YSDM}
+            AND ZSID = #{ZSID}
+            AND JHTX = #{JHTX}
+            AND GHSB != #{GHSB}
+            AND JHHM != #{JHHM}
+            AND JHSJ >= #{TODAY}
+    </select>
+    <!--     业务sql      -->
+    <delete id="deleteByObj">
+        DELETE OP_PDJH
+        WHERE
+            KSDM = #{KSDM}
+            AND YSDM = #{YSDM}
+            AND ZSID = #{ZSID}
+            AND GHSB = #{GHSB}
+            AND JHTX = #{JHTX}
+            AND JHSJ >= #{TODAY}
+    </delete>
+
+    <update id="updateJhzt">
+        UPDATE OP_PDJH
+        SET JHZT = 1
+        WHERE
+            KSDM = #{KSDM}
+            AND YSDM = #{YSDM}
+            AND ZSID = #{ZSID}
+            AND GHSB = #{GHSB}
+            AND JHTX = #{JHTX}
+            AND JHSJ >= #{TODAY}
+    </update>
+</mapper>
+

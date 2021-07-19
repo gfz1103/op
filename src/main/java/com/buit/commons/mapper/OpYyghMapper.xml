@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_预约挂号 -->
+<mapper namespace="com.buit.commons.dao.OpYyghDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        YYXH as yyxh,JGID as jgid,YYMM as yymm,BRID as brid,GHSJ as ghsj,KSDM as ksdm,ZBLB as zblb,YSDM as ysdm,YYLB as yylb,GHBZ as ghbz,YYRQ as yyrq,JZXH as jzxh,SBXH as sbxh,ZCID as zcid,DJGH as djgh,SFQH as sfqh,QHYG as qhyg,QHSJ as qhsj,ZSID as zsid,GGCS as ggcs,GGGH as gggh,GGSJ as ggsj,PDHM as pdhm,JHHM as jhhm,CARDNO as cardno,DDCS as ddcs,PDXH as pdxh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_YYGH (
+            YYXH ,
+            JGID ,
+            YYMM ,
+            BRID ,
+            GHSJ ,
+            KSDM ,
+            ZBLB ,
+            YSDM ,
+            YYLB ,
+            GHBZ ,
+            YYRQ ,
+            JZXH ,
+            SBXH ,
+            ZCID ,
+            DJGH ,
+            SFQH ,
+            QHYG ,
+            QHSJ ,
+            ZSID ,
+            GGCS ,
+            GGGH ,
+            GGSJ ,
+            PDHM ,
+            JHHM ,
+            CARDNO ,
+            DDCS ,
+            PDXH ,
+            YYLX ,
+            YYBZ
+        ) VALUES (
+            #{yyxh} ,
+            #{jgid} ,
+            #{yymm} ,
+            #{brid} ,
+            #{ghsj} ,
+            #{ksdm} ,
+            #{zblb} ,
+            #{ysdm} ,
+            #{yylb} ,
+            #{ghbz} ,
+            #{yyrq} ,
+            #{jzxh} ,
+            #{sbxh} ,
+            #{zcid} ,
+            #{djgh} ,
+            #{sfqh} ,
+            #{qhyg} ,
+            #{qhsj} ,
+            #{zsid} ,
+            #{ggcs} ,
+            #{gggh} ,
+            #{ggsj} ,
+            #{pdhm} ,
+            #{jhhm} ,
+            #{cardno} ,
+            #{ddcs} ,
+            #{pdxh},
+            #{yylx} ,
+            #{yybz}
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_YYGH SET
+            JGID = #{jgid} ,
+            YYMM = #{yymm} ,
+            BRID = #{brid} ,
+            GHSJ = #{ghsj} ,
+            KSDM = #{ksdm} ,
+            ZBLB = #{zblb} ,
+            YSDM = #{ysdm} ,
+            YYLB = #{yylb} ,
+            GHBZ = #{ghbz} ,
+            YYRQ = #{yyrq} ,
+            JZXH = #{jzxh} ,
+            SBXH = #{sbxh} ,
+            ZCID = #{zcid} ,
+            DJGH = #{djgh} ,
+            SFQH = #{sfqh} ,
+            QHYG = #{qhyg} ,
+            QHSJ = #{qhsj} ,
+            ZSID = #{zsid} ,
+            GGCS = #{ggcs} ,
+            GGGH = #{gggh} ,
+            GGSJ = #{ggsj} ,
+            PDHM = #{pdhm} ,
+            JHHM = #{jhhm} ,
+            CARDNO = #{cardno} ,
+            DDCS = #{ddcs} ,
+            PDXH = #{pdxh} 
+        WHERE 
+            YYXH = #{yyxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_YYGH WHERE
+        YYXH = #{yyxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_YYGH <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpYygh">
+        SELECT <include refid="columns" />
+            FROM OP_YYGH 
+            WHERE 
+        YYXH = #{yyxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyxh)"> -->
+<!--                     AND YYXH = #{yyxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yymm)"> -->
+<!--                     AND YYMM = #{yymm} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(brid)">
+                     AND BRID = #{brid}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghsj)"> -->
+<!--                     AND GHSJ = #{ghsj} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+                     AND KSDM = #{ksdm}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zblb)"> -->
+<!--                     AND ZBLB = #{zblb} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+                     AND YSDM = #{ysdm}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(yylb)">
+                     AND YYLB = #{yylb}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ghbz)">
+                     AND GHBZ = #{ghbz}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(yyrq)">
+                     AND YYRQ = #{yyrq}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzxh)"> -->
+<!--                     AND JZXH = #{jzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zcid)"> -->
+<!--                     AND ZCID = #{zcid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djgh)"> -->
+<!--                     AND DJGH = #{djgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfqh)"> -->
+<!--                     AND SFQH = #{sfqh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qhyg)"> -->
+<!--                     AND QHYG = #{qhyg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qhsj)"> -->
+<!--                     AND QHSJ = #{qhsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsid)"> -->
+<!--                     AND ZSID = #{zsid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ggcs)"> -->
+<!--                     AND GGCS = #{ggcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gggh)"> -->
+<!--                     AND GGGH = #{gggh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ggsj)"> -->
+<!--                     AND GGSJ = #{ggsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pdhm)"> -->
+<!--                     AND PDHM = #{pdhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhhm)"> -->
+<!--                     AND JHHM = #{jhhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardno)"> -->
+<!--                     AND CARDNO = #{cardno} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ddcs)"> -->
+<!--                     AND DDCS = #{ddcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pdxh)"> -->
+<!--                     AND PDXH = #{pdxh} -->
+<!--                </if> -->
+                    <if test="@sqlt.Ognl@isNotEmpty(ywxh)">
+                         AND YWXH = #{ywxh}
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(yykssj)">
+                        AND yykssj = #{yykssj}
+                    </if>
+                    <if test="@sqlt.Ognl@isNotEmpty(yyjssj)">
+                        AND yyjssj = #{yyjssj}
+                    </if>
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_YYGH 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpYygh">
+        SELECT <include refid="columns" />
+        FROM OP_YYGH 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!-- 将过期的预约挂号置标志2 -->
+     <update id="updateGhbz">
+		UPDATE OP_YYGH SET GHBZ = 2
+		<where>
+			AND GHBZ = 0 AND SFQH = 0
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yyrq)">
+				AND YYRQ <![CDATA[<]]> #{yyrq}
+			</if>
+		</where>
+	</update>
+	<!-- 根据条件获取已挂人数 -->
+	<select id="getYgrs" resultType="java.lang.Integer">
+		SELECT count(1) FROM OP_YYGH
+		<where>
+			AND (GHBZ = 3 or GHBZ = 1)
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND KSDM = #{ksdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yyrq)">
+				AND YYRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND ZBLB = #{zblb}
+			</if>
+		</where>
+	</select>
+    <!-- 根据条件获取预约人数 -->
+    <select id="getYyrs" resultType="java.lang.Integer">
+		SELECT count(1) FROM OP_YYGH
+		<where>
+			AND GHBZ = 0
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND KSDM = #{ksdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yyrq)">
+				AND YYRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND ZBLB = #{zblb}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 更新挂号标志和是否取号 -->
+     <update id="updateGhbzAndSfqh" parameterType="Map">
+		UPDATE OP_YYGH SET GHBZ = 1 , SFQH = 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(YYXH)">
+				AND YYXH = #{YYXH}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GHBZ)">
+				AND GHBZ = #{GHBZ}
+			</if>
+	
+		</where>
+	</update>
+	
+	
+	<!-- 获取等待次数和 -->
+    <select id="getDdcs" parameterType="Map" resultType="java.lang.Integer">
+		select count(1) as DDCS from OP_YYGH
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(today)">
+				AND YYRQ = #{today}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZSID)">
+				AND ZSID = #{ZSID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(YYXH)">
+				AND YYXH != #{YYXH}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 更新预约挂号信息 -->
+     <update id="updateYyghInfo" parameterType="Map">
+		UPDATE OP_YYGH
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(pdxh)">
+				PDXH = #{pdxh},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ddcs)">
+				DDCS = ifnull(#{ddcs},0),
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zsid)">
+				ZSID = #{zsid},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jhhm)">
+				JHHM = #{jhhm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(now)">
+				GHSJ = #{now},
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(YYXH)">
+				AND YYXH = #{YYXH}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 更新预约状态（收费）-->
+     <update id="updateYyStatus" parameterType="Map">
+		UPDATE OP_YYGH SET ghbz = '3' WHERE yyxh = ( SELECT yyxh FROM OP_GHMX WHERE sbxh = #{SBXH} AND yybz = '1' )
+	</update>
+
+
+    <select id="queryYyxx" resultType="com.buit.commons.response.OpYyghQueryResp">
+        SELECT
+            a.YYXH AS YYXH,
+            a.BRID AS BRID,
+            a.SFQH AS SFQH,
+            a.QHYG AS QHYG,
+            a.QHSJ AS QHSJ,
+            a.CARDNO AS CARDNO,
+            b.BRXZ AS BRXZ,
+            b.BRXM AS BRXM,
+            b.BRXB AS BRXB,
+            b.CSNY AS CSNY,
+            b.SFZH AS SFZH,
+            a.YYXH AS YYXH,
+            a.KSDM AS KSDM,
+            a.YSDM AS YSDM,
+            a.GHSJ AS GHSJ,
+            a.YYRQ AS YYRQ,
+            a.ZBLB AS ZBLB,
+            a.JHHM AS JHHM,
+            a.GHBZ AS GHBZ,
+            b.LXDH AS LXDH
+        FROM
+            OP_YYGH a,
+            MPI_BRDA b
+        WHERE
+            a.BRID = b.BRID
+        <if test="@sqlt.Ognl@isNotEmpty(appointedDateFrom)">
+            AND a.YYRQ <![CDATA[ >= ]]> #{appointedDateFrom}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(appointedDateTo)">
+            AND and #{appointedDateTo} <![CDATA[ >= ]]> a.YYRQ
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+            AND a.CARDNO = #{jzkh}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(brxm)">
+            AND b.BRXM LIKE CONCAT(CONCAT('%',#{brxm}),'%')
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(sfz)">
+            AND b.SFZH = #{sfz}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zblx)">
+            AND a.ZBLB = #{zblx}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(kslb)">
+            AND a.KSDM = #{kslb}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(yyys)">
+            AND a.YSDM = #{yyys}
+        </if>
+    </select>
+    
+    <select id="getYyghInfo" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.YYXH AS YYXH,
+			a.JHHM AS JHHM,
+			a.KSDM AS KSDM,
+			a.YSDM AS YSDM,
+			a.CARDNO AS JZKH,
+			a.CARDNO AS MZHM,
+    	    case a.YYLX
+    	    when '1' then '电话预约'
+    	    when '2' then '微信预约'
+    	    when '3' then 'App预约'
+    	    when '4' then '诊间预约'
+    	    ELSE '其他预约'
+    	    END AS yyly
+		FROM
+			OP_YYGH a 
+		WHERE
+			a.GHBZ = 0 
+			AND a.YYRQ = #{GHRQ}
+			AND a.ZBLB =#{ZBLB} 
+			AND a.CARDNO =#{cardId}
+	</select>
+    <select id="findByOtherEntity" resultType="com.buit.commons.response.LoadAppointedInfoResp">
+        SELECT
+            a.YYXH AS YYXH,
+            a.BRID AS BRID,
+            a.SFQH AS SFQH,
+            a.QHYG AS QHYG,
+            a.QHSJ AS QHSJ,
+            a.CARDNO AS CARDNO,
+            b.BRXZ AS BRXZ,
+            b.BRXM AS BRXM,
+            b.BRXB AS BRXB,
+            b.CSNY AS CSNY,
+            b.SFZH AS SFZH,
+            a.YYXH AS YYXH,
+            a.KSDM AS KSDM,
+            a.YSDM AS YSDM,
+            a.GHSJ AS GHSJ,
+            a.YYRQ AS YYRQ,
+            a.ZBLB AS ZBLB,
+            a.JHHM AS JHHM,
+            a.GHBZ AS GHBZ,
+            b.LXDH AS LXDH
+        FROM
+            OP_YYGH a,
+            MPI_BRDA b
+        WHERE
+            a.BRID = b.BRID
+        <if test="@sqlt.Ognl@isNotEmpty(dateFrom)">
+            AND a.YYRQ >= DATE_FORMAT(CONCAT(#{dateFrom},' 00:00:00'), '%Y-%m-%d %H:%i:%S')
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(dateTo)">
+            AND DATE_FORMAT(CONCAT(#{dateTo},' 23:59:59'), '%Y-%m-%d %H:%i:%S') >= a.YYRQ
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+            AND a.CARDNO = #{jzkh}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(brxm)">
+            AND b.BRXM LIKE CONCAT(CONCAT('%',#{brxm}),'%')
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(sfz)">
+            AND b.SFZH = #{sfz}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zblx)">
+            AND a.ZBLB = #{zblx}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(kslb)">
+            AND a.KSDM = #{kslb}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(yyys)">
+            AND a.YSDM = #{yyys}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(ghbzs)">
+            and ghbz in
+            <foreach collection="ghbzs" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        order by a.YYRQ desc, a.YYXH
+    </select>
+    <select id="getYyCount" resultType="java.util.Map">
+        SELECT
+            ifnull ( GGCS, 0 ) AS YYGGCS,
+            (
+            SELECT
+                count( YYXH ) AS sycs
+            FROM
+                OP_YYGH
+            WHERE
+                BRID = #{brid}
+                AND date_format ( YYRQ, '%Y' )= date_format ( SYSDATE(), '%Y' )
+                AND GHBZ = 2
+            ) AS YYSYCS
+        FROM
+            OP_YYGH
+        WHERE
+            YYXH = #{yyxh}
+    </select>
+    <select id="queryYyksYsInfo" resultType="com.buit.commons.response.QueryYyksYsInfoResp">
+        SELECT
+            a.GZRQ,
+            a.KSDM,
+            a.YSDM,
+            b.PERSONNAME,
+            b.ISEXPERT,
+            b.EXPERTCOST,
+            b.PYCODE,
+            a.ZBLB,
+            a.JGID,
+            a.GHXE,
+            a.YGRS,
+            a.YYRS,
+            a.JZXH,
+            a.YYXE,
+            a.TGBZ,
+            a.ZSID
+        FROM
+            op_yspb a,
+            hr_personnel b
+        WHERE
+            a.YSDM = b.PERSONID
+            AND a.KSDM = #{ksdm}
+            AND a.GZRQ = #{gzrq}
+            <if test="@sqlt.Ognl@isNotEmpty(zblb)">
+                AND a.ZBLB IN
+                <foreach collection="zblb.split(',')" item="z" open="(" separator="," close=")">
+                    #{z}
+                </foreach>
+            </if>
+    </select>
+    <update id="updateMzYy">
+        update OP_YYGH set
+        <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+            KSDM = #{ksdm},
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(yyrq)">
+            YYRQ = #{yyrq},
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zblb)">
+             ZBLB = #{zblb},
+        </if>
+        YSDM = #{ysdm},
+        GGCS = ifnull(GGCS,0)+1 ,
+        GGGH = #{userId},
+        GGSJ = date_format ( SYSDATE(), '%Y-%m-%d %H:%i:%s' )
+        where YYXH = #{yyxh}
+    </update>
+
+</mapper>
+

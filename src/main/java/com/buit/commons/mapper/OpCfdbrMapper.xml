@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 处方代办信息表 -->
+<mapper namespace="com.buit.commons.dao.OpCfdbrDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        DBID as dbid,CFSB as cfsb,JGID as jgid,DBRXM as dbrxm,DBRLXDH as dbrlxdh,SFZM as sfzm,BH as bh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_CFDBR (
+            DBID ,
+            CFSB ,
+            JGID ,
+            DBRXM ,
+            DBRLXDH ,
+            SFZM ,
+            BH
+        ) VALUES (
+            #{dbid} ,
+            #{cfsb} ,
+            #{jgid} ,
+            #{dbrxm} ,
+            #{dbrlxdh} ,
+            #{sfzm} ,
+            #{bh}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE OP_CFDBR SET
+            CFSB = #{cfsb} ,
+            JGID = #{jgid} ,
+            DBRXM = #{dbrxm} ,
+            DBRLXDH = #{dbrlxdh} ,
+            SFZM = #{sfzm} ,
+            BH = #{bh}
+        WHERE
+            DBID = #{dbid}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_CFDBR WHERE
+        DBID = #{dbid}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_CFDBR <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpCfdbr">
+        SELECT <include refid="columns" />
+            FROM OP_CFDBR
+            WHERE
+        DBID = #{dbid}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbid)"> -->
+<!--                     AND DBID = #{dbid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfsb)"> -->
+<!--                     AND CFSB = #{cfsb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbrxm)"> -->
+<!--                     AND DBRXM = #{dbrxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbrlxdh)"> -->
+<!--                     AND DBRLXDH = #{dbrlxdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfzm)"> -->
+<!--                     AND SFZM = #{sfzm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bh)"> -->
+<!--                     AND BH = #{bh} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_CFDBR
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpCfdbr">
+        SELECT <include refid="columns" />
+        FROM OP_CFDBR
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="deleteByCfsb">
+        DELETE FROM OP_CFDBR WHERE
+        CFSB = #{cfsb}
+    </select>
+
+    <select id="queryByCfsb" resultType="com.buit.commons.model.OpCfdbr">
+        select distinct <include refid="columns" />
+        FROM OP_CFDBR
+        where CFSB = #{cfsb}
+    </select>
+</mapper>
+

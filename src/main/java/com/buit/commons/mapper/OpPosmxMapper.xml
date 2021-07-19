@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.OpPosmxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id,JYSJ as jysj,JYLB as jylb,FPHM as fphm,POSNUMBER as posnumber,STORENUMBER as storenumber,OPERATOR as operator,CARDTYPE as cardtype,CARDNAME as cardname,TRANSTYPE as transtype,TRANSAMOUNT as transamount,TIPS as tips,TOTAL as total,BALANCEAMOUNT as balanceamount,POSTRACENUMBER as postracenumber,OLDTRACENUMBER as oldtracenumber,EXPIREDATE as expiredate,BATCHNUMBER as batchnumber,MERCHANTNUMBER as merchantnumber,MERCHANTNAME as merchantname,TERMINALNUMBER as terminalnumber,HOSTSERIALNUMBER as hostserialnumber,AUTHNUMBER as authnumber,REJCODE as rejcode,ISSNUMBER as issnumber,ISSNAME as issname,CARDNUMBER as cardnumber,TRANSDATE as transdate,TRANSTIME as transtime,REJCODEEXPLAIN as rejcodeexplain,CARDBACK as cardback,TRANSCHECK as transcheck
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_POSMX (
+            ID ,
+            JYSJ ,
+            JYLB ,
+            FPHM ,
+            POSNUMBER ,
+            STORENUMBER ,
+            OPERATOR ,
+            CARDTYPE ,
+            CARDNAME ,
+            TRANSTYPE ,
+            TRANSAMOUNT ,
+            TIPS ,
+            TOTAL ,
+            BALANCEAMOUNT ,
+            POSTRACENUMBER ,
+            OLDTRACENUMBER ,
+            EXPIREDATE ,
+            BATCHNUMBER ,
+            MERCHANTNUMBER ,
+            MERCHANTNAME ,
+            TERMINALNUMBER ,
+            HOSTSERIALNUMBER ,
+            AUTHNUMBER ,
+            REJCODE ,
+            ISSNUMBER ,
+            ISSNAME ,
+            CARDNUMBER ,
+            TRANSDATE ,
+            TRANSTIME ,
+            REJCODEEXPLAIN ,
+            CARDBACK ,
+            TRANSCHECK 
+        ) VALUES (
+            #{id} ,
+            #{jysj} ,
+            #{jylb} ,
+            #{fphm} ,
+            #{posnumber} ,
+            #{storenumber} ,
+            #{operator} ,
+            #{cardtype} ,
+            #{cardname} ,
+            #{transtype} ,
+            #{transamount} ,
+            #{tips} ,
+            #{total} ,
+            #{balanceamount} ,
+            #{postracenumber} ,
+            #{oldtracenumber} ,
+            #{expiredate} ,
+            #{batchnumber} ,
+            #{merchantnumber} ,
+            #{merchantname} ,
+            #{terminalnumber} ,
+            #{hostserialnumber} ,
+            #{authnumber} ,
+            #{rejcode} ,
+            #{issnumber} ,
+            #{issname} ,
+            #{cardnumber} ,
+            #{transdate} ,
+            #{transtime} ,
+            #{rejcodeexplain} ,
+            #{cardback} ,
+            #{transcheck} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_POSMX SET
+            JYSJ = #{jysj} ,
+            JYLB = #{jylb} ,
+            FPHM = #{fphm} ,
+            POSNUMBER = #{posnumber} ,
+            STORENUMBER = #{storenumber} ,
+            OPERATOR = #{operator} ,
+            CARDTYPE = #{cardtype} ,
+            CARDNAME = #{cardname} ,
+            TRANSTYPE = #{transtype} ,
+            TRANSAMOUNT = #{transamount} ,
+            TIPS = #{tips} ,
+            TOTAL = #{total} ,
+            BALANCEAMOUNT = #{balanceamount} ,
+            POSTRACENUMBER = #{postracenumber} ,
+            OLDTRACENUMBER = #{oldtracenumber} ,
+            EXPIREDATE = #{expiredate} ,
+            BATCHNUMBER = #{batchnumber} ,
+            MERCHANTNUMBER = #{merchantnumber} ,
+            MERCHANTNAME = #{merchantname} ,
+            TERMINALNUMBER = #{terminalnumber} ,
+            HOSTSERIALNUMBER = #{hostserialnumber} ,
+            AUTHNUMBER = #{authnumber} ,
+            REJCODE = #{rejcode} ,
+            ISSNUMBER = #{issnumber} ,
+            ISSNAME = #{issname} ,
+            CARDNUMBER = #{cardnumber} ,
+            TRANSDATE = #{transdate} ,
+            TRANSTIME = #{transtime} ,
+            REJCODEEXPLAIN = #{rejcodeexplain} ,
+            CARDBACK = #{cardback} ,
+            TRANSCHECK = #{transcheck} 
+        WHERE 
+            ID = #{id} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_POSMX WHERE
+        ID = #{id} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_POSMX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpPosmx">
+        SELECT <include refid="columns" />
+            FROM OP_POSMX 
+            WHERE 
+        ID = #{id} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND ID = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jysj)"> -->
+<!--                     AND JYSJ = #{jysj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jylb)"> -->
+<!--                     AND JYLB = #{jylb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fphm)"> -->
+<!--                     AND FPHM = #{fphm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(posnumber)"> -->
+<!--                     AND POSNUMBER = #{posnumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(storenumber)"> -->
+<!--                     AND STORENUMBER = #{storenumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(operator)"> -->
+<!--                     AND OPERATOR = #{operator} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardtype)"> -->
+<!--                     AND CARDTYPE = #{cardtype} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardname)"> -->
+<!--                     AND CARDNAME = #{cardname} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(transtype)"> -->
+<!--                     AND TRANSTYPE = #{transtype} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(transamount)"> -->
+<!--                     AND TRANSAMOUNT = #{transamount} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tips)"> -->
+<!--                     AND TIPS = #{tips} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(total)"> -->
+<!--                     AND TOTAL = #{total} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(balanceamount)"> -->
+<!--                     AND BALANCEAMOUNT = #{balanceamount} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(postracenumber)"> -->
+<!--                     AND POSTRACENUMBER = #{postracenumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(oldtracenumber)"> -->
+<!--                     AND OLDTRACENUMBER = #{oldtracenumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(expiredate)"> -->
+<!--                     AND EXPIREDATE = #{expiredate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(batchnumber)"> -->
+<!--                     AND BATCHNUMBER = #{batchnumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(merchantnumber)"> -->
+<!--                     AND MERCHANTNUMBER = #{merchantnumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(merchantname)"> -->
+<!--                     AND MERCHANTNAME = #{merchantname} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(terminalnumber)"> -->
+<!--                     AND TERMINALNUMBER = #{terminalnumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hostserialnumber)"> -->
+<!--                     AND HOSTSERIALNUMBER = #{hostserialnumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(authnumber)"> -->
+<!--                     AND AUTHNUMBER = #{authnumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(rejcode)"> -->
+<!--                     AND REJCODE = #{rejcode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(issnumber)"> -->
+<!--                     AND ISSNUMBER = #{issnumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(issname)"> -->
+<!--                     AND ISSNAME = #{issname} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardnumber)"> -->
+<!--                     AND CARDNUMBER = #{cardnumber} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(transdate)"> -->
+<!--                     AND TRANSDATE = #{transdate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(transtime)"> -->
+<!--                     AND TRANSTIME = #{transtime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(rejcodeexplain)"> -->
+<!--                     AND REJCODEEXPLAIN = #{rejcodeexplain} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardback)"> -->
+<!--                     AND CARDBACK = #{cardback} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(transcheck)"> -->
+<!--                     AND TRANSCHECK = #{transcheck} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_POSMX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpPosmx">
+        SELECT <include refid="columns" />
+        FROM OP_POSMX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    
+    <!-- 根据发票号码获取post交易号码 -->
+    <select id="getPosTraceNumber" resultType="java.lang.Integer">
+		SELECT POSTRACENUMBER as POSTRACENUMBER from OP_POSMX
+		<where>
+			and JYLB in ('2','4')
+			<if test="@sqlt.Ognl@isNotEmpty(fphm)">
+				AND FPHM = #{fphm}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 更新就诊号码 -->
+	<update id="updateFphm" parameterType="Map">
+		UPDATE OP_POSMX
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(jzhm)">
+				FPHM = #{jzhm} ,
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(FPHM)">
+				AND FPHM = #{FPHM}
+			</if>
+		</where>
+	</update>
+	
+	<select id="getPm" parameterType="Map" resultType="java.util.Map">
+		select postracenumber as PM from OP_POSMX where fphm=#{p1}
+	</select>
+	
+</mapper>
+

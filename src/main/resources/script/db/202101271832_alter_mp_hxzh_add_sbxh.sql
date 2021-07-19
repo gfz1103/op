@@ -1,0 +1,2 @@
+ALTER TABLE `mp_psxx`
+ADD COLUMN `SBXH` int NOT NULL COMMENT 'op_cf02主键' AFTER `CFHM`;

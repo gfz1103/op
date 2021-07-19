@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 签名记录证书 -->
+<mapper namespace="com.buit.commons.dao.MkeyRecordCertDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id as id,record_id as recordId,cert as cert,create_time as createTime,update_time as updateTime
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO MKEY_RECORD_CERT (
+            id ,
+            record_id ,
+            cert ,
+            create_time ,
+            update_time
+        ) VALUES (
+            #{id} ,
+            #{recordId} ,
+            #{cert} ,
+            #{createTime} ,
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE MKEY_RECORD_CERT SET
+            record_id = #{recordId} ,
+            cert = #{cert} ,
+            create_time = #{createTime} ,
+            update_time = #{updateTime}
+        WHERE
+            id = #{id}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM MKEY_RECORD_CERT WHERE
+        id = #{id}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM MKEY_RECORD_CERT <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="MkeyRecordCert">
+        SELECT <include refid="columns" />
+            FROM MKEY_RECORD_CERT
+            WHERE
+        id = #{id}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND id = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recordId)"> -->
+<!--                     AND record_id = #{recordId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cert)"> -->
+<!--                     AND cert = #{cert} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(createTime)"> -->
+<!--                     AND create_time = #{createTime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(updateTime)"> -->
+<!--                     AND update_time = #{updateTime} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM MKEY_RECORD_CERT
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="MkeyRecordCert">
+        SELECT <include refid="columns" />
+        FROM MKEY_RECORD_CERT
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="selectByRecordId" resultType="com.buit.commons.model.MkeyRecordCert">
+        select
+        <include refid="columns" />
+        from mkey_record_cert
+        where record_id = #{recordId}
+        order by id desc
+        limit 0,1
+    </select>
+</mapper>
+

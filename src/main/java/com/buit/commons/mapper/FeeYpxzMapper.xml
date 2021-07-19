@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 公用_药品禁用 -->
+<mapper namespace="com.buit.commons.dao.FeeYpxzDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        BRXZ as brxz,YPXH as ypxh,ZFBL as zfbl,YPXE as ypxe
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO FEE_YPXZ (
+            BRXZ ,
+            YPXH ,
+            ZFBL ,
+            YPXE
+        ) VALUES (
+            #{brxz} ,
+            #{ypxh} ,
+            #{zfbl} ,
+            #{ypxe}
+        )
+    </insert>
+    <insert id="batchInsert">
+        INSERT INTO FEE_YPXZ (
+            BRXZ ,
+            YPXH ,
+            ZFBL
+        )
+        <foreach collection="list" open="values" item="item" separator=",">
+         (
+            #{item.brxz} ,
+            #{item.ypxh} ,
+            #{item.zfbl}
+        )
+        </foreach>
+    </insert>
+
+
+    <update id="update" >
+        UPDATE FEE_YPXZ SET
+            ZFBL = #{zfbl}
+        WHERE
+            BRXZ = #{brxz}  AND
+            YPXH = #{ypxh}
+    </update>
+
+    <update id="updateStatus" >
+<!--        UPDATE FEE_YPXZ SET-->
+<!--            ZFBL = #{zfbl} ,-->
+<!--            YPXE = #{ypxe} -->
+<!--        WHERE-->
+<!--            BRXZ = #{brxz}  AND -->
+<!--            YPXH = #{ypxh} -->
+    </update>
+
+
+    <delete id="deleteById">
+        DELETE FROM FEE_YPXZ WHERE
+        BRXZ = #{brxz}  AND
+        YPXH = #{ypxh}
+    </delete>
+
+    <delete id="deleteByYpxh">
+        DELETE FROM FEE_YPXZ WHERE
+        YPXH = #{ypxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM FEE_YPXZ <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="com.buit.commons.model.FeeYpxz">
+        SELECT <include refid="columns" />
+            FROM FEE_YPXZ
+            WHERE
+        BRXZ = #{brxz}  AND
+        YPXH = #{ypxh}
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(brxz)">
+                 AND BRXZ = #{brxz}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ypxh)">
+                 AND YPXH = #{ypxh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zfbl)">
+                 AND ZFBL = #{zfbl}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ypxe)">
+                 AND YPXE = #{ypxe}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM FEE_YPXZ
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="com.buit.commons.model.FeeYpxz">
+        SELECT <include refid="columns" />
+        FROM FEE_YPXZ
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <!-- 获取药品禁用信息 -->
+    <select id="getYpjyInfo" resultType="java.util.HashMap">
+		select ZFBL as ZFBL From FEE_YPXZ
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(brxz)">
+				AND BRXZ = #{brxz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ypxh)">
+				AND YPXH = #{ypxh}
+			</if>
+		</where>
+	</select>
+    <select id="getByBrxzAndYpxh" resultType="com.buit.commons.model.FeeYpxz">
+        SELECT <include refid="columns" />
+        FROM FEE_YPXZ
+        where BRXZ=#{brxz} and YPXH=#{ypxh}
+    </select>
+
+    <!--中心维护-病人性质维护-药品限制列表-->
+    <select id="queryYpxzList" resultType="com.buit.cis.op.dctwork.response.FeeYpxzYpxzResp">
+        select
+            a.BRXZ,
+            a.YPXH,
+            b.YPMC,
+            b.YPGG,
+            b.YPDW,
+            a.ZFBL * 100 ZFBL,
+            a.YPXE
+        from
+            FEE_YPXZ a,
+            v_drugs_typk b
+        where
+            a.YPXH = b.YPXH
+            and a.BRXZ = #{brxz}
+            <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                AND PYDM like '%${pydm}%'
+            </if>
+        order by a.YPXH desc
+
+    </select>
+</mapper>
+

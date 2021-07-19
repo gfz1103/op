@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_科室排班 -->
+<mapper namespace="com.buit.commons.dao.OpKspbDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        GHRQ as ghrq,ZBLB as zblb,GHKS as ghks,JGID as jgid,JZXH as jzxh,GHXE as ghxe,YGRS as ygrs,YYRS as yyrs,YYXE as yyxe,TGBZ as tgbz
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_KSPB (
+            GHRQ ,
+            ZBLB ,
+            GHKS ,
+            JGID ,
+            JZXH ,
+            GHXE ,
+            YGRS ,
+            YYRS ,
+            YYXE ,
+            TGBZ 
+        ) VALUES (
+            #{ghrq} ,
+            #{zblb} ,
+            #{ghks} ,
+            #{jgid} ,
+            #{jzxh} ,
+            #{ghxe} ,
+            #{ygrs} ,
+            #{yyrs} ,
+            #{yyxe} ,
+            #{tgbz} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_KSPB SET
+            JGID = #{jgid} ,
+            JZXH = #{jzxh} ,
+            GHXE = #{ghxe} ,
+            YGRS = #{ygrs} ,
+            YYRS = #{yyrs} ,
+            YYXE = #{yyxe} ,
+            TGBZ = #{tgbz} 
+        WHERE 
+            GHRQ = #{ghrq}  AND 
+                        ZBLB = #{zblb}  AND 
+                        GHKS = #{ghks} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_KSPB WHERE
+        GHRQ = #{ghrq}  AND 
+        ZBLB = #{zblb}  AND 
+        GHKS = #{ghks} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_KSPB <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpKspb">
+        SELECT <include refid="columns" />
+            FROM OP_KSPB 
+            WHERE 
+        GHRQ = #{ghrq}  AND 
+        ZBLB = #{zblb}  AND 
+        GHKS = #{ghks} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghrq)"> -->
+<!--                     AND GHRQ = #{ghrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zblb)"> -->
+<!--                     AND ZBLB = #{zblb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghks)"> -->
+<!--                     AND GHKS = #{ghks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzxh)"> -->
+<!--                     AND JZXH = #{jzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghxe)"> -->
+<!--                     AND GHXE = #{ghxe} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ygrs)"> -->
+<!--                     AND YGRS = #{ygrs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyrs)"> -->
+<!--                     AND YYRS = #{yyrs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyxe)"> -->
+<!--                     AND YYXE = #{yyxe} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tgbz)"> -->
+<!--                     AND TGBZ = #{tgbz} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_KSPB 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpKspb">
+        SELECT <include refid="columns" />
+        FROM OP_KSPB 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+	<!-- 科室排班列表 -->
+	<select id="getKspbList" resultType="OpKspb">
+		select t.* from (
+		SELECT
+		c.MZMC AS MZMC,
+		a.KSDM AS GHKS,
+		a.KSMC AS KSMC,
+		1 AS KSPB,
+		a.JGID AS JGID,
+		b.GHXE AS GHXE,
+		b.YYXE AS YYXE,
+		b.YGRS AS YGRS,
+		b.YYRS AS YYRS,
+		b.JZXH AS JZXH,
+		b.TGBZ AS TGBZ,
+		a.PYDM as PYDM 
+		FROM OP_GHKS a 
+		INNER JOIN OP_KSPB b ON a.KSDM = b.GHKS 
+		INNER JOIN OP_MZLB c ON a.MZLB = c.MZLB
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+				AND b.GHRQ = #{ghrq}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND b.ZBLB = #{zblb}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(keyword)">
+				AND (a.KSMC LIKE CONCAT(CONCAT('%',#{keyword}),'%') OR a.KSDM LIKE CONCAT(#{keyword}, '%') OR a.PYDM LIKE CONCAT(CONCAT('%',#{keyword}),'%'))
+			</if>
+		</where>
+		UNION
+		SELECT
+		b.MZMC AS MZMC,
+		a.KSDM AS GHKS,
+		a.KSMC AS KSMC,
+		0 AS KSPB,
+		a.JGID AS JGID,
+		1000 AS GHXE,
+		1000 AS YYXE,
+		0 AS YGRS,
+		0 AS YYRS,
+		0 AS JZXH,
+		0 AS TGBZ,
+		a.PYDM as PYDM
+		FROM
+		OP_GHKS a
+		INNER JOIN OP_MZLB b ON a.MZLB = b.MZLB
+		<where>
+		<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+			AND a.JGID = #{jgid}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(keyword)">
+			AND (a.KSMC LIKE CONCAT(CONCAT('%',#{keyword}),'%') OR a.KSDM LIKE CONCAT(#{keyword}, '%'))
+		</if>
+		AND a.KSDM NOT IN (SELECT GHKS FROM OP_KSPB 
+			<where>
+				<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+					AND GHRQ = #{ghrq}
+				</if>
+				<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+					AND ZBLB = #{zblb}
+				</if>
+				<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+					AND JGID = #{jgid}
+				</if>
+			</where>)
+		</where>
+		) t order by t.PYDM
+	</select>
+
+	<!-- 根据条件删除科室排班信息 -->
+	<delete id="delKspbByCondition">
+		DELETE FROM OP_KSPB 
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(ghks)">
+				AND GHKS = #{ghks}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND ZBLB = #{zblb}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+				AND GHRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+		</where>
+	</delete>
+	<!-- 条件查询科室排班列表 -->
+    <select id="getDeptList" resultType="OpKspb">
+	SELECT
+		kspb.GHKS AS GHKS,
+		ghks.KSMC AS KSDM,
+		ghks.MZKS AS OFFICECODE,
+		ghks.KSMC as KSMC 
+		FROM
+		OP_KSPB kspb
+		INNER JOIN OP_GHKS ghks ON kspb.GHKS = ghks.KSDM
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+				AND kspb.GHRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND kspb.ZBLB = #{zblb}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND kspb.JGID = #{jgid}
+			</if>
+		</where>
+	</select>
+	<!-- 查询当日排班的科室和就诊序号 -->
+	<select id="getCurrentKspbList" resultType="OpKspb">
+	SELECT kspb.GHKS AS GHKS,kspb.JZXH AS JZXH FROM OP_KSPB kspb
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+				AND kspb.GHRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND kspb.ZBLB = #{zblb}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND kspb.JGID = #{jgid}
+			</if>
+		</where>
+	</select>
+	<!-- 清当前班次的科室排班中的就诊序号,已挂人数和预约人数 -->
+	<update id="initKspb">
+		UPDATE OP_KSPB
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(jzxh)">
+				JZXH = #{jzxh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ygrs)">
+				YGRS = #{ygrs} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yyrs)">
+				YYRS = #{yyrs} ,
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND ZBLB = #{zblb}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+				AND GHRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+		</where>
+	</update>
+	
+	<update id="updateByTh" parameterType="Map">
+		UPDATE OP_KSPB set YGRS = YGRS-1,JZXH = JZXH- 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND GHKS = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GHRQ)">
+				AND GHRQ = #{GHRQ}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</update>
+
+	<!-- 就诊序号加1 -->
+	<select id="getJzxhIncrease" parameterType="Map" resultType="java.util.Map">
+		SELECT ifnull(JZXH,0)+1 as JZXH FROM OP_KSPB
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GHRQ)">
+				AND GHRQ = #{GHRQ}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND GHKS = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</select>
+
+	<!-- 挂号时更新已挂人数、就诊序号 -->
+	<update id="updateYgrsAndJzxh" parameterType="Map">
+		UPDATE OP_KSPB SET YGRS = ifnull(YGRS,0) + 1,JZXH = ifnull(JZXH,0) + 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GHRQ)">
+				AND GHRQ = #{GHRQ}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND GHKS = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</update>
+
+
+	<select id="getYyKspbList" resultType="java.util.Map">
+		SELECT
+			b.GHRQ AS ghrq,
+			a.PYDM AS pydm,
+			a.ZJMZ AS zjmz,
+			a.WBDM AS wbdm,
+			a.SZDM AS szdm,
+			a.JXDM AS jxdm,
+			a.QTDM AS qtdm,
+			a.KSDM AS ksdm,
+			a.KSMC AS ksmc,
+			a.GHLB AS ghlb,
+			a.GHF AS ghf,
+			a.ZLF AS zlf,
+			a.ZJMZ AS zjmz,
+			( SELECT count( c.YYXH ) FROM OP_YYGH c WHERE c.YYRQ = #{YYRQ} AND c.KSDM = a.KSDM ) AS yyrs,
+			b.TGBZ AS tgbz,
+			a.JJRGHF AS jjrghf,
+			a.PYDM AS pydm,
+			0 AS selected
+		FROM
+			OP_GHKS a,
+			OP_KSPB b
+		WHERE
+			a.KSDM = b.GHKS
+			AND a.JGID = #{JGID}
+			AND a.MZLB = #{MZLB}
+			AND b.GHRQ = #{GHRQ}
+			AND b.ZBLB = #{ZBLB}
+			AND a.KSDM = IFNULL (KSDM, a.KSDM)
+	</select>
+	
+	<!-- 复制一周批量插入 -->
+	<insert id="insertForEach" parameterType="java.util.List">
+		INSERT INTO OP_KSPB (
+		GHRQ ,
+		ZBLB ,
+		GHKS ,
+		JGID ,
+		JZXH ,
+		GHXE ,
+		YGRS ,
+		YYRS ,
+		YYXE ,
+		TGBZ 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.ghrq},
+			#{item.zblb},
+			#{item.ghks},
+			#{item.jgid},
+			#{item.jzxh},
+			#{item.ghxe},
+			#{item.ygrs},
+			#{item.yyrs},
+			#{item.yyxe},
+			#{item.tgbz}
+			)
+		</foreach>
+	</insert>
+	
+	<select id="doQueryKspbByDate" resultType="OpKspb">
+		SELECT <include refid="columns" /> 
+			FROM
+			OP_KSPB kspb
+		where  
+			kspb.GHRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			AND kspb.ZBLB = #{zblb}
+			AND kspb.JGID = #{jgid}
+			<if test = "ghks != null">
+				AND kspb.GHKS = #{ghks}
+			</if>
+	</select>
+
+	<!-- 挂号时更新已挂人数、就诊序号 -->
+	<update id="lessYgrsAndJzxh" parameterType="Map">
+		UPDATE MS_KSPB SET YGRS = ifnull(YGRS,1) - 1,JZXH = ifnull(JZXH,1) - 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GHRQ)">
+				AND GHRQ = #{GHRQ}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND GHKS = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</update>
+	
+	<select id="doValidKspbZblb" resultType="OpZblbResp">
+		SELECT
+			kspb.ZBLB AS zblb,
+			ghks.KSMC AS ksmc,
+			kspb.GHKS AS ksdm 
+		FROM
+			OP_KSPB kspb
+			INNER JOIN op_ghks ghks ON kspb.GHKS = ghks.KSDM
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+				AND kspb.GHRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghks)">
+				AND kspb.GHKS = #{ghks}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND kspb.JGID = #{jgid}
+			</if>
+		</where>
+	</select>
+</mapper>
+

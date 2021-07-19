@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_挂号科室 -->
+<mapper namespace="com.buit.commons.dao.GhrbReportDao">
+
+	<select id="getParameters" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			SUM( GHCS ) AS GHRS,
+			SUM( OP_GHMX.GHJE ) AS GHJE,
+			SUM( OP_GHMX.ZLJE ) AS ZLJE,
+			SUM( OP_GHMX.BLJE ) AS BLJE,
+			SUM( OP_GHMX.ZJFY ) AS ZJJE,
+			MPI_BRDA.BRXZ,
+			<!--  SUM( GHCS )+--> 
+			SUM( OP_GHMX.GHJE )+ SUM( OP_GHMX.ZLJE )+ SUM( OP_GHMX.BLJE )+ SUM( OP_GHMX.ZJFY ) AS HJ 
+		FROM
+			OP_GHMX,
+			MPI_BRDA 
+		WHERE
+			MPI_BRDA.BRID = OP_GHMX.BRID  
+			AND OP_GHMX.JZRQ IS NULL  
+			AND OP_GHMX.CZGH =#{CZGH} 
+			AND OP_GHMX.GHSJ BETWEEN #{beginOfDay} AND #{endOfDay} 
+			AND OP_GHMX.THBZ = 0  
+		GROUP BY
+			MPI_BRDA.BRXZ
+	</select>
+	
+	<select id="getCountWorksFields" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			z.* 
+		FROM
+			(
+			SELECT
+				b.PERSONID as YGDM,
+				b.PERSONNAME as YGXM,
+				sum( ghrc ) GHRC,
+				sum( ybghrc ) YBGHRC,
+				sum( thrc ) THRC,
+				sum( ghqe ) GHQE,
+				sum( ghxj ) GHXJ,
+				sum( ghjz ) GHJZ,
+				sum( sfrc ) SFRC,
+				sum( tfrc ) TFRC,
+				sum( sfqe ) SFQE,
+				sum( sfxj ) SFXJ,
+				sum( sfjz ) SFJZ 
+			FROM
+				(
+				SELECT
+					czgh,
+					sum( ghrc ) ghrc,
+					sum( ybghrc ) ybghrc,
+					sum( thrc ) thrc,
+					sum( ghje ) ghqe,
+					sum( ghxj ) ghxj,
+					sum( ghqtys ) ghjz,
+					0 sfrc,
+					0 tfrc,
+					0 sfqe,
+					0 sfxj,
+					0 sfjz 
+				FROM
+					(
+					SELECT
+						b.czgh,
+						count( * ) AS ghrc,
+						0 ybghrc,
+						0 thrc,
+						sum( b.GHJE + b.ZLJE + b.BLJE + b.ZJFY + b.CKJE + b.WZJE) ghje,
+						SUM( XJJE + ZPJE + ZHJE) ghxj,
+						SUM( QTYS ) ghqtys 
+					FROM
+						HR_PERSONNEL a,
+						OP_GHMX b 
+					WHERE
+						b.jzhm NOT LIKE 'MGH%' 
+						AND b.ghsj <![CDATA[ >= ]]> #{beginDay}
+						AND b.ghsj <![CDATA[ <= ]]> #{endDay} 
+						AND jzrq IS NOT NULL 
+						AND a.personid = b.czgh 
+					GROUP BY
+						b.czgh UNION ALL
+					SELECT
+						b.czgh,
+						0 ghrc,
+						count( * ) AS ybghrc,
+						0 thrc,
+						sum( b.GHJE + b.ZLJE + b.BLJE + b.ZJFY + b.CKJE + b.WZJE ) ghje,
+						SUM( XJJE + ZPJE + ZHJE) ghxj,
+						SUM( QTYS ) ghqtys 
+					FROM
+						HR_PERSONNEL a,
+						OP_GHMX b,
+					    PUB_BRXZ c
+					WHERE
+						b.jzhm NOT LIKE 'MGH%' 
+						AND c.SJXZ = #{brxz}
+						AND b.ghsj <![CDATA[ >= ]]> #{beginDay} 
+						AND b.ghsj <![CDATA[ <= ]]> #{endDay} 
+						AND jzrq IS NOT NULL 
+						AND a.personid = b.czgh
+					    AND b.BRXZ = c.BRXZ
+					GROUP BY
+						b.czgh UNION ALL
+					SELECT
+						b.czgh,
+						0 ghrc,
+						0 ybghrc,
+						count( * ) AS thrc,
+						- sum( c.GHJE + c.ZLJE + c.BLJE + c.ZJFY + c.WZJE) thje,
+						SUM( c.XJJE + c.ZPJE + c.ZHJE) thxj,
+						SUM( c.QTYS ) thqtys 
+					FROM
+						HR_PERSONNEL a,
+						OP_THMX b,
+						OP_GHMX c 
+					WHERE
+						b.thrq <![CDATA[ >= ]]> #{beginDay}
+						AND b.thrq <![CDATA[ <= ]]> #{endDay} 
+						AND c.jzrq IS NOT NULL 
+						AND b.sbxh = c.sbxh 
+						AND a.personid = b.czgh 
+					GROUP BY
+						b.czgh 
+					) x
+				GROUP BY
+					x.czgh UNION ALL
+				SELECT
+					czgh,
+					0 ghrc,
+					0 ybghrc,
+					0 thrc,
+					0 ghqe,
+					0 ghxj,
+					0 ghjz,
+					sum( sfrc ) sfrc,
+					sum( tfrc ) tfrc,
+					sum( sfqe ) sfqe,
+					sum( sfxj ) sfxj,
+					sum( sfjz ) sfjz 
+				FROM
+					(
+					SELECT
+						a.czgh,
+						count( * ) AS sfrc,
+						0 tfrc,
+						sum( ZJJE ) sfqe,
+						SUM( XJJE + ZPJE + ZHJE) sfXJ,
+						SUM( QTYS ) sfJZ 
+					FROM
+						OP_MZXX a,
+						HR_PERSONNEL b 
+					WHERE
+						a.sfrq <![CDATA[ >= ]]> #{beginDay} 
+						AND a.sfrq <![CDATA[ <= ]]> #{endDay}  
+						AND jzrq IS NOT NULL 
+						AND a.czgh = b.personid 
+					GROUP BY
+						a.czgh UNION ALL
+					SELECT
+						a.czgh,
+						0 sfrc,
+						count( * ) AS tfrc,
+						sum( c.ZJJE ) sfqe,
+						SUM( c.XJJE + c.ZPJE + c.ZHJE) sfXJ,
+						SUM( c.QTYS ) sfJZ 
+					FROM
+						OP_ZFFP a,
+						HR_PERSONNEL b,
+						OP_MZXX c 
+					WHERE
+						a.zfrq <![CDATA[ >= ]]> #{beginDay}
+						AND a.zfrq <![CDATA[ <= ]]> #{endDay} 
+						AND a.jzrq IS NOT NULL 
+						AND a.czgh = b.personid 
+						AND a.fphm = c.fphm 
+					GROUP BY
+						a.czgh 
+					) y
+				GROUP BY
+					y.czgh 
+				) a,
+				HR_PERSONNEL b 
+			WHERE
+				a.czgh = b.personid 
+			GROUP BY
+				b.PERSONID ,
+				b.PERSONNAME 
+			) z
+		WHERE
+			z.ghrc > 0 
+		ORDER BY
+			z.ygdm
+    </select>
+</mapper>
+

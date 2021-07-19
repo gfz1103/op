@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 公用_费用禁用 -->
+<mapper namespace="com.buit.commons.dao.PubFyxzDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        BRXZ as brxz,FYXH as fyxh,ZFBL as zfbl,FYXE as fyxe,CXBL as cxbl,TSBZ as tsbz
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO PUB_FYXZ (
+            BRXZ ,
+            FYXH ,
+            ZFBL ,
+            FYXE ,
+            CXBL ,
+            TSBZ
+        ) VALUES (
+            #{brxz} ,
+            #{fyxh} ,
+            #{zfbl} ,
+            #{fyxe} ,
+            #{cxbl} ,
+            #{tsbz}
+        )
+    </insert>
+
+    <update id="update" >
+    UPDATE PUB_FYXZ SET
+        ZFBL = #{zfbl},
+        FYXE = #{fyxe},
+        CXBL = #{cxbl},
+        TSBZ = #{tsbz}
+    WHERE
+        BRXZ = #{brxz}  AND
+        FYXH = #{fyxh}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM PUB_FYXZ WHERE
+        BRXZ = #{brxz}  AND
+        FYXH = #{fyxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM PUB_FYXZ <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="com.buit.commons.model.PubFyxz">
+        SELECT <include refid="columns" />
+            FROM PUB_FYXZ
+            WHERE
+        BRXZ = #{brxz}  AND
+        FYXH = #{fyxh}
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(brxz)">
+                 AND BRXZ = #{brxz}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(fyxh)">
+                 AND FYXH = #{fyxh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zfbl)">
+                 AND ZFBL = #{zfbl}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(fyxe)">
+                 AND FYXE = #{fyxe}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(cxbl)">
+                 AND CXBL = #{cxbl}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(tsbz)">
+                 AND TSBZ = #{tsbz}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM PUB_FYXZ
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="com.buit.commons.model.PubFyxz">
+        SELECT <include refid="columns" />
+        FROM PUB_FYXZ
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <!-- 获取费用禁用信息 -->
+    <select id="getFyjyInfo" resultType="java.util.HashMap">
+		select ZFBL as ZFBL,FYXE as FYXE,CXBL as CXBL From PUB_FYXZ
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(brxz)">
+				AND BRXZ = #{brxz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fyxh)">
+				AND FYXH = #{fyxh}
+			</if>
+		</where>
+	</select>
+
+    <!--中心维护-病人性质-费用限制-->
+    <select id="queryFyxzList" resultType="com.buit.cis.op.dctwork.response.PubFyxzFyxzResp">
+        select
+            a.TSBZ ,
+            a.BRXZ ,
+            a.FYXH ,
+            b.FYMC ,
+            b.FYDW ,
+            a.ZFBL * 100 ZFBL,
+            a.FYXE ,
+            a.CXBL * 100 CXBL
+        from
+            PUB_FYXZ a,
+            FEE_YLSFXM b
+        where
+            a.FYXH = b.FYXH
+            and a.BRXZ = #{brxz}
+            <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                AND b.PYDM = #{pydm}
+            </if>
+        order by
+            a.FYXH desc
+    </select>
+</mapper>
+

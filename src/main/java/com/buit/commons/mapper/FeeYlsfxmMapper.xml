@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 公用_医疗收费 -->
+<mapper namespace="com.buit.commons.dao.FeeYlsfxmDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        FYXH as fyxh,FYMC as fymc,FYDW as fydw,FYGB as fygb,PYDM as pydm,WBDM as wbdm,JXDM as jxdm,QTDM as qtdm,FYDJ as fydj,FYKS as fyks,MZSY as mzsy,ZYSY as zysy,YJSY as yjsy,TJFY as tjfy,TXZL as txzl,ZFPB as zfpb,XMBM as xmbm,BZJG as bzjg,XMLX as xmlx,YJJK as yjjk,JCSQ as jcsq,MZSQ as mzsq,TSTS as tsts,LISLX as lislx,DZ as dz,RISLX as rislx,MGH as mgh,BBGB as bbgb,DZBH as dzbh,XMFL as xmfl,JXCS as jxcs,YJCK as yjck,XMKS as xmks,HMBM as hmbm,YBXMJFBZ as ybxmjfbz,BLBZ as blbz,YBBM as ybbm,YBMC as ybmc,YBDW as ybdw,YYPP as yypp,ZCZH as zczh,YYCLGG as yyclgg,MXBZ as mxbz,ZJXE as zjxe,CLBZ as clbz,FYLB as fylb,HLZX as hlzx,BBGB_1 as bbgb1,BASYXM as basyxm,FYJMBM as fyjmbm,JXXMLB as jxxmlb,HLXMLB as hlxmlb,GNXH as gnxh,TSXMLX as tsxmlx,SSSTJ as ssstj,FYMS as fyms,FLZZF as flzzf,ZYXMBZ as zyxmbz,YLXZ as ylxz,BHDM as bhdm,BASYGB as basygb,CFTXBZ as cftxbz,FYETJMBZ as fyetjmbz,YJLX as yjlx,JCZQTYS as jczqtys,ZYSX as zysx,ZXKS as zxks,TSFY as tsfy,SFJXFX as sfjxfx,CLDYM as cldym
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO FEE_YLSFXM (
+            FYXH ,
+            FYMC ,
+            FYDW ,
+            FYGB ,
+            PYDM ,
+            WBDM ,
+            JXDM ,
+            QTDM ,
+            FYDJ ,
+            FYKS ,
+            MZSY ,
+            ZYSY ,
+            YJSY ,
+            TJFY ,
+            TXZL ,
+            ZFPB ,
+            XMBM ,
+            BZJG ,
+            XMLX ,
+            YJJK ,
+            JCSQ ,
+            MZSQ ,
+            TSTS ,
+            LISLX ,
+            DZ ,
+            RISLX ,
+            MGH ,
+            BBGB ,
+            DZBH ,
+            XMFL ,
+            JXCS ,
+            YJCK ,
+            XMKS ,
+            HMBM ,
+            YBXMJFBZ ,
+            BLBZ ,
+            YBBM ,
+            YBMC ,
+            YBDW ,
+            YYPP ,
+            ZCZH ,
+            YYCLGG ,
+            MXBZ ,
+            ZJXE ,
+            CLBZ ,
+            FYLB ,
+            HLZX ,
+            BBGB_1 ,
+            BASYXM ,
+            FYJMBM ,
+            JXXMLB ,
+            HLXMLB ,
+            GNXH ,
+            TSXMLX ,
+            SSSTJ ,
+            FYMS ,
+            FLZZF ,
+            ZYXMBZ ,
+            YLXZ ,
+            BHDM ,
+            BASYGB ,
+            CFTXBZ ,
+            FYETJMBZ ,
+            YJLX ,
+            JCZQTYS ,
+            ZYSX ,
+            ZXKS ,
+            TSFY ,
+            SFJXFX ,
+            CLDYM
+        ) VALUES (
+            #{fyxh} ,
+            #{fymc} ,
+            #{fydw} ,
+            #{fygb} ,
+            #{pydm} ,
+            #{wbdm} ,
+            #{jxdm} ,
+            #{qtdm} ,
+            #{fydj} ,
+            #{fyks} ,
+            #{mzsy} ,
+            #{zysy} ,
+            #{yjsy} ,
+            #{tjfy} ,
+            #{txzl} ,
+            #{zfpb} ,
+            #{xmbm} ,
+            #{bzjg} ,
+            #{xmlx} ,
+            #{yjjk} ,
+            #{jcsq} ,
+            #{mzsq} ,
+            #{tsts} ,
+            #{lislx} ,
+            #{dz} ,
+            #{rislx} ,
+            #{mgh} ,
+            #{bbgb} ,
+            #{dzbh} ,
+            #{xmfl} ,
+            #{jxcs} ,
+            #{yjck} ,
+            #{xmks} ,
+            #{hmbm} ,
+            #{ybxmjfbz} ,
+            #{blbz} ,
+            #{ybbm} ,
+            #{ybmc} ,
+            #{ybdw} ,
+            #{yypp} ,
+            #{zczh} ,
+            #{yyclgg} ,
+            #{mxbz} ,
+            #{zjxe} ,
+            #{clbz} ,
+            #{fylb} ,
+            #{hlzx} ,
+            #{bbgb1} ,
+            #{basyxm} ,
+            #{fyjmbm} ,
+            #{jxxmlb} ,
+            #{hlxmlb} ,
+            #{gnxh} ,
+            #{tsxmlx} ,
+            #{ssstj} ,
+            #{fyms} ,
+            #{flzzf} ,
+            #{zyxmbz} ,
+            #{ylxz} ,
+            #{bhdm} ,
+            #{basygb} ,
+            #{cftxbz} ,
+            #{fyetjmbz} ,
+            #{yjlx} ,
+            #{jczqtys} ,
+            #{zysx} ,
+            #{zxks} ,
+            #{tsfy} ,
+            #{sfjxfx} ,
+            #{cldym}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE FEE_YLSFXM SET
+            FYMC = #{fymc} ,
+            FYDW = #{fydw} ,
+            FYGB = #{fygb} ,
+            PYDM = #{pydm} ,
+            WBDM = #{wbdm} ,
+            JXDM = #{jxdm} ,
+            QTDM = #{qtdm} ,
+            FYDJ = #{fydj} ,
+            FYKS = #{fyks} ,
+            MZSY = #{mzsy} ,
+            ZYSY = #{zysy} ,
+            YJSY = #{yjsy} ,
+            TJFY = #{tjfy} ,
+            TXZL = #{txzl} ,
+            ZFPB = #{zfpb} ,
+            XMBM = #{xmbm} ,
+            BZJG = #{bzjg} ,
+            XMLX = #{xmlx} ,
+            YJJK = #{yjjk} ,
+            JCSQ = #{jcsq} ,
+            MZSQ = #{mzsq} ,
+            TSTS = #{tsts} ,
+            LISLX = #{lislx} ,
+            DZ = #{dz} ,
+            RISLX = #{rislx} ,
+            MGH = #{mgh} ,
+            BBGB = #{bbgb} ,
+            DZBH = #{dzbh} ,
+            XMFL = #{xmfl} ,
+            JXCS = #{jxcs} ,
+            YJCK = #{yjck} ,
+            XMKS = #{xmks} ,
+            HMBM = #{hmbm} ,
+            YBXMJFBZ = #{ybxmjfbz} ,
+            BLBZ = #{blbz} ,
+            YBBM = #{ybbm} ,
+            YBMC = #{ybmc} ,
+            YBDW = #{ybdw} ,
+            YYPP = #{yypp} ,
+            ZCZH = #{zczh} ,
+            YYCLGG = #{yyclgg} ,
+            MXBZ = #{mxbz} ,
+            ZJXE = #{zjxe} ,
+            CLBZ = #{clbz} ,
+            FYLB = #{fylb} ,
+            HLZX = #{hlzx} ,
+            BBGB_1 = #{bbgb1} ,
+            BASYXM = #{basyxm} ,
+            FYJMBM = #{fyjmbm} ,
+            JXXMLB = #{jxxmlb} ,
+            HLXMLB = #{hlxmlb} ,
+            GNXH = #{gnxh} ,
+            TSXMLX = #{tsxmlx} ,
+            SSSTJ = #{ssstj} ,
+            FYMS = #{fyms} ,
+            FLZZF = #{flzzf} ,
+            ZYXMBZ = #{zyxmbz} ,
+            YLXZ = #{ylxz} ,
+            BHDM = #{bhdm} ,
+            BASYGB = #{basygb} ,
+            CFTXBZ = #{cftxbz} ,
+            FYETJMBZ = #{fyetjmbz} ,
+            YJLX = #{yjlx} ,
+            JCZQTYS = #{jczqtys} ,
+            ZYSX = #{zysx} ,
+            ZXKS = #{zxks} ,
+            TSFY = #{tsfy} ,
+            SFJXFX = #{sfjxfx} ,
+            CLDYM = #{cldym}
+        WHERE
+            FYXH = #{fyxh}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM FEE_YLSFXM WHERE
+        FYXH = #{fyxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM FEE_YLSFXM
+        <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="FeeYlsfxm">
+        SELECT
+        <include refid="columns"/>
+        FROM FEE_YLSFXM
+        WHERE
+        FYXH = #{fyxh}
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(fyxh)">
+                AND FYXH = #{fyxh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(fymc)">
+                AND FYMC LIKE CONCAT(CONCAT('%',#{fymc}),'%')
+            </if>
+            <!--<if test="@sqlt.Ognl@isNotEmpty(fydw)"> -->
+            <!--     AND FYDW = #{fydw} -->
+            <!--</if> -->
+            <if test="@sqlt.Ognl@isNotEmpty(fygb)">
+                AND FYGB = #{fygb}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                AND PYDM LIKE CONCAT(CONCAT('%',UPPER(#{pydm})),'%')
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zfpb)">
+                AND ZFPB = #{zfpb}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(yjsy)">
+                AND YJSY = #{yjsy}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ybbm)">
+                AND YBBM = #{ybbm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(wbdm)">
+                 AND WBDM = #{wbdm}
+            </if>
+			<if test="@sqlt.Ognl@isNotEmpty(zysy)">
+				AND ZYSY = #{zysy}
+			</if>
+            <!--<if test="@sqlt.Ognl@isNotEmpty(jxdm)"> -->
+            <!--     AND JXDM = #{jxdm} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(qtdm)"> -->
+            <!--     AND QTDM = #{qtdm} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(fydj)"> -->
+            <!--     AND FYDJ = #{fydj} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(fyks)"> -->
+            <!--     AND FYKS = #{fyks} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(mzsy)"> -->
+            <!--     AND MZSY = #{mzsy} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(tjfy)"> -->
+            <!--     AND TJFY = #{tjfy} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(txzl)"> -->
+            <!--     AND TXZL = #{txzl} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(xmbm)"> -->
+            <!--     AND XMBM = #{xmbm} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(bzjg)"> -->
+            <!--     AND BZJG = #{bzjg} -->
+            <!--</if> -->
+            <if test="@sqlt.Ognl@isNotEmpty(xmlx)">
+                 AND XMLX = #{xmlx}
+            </if>
+            <!--<if test="@sqlt.Ognl@isNotEmpty(yjjk)"> -->
+            <!--     AND YJJK = #{yjjk} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(jcsq)"> -->
+            <!--     AND JCSQ = #{jcsq} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(mzsq)"> -->
+            <!--     AND MZSQ = #{mzsq} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(tsts)"> -->
+            <!--     AND TSTS = #{tsts} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(lislx)"> -->
+            <!--     AND LISLX = #{lislx} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(dz)"> -->
+            <!--     AND DZ = #{dz} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(rislx)"> -->
+            <!--     AND RISLX = #{rislx} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(mgh)"> -->
+            <!--     AND MGH = #{mgh} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(bbgb)"> -->
+            <!--     AND BBGB = #{bbgb} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(dzbh)"> -->
+            <!--     AND DZBH = #{dzbh} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(xmfl)"> -->
+            <!--     AND XMFL = #{xmfl} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(jxcs)"> -->
+            <!--     AND JXCS = #{jxcs} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(yjck)"> -->
+            <!--     AND YJCK = #{yjck} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(xmks)"> -->
+            <!--     AND XMKS = #{xmks} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(hmbm)"> -->
+            <!--     AND HMBM = #{hmbm} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(ybxmjfbz)"> -->
+            <!--     AND YBXMJFBZ = #{ybxmjfbz} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(blbz)"> -->
+            <!--     AND BLBZ = #{blbz} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(ybmc)"> -->
+            <!--     AND YBMC = #{ybmc} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(ybdw)"> -->
+            <!--     AND YBDW = #{ybdw} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(yypp)"> -->
+            <!--     AND YYPP = #{yypp} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(zczh)"> -->
+            <!--     AND ZCZH = #{zczh} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(yyclgg)"> -->
+            <!--     AND YYCLGG = #{yyclgg} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(mxbz)"> -->
+            <!--     AND MXBZ = #{mxbz} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(zjxe)"> -->
+            <!--     AND ZJXE = #{zjxe} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(clbz)"> -->
+            <!--     AND CLBZ = #{clbz} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(fylb)"> -->
+            <!--     AND FYLB = #{fylb} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(hlzx)"> -->
+            <!--     AND HLZX = #{hlzx} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(bbgb1)"> -->
+            <!--     AND BBGB_1 = #{bbgb1} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(basyxm)"> -->
+            <!--     AND BASYXM = #{basyxm} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(fyjmbm)"> -->
+            <!--     AND FYJMBM = #{fyjmbm} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(jxxmlb)"> -->
+            <!--     AND JXXMLB = #{jxxmlb} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(hlxmlb)"> -->
+            <!--     AND HLXMLB = #{hlxmlb} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(gnxh)"> -->
+            <!--     AND GNXH = #{gnxh} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(tsxmlx)"> -->
+            <!--     AND TSXMLX = #{tsxmlx} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(ssstj)"> -->
+            <!--     AND SSSTJ = #{ssstj} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(fyms)"> -->
+            <!--     AND FYMS = #{fyms} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(flzzf)"> -->
+            <!--     AND FLZZF = #{flzzf} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(zyxmbz)"> -->
+            <!--     AND ZYXMBZ = #{zyxmbz} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(ylxz)"> -->
+            <!--     AND YLXZ = #{ylxz} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(bhdm)"> -->
+            <!--     AND BHDM = #{bhdm} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(basygb)"> -->
+            <!--     AND BASYGB = #{basygb} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(cftxbz)"> -->
+            <!--     AND CFTXBZ = #{cftxbz} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(fyetjmbz)"> -->
+            <!--     AND FYETJMBZ = #{fyetjmbz} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(yjlx)"> -->
+            <!--     AND YJLX = #{yjlx} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(jczqtys)"> -->
+            <!--     AND JCZQTYS = #{jczqtys} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(zysx)"> -->
+            <!--     AND ZYSX = #{zysx} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(zxks)"> -->
+            <!--     AND ZXKS = #{zxks} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(tsfy)"> -->
+            <!--     AND TSFY = #{tsfy} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(sfjxfx)"> -->
+            <!--     AND SFJXFX = #{sfjxfx} -->
+            <!--</if> -->
+            <!--<if test="@sqlt.Ognl@isNotEmpty(cldym)"> -->
+            <!--     AND CLDYM = #{cldym} -->
+            <!--</if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM FEE_YLSFXM
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="FeeYlsfxm">
+        SELECT
+        <include refid="columns"/>
+        FROM FEE_YLSFXM
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="getFygbFyxhFydj" resultType="java.util.Map">
+        SELECT
+            A.fygb AS FYGB,
+            A.FYXH AS FYXH,
+            B.FYDJ AS FYDJ
+        FROM
+            FEE_YLSFXM A,
+            FEE_YLSFXMDJ B
+        WHERE
+            A.FYXH = B.FYXH
+            AND A.FYXH IN (
+            SELECT
+                B.FYXH
+            FROM
+                DICC_ZLSFDZ B,
+                DIC_ZLXM C
+            WHERE
+            B.ZLXMID = C.ZLXMID
+            AND C.YJLX =  #{yjlx})
+    </select>
+    <select id="getFyxhFymcZfpbYbbm" resultType="java.util.Map">
+        SELECT
+            a.FYXH AS FYXH,
+            a.FYMC AS FYMC,
+            b.ZFPB AS ZFPB,
+            A.YBBM
+        FROM
+            FEE_YLSFXM a,
+            FEE_YLSFXMDJ b
+        WHERE
+            a.FYXH = b.FYXH
+            AND b.JGID = #{jgid}
+            AND a.FYXH IN (
+            SELECT
+                FYXH
+            FROM
+                DICC_ZLSFDZ
+        WHERE
+            ZLXMID = #{zlxmid})
+    </select>
+    <select id="getBxfy" resultType="java.util.Map">
+        SELECT DISTINCT
+        a.FYXH AS FYXH,
+        a.FYMC AS FYMC,
+        a.FYDW AS FYDW,
+        a.BZJG AS BZJG,
+        a.XMLX AS XMLX,
+        <if test="types == 1">
+            c.SBJG as FYDJ,
+        </if>
+        <if test="types == 2">
+            c.FYDJ AS FYDJ,
+        </if>
+        a.FYGB AS FYGB,
+        c.FYKS AS FYKS,
+        a.YJSY AS YJSY
+        FROM
+        FEE_YLSFXM a,
+        FEE_YLSFXMDJ c
+        WHERE
+        a.FYXH = c.FYXH
+        AND a.FYXH IN (
+        SELECT
+        FYXH
+        FROM
+        DICC_ZLSFDZ
+        WHERE
+        ZLXMID = #{zlxmid})
+    </select>
+    <select id="getBxInfo" resultType="java.util.Map">
+        SELECT DISTINCT
+        a.FYXH AS fyxh,
+        a.FYMC AS fymc,
+        a.FYDW AS fydw,
+        a.BZJG AS bzjg,
+        a.XMLX AS xmlx,
+        <if test="types == 1">
+            c.SBJG as fydj,
+        </if>
+        <if test="types == 2">
+            c.FYDJ AS fydj,
+        </if>
+        a.FYGB AS fygb,
+        c.FYKS AS fyks,
+        a.YJSY AS yjsy
+        FROM
+        FEE_YLSFXM a,
+        FEE_YLSFXMDJ c
+        WHERE
+        a.FYXH = c.FYXH
+        AND a.FYXH = #{fyxh}
+    </select>
+    <select id="queryByFyxh" resultType="FeeYlsfxm">
+        SELECT
+        <include refid="columns"/>
+        FROM FEE_YLSFXM
+        where FYXH in (
+        <foreach collection="list" item="x" separator=",">
+            #{x}
+        </foreach>
+        )
+    </select>
+
+    <select id="getYlsfInfoBybrxzOne" parameterType="Map" resultType="java.util.Map">
+        SELECT
+			b.FYXH AS YPXH,
+			a.FYMC AS YPMC,
+			b.SBJG AS LSJG,
+			b.SBJG AS YPDJ,
+			a.FYGB AS FYGB,
+			a.FYDW AS YFDW,
+			'0' AS TYPE,
+			a.BZJG,
+			a.XMLX AS XMLX,
+			b.FYKS AS FYKS,
+			ifnull ( c.MCSX, c.SFMC ) AS GBMC
+		FROM
+			FEE_YLSFXM a,
+			FEE_YLSFXMDJ b,
+			DIC_SFXMLB c
+		WHERE
+			c.SFXM = a.FYGB
+			AND a.FYXH = #{YPXH}
+			AND a.FYXH = b.FYXH
+			AND b.JGID = #{JGID}
+    </select>
+
+    <select id="getYlsfInfoBybrxzTwo" parameterType="Map" resultType="java.util.Map">
+        SELECT
+			b.FYXH AS YPXH,
+			a.FYMC AS YPMC,
+			b.FYDJ AS LSJG,
+			b.FYDJ AS YPDJ,
+			a.FYGB AS FYGB,
+			a.FYDW AS YFDW,
+			'0' AS TYPE,
+			a.BZJG,
+			a.XMLX AS XMLX,
+			b.FYKS AS FYKS,
+			ifnull ( c.MCSX, c.SFMC ) AS GBMC
+		FROM
+			FEE_YLSFXM a,
+			FEE_YLSFXMDJ b,
+			DIC_SFXMLB c
+		WHERE
+			c.SFXM = a.FYGB
+			AND a.FYXH = #{YPXH}
+
+			AND a.FYXH = b.FYXH
+			AND b.JGID = #{JGID}
+    </select>
+
+    <select id="getfjxx" resultType="com.buit.cis.op.dctwork.response.QueryMzYsFjResp">
+        SELECT
+            a.FYXH AS fyxh,
+            a.fymc,
+            a.fydw,
+            a.bzjg,
+            a.xmlx,
+            round( c.SBJG, 2 ) AS fydj,
+            a.fygb,
+            c.fyks,
+            c.xzsy,
+            c.xzts,
+            c.xzcs,
+	        a.zxks,
+	        a.pydm
+        FROM
+            FEE_YLSFXM a,
+            PUB_FYBM b,
+            FEE_YLSFXMDJ c
+        WHERE
+            a.FYXH = b.FYXH
+            AND a.FYXH = c.FYXH
+            AND c.ZFPB = 0
+            AND a.ZFPB = 0
+            AND c.JGID = #{jgid}
+            AND a.MZSY = 1
+            AND a.XMLX IN(7,8,9,10,99)
+            AND a.PYDM LIKE CONCAT('%',UPPER(#{search}),'%')
+        ORDER BY
+            length( a.FYMC ),
+            a.FYMC
+    </select>
+
+    <!-- 【作废】只能查询到治疗项目为（7,8,9,10,99）的数据 项目类别 | 4.检验\n5.检查\n6.手术\n7.治疗\n8.护理\n9.饮食\n10.卫材\n99.其他' todo  -->
+    <select id="getfjxxyb" resultType="com.buit.cis.op.dctwork.response.QueryMzYsFjResp">
+        SELECT
+            a.YBBM AS ybbm,
+            a.FYXH AS fyxh,
+            a.fymc,
+            a.fydw,
+            a.bzjg,
+            a.xmlx,
+            round( c.FYDJ,2) AS fydj,
+            a.fygb,
+            c.fyks,
+            c.xzsy,
+            c.xzts,
+            c.xzcs,
+	        a.zxks,
+	        a.pydm
+        FROM
+            FEE_YLSFXM a,
+            PUB_FYBM b,
+            FEE_YLSFXMDJ c
+        WHERE
+            a.FYXH = b.FYXH
+            AND a.FYXH = c.FYXH
+            AND c.ZFPB = 0
+            AND a.ZFPB = 0
+            AND c.JGID = #{jgid}
+            AND a.MZSY = 1
+            AND (a.MZSQ = 0 or a.MZSQ is null)
+            -- AND a.XMLX IN(7,8,9,10,99)
+            AND a.PYDM LIKE CONCAT('%',UPPER(#{search}),'%')
+        ORDER BY
+            length( a.FYMC ),
+            a.FYMC
+    </select>
+
+    <!-- 收费项目明细是否作废 -->
+    <update id="updateZfpbByFyxh">
+ 		update FEE_YLSFXM set zfpb = #{zfpb} where fyxh = #{fyxh}
+    </update>
+
+    <!-- 查询手术项目 -->
+    <select id="querySurgicalItems" resultType="FeeYlsfxmResp">
+        select a.FYXH as FYXH,
+        a.FYMC as FYMC,
+        b.FYDJ as FYDJ,
+        a.PYDM as PYDM
+        from FEE_YLSFXM a, FEE_YLSFXMDJ b
+        where b.FYXH = a.FYXH
+        <if test="@sqlt.Ognl@isNotEmpty(fymc)">
+            AND a.FYMC LIKE CONCAT(CONCAT('%',#{fymc}),'%')
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+            AND a.PYDM LIKE CONCAT(CONCAT('%',UPPER(#{pydm})),'%')
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(fygb)">
+            AND a.FYGB = #{fygb}
+        </if>
+    </select>
+
+    <!-- 需调入收费项目明细列表 -->
+    <select id="queryInstitutionalDetails" resultType="FeeYlsfxm">
+        select a.FYXH as FYXH,
+        a.FYMC as FYMC,
+        a.FYDW as FYDW,
+        a.PYDM as PYDM,
+        a.MZSY as MZSY,
+        a.ZYSY as ZYSY,
+        a.YJSY as YJSY,
+        a.TJFY as TJFY,
+        a.TXZL as TXZL,
+        a.WBDM as WBDM,
+        a.JXDM as JXDM,
+        a.QTDM as QTDM,
+        a.FYGB as QTDM,
+        a.ZFPB as ZFPB,
+        a.XMBM as XMBM,
+        a.BZJG as BZJG,
+        a.XMLX as XMLX,
+        a.YJJK as YJJK,
+        a.JCSQ as JCSQ,
+        a.MZSQ as MZSQ,
+        a.TSTS as TSTS,
+        a.LISLX as LISLX,
+        a.XMFL as XMFL
+        from FEE_YLSFXM a
+        where a.FYGB = #{fygb}
+        and a.ZFPB = 0
+        and (a.FYXH not in
+        (select b.FYXH
+        from FEE_YLSFXMDJ b
+        where b.JGID = #{jgid}))
+        <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+            and a.PYDM like concat(concat('%',UPPER(#{pydm})),'%')
+        </if>
+        order by a.FYXH desc
+    </select>
+
+    <!--中心维护-查询费用列表-->
+    <select id="queryList" resultType="com.buit.cis.op.dctwork.response.FeeYlsfxmResp">
+        select
+            f.FYXH fyxh,
+            f.FYMC fymc,
+            f.FYGB fygb,
+            f.FYDW fydw,
+            f.PYDM pydm,
+            x.ZFPB zfpb,
+            x.JGID jgid
+        from FEE_YLSFXM f,
+            FEE_YLSFXMDJ x
+        where f.FYXH = x.FYXH
+          and f.ZFPB = 0
+          and x.ZFPB = 0
+          and f.ZYSY = 1
+          and x.JGID = #{jgid}
+            <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                and f.PYDM like '%${pydm}%'
+            </if>
+        order by PYDM
+    </select>
+
+    <select id="allInfoNoUser" resultType="FeeYlsfxm">
+        SELECT
+            a.*
+        FROM
+            FEE_YLSFXM a
+            LEFT JOIN (select ssnm from OPT_SSFL where ysdm=0) b ON a.fyxh = b.ssnm
+        WHERE
+            b.ssnm IS NULL
+            AND a.FYGB = 72
+            AND a.ZFPB = 0
+            <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                AND a.PYDM like CONCAT(CONCAT('%',UPPER(#{pydm})),'%')
+            </if>
+    </select>
+
+    <!-- 查询项目商保价格等 -->
+    <select id="queryXmSbjg" resultType="java.util.HashMap">
+		        SELECT ifnull(a.FYDJ,0) AS FYDJ, ifnull(b.SBJG,0) AS SBJG
+		  FROM FEE_YLSFXM a, FEE_YLSFXMDJ b
+		 WHERE a.FYXH = b.FYXH
+		   AND a.ZFPB = 0
+		   AND a.FYXH = #{fyxh}
+    </select>
+
+    <select id="getYlsfxmByFyxh" resultType="com.buit.cis.op.dctwork.response.FeeYlsfxmDetailResponse">
+        SELECT
+            a.FYXH AS fyxh,
+            a.fymc,
+            a.xmlx,
+            round(c.fydj,2) AS fydj,
+            a.bzjg,
+            a.fygb,
+            a.fydw,
+            a.zxks
+        FROM
+            FEE_YLSFXM a,
+            FEE_YLSFXMDJ c
+        WHERE
+            a.FYXH = c.FYXH
+            AND a.ZFPB = 0
+            AND a.MZSY = 1
+            AND c.JGID = #{jgid}
+            AND a.FYXH = #{fyxh}
+    </select>
+</mapper>
+

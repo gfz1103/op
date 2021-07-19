@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 老年人健康教育 -->
+<mapper namespace="com.buit.commons.dao.PubPelplehealthteachDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        RECORDID as recordid,DIAGNOSENAME as diagnosename,ICD10 as icd10,HEALTHTEACH as healthteach,INPUTUNIT as inputunit,INPUTDATE as inputdate,INPUTUSER as inputuser,LASTMODIFYUSER as lastmodifyuser,LASTMODIFYUNIT as lastmodifyunit,LASTMODIFYDATE as lastmodifydate,RECIPENAME as recipename,DIAGNOSENAMEPY as diagnosenamepy,RECIPENAMEPY as recipenamepy,ORDERNUM as ordernum,RECIPETYPE as recipetype
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO PUB_PELPLEHEALTHTEACH (
+            RECORDID ,
+            DIAGNOSENAME ,
+            ICD10 ,
+            HEALTHTEACH ,
+            INPUTUNIT ,
+            INPUTDATE ,
+            INPUTUSER ,
+            LASTMODIFYUSER ,
+            LASTMODIFYUNIT ,
+            LASTMODIFYDATE ,
+            RECIPENAME ,
+            DIAGNOSENAMEPY ,
+            RECIPENAMEPY ,
+            ORDERNUM ,
+            RECIPETYPE 
+        ) VALUES (
+            #{recordid} ,
+            #{diagnosename} ,
+            #{icd10} ,
+            #{healthteach} ,
+            #{inputunit} ,
+            #{inputdate} ,
+            #{inputuser} ,
+            #{lastmodifyuser} ,
+            #{lastmodifyunit} ,
+            #{lastmodifydate} ,
+            #{recipename} ,
+            #{diagnosenamepy} ,
+            #{recipenamepy} ,
+            #{ordernum} ,
+            #{recipetype} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE PUB_PELPLEHEALTHTEACH SET
+            DIAGNOSENAME = #{diagnosename} ,
+            ICD10 = #{icd10} ,
+            HEALTHTEACH = #{healthteach} ,
+            INPUTUNIT = #{inputunit} ,
+            INPUTDATE = #{inputdate} ,
+            INPUTUSER = #{inputuser} ,
+            LASTMODIFYUSER = #{lastmodifyuser} ,
+            LASTMODIFYUNIT = #{lastmodifyunit} ,
+            LASTMODIFYDATE = #{lastmodifydate} ,
+            RECIPENAME = #{recipename} ,
+            DIAGNOSENAMEPY = #{diagnosenamepy} ,
+            RECIPENAMEPY = #{recipenamepy} ,
+            ORDERNUM = #{ordernum} ,
+            RECIPETYPE = #{recipetype} 
+        WHERE 
+            RECORDID = #{recordid} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM PUB_PELPLEHEALTHTEACH WHERE
+        RECORDID = #{recordid} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM PUB_PELPLEHEALTHTEACH <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="PubPelplehealthteach">
+        SELECT <include refid="columns" />
+            FROM PUB_PELPLEHEALTHTEACH 
+            WHERE 
+        RECORDID = #{recordid} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recordid)"> -->
+<!--                     AND RECORDID = #{recordid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(diagnosename)"> -->
+<!--                     AND DIAGNOSENAME = #{diagnosename} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(icd10)"> -->
+<!--                     AND ICD10 = #{icd10} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(healthteach)"> -->
+<!--                     AND HEALTHTEACH = #{healthteach} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(inputunit)"> -->
+<!--                     AND INPUTUNIT = #{inputunit} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(inputdate)"> -->
+<!--                     AND INPUTDATE = #{inputdate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(inputuser)"> -->
+<!--                     AND INPUTUSER = #{inputuser} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifyuser)"> -->
+<!--                     AND LASTMODIFYUSER = #{lastmodifyuser} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifyunit)"> -->
+<!--                     AND LASTMODIFYUNIT = #{lastmodifyunit} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifydate)"> -->
+<!--                     AND LASTMODIFYDATE = #{lastmodifydate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recipename)"> -->
+<!--                     AND RECIPENAME = #{recipename} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(diagnosenamepy)"> -->
+<!--                     AND DIAGNOSENAMEPY = #{diagnosenamepy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recipenamepy)"> -->
+<!--                     AND RECIPENAMEPY = #{recipenamepy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ordernum)"> -->
+<!--                     AND ORDERNUM = #{ordernum} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recipetype)"> -->
+<!--                     AND RECIPETYPE = #{recipetype} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="Integer">
+        SELECT count(*) FROM PUB_PELPLEHEALTHTEACH 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="PubPelplehealthteach">
+        SELECT <include refid="columns" />
+        FROM PUB_PELPLEHEALTHTEACH 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="queryPage" resultType="PubPelplehealthteachPageResp">
+        SELECT
+        teach.recordId AS recordid,
+        teach.recipeName AS recipename,
+        diagnose.diagnoseName AS diagnosename,
+        diagnose.ICD10 AS icd10,
+        diagnose.diagnoseId AS diagnoseid,
+        teach.healthTeach AS healthteach,
+        teach.recipeNamePy AS recipenamepy,
+        diagnose.diagnoseNamePy AS diagnosenamepy,
+        teach.orderNum AS ordernum,
+        teach.inputUnit AS inputunit,
+        teach.inputDate AS inputdate,
+        teach.inputUser AS inputuser,
+        teach.lastModifyUser AS lastmodifyuser,
+        teach.lastModifyUnit AS lastmodifyunit,
+        teach.lastModifyDate AS lastmodifydate
+        FROM
+        PUB_PelpleHealthTeach teach
+        inner JOIN PUB_PelpleHealthDiagnose diagnose ON diagnose.recordId = teach.recordId
+        WHERE
+        1 = 1
+        <if test="@sqlt.Ognl@isNotEmpty(recipenamepy)">
+            AND RECIPENAMEPY like CONCAT(CONCAT('%',UPPER(#{recipenamepy})),'%')
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(diagnosenamepy)">
+            AND DIAGNOSENAMEPY like CONCAT(CONCAT('%',UPPER(#{diagnosenamepy})),'%')
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(icd10)">
+            AND ICD10 like CONCAT(CONCAT('%',UPPER(#{icd10})),'%')
+        </if>
+        ORDER BY
+        teach.orderNum,
+        diagnose.ICD10,
+        teach.recipeNamePy
+    </select>
+</mapper>
+

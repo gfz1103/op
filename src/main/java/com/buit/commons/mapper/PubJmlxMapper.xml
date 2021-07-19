@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.PubJmlxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        FYDW as fydw,GSXZ as gsxz,DWMC as dwmc,DWBH as dwbh,DWDZ as dwdz,DWDH as dwdh,DWYB as dwyb,KHYH as khyh,YHZH as yhzh,FZR as fzr,PYDM as pydm,WBDM as wbdm,JXDM as jxdm,QTBM as qtbm,BZXX as bzxx,ZFPB as zfpb,GHJM as ghjm,GHJMRATE as ghjmrate,SFJM as sfjm,JSJMRATE as jsjmrate
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO PUB_JMLX (
+            FYDW ,
+            GSXZ ,
+            DWMC ,
+            DWBH ,
+            DWDZ ,
+            DWDH ,
+            DWYB ,
+            KHYH ,
+            YHZH ,
+            FZR ,
+            PYDM ,
+            WBDM ,
+            JXDM ,
+            QTBM ,
+            BZXX ,
+            ZFPB ,
+            GHJM ,
+            GHJMRATE ,
+            SFJM ,
+            JSJMRATE
+        ) VALUES (
+            #{fydw} ,
+            #{gsxz} ,
+            #{dwmc} ,
+            #{dwbh} ,
+            #{dwdz} ,
+            #{dwdh} ,
+            #{dwyb} ,
+            #{khyh} ,
+            #{yhzh} ,
+            #{fzr} ,
+            #{pydm} ,
+            #{wbdm} ,
+            #{jxdm} ,
+            #{qtbm} ,
+            #{bzxx} ,
+            #{zfpb} ,
+            #{ghjm} ,
+            #{ghjmrate} ,
+            #{sfjm} ,
+            #{jsjmrate} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE PUB_JMLX SET
+            GSXZ = #{gsxz} ,
+            DWMC = #{dwmc} ,
+            DWBH = #{dwbh} ,
+            DWDZ = #{dwdz} ,
+            DWDH = #{dwdh} ,
+            DWYB = #{dwyb} ,
+            KHYH = #{khyh} ,
+            YHZH = #{yhzh} ,
+            FZR = #{fzr} ,
+            PYDM = #{pydm} ,
+            WBDM = #{wbdm} ,
+            JXDM = #{jxdm} ,
+            QTBM = #{qtbm} ,
+            BZXX = #{bzxx} ,
+            ZFPB = #{zfpb} ,
+            GHJM = #{ghjm} ,
+            GHJMRATE = #{ghjmrate} ,
+            SFJM = #{sfjm} ,
+            JSJMRATE = #{jsjmrate} 
+        WHERE 
+            FYDW = #{fydw} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM PUB_JMLX WHERE
+        FYDW = #{fydw} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM PUB_JMLX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="PubJmlx">
+        SELECT <include refid="columns" />
+            FROM PUB_JMLX 
+            WHERE 
+        FYDW = #{fydw} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fydw)"> -->
+<!--                     AND FYDW = #{fydw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gsxz)"> -->
+<!--                     AND GSXZ = #{gsxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwmc)"> -->
+<!--                     AND DWMC = #{dwmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwbh)"> -->
+<!--                     AND DWBH = #{dwbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwdz)"> -->
+<!--                     AND DWDZ = #{dwdz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwdh)"> -->
+<!--                     AND DWDH = #{dwdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwyb)"> -->
+<!--                     AND DWYB = #{dwyb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(khyh)"> -->
+<!--                     AND KHYH = #{khyh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yhzh)"> -->
+<!--                     AND YHZH = #{yhzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fzr)"> -->
+<!--                     AND FZR = #{fzr} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pydm)"> -->
+<!--                     AND PYDM = #{pydm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wbdm)"> -->
+<!--                     AND WBDM = #{wbdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jxdm)"> -->
+<!--                     AND JXDM = #{jxdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtbm)"> -->
+<!--                     AND QTBM = #{qtbm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bzxx)"> -->
+<!--                     AND BZXX = #{bzxx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfpb)"> -->
+<!--                     AND ZFPB = #{zfpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghjm)"> -->
+<!--                     AND GHJM = #{ghjm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghjmrate)"> -->
+<!--                     AND GHJMRATE = #{ghjmrate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfjm)"> -->
+<!--                     AND SFJM = #{sfjm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jsjmrate)"> -->
+<!--                     AND JSJMRATE = #{jsjmrate} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM PUB_JMLX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="PubJmlx">
+        SELECT <include refid="columns" />
+        FROM PUB_JMLX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <update id="updateFydwInfo">
+		UPDATE PUB_JMLX SET 
+				GSXZ = #{gsxz},
+				DWMC = #{dwmc},
+				DWBH = #{dwbh},
+				DWDZ = #{dwdz},
+				DWDH = #{dwdh},
+				DWYB = #{dwyb},
+				KHYH = #{khyh},
+				YHZH = #{yhzh},
+				FZR = #{fzr},
+				PYDM = #{pydm},
+				WBDM = #{wbdm},
+				JXDM = #{jxdm},
+				QTBM = #{qtbm},
+				BZXX = #{bzxx},
+				ZFPB = #{zfpb},
+				GHJM = #{ghjm},
+				GHJMRATE = #{ghjmrate},
+				SFJM = #{sfjm},
+				JSJMRATE = #{jsjmrate} 
+		WHERE FYDW = #{fydw}
+	</update>
+	
+	<select id="doQueryJmByFyzh" resultType="PubJmlxJm">
+		SELECT
+			dw.GHJM,
+			dw.GHJMRATE,
+			dw.SFJM,
+			dw.JSJMRATE,
+			br.ZHXQ 
+		FROM
+			PUB_JMLX dw
+			INNER JOIN PUB_JMBR br ON dw.FYDW = br.FYDW 
+		WHERE
+			br.FYZH = #{fyzh} 
+	</select>
+</mapper>
+

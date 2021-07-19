@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.ShybMzdbDbksDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        DBBM as dbbm,KSDM as ksdm
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SHYB_MZDB_DBKS (
+            DBBM ,
+            KSDM 
+        ) VALUES (
+            #{dbbm} ,
+            #{ksdm} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE YB_MZDB_DBKS SET
+        WHERE 
+            DBBM = #{dbbm}  AND 
+                        KSDM = #{ksdm} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SHYB_MZDB_DBKS WHERE
+        DBBM = #{dbbm}  AND 
+        KSDM = #{ksdm} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM SHYB_MZDB_DBKS <include refid="where"/>
+    </delete>
+    
+    <select id="getById" resultType="YbMzdbDbks">
+        SELECT <include refid="columns" />
+            FROM SHYB_MZDB_DBKS
+            WHERE 
+        DBBM = #{dbbm}  AND 
+        KSDM = #{ksdm} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbbm)"> -->
+<!--                     AND DBBM = #{dbbm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SHYB_MZDB_DBKS
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="YbMzdbDbks">
+        SELECT <include refid="columns" />
+        FROM SHYB_MZDB_DBKS
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!-- 获取科室代码列表 -->
+    
+    <select id="getKsdm" resultType="java.lang.Integer">
+        SELECT  DISTINCT KSDM AS KSDM FROM SHYB_MZDB_DBKS
+    </select>
+
+    <select id="queryDbdjInfo" resultType="com.buit.his.medinsuinterface.sh.dataitem.request.SaveDbRegisterReq">
+        SELECT *
+        FROM SHYB_MZDB_DJ
+        where 1=1
+        <if test="@sqlt.Ognl@isNotEmpty(ybkh)">
+            and ybkh = #{ybkh}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(djrq)">
+            and djrq = #{djrq}
+        </if>
+    </select>
+
+    <!-- 新增本地大病登记 -->
+    <insert id="saveDbdjInfo">
+        INSERT INTO SHYB_MZDB_DJ (
+            SQDH ,
+        <if test="@sqlt.Ognl@isNotEmpty(knsj)">
+            KNSJ ,
+        </if>
+            YBKH ,
+            BRXM ,
+            SFZH ,
+            LXDZ ,
+            DHHM ,
+            JBZD ,
+            ZLXM ,
+            YYMC ,
+            YSGH ,
+            JBR ,
+            BWTR ,
+            SFZH2 ,
+            DJRQ
+        ) VALUES (
+            #{sqdh} ,
+        <if test="@sqlt.Ognl@isNotEmpty(knsj)">
+            #{knsj} ,
+        </if>
+            #{ybkh} ,
+            #{brxm} ,
+            #{sfzh} ,
+            #{lxdz} ,
+            #{dhhm} ,
+            #{jbzd} ,
+            #{zlxm} ,
+            #{yymc} ,
+            #{ysgh} ,
+            #{jbr} ,
+            #{bwtr} ,
+            #{sfzh2} ,
+            #{djrq}
+        )
+    </insert>
+</mapper>
+

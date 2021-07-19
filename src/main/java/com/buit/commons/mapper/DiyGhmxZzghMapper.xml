@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.DiyGhmxZzghDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SBXH as sbxh,BRID as brid,BRXZ as brxz,GHSJ as ghsj,GHLB as ghlb,KSDM as ksdm,YSDM as ysdm,JZYS as jzys,JZXH as jzxh,GHCS as ghcs,GHJE as ghje,ZLJE as zlje,ZJFY as zjfy,BLJE as blje,XJJE as xjje,ZPJE as zpje,ZHJE as zhje,HBWC as hbwc,QTYS as qtys,ZHLB as zhlb,JZJS as jzjs,ZDJG as zdjg,THBZ as thbz,CZGH as czgh,JZRQ as jzrq,HZRQ as hzrq,CZPB as czpb,JZHM as jzhm,MZLB as mzlb,YYBZ as yybz,YSPB as yspb,DZSB as dzsb,KNXX as knxx,ZFDDNZH as zfddnzh,ZFDLNZH as zfdlnzh,ZFDXJ as zfdxj,TCDTC as tcdtc,FJDDFFJ as fjddffj,JZBZ as jzbz,DBXM as dbxm,ZDBM as zdbm,TCDXJ as tcdxj,TCDLNZH as tcdlnzh,FJDXJ as fjdxj,FJDLNZH as fjdlnzh,ZHBZ as zhbz,ZXHM as zxhm,DQXH as dqxh,YYXH as yyxh,PDXH as pdxh,BRHM as brhm,DDCS as ddcs,BDLSH as bdlsh,YHLSH as yhlsh,SKRQ as skrq,SKSJ as sksj,QSRQ as qsrq,SQM as sqm,FHM as fhm,SHBH as shbh,PCH as pch,JPH as jph,JSJG as jsjg,YHKH as yhkh,NKH as nkh,MMBZ as mmbz,JMBZ as jmbz,PZLX as pzlx,PZHM as pzhm,JMJSBZ as jmjsbz,JMJE as jmje,SCBZ as scbz,SSSQ as sssq,GHID as ghid,BXJE as bxje,NHBH as nhbh,POSJE as posje,WSZF as wszf,FWBLSH as fwblsh,JZSF as jzsf,JLCH as jlch,DNZHYE as dnzhye,LNZHYE as lnzhye,JZZT as jzzt,SFFS as sffs,GSRDH as gsrdh,ZSID as zsid,JHHM as jhhm,YWLX as ywlx,JGID as jgid,JZKH as jzkh,GHSB as ghsb,PDHM as pdhm,YXRC as yxrc,HZYS as hzys
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO DIY_GHMX_ZZGH (
+            SBXH ,
+            BRID ,
+            BRXZ ,
+            GHSJ ,
+            GHLB ,
+            KSDM ,
+            YSDM ,
+            JZYS ,
+            JZXH ,
+            GHCS ,
+            GHJE ,
+            ZLJE ,
+            ZJFY ,
+            BLJE ,
+            XJJE ,
+            ZPJE ,
+            ZHJE ,
+            HBWC ,
+            QTYS ,
+            ZHLB ,
+            JZJS ,
+            ZDJG ,
+            THBZ ,
+            CZGH ,
+            JZRQ ,
+            HZRQ ,
+            CZPB ,
+            JZHM ,
+            MZLB ,
+            YYBZ ,
+            YSPB ,
+            DZSB ,
+            KNXX ,
+            ZFDDNZH ,
+            ZFDLNZH ,
+            ZFDXJ ,
+            TCDTC ,
+            FJDDFFJ ,
+            JZBZ ,
+            DBXM ,
+            ZDBM ,
+            TCDXJ ,
+            TCDLNZH ,
+            FJDXJ ,
+            FJDLNZH ,
+            ZHBZ ,
+            ZXHM ,
+            DQXH ,
+            YYXH ,
+            PDXH ,
+            BRHM ,
+            DDCS ,
+            BDLSH ,
+            YHLSH ,
+            SKRQ ,
+            SKSJ ,
+            QSRQ ,
+            SQM ,
+            FHM ,
+            SHBH ,
+            PCH ,
+            JPH ,
+            JSJG ,
+            YHKH ,
+            NKH ,
+            MMBZ ,
+            JMBZ ,
+            PZLX ,
+            PZHM ,
+            JMJSBZ ,
+            JMJE ,
+            SCBZ ,
+            SSSQ ,
+            GHID ,
+            BXJE ,
+            NHBH ,
+            POSJE ,
+            WSZF ,
+            FWBLSH ,
+            JZSF ,
+            JLCH ,
+            DNZHYE ,
+            LNZHYE ,
+            JZZT ,
+            SFFS ,
+            GSRDH ,
+            ZSID ,
+            JHHM ,
+            YWLX ,
+            JGID ,
+            JZKH ,
+            GHSB ,
+            PDHM ,
+            YXRC ,
+            HZYS 
+        ) VALUES (
+            #{sbxh} ,
+            #{brid} ,
+            #{brxz} ,
+            #{ghsj} ,
+            #{ghlb} ,
+            #{ksdm} ,
+            #{ysdm} ,
+            #{jzys} ,
+            #{jzxh} ,
+            #{ghcs} ,
+            #{ghje} ,
+            #{zlje} ,
+            #{zjfy} ,
+            #{blje} ,
+            #{xjje} ,
+            #{zpje} ,
+            #{zhje} ,
+            #{hbwc} ,
+            #{qtys} ,
+            #{zhlb} ,
+            #{jzjs} ,
+            #{zdjg} ,
+            #{thbz} ,
+            #{czgh} ,
+            #{jzrq} ,
+            #{hzrq} ,
+            #{czpb} ,
+            #{jzhm} ,
+            #{mzlb} ,
+            #{yybz} ,
+            #{yspb} ,
+            #{dzsb} ,
+            #{knxx} ,
+            #{zfddnzh} ,
+            #{zfdlnzh} ,
+            #{zfdxj} ,
+            #{tcdtc} ,
+            #{fjddffj} ,
+            #{jzbz} ,
+            #{dbxm} ,
+            #{zdbm} ,
+            #{tcdxj} ,
+            #{tcdlnzh} ,
+            #{fjdxj} ,
+            #{fjdlnzh} ,
+            #{zhbz} ,
+            #{zxhm} ,
+            #{dqxh} ,
+            #{yyxh} ,
+            #{pdxh} ,
+            #{brhm} ,
+            #{ddcs} ,
+            #{bdlsh} ,
+            #{yhlsh} ,
+            #{skrq} ,
+            #{sksj} ,
+            #{qsrq} ,
+            #{sqm} ,
+            #{fhm} ,
+            #{shbh} ,
+            #{pch} ,
+            #{jph} ,
+            #{jsjg} ,
+            #{yhkh} ,
+            #{nkh} ,
+            #{mmbz} ,
+            #{jmbz} ,
+            #{pzlx} ,
+            #{pzhm} ,
+            #{jmjsbz} ,
+            #{jmje} ,
+            #{scbz} ,
+            #{sssq} ,
+            #{ghid} ,
+            #{bxje} ,
+            #{nhbh} ,
+            #{posje} ,
+            #{wszf} ,
+            #{fwblsh} ,
+            #{jzsf} ,
+            #{jlch} ,
+            #{dnzhye} ,
+            #{lnzhye} ,
+            #{jzzt} ,
+            #{sffs} ,
+            #{gsrdh} ,
+            #{zsid} ,
+            #{jhhm} ,
+            #{ywlx} ,
+            #{jgid} ,
+            #{jzkh} ,
+            #{ghsb} ,
+            #{pdhm} ,
+            #{yxrc} ,
+            #{hzys} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE DIY_GHMX_ZZGH SET
+            BRID = #{brid} ,
+            BRXZ = #{brxz} ,
+            GHSJ = #{ghsj} ,
+            GHLB = #{ghlb} ,
+            KSDM = #{ksdm} ,
+            YSDM = #{ysdm} ,
+            JZYS = #{jzys} ,
+            JZXH = #{jzxh} ,
+            GHCS = #{ghcs} ,
+            GHJE = #{ghje} ,
+            ZLJE = #{zlje} ,
+            ZJFY = #{zjfy} ,
+            BLJE = #{blje} ,
+            XJJE = #{xjje} ,
+            ZPJE = #{zpje} ,
+            ZHJE = #{zhje} ,
+            HBWC = #{hbwc} ,
+            QTYS = #{qtys} ,
+            ZHLB = #{zhlb} ,
+            JZJS = #{jzjs} ,
+            ZDJG = #{zdjg} ,
+            THBZ = #{thbz} ,
+            CZGH = #{czgh} ,
+            JZRQ = #{jzrq} ,
+            HZRQ = #{hzrq} ,
+            CZPB = #{czpb} ,
+            JZHM = #{jzhm} ,
+            MZLB = #{mzlb} ,
+            YYBZ = #{yybz} ,
+            YSPB = #{yspb} ,
+            DZSB = #{dzsb} ,
+            KNXX = #{knxx} ,
+            ZFDDNZH = #{zfddnzh} ,
+            ZFDLNZH = #{zfdlnzh} ,
+            ZFDXJ = #{zfdxj} ,
+            TCDTC = #{tcdtc} ,
+            FJDDFFJ = #{fjddffj} ,
+            JZBZ = #{jzbz} ,
+            DBXM = #{dbxm} ,
+            ZDBM = #{zdbm} ,
+            TCDXJ = #{tcdxj} ,
+            TCDLNZH = #{tcdlnzh} ,
+            FJDXJ = #{fjdxj} ,
+            FJDLNZH = #{fjdlnzh} ,
+            ZHBZ = #{zhbz} ,
+            ZXHM = #{zxhm} ,
+            DQXH = #{dqxh} ,
+            YYXH = #{yyxh} ,
+            PDXH = #{pdxh} ,
+            BRHM = #{brhm} ,
+            DDCS = #{ddcs} ,
+            BDLSH = #{bdlsh} ,
+            YHLSH = #{yhlsh} ,
+            SKRQ = #{skrq} ,
+            SKSJ = #{sksj} ,
+            QSRQ = #{qsrq} ,
+            SQM = #{sqm} ,
+            FHM = #{fhm} ,
+            SHBH = #{shbh} ,
+            PCH = #{pch} ,
+            JPH = #{jph} ,
+            JSJG = #{jsjg} ,
+            YHKH = #{yhkh} ,
+            NKH = #{nkh} ,
+            MMBZ = #{mmbz} ,
+            JMBZ = #{jmbz} ,
+            PZLX = #{pzlx} ,
+            PZHM = #{pzhm} ,
+            JMJSBZ = #{jmjsbz} ,
+            JMJE = #{jmje} ,
+            SCBZ = #{scbz} ,
+            SSSQ = #{sssq} ,
+            GHID = #{ghid} ,
+            BXJE = #{bxje} ,
+            NHBH = #{nhbh} ,
+            POSJE = #{posje} ,
+            WSZF = #{wszf} ,
+            FWBLSH = #{fwblsh} ,
+            JZSF = #{jzsf} ,
+            JLCH = #{jlch} ,
+            DNZHYE = #{dnzhye} ,
+            LNZHYE = #{lnzhye} ,
+            JZZT = #{jzzt} ,
+            SFFS = #{sffs} ,
+            GSRDH = #{gsrdh} ,
+            ZSID = #{zsid} ,
+            JHHM = #{jhhm} ,
+            YWLX = #{ywlx} ,
+            JGID = #{jgid} ,
+            JZKH = #{jzkh} ,
+            GHSB = #{ghsb} ,
+            PDHM = #{pdhm} ,
+            YXRC = #{yxrc} ,
+            HZYS = #{hzys} 
+        WHERE 
+            SBXH = #{sbxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM DIY_GHMX_ZZGH WHERE
+        SBXH = #{sbxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM DIY_GHMX_ZZGH <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="DiyGhmxZzgh">
+        SELECT <include refid="columns" />
+            FROM DIY_GHMX_ZZGH 
+            WHERE 
+        SBXH = #{sbxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxz)"> -->
+<!--                     AND BRXZ = #{brxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghsj)"> -->
+<!--                     AND GHSJ = #{ghsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghlb)"> -->
+<!--                     AND GHLB = #{ghlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ysdm)"> -->
+<!--                     AND YSDM = #{ysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzys)"> -->
+<!--                     AND JZYS = #{jzys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzxh)"> -->
+<!--                     AND JZXH = #{jzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghcs)"> -->
+<!--                     AND GHCS = #{ghcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghje)"> -->
+<!--                     AND GHJE = #{ghje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zlje)"> -->
+<!--                     AND ZLJE = #{zlje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjfy)"> -->
+<!--                     AND ZJFY = #{zjfy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(blje)"> -->
+<!--                     AND BLJE = #{blje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xjje)"> -->
+<!--                     AND XJJE = #{xjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zpje)"> -->
+<!--                     AND ZPJE = #{zpje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhje)"> -->
+<!--                     AND ZHJE = #{zhje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hbwc)"> -->
+<!--                     AND HBWC = #{hbwc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtys)"> -->
+<!--                     AND QTYS = #{qtys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhlb)"> -->
+<!--                     AND ZHLB = #{zhlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzjs)"> -->
+<!--                     AND JZJS = #{jzjs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdjg)"> -->
+<!--                     AND ZDJG = #{zdjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(thbz)"> -->
+<!--                     AND THBZ = #{thbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzrq)"> -->
+<!--                     AND HZRQ = #{hzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czpb)"> -->
+<!--                     AND CZPB = #{czpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzhm)"> -->
+<!--                     AND JZHM = #{jzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yybz)"> -->
+<!--                     AND YYBZ = #{yybz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yspb)"> -->
+<!--                     AND YSPB = #{yspb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dzsb)"> -->
+<!--                     AND DZSB = #{dzsb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(knxx)"> -->
+<!--                     AND KNXX = #{knxx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfddnzh)"> -->
+<!--                     AND ZFDDNZH = #{zfddnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfdlnzh)"> -->
+<!--                     AND ZFDLNZH = #{zfdlnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfdxj)"> -->
+<!--                     AND ZFDXJ = #{zfdxj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tcdtc)"> -->
+<!--                     AND TCDTC = #{tcdtc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fjddffj)"> -->
+<!--                     AND FJDDFFJ = #{fjddffj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzbz)"> -->
+<!--                     AND JZBZ = #{jzbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbxm)"> -->
+<!--                     AND DBXM = #{dbxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zdbm)"> -->
+<!--                     AND ZDBM = #{zdbm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tcdxj)"> -->
+<!--                     AND TCDXJ = #{tcdxj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tcdlnzh)"> -->
+<!--                     AND TCDLNZH = #{tcdlnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fjdxj)"> -->
+<!--                     AND FJDXJ = #{fjdxj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fjdlnzh)"> -->
+<!--                     AND FJDLNZH = #{fjdlnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhbz)"> -->
+<!--                     AND ZHBZ = #{zhbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxhm)"> -->
+<!--                     AND ZXHM = #{zxhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dqxh)"> -->
+<!--                     AND DQXH = #{dqxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyxh)"> -->
+<!--                     AND YYXH = #{yyxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pdxh)"> -->
+<!--                     AND PDXH = #{pdxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brhm)"> -->
+<!--                     AND BRHM = #{brhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ddcs)"> -->
+<!--                     AND DDCS = #{ddcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bdlsh)"> -->
+<!--                     AND BDLSH = #{bdlsh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yhlsh)"> -->
+<!--                     AND YHLSH = #{yhlsh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(skrq)"> -->
+<!--                     AND SKRQ = #{skrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sksj)"> -->
+<!--                     AND SKSJ = #{sksj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qsrq)"> -->
+<!--                     AND QSRQ = #{qsrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqm)"> -->
+<!--                     AND SQM = #{sqm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fhm)"> -->
+<!--                     AND FHM = #{fhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(shbh)"> -->
+<!--                     AND SHBH = #{shbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pch)"> -->
+<!--                     AND PCH = #{pch} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jph)"> -->
+<!--                     AND JPH = #{jph} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jsjg)"> -->
+<!--                     AND JSJG = #{jsjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yhkh)"> -->
+<!--                     AND YHKH = #{yhkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nkh)"> -->
+<!--                     AND NKH = #{nkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mmbz)"> -->
+<!--                     AND MMBZ = #{mmbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jmbz)"> -->
+<!--                     AND JMBZ = #{jmbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pzlx)"> -->
+<!--                     AND PZLX = #{pzlx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pzhm)"> -->
+<!--                     AND PZHM = #{pzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jmjsbz)"> -->
+<!--                     AND JMJSBZ = #{jmjsbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jmje)"> -->
+<!--                     AND JMJE = #{jmje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(scbz)"> -->
+<!--                     AND SCBZ = #{scbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sssq)"> -->
+<!--                     AND SSSQ = #{sssq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghid)"> -->
+<!--                     AND GHID = #{ghid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bxje)"> -->
+<!--                     AND BXJE = #{bxje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nhbh)"> -->
+<!--                     AND NHBH = #{nhbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(posje)"> -->
+<!--                     AND POSJE = #{posje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wszf)"> -->
+<!--                     AND WSZF = #{wszf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fwblsh)"> -->
+<!--                     AND FWBLSH = #{fwblsh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzsf)"> -->
+<!--                     AND JZSF = #{jzsf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlch)"> -->
+<!--                     AND JLCH = #{jlch} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dnzhye)"> -->
+<!--                     AND DNZHYE = #{dnzhye} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lnzhye)"> -->
+<!--                     AND LNZHYE = #{lnzhye} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzzt)"> -->
+<!--                     AND JZZT = #{jzzt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sffs)"> -->
+<!--                     AND SFFS = #{sffs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gsrdh)"> -->
+<!--                     AND GSRDH = #{gsrdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsid)"> -->
+<!--                     AND ZSID = #{zsid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jhhm)"> -->
+<!--                     AND JHHM = #{jhhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ywlx)"> -->
+<!--                     AND YWLX = #{ywlx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzkh)"> -->
+<!--                     AND JZKH = #{jzkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghsb)"> -->
+<!--                     AND GHSB = #{ghsb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pdhm)"> -->
+<!--                     AND PDHM = #{pdhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yxrc)"> -->
+<!--                     AND YXRC = #{yxrc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzys)"> -->
+<!--                     AND HZYS = #{hzys} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM DIY_GHMX_ZZGH 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="DiyGhmxZzgh">
+        SELECT <include refid="columns" />
+        FROM DIY_GHMX_ZZGH 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    
+    <!-- 更新预约挂号信息 -->
+     <update id="updateGhmxZzghInfo" parameterType="Map">
+		UPDATE DIY_GHMX_ZZGH
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(pdxh)">
+				PDXH = #{pdxh},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ddcs)">
+				DDCS = #{ddcs},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zsid)">
+				ZSID = #{zsid},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jhhm)">
+				JHHM = #{jhhm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(now)">
+				GHSJ = #{now},
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(sbxh)">
+				AND sbxh = #{sbxh}
+			</if>
+		</where>
+	</update>
+    
+</mapper>
+

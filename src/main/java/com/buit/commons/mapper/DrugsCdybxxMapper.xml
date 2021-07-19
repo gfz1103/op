@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 药品产地医保信息 -->
+<mapper namespace="com.buit.commons.dao.DrugsCdybxxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SBXH as sbxh,YPXH as ypxh,YPCD as ypcd,YBBM as ybbm,YBMC as ybmc,YBGG as ybgg,YBDW as ybdw,YBSPMC as ybspmc,QYBZ as qybz,QYRQ as qyrq,JSRQ as jsrq
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO DRUGS_CDYBXX (
+            SBXH ,
+            YPXH ,
+            YPCD ,
+            YBBM ,
+            YBMC ,
+            YBGG ,
+            YBDW ,
+            YBSPMC ,
+            QYBZ ,
+            QYRQ ,
+            JSRQ 
+        ) VALUES (
+            #{sbxh} ,
+            #{ypxh} ,
+            #{ypcd} ,
+            #{ybbm} ,
+            #{ybmc} ,
+            #{ybgg} ,
+            #{ybdw} ,
+            #{ybspmc} ,
+            #{qybz} ,
+           STR_TO_DATE(#{qyrq}, '%Y-%m-%d')   ,
+             STR_TO_DATE(#{jsrq} , '%Y-%m-%d')
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE DRUGS_CDYBXX SET
+            YPXH = #{ypxh} ,
+            YPCD = #{ypcd} ,
+            YBBM = #{ybbm} ,
+            YBMC = #{ybmc} ,
+            YBGG = #{ybgg} ,
+            YBDW = #{ybdw} ,
+            YBSPMC = #{ybspmc} ,
+            QYBZ = #{qybz} ,
+            QYRQ = #{qyrq} ,
+            JSRQ = #{jsrq} 
+        WHERE 
+            SBXH = #{sbxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM DRUGS_CDYBXX WHERE
+        SBXH = #{sbxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM DRUGS_CDYBXX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="DrugsCdybxx">
+        SELECT <include refid="columns" />
+            FROM DRUGS_CDYBXX 
+            WHERE 
+        SBXH = #{sbxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ypxh)">
+                     AND YPXH = #{ypxh}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ypcd)">
+                     AND YPCD = #{ypcd}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybbm)"> -->
+<!--                     AND YBBM = #{ybbm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybmc)"> -->
+<!--                     AND YBMC = #{ybmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybgg)"> -->
+<!--                     AND YBGG = #{ybgg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybdw)"> -->
+<!--                     AND YBDW = #{ybdw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybspmc)"> -->
+<!--                     AND YBSPMC = #{ybspmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qybz)"> -->
+<!--                     AND QYBZ = #{qybz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qyrq)"> -->
+<!--                     AND QYRQ = #{qyrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jsrq)"> -->
+<!--                     AND JSRQ = #{jsrq} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM DRUGS_CDYBXX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="DrugsCdybxx">
+        SELECT <include refid="columns" />
+        FROM DRUGS_CDYBXX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="findByYpxhYpcd" resultType="com.buit.commons.response.QueryYbypxxResp">
+        SELECT
+        YBBM AS YBBM,
+        YBMC AS YBMC,
+        YBGG AS YBGG,
+        YBDW AS YBDW,
+        YBSPMC AS YBSPMC,
+        QYRQ AS QYRQ,
+        QYBZ AS QYBZ,
+        JSRQ AS JSRQ
+        FROM
+        DRUGS_CDYBXX
+        WHERE
+        (JSRQ IS NULL OR JSRQ >= DATE_FORMAT(now(), '%Y-%m-%d'))
+        (AND QYRQ IS NULL OR DATE_FORMAT(now(), '%Y-%m-%d') >= QYRQ)
+        AND QYBZ = 1
+        AND YPXH = #{ypxh}
+        AND YPCD = #{ypcd}
+    </select>
+
+    <delete id="deleteByxhcd">
+        DELETE FROM DRUGS_CDYBXX WHERE
+        YPXH = #{ypxh} and YPCd=#{ypcd}
+    </delete>
+</mapper>
+

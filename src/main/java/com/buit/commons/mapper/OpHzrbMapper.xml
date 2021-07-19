@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_门诊收费日报 -->
+<mapper namespace="com.buit.commons.dao.OpHzrbDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        CZGH as czgh,JZRQ as jzrq,JGID as jgid,QZPJ as qzpj,ZJJE as zjje,XJJE as xjje,ZPJE as zpje,ZFZF as zfzf,QTYS as qtys,HBWC as hbwc,HZRQ as hzrq,FPZS as fpzs,MZLB as mzlb,ZFFP as zffp,ZFJE as zfje,ZFZS as zfzs,JJZFJE as jjzfje,TCZC as tczc,BCZHZF as bczhzf,DBZC as dbzc,ZXJZFY as zxjzfy,GRXJZF as grxjzf,AZQGFY as azqgfy,YSQTFB as ysqtfb,WSZF as wszf,POSJE as posje,JCJE as jcje,JCTJKJE as jctjkje,ZKZS as zkzs,ZKFP as zkfp
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_HZRB (
+            CZGH ,
+            JZRQ ,
+            JGID ,
+            QZPJ ,
+            ZJJE ,
+            XJJE ,
+            ZPJE ,
+            ZFZF ,
+            QTYS ,
+            HBWC ,
+            HZRQ ,
+            FPZS ,
+            MZLB ,
+            ZFFP ,
+            ZFJE ,
+            ZFZS ,
+            JJZFJE ,
+            TCZC ,
+            BCZHZF ,
+            DBZC ,
+            ZXJZFY ,
+            GRXJZF ,
+            AZQGFY ,
+            YSQTFB ,
+            WSZF ,
+            POSJE ,
+            JCJE ,
+            JCTJKJE ,
+            ZKZS ,
+            ZKFP 
+        ) VALUES (
+            #{czgh} ,
+            #{jzrq} ,
+            #{jgid} ,
+            #{qzpj} ,
+            #{zjje} ,
+            #{xjje} ,
+            #{zpje} ,
+            #{zfzf} ,
+            #{qtys} ,
+            #{hbwc} ,
+            #{hzrq} ,
+            #{fpzs} ,
+            #{mzlb} ,
+            #{zffp} ,
+            #{zfje} ,
+            #{zfzs} ,
+            #{jjzfje} ,
+            #{tczc} ,
+            #{bczhzf} ,
+            #{dbzc} ,
+            #{zxjzfy} ,
+            #{grxjzf} ,
+            #{azqgfy} ,
+            #{ysqtfb} ,
+            #{wszf} ,
+            #{posje} ,
+            #{jcje} ,
+            #{jctjkje} ,
+            #{zkzs} ,
+            #{zkfp} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_HZRB SET
+            JGID = #{jgid} ,
+            QZPJ = #{qzpj} ,
+            ZJJE = #{zjje} ,
+            XJJE = #{xjje} ,
+            ZPJE = #{zpje} ,
+            ZFZF = #{zfzf} ,
+            QTYS = #{qtys} ,
+            HBWC = #{hbwc} ,
+            HZRQ = #{hzrq} ,
+            FPZS = #{fpzs} ,
+            MZLB = #{mzlb} ,
+            ZFFP = #{zffp} ,
+            ZFJE = #{zfje} ,
+            ZFZS = #{zfzs} ,
+            JJZFJE = #{jjzfje} ,
+            TCZC = #{tczc} ,
+            BCZHZF = #{bczhzf} ,
+            DBZC = #{dbzc} ,
+            ZXJZFY = #{zxjzfy} ,
+            GRXJZF = #{grxjzf} ,
+            AZQGFY = #{azqgfy} ,
+            YSQTFB = #{ysqtfb} ,
+            WSZF = #{wszf} ,
+            POSJE = #{posje} ,
+            JCJE = #{jcje} ,
+            JCTJKJE = #{jctjkje} ,
+            ZKZS = #{zkzs} ,
+            ZKFP = #{zkfp} 
+        WHERE 
+            CZGH = #{czgh}  AND 
+                        JZRQ = #{jzrq} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_HZRB WHERE
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_HZRB <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpHzrb">
+        SELECT <include refid="columns" />
+            FROM OP_HZRB 
+            WHERE 
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qzpj)"> -->
+<!--                     AND QZPJ = #{qzpj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjje)"> -->
+<!--                     AND ZJJE = #{zjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xjje)"> -->
+<!--                     AND XJJE = #{xjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zpje)"> -->
+<!--                     AND ZPJE = #{zpje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfzf)"> -->
+<!--                     AND ZFZF = #{zfzf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtys)"> -->
+<!--                     AND QTYS = #{qtys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hbwc)"> -->
+<!--                     AND HBWC = #{hbwc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzrq)"> -->
+<!--                     AND HZRQ = #{hzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fpzs)"> -->
+<!--                     AND FPZS = #{fpzs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zffp)"> -->
+<!--                     AND ZFFP = #{zffp} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfje)"> -->
+<!--                     AND ZFJE = #{zfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfzs)"> -->
+<!--                     AND ZFZS = #{zfzs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jjzfje)"> -->
+<!--                     AND JJZFJE = #{jjzfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tczc)"> -->
+<!--                     AND TCZC = #{tczc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bczhzf)"> -->
+<!--                     AND BCZHZF = #{bczhzf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbzc)"> -->
+<!--                     AND DBZC = #{dbzc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxjzfy)"> -->
+<!--                     AND ZXJZFY = #{zxjzfy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(grxjzf)"> -->
+<!--                     AND GRXJZF = #{grxjzf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(azqgfy)"> -->
+<!--                     AND AZQGFY = #{azqgfy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ysqtfb)"> -->
+<!--                     AND YSQTFB = #{ysqtfb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wszf)"> -->
+<!--                     AND WSZF = #{wszf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(posje)"> -->
+<!--                     AND POSJE = #{posje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jcje)"> -->
+<!--                     AND JCJE = #{jcje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jctjkje)"> -->
+<!--                     AND JCTJKJE = #{jctjkje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zkzs)"> -->
+<!--                     AND ZKZS = #{zkzs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zkfp)"> -->
+<!--                     AND ZKFP = #{zkfp} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_HZRB 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpHzrb">
+        SELECT <include refid="columns" />
+        FROM OP_HZRB 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+    <select id="doQueryJzrqAndCzgh" parameterType="Map" resultType="java.util.Map">
+    	SELECT DISTINCT
+			JZRQ  AS JZRQ,
+			CZGH AS CZGH 
+		FROM
+			(
+			SELECT
+				JZRQ AS JZRQ,
+				CZGH AS CZGH 
+			FROM
+				OP_HZRB 
+			WHERE
+				CZGH = #{czgh} 
+				AND JGID = #{jgid} 
+				AND MZLB = #{mzlb}
+				AND HZRQ IS NULL 
+			UNION ALL
+			SELECT
+				JZRQ AS JZRQ,
+				CZGH AS CZGH 
+			FROM
+				OP_GHRB 
+			WHERE
+				CZGH = #{czgh} 
+				AND JGID = #{jgid} 
+				AND MZLB = #{mzlb}
+				AND HZRQ IS NULL 
+			) t
+		ORDER BY
+			JZRQ DESC
+    </select>
+    
+    <select id="doQueryJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			JZRQ AS JZRQ 
+		FROM
+			OP_HZRB 
+		WHERE
+			CZGH = #{czgh} 
+			AND JGID = #{jgid} 
+			AND MZLB = #{mzlb}
+			AND JZRQ = #{jzrq} 
+			AND HZRQ IS NULL 
+		UNION ALL
+		SELECT
+			JZRQ AS JZRQ 
+		FROM
+			OP_GHRB 
+		WHERE
+			CZGH = #{czgh} 
+			AND JGID = #{jgid} 
+			AND MZLB = #{mzlb}
+			AND JZRQ = #{jzrq} 
+			AND HZRQ IS NULL
+    </select>
+    
+    <select id="doQueryMaxJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			 max( JZRQ ) AS JZRQ 
+		FROM
+			(
+			SELECT
+				JZRQ AS JZRQ 
+			FROM
+				OP_HZRB 
+			WHERE
+				CZGH = #{czgh} 
+				AND JGID = #{jgid} 
+				AND MZLB = #{mzlb}
+				AND HZRQ IS NULL 
+			UNION ALL
+			SELECT
+				JZRQ AS JZRQ 
+			FROM
+				OP_GHRB 
+			WHERE
+				CZGH = #{czgh} 
+				AND JGID = #{jgid} 
+			AND MZLB = #{mzlb}
+			AND HZRQ IS NULL) t
+    </select>
+    <delete id="doDeleteByCondition" parameterType="Map">
+        DELETE 
+		FROM
+			OP_HZRB 
+		WHERE
+			CZGH = #{czgh} 
+			AND JGID = #{jgid} 
+			AND JZRQ = #{jzrq} 
+			AND MZLB = #{mzlb}
+    </delete>
+    
+    <select id="doQueryHzrbCzgh" parameterType="Map" resultType="java.util.Map">
+    	SELECT DISTINCT
+			czgh AS czghid,
+			b.personname AS czgh 
+		FROM
+			(
+			SELECT
+				a.czgh AS czgh 
+			FROM
+				OP_HZRB a 
+			WHERE
+				a.jgid = #{jgid} 
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+				AND a.mzlb in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.czgh AS czgh 
+			FROM
+				OP_GHRB a 
+			WHERE
+				a.jgid = #{jgid} 
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+				AND a.mzlb in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) t,
+			HR_PERSONNEL b 
+		WHERE
+			t.czgh = b.personid 
+		ORDER BY
+			t.czgh
+    </select>
+    
+    <select id="doQueryHzrbInfo" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			YGDM AS YGDM,
+			sum( GHJE ) AS GHJE,
+			sum( ZJJE ) AS ZJJE,
+			sum( XJJE ) AS XJJE,
+			sum( QTYS ) AS QTYS,
+			sum( HBWC ) AS HBWC,
+			sum( GHRC ) AS GHRC,
+			sum( FPZS ) AS FPZS,
+			sum( THSL ) AS THSL,
+			sum( ZFZS ) AS ZFZS,
+			sum( JCJE ) AS JCJE,
+			sum( JCTJKJE ) AS JCTJKJE,
+			sum( JJHJ ) AS JJHJ 
+		FROM
+			(
+			SELECT
+				CZGH AS YGDM,
+				0 AS GHJE,
+				sum( ZJJE ) AS ZJJE,
+				sum( XJJE ) AS XJJE,
+				sum( QTYS ) AS QTYS,
+				sum( HBWC ) AS HBWC,
+				0 AS GHRC,
+				sum( FPZS ) AS FPZS,
+				0 AS THSL,
+				sum( ZFZS ) AS ZFZS,
+				sum( JCJE ) AS JCJE,
+				sum( JCTJKJE ) AS JCTJKJE,
+				0 AS JJHJ 
+			FROM
+				OP_HZRB 
+			WHERE
+				JGID = #{JGID}
+				AND MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND JZRQ <![CDATA[ >= ]]> #{datefrom}
+				AND JZRQ <![CDATA[ <= ]]> #{dateTo}
+			GROUP BY
+				CZGH 
+			UNION ALL
+			SELECT
+				CZGH AS YGDM,
+				sum( ZJJE ) AS GHJE,
+				0 AS ZJJE,
+				sum( XJJE ) AS XJJE,
+				sum( QTYS ) AS QTYS,
+				sum( HBWC ) AS HBWC,
+				sum( FPZS ) AS GHRC,
+				0 AS FPZS,
+				sum( THSL ) AS THSL,
+				0 AS ZFZS,
+				0 AS JCJE,
+				0 AS JCTJKJE,
+				0 AS JJHJ 
+			FROM
+				OP_GHRB 
+			WHERE
+				JGID = #{JGID}
+				AND MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND JZRQ <![CDATA[ >= ]]> #{datefrom}
+				AND JZRQ <![CDATA[ <= ]]> #{dateTo}
+			GROUP BY
+				CZGH 
+			) t 
+		GROUP BY
+			YGDM 
+		ORDER BY
+			YGDM
+    </select>
+    
+    <select id="doQueryHzrbCzghByJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT DISTINCT
+			czgh AS czghid,
+			b.personname AS czgh 
+		FROM
+			(
+			SELECT
+				a.czgh AS czgh 
+			FROM
+				OP_HZRB a 
+			WHERE
+				a.jgid = #{jgid} 
+				AND a.mzlb in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+			UNION ALL
+			SELECT
+				a.czgh AS czgh 
+			FROM
+				OP_GHRB a 
+			WHERE
+				a.jgid = #{jgid} 
+				AND a.mzlb in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+			) t,
+			HR_PERSONNEL b 
+		WHERE
+			t.czgh = b.personid 
+		ORDER BY
+			t.czgh
+    </select>
+    
+    <select id="doQueryHzrbJe" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			YGDM AS YGDM,
+			sum( GHJE ) AS GHJE,
+			sum( ZJJE ) AS ZJJE,
+			sum( XJJE ) AS XJJE,
+			sum( QTYS ) AS QTYS,
+			sum( HBWC ) AS HBWC,
+			sum( GHRC ) AS GHRC,
+			sum( FPZS ) AS FPZS,
+			sum( THSL ) AS THSL,
+			sum( ZFZS ) AS ZFZS,
+			sum( JCJE ) AS JCJE,
+			sum( JCTJKJE ) AS JCTJKJE 
+		FROM
+			(
+			SELECT
+				CZGH AS YGDM,
+				0 AS GHJE,
+				sum( ZJJE ) AS ZJJE,
+				sum( XJJE ) AS XJJE,
+				sum( QTYS ) AS QTYS,
+				sum( HBWC ) AS HBWC,
+				0 AS GHRC,
+				sum( FPZS ) AS FPZS,
+				0 AS THSL,
+				sum( ZFZS ) AS ZFZS,
+				sum( JCJE ) AS JCJE,
+				sum( JCTJKJE ) AS JCTJKJE 
+			FROM
+				OP_HZRB 
+			WHERE
+				JGID = #{JGID} 
+				AND JZRQ <![CDATA[>=]]> #{start} 
+				AND JZRQ <![CDATA[<=]]> #{end}
+				AND MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND HZRQ IS NULL 
+			GROUP BY
+				CZGH 
+			UNION ALL
+			SELECT
+				CZGH AS YGDM,
+				sum( ZJJE ) AS GHJE,
+				0 AS ZJJE,
+				sum( XJJE ) AS XJJE,
+				sum( QTYS ) AS QTYS,
+				sum( HBWC ) AS HBWC,
+				sum( FPZS ) AS GHRC,
+				0 AS FPZS,
+				sum( THSL ) AS THSL,
+				0 AS ZFZS,
+				0 AS JCJE,
+				0 AS JCTJKJE 
+			FROM
+				OP_GHRB 
+			WHERE
+				JGID = #{JGID} 
+				AND JZRQ <![CDATA[>=]]> #{start} 
+				AND JZRQ <![CDATA[<=]]> #{end} 
+				AND MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND HZRQ IS NULL 
+			GROUP BY
+				CZGH 
+			) t 
+		GROUP BY
+			YGDM
+    </select>
+    
+    <select id="doQueryMaxHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( HZRQ ) AS HZRQ 
+		FROM
+			OP_HZRB 
+		WHERE
+			JGID = #{JGID}
+    </select>
+    
+    <select id="doQueryMinJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			min( JZRQ ) AS JZRQ 
+		FROM
+			OP_HZRB 
+		WHERE
+			JGID = #{JGID}
+    </select>
+    
+    <select id="doQueryCzghByJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			CZGH AS CZGH 
+		FROM
+			OP_HZRB 
+		WHERE
+			JGID = #{JGID} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ <![CDATA[>]]> #{JZRQ}
+    </select>
+    
+    <select id="doQueryCzghByHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			CZGH AS CZGH 
+		FROM
+			OP_HZRB 
+		WHERE
+			JGID = #{JGID} 
+			AND HZRQ <![CDATA[>=]]> #{ldt_begin} 
+			AND HZRQ <![CDATA[<=]]> #{ldt_end} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+    </select>
+    
+    <update id="doUpdateHzrq" parameterType="Map">
+        UPDATE OP_HZRB 
+		SET HZRQ = #{ldt_hzrq} 
+		WHERE
+			JGID = #{gl_jgid} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NOT NULL 
+			AND HZRQ IS NULL
+    </update>
+    
+    <select id="doQueryHzje" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			YGDM AS YGDM,
+			sum( GHJE ) AS GHJE,
+			sum( ZJJE ) AS ZJJE,
+			sum( XJJE ) AS XJJE,
+			sum( QTYS ) AS QTYS,
+			sum( HBWC ) AS HBWC,
+			sum( GHRC ) AS GHRC,
+			sum( FPZS ) AS FPZS,
+			sum( THSL ) AS THSL,
+			sum( ZFZS ) AS ZFZS,
+			sum( JCJE ) AS JCJE,
+			sum( JCTJKJE ) AS JCTJKJE 
+		FROM
+			(
+			SELECT
+				CZGH AS YGDM,
+				0 AS GHJE,
+				sum( ZJJE ) AS ZJJE,
+				sum( XJJE ) AS XJJE,
+				sum( QTYS ) AS QTYS,
+				sum( HBWC ) AS HBWC,
+				0 AS GHRC,
+				sum( FPZS ) AS FPZS,
+				0 AS THSL,
+				sum( ZFZS ) AS ZFZS,
+				sum( JCJE ) AS JCJE,
+				sum( JCTJKJE ) AS JCTJKJE 
+			FROM
+				OP_HZRB 
+			WHERE
+				JGID = #{JGID} 
+				AND MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND HZRQ = #{HZRQ} 
+			GROUP BY
+				CZGH 
+			UNION ALL
+			SELECT
+				CZGH AS YGDM,
+				sum( ZJJE ) AS GHJE,
+				0 AS ZJJE,
+				sum( XJJE ) AS XJJE,
+				sum( QTYS ) AS QTYS,
+				sum( HBWC ) AS HBWC,
+				sum( FPZS ) AS GHRC,
+				0 AS FPZS,
+				sum( THSL ) AS THSL,
+				0 AS ZFZS,
+				0 AS JCJE,
+				0 AS JCTJKJE 
+			FROM
+				OP_GHRB 
+			WHERE
+				JGID = #{JGID} 
+				AND MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND HZRQ = #{HZRQ} 
+			GROUP BY
+				CZGH 
+			) t
+		GROUP BY
+			YGDM
+    </select>
+    
+    <select id="doQueryByHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( HZRQ ) AS HZRQ 
+		FROM
+			OP_HZRB 
+		WHERE
+			JGID = #{JGID} 
+			AND HZRQ <![CDATA[<]]> #{hzrq}
+    </select>
+    
+    <select id="doQueryHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT DISTINCT
+			HZRQ 
+		FROM
+			OP_HZRB  
+		WHERE
+			JGID = #{jgid}
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND HZRQ <![CDATA[>=]]> #{beginDay} 
+			AND HZRQ <![CDATA[<=]]> #{endDay}
+    </select>
+    
+    <select id="doQueryAllMaxHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			 max( HZRQ ) AS HZRQ 
+		FROM
+			(
+			SELECT
+				HZRQ AS HZRQ 
+			FROM
+				OP_HZRB 
+			WHERE
+				JGID = #{jgid} 
+				AND mzlb in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				HZRQ AS HZRQ 
+			FROM
+				OP_GHRB 
+			WHERE
+				JGID = #{jgid} 
+				AND mzlb in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) t 
+    </select>
+    
+    <select id="doQueryBeforeValid" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			CZGH AS YGDM,
+			sum( ZJJE ) AS ZJJE,
+			0.0 AS XJJE,
+			sum( QTYS ) AS QTYS,
+			sum( JJZFJE ) AS JJZFJE,
+			0.0 AS HBWC,
+			sum( FPZS ) AS FPZS,
+			sum( ZFZS ) AS ZFZS 
+		FROM
+			OP_HZRB 
+		WHERE
+			JGID = #{JGID} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND HZRQ IS NULL 
+		GROUP BY
+			CZGH
+    </select>
+    
+    <update id="updateHzrqToNull" parameterType="Map">
+        UPDATE OP_HZRB 
+		SET HZRQ = NULL 
+		WHERE
+			JGID = #{jgid} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NOT NULL 
+			AND HZRQ = #{hzrq}
+    </update>
+    
+    <select id="doQueryHzcx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			YGDM AS YGDM,
+			sum( GHJE ) AS GHJE,
+			sum( ZJJE ) AS ZJJE,
+			sum( XJJE ) AS XJJE,
+			sum( QTYS ) AS QTYS,
+			sum( HBWC ) AS HBWC,
+			sum( GHRC ) AS GHRC,
+			sum( FPZS ) AS FPZS,
+			sum( THSL ) AS THSL,
+			sum( ZFZS ) AS ZFZS,
+			sum( JCJE ) AS JCJE,
+			sum( JCTJKJE ) AS JCTJKJE 
+		FROM
+			(
+			SELECT
+				CZGH AS YGDM,
+				0 AS GHJE,
+				sum( ZJJE ) AS ZJJE,
+				sum( XJJE ) AS XJJE,
+				sum( QTYS ) AS QTYS,
+				sum( HBWC ) AS HBWC,
+				0 AS GHRC,
+				sum( FPZS ) AS FPZS,
+				0 AS THSL,
+				sum( ZFZS ) AS ZFZS,
+				sum( JCJE ) AS JCJE,
+				sum( JCTJKJE ) AS JCTJKJE 
+			FROM
+				OP_HZRB 
+			WHERE
+				JGID = #{JGID} 
+				AND MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND HZRQ <![CDATA[>=]]> #{KSRQ} 
+				AND HZRQ <![CDATA[<=]]> #{JSRQ} 
+			GROUP BY
+				CZGH 
+			UNION ALL
+			SELECT
+				CZGH AS YGDM,
+				sum( ZJJE ) AS GHJE,
+				0 AS ZJJE,
+				sum( XJJE ) AS XJJE,
+				sum( QTYS ) AS QTYS,
+				sum( HBWC ) AS HBWC,
+				sum( FPZS ) AS GHRC,
+				0 AS FPZS,
+				sum( THSL ) AS THSL,
+				0 AS ZFZS,
+				0 AS JCJE,
+				0 AS JCTJKJE 
+			FROM
+				OP_GHRB 
+			WHERE
+				JGID = #{JGID} 
+				AND MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND HZRQ <![CDATA[>=]]> #{KSRQ} 
+				AND HZRQ <![CDATA[<=]]> #{JSRQ} 
+			GROUP BY
+				CZGH 
+			) t
+		GROUP BY
+			YGDM
+    </select>
+    
+    <select id="doQueryHzSumje" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( b.QTYS ) AS XJJE,
+			sum( b.QTYS ) AS JZJE 
+		FROM
+			OP_HZRB b 
+		WHERE
+			b.JGID = #{al_jgid} 
+			AND b.MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND b.HZRQ <![CDATA[>=]]> #{adt_begin} 
+			AND b.HZRQ <![CDATA[<=]]> #{adt_end}
+    </select>
+</mapper>
+

@@ -1,0 +1,21 @@
+CREATE TABLE `mpi_psxx` (
+     `ID` int not null COMMENT '主键ID',
+     `JZKH` int not null COMMENT '就诊卡号',
+     `BRID` int not null COMMENT '患者id',
+     `GHKS` int not null COMMENT '诊治科室|挂号科室',
+     `CFHM` varchar(10) not null COMMENT '处方号',
+     `CJSJ` datetime  COMMENT '创建时间',
+     `XGSJ` datetime  COMMENT '修改时间',
+     `DDH` varchar(200) not null COMMENT '订单号',
+     `PSZT` varchar(1) null  COMMENT '配送状态',
+     `SHR` varchar(50) not null COMMENT '收货人',
+     `SHRDH` varchar(20) not null COMMENT '收货人电话',
+     `PSDZ` varchar(500) not null COMMENT '配送地址',
+     `PSFS` varchar(1) not null COMMENT '配送方式',
+     `PJY` varchar(50)  COMMENT '派件员',
+     `KDGS` varchar(200) COMMENT '快递公司',
+     `KDDH` varchar(50) COMMENT '快递单号',
+     `YJDDSJ` varchar(50) COMMENT '预计到达时间',
+     `BZ` varchar(500) COMMENT '备注信息',
+     PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='互联网医院配送信息表';

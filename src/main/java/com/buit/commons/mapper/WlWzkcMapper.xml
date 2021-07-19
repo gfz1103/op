@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 物资库存(WL_WZKC) -->
+<mapper namespace="com.buit.commons.dao.WlWzkcDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,JGID as jgid,KCXH as kcxh,KFXH as kfxh,ZBLB as zblb,WZXH as wzxh,CJXH as cjxh,WZPH as wzph,MJPH as mjph,SCRQ as scrq,SXRQ as sxrq,WZSL as wzsl,WZJG as wzjg,WZJE as wzje,YKSL as yksl,FSRQ as fsrq,LSJG as lsjg,LSJE as lsje,ZCBH as zcbh,KCZT as kczt,SBBH as sbbh,RKXH as rkxh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO WL_WZKC (
+            JLXH ,
+            JGID ,
+            KCXH ,
+            KFXH ,
+            ZBLB ,
+            WZXH ,
+            CJXH ,
+            WZPH ,
+            MJPH ,
+            SCRQ ,
+            SXRQ ,
+            WZSL ,
+            WZJG ,
+            WZJE ,
+            YKSL ,
+            FSRQ ,
+            LSJG ,
+            LSJE ,
+            ZCBH ,
+            KCZT ,
+            SBBH ,
+            RKXH 
+        ) VALUES (
+            #{jlxh} ,
+            #{jgid} ,
+            #{kcxh} ,
+            #{kfxh} ,
+            #{zblb} ,
+            #{wzxh} ,
+            #{cjxh} ,
+            #{wzph} ,
+            #{mjph} ,
+            #{scrq} ,
+            #{sxrq} ,
+            #{wzsl} ,
+            #{wzjg} ,
+            #{wzje} ,
+            #{yksl} ,
+            #{fsrq} ,
+            #{lsjg} ,
+            #{lsje} ,
+            #{zcbh} ,
+            #{kczt} ,
+            #{sbbh} ,
+            #{rkxh} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE WL_WZKC SET
+            JGID = #{jgid} ,
+            KCXH = #{kcxh} ,
+            KFXH = #{kfxh} ,
+            ZBLB = #{zblb} ,
+            WZXH = #{wzxh} ,
+            CJXH = #{cjxh} ,
+            WZPH = #{wzph} ,
+            MJPH = #{mjph} ,
+            SCRQ = #{scrq} ,
+            SXRQ = #{sxrq} ,
+            WZSL = #{wzsl} ,
+            WZJG = #{wzjg} ,
+            WZJE = #{wzje} ,
+            YKSL = #{yksl} ,
+            FSRQ = #{fsrq} ,
+            LSJG = #{lsjg} ,
+            LSJE = #{lsje} ,
+            ZCBH = #{zcbh} ,
+            KCZT = #{kczt} ,
+            SBBH = #{sbbh} ,
+            RKXH = #{rkxh} 
+        WHERE 
+            JLXH = #{jlxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM WL_WZKC WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM WL_WZKC <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="WlWzkc">
+        SELECT <include refid="columns" />
+            FROM WL_WZKC 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kcxh)"> -->
+<!--                     AND KCXH = #{kcxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kfxh)"> -->
+<!--                     AND KFXH = #{kfxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zblb)"> -->
+<!--                     AND ZBLB = #{zblb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wzxh)"> -->
+<!--                     AND WZXH = #{wzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cjxh)"> -->
+<!--                     AND CJXH = #{cjxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wzph)"> -->
+<!--                     AND WZPH = #{wzph} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mjph)"> -->
+<!--                     AND MJPH = #{mjph} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(scrq)"> -->
+<!--                     AND SCRQ = #{scrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sxrq)"> -->
+<!--                     AND SXRQ = #{sxrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wzsl)"> -->
+<!--                     AND WZSL = #{wzsl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wzjg)"> -->
+<!--                     AND WZJG = #{wzjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wzje)"> -->
+<!--                     AND WZJE = #{wzje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yksl)"> -->
+<!--                     AND YKSL = #{yksl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fsrq)"> -->
+<!--                     AND FSRQ = #{fsrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lsjg)"> -->
+<!--                     AND LSJG = #{lsjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lsje)"> -->
+<!--                     AND LSJE = #{lsje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zcbh)"> -->
+<!--                     AND ZCBH = #{zcbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kczt)"> -->
+<!--                     AND KCZT = #{kczt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbbh)"> -->
+<!--                     AND SBBH = #{sbbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(rkxh)"> -->
+<!--                     AND RKXH = #{rkxh} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM WL_WZKC 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="WlWzkc">
+        SELECT <include refid="columns" />
+        FROM WL_WZKC 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+
+    <update id="updateYjsl">
+        UPDATE WL_WZKC
+        SET YKSL = #{yksl}
+        WHERE
+            KCXH = #{kcxh}
+            AND JGID = #{jgid}
+            AND KFXH = #{kfxh}
+    </update>
+    <update id="updateyksl">
+        UPDATE WL_WZKC
+        SET YKSL = #{KFXH}
+        WHERE
+            KCXH = #{KCXH}
+            AND KFXH = #{KFXH}
+            AND JGID = #{JGID}
+    </update>
+    <select id="querySumNum" resultType="java.util.Map">
+        SELECT
+            b.WZMC AS WZMC,
+            sum( a.WZSL ) AS WZSL,
+            sum( a.YKSL ) AS YKSL
+        FROM
+            WL_WZKC a,
+            WL_WZZD b
+        WHERE
+            a.WZXH = b.WZXH
+            AND a.KFXH = #{kfxh}
+            AND a.WZXH = #{wzxh}
+        GROUP BY
+            WZMC
+    </select>
+    <select id="findSuppliesAmount" resultType="java.util.Map">
+        SELECT
+            LSJG AS WZJG,
+            WZSL AS WZSL,
+            KCXH AS KCXH,
+            YKSL AS YKSL,
+            WZXH AS WZXH
+        FROM
+            WL_WZKC
+        WHERE
+            WZXH = #{WZXH}
+            AND JGID = #{JGID}
+            AND KFXH = #{KFXH}
+        ORDER BY
+            JLXH
+    </select>
+</mapper>
+

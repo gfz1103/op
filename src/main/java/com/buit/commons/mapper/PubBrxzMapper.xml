@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 公用_病人性质 | 包括自费、公费、记帐等 -->
+<mapper namespace="com.buit.commons.dao.PubBrxzDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        BRXZ as brxz,XZMC as xzmc,SJXZ as sjxz,GSXZ as gsxz,PYDM as pydm,ZHPB as zhpb,DBPB as dbpb,MZSY as mzsy,ZYSY as zysy,SSBL as ssbl,CFXJ as cfxj,CFXE as cfxe,PLSX as plsx,XZDL as xzdl,TFFBJY as tffbjy,FYETBZ as fyetbz,VIPCWFY as vipcwfy
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO PUB_BRXZ (
+            BRXZ ,
+            XZMC ,
+            SJXZ ,
+            GSXZ ,
+            PYDM ,
+            ZHPB ,
+            DBPB ,
+            MZSY ,
+            ZYSY ,
+            SSBL ,
+            CFXJ ,
+            CFXE ,
+            PLSX ,
+            XZDL ,
+            TFFBJY ,
+            FYETBZ ,
+            VIPCWFY
+        ) VALUES (
+            #{brxz} ,
+            #{xzmc} ,
+            #{sjxz} ,
+            #{gsxz} ,
+            #{pydm} ,
+            #{zhpb} ,
+            #{dbpb} ,
+            #{mzsy} ,
+            #{zysy} ,
+            #{ssbl} ,
+            #{cfxj} ,
+            #{cfxe} ,
+            #{plsx} ,
+            #{xzdl} ,
+            #{tffbjy} ,
+            #{fyetbz} ,
+            #{vipcwfy}
+        )
+    </insert>
+
+
+    <update id="update" >
+        UPDATE PUB_BRXZ SET
+             XZMC = #{xzmc} ,
+             SJXZ = #{sjxz} ,
+             GSXZ = #{gsxz} ,
+             PYDM = #{pydm} ,
+             ZHPB = #{zhpb} ,
+             DBPB = #{dbpb} ,
+             MZSY = #{mzsy} ,
+             ZYSY = #{zysy} ,
+             SSBL = #{ssbl} ,
+             CFXJ = #{cfxj} ,
+             CFXE = #{cfxe} ,
+             PLSX = #{plsx} ,
+             XZDL = #{xzdl} ,
+             TFFBJY = #{tffbjy} ,
+             FYETBZ = #{fyetbz} ,
+             VIPCWFY = #{vipcwfy}
+        WHERE
+            BRXZ = #{brxz}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM PUB_BRXZ WHERE
+        BRXZ = #{brxz}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM PUB_BRXZ <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="com.buit.commons.model.PubBrxz">
+        SELECT <include refid="columns" />
+            FROM PUB_BRXZ
+            WHERE
+        BRXZ = #{brxz}
+    </select>
+
+    <select id="getListByYpxh" resultType="com.buit.system.response.PubBrxzListResp">
+        select
+            a.BRXZ as BRXZ,
+            a.XZMC as XZMC,
+            #{ypxh} as YPXH,
+            b.ZFBL as ZFBL
+        from PUB_BRXZ a
+        left outer join FEE_YPXZ b on a.BRXZ = b.BRXZ and b.ypxh = #{ypxh}
+        where a.BRXZ not in (select SJXZ from PUB_BRXZ where BRXZ != SJXZ)
+        order by a.SJXZ
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxz)"> -->
+<!--                     AND BRXZ = #{brxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzmc)"> -->
+<!--                     AND XZMC = #{xzmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sjxz)"> -->
+<!--                     AND SJXZ = #{sjxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gsxz)"> -->
+<!--                     AND GSXZ = #{gsxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pydm)"> -->
+<!--                     AND PYDM = #{pydm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhpb)"> -->
+<!--                     AND ZHPB = #{zhpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbpb)"> -->
+<!--                     AND DBPB = #{dbpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzsy)"> -->
+<!--                     AND MZSY = #{mzsy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zysy)"> -->
+<!--                     AND ZYSY = #{zysy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssbl)"> -->
+<!--                     AND SSBL = #{ssbl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfxj)"> -->
+<!--                     AND CFXJ = #{cfxj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfxe)"> -->
+<!--                     AND CFXE = #{cfxe} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(plsx)"> -->
+<!--                     AND PLSX = #{plsx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzdl)"> -->
+<!--                     AND XZDL = #{xzdl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tffbjy)"> -->
+<!--                     AND TFFBJY = #{tffbjy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyetbz)"> -->
+<!--                     AND FYETBZ = #{fyetbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(vipcwfy)"> -->
+<!--                     AND VIPCWFY = #{vipcwfy} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM PUB_BRXZ
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="com.buit.commons.model.PubBrxz">
+        SELECT <include refid="columns" />
+        FROM PUB_BRXZ
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+
+    <select id="getSjxzByBrxz" resultType="java.lang.Integer">
+        SELECT sjxz as SJXZ FROM PUB_BRXZ where brxz = #{brxz}
+    </select>
+
+    <!-- 建档时获得病人性质列表 -->
+    <select id="getPubBrxzList" resultType="com.buit.commons.model.PubBrxz">
+        SELECT
+			brxz AS brxz,
+			xzmc AS xzmc
+		FROM
+			PUB_BRXZ
+		WHERE
+			BRXZ NOT IN ( SELECT SJXZ FROM PUB_BRXZ )
+			AND MZSY = 1
+    </select>
+    <!--获取病人性质 sjxz-->
+    <select id="getSjxzList" resultType="java.util.Map">
+        SELECT t.sjxz as sjxz FROM PUB_BRXZ t where brxz = #{brxz}
+    </select>
+    <!--通过病人性质查询实际病人性质-->
+    <select id="querySjBrxzByBrxz" resultType="com.buit.commons.model.PubBrxz">
+        SELECT <include refid="columns" />
+        FROM PUB_BRXZ
+        where brxz=#{brxz}
+    </select>
+
+    <!-- 查询项目明细费用限制 -->
+    <select id="queryCostLimit" resultType="com.buit.cis.op.dctwork.response.PubBrxzResp">
+		    select a.BRXZ as BRXZ,
+		       a.XZMC as XZMC,
+		       ifnull(b.ZFBL * 100, 0) as ZFBL,
+		       ifnull(b.FYXE, 0) as FYXE,
+		       ifnull(b.CXBL * 100, 0) as CXBL,
+		       b.FYXH as FYXH
+		  from PUB_BRXZ a
+		  left outer join PUB_FYXZ b
+		    on a.BRXZ = b.BRXZ
+		   and b.FYXH = #{fyxh}
+		 where a.BRXZ not in (select SJXZ from PUB_BRXZ)
+		 order by a.BRXZ desc
+    </select>
+
+    <!-- 根据病人性质查询病人名称 -->
+    <select id="getBrmcPubBrxz" resultType="com.buit.commons.model.PubBrxz">
+        SELECT
+			BRXZ,
+			XZMC
+		FROM
+			PUB_BRXZ
+		WHERE
+			(
+			BRXZ NOT IN ( SELECT SJXZ FROM PUB_BRXZ))
+			AND BRXZ = #{brxz}
+		ORDER BY
+			PLSX
+    </select>
+
+    <!--病人性质列表-->
+    <select id="queryTree" resultType="com.buit.cis.op.dctwork.response.PubBrxzTreeResp">
+        select brxz, xzmc ,sjxz
+        from PUB_BRXZ
+    </select>
+
+</mapper>
+

@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_门诊医生排班 -->
+<mapper namespace="com.buit.commons.dao.OpYspbDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        GZRQ as gzrq,KSDM as ksdm,YSDM as ysdm,ZBLB as zblb,JGID as jgid,GHXE as ghxe,YGRS as ygrs,YYRS as yyrs,JZXH as jzxh,YYXE as yyxe,TGBZ as tgbz,FWLX as fwlx,ZSID as zsid,SFTZ as sftz
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_YSPB (
+            GZRQ ,
+            KSDM ,
+            YSDM ,
+            ZBLB ,
+            JGID ,
+            GHXE ,
+            YGRS ,
+            YYRS ,
+            JZXH ,
+            YYXE ,
+            TGBZ ,
+            FWLX ,
+            ZSID ,
+            SFTZ 
+        ) VALUES (
+            #{gzrq} ,
+            #{ksdm} ,
+            #{ysdm} ,
+            #{zblb} ,
+            #{jgid} ,
+            #{ghxe} ,
+            #{ygrs} ,
+            #{yyrs} ,
+            #{jzxh} ,
+            #{yyxe} ,
+            #{tgbz} ,
+            #{fwlx} ,
+            #{zsid} ,
+            #{sftz} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_YSPB SET
+            JGID = #{jgid} ,
+            GHXE = #{ghxe} ,
+            YGRS = #{ygrs} ,
+            YYRS = #{yyrs} ,
+            JZXH = #{jzxh} ,
+            YYXE = #{yyxe} ,
+            TGBZ = #{tgbz} ,
+            FWLX = #{fwlx} ,
+            ZSID = #{zsid} ,
+            SFTZ = #{sftz} 
+        WHERE 
+            GZRQ = #{gzrq}  AND 
+                        KSDM = #{ksdm}  AND 
+                        YSDM = #{ysdm}  AND 
+                        ZBLB = #{zblb} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_YSPB WHERE
+        GZRQ = #{gzrq}  AND 
+        KSDM = #{ksdm}  AND 
+        YSDM = #{ysdm}  AND 
+        ZBLB = #{zblb} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_YSPB <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpYspb">
+        SELECT <include refid="columns" />
+            FROM OP_YSPB 
+            WHERE 
+        GZRQ = #{gzrq}  AND 
+        KSDM = #{ksdm}  AND 
+        YSDM = #{ysdm}  AND 
+        ZBLB = #{zblb} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+               <if test="@sqlt.Ognl@isNotEmpty(beginOfDay)">
+					AND GZRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			   </if>
+			   <if test="@sqlt.Ognl@isNotEmpty(yyrq)">
+					AND GZRQ = #{yyrq}
+			   </if>
+               <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+                    AND KSDM = #{ksdm}
+               </if>
+               <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+                    AND YSDM = #{ysdm}
+               </if>
+               <if test="@sqlt.Ognl@isNotEmpty(zblb)">
+                    AND ZBLB = #{zblb}
+               </if>
+               <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                    AND JGID = #{jgid}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghxe)"> -->
+<!--                     AND GHXE = #{ghxe} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ygrs)"> -->
+<!--                     AND YGRS = #{ygrs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyrs)"> -->
+<!--                     AND YYRS = #{yyrs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzxh)"> -->
+<!--                     AND JZXH = #{jzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyxe)"> -->
+<!--                     AND YYXE = #{yyxe} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tgbz)"> -->
+<!--                     AND TGBZ = #{tgbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fwlx)"> -->
+<!--                     AND FWLX = #{fwlx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsid)"> -->
+<!--                     AND ZSID = #{zsid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sftz)"> -->
+<!--                     AND SFTZ = #{sftz} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_YSPB 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpYspb">
+        SELECT <include refid="columns" />
+        FROM OP_YSPB 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+	<!-- 查询医生排班列表 -->
+	<select id="getYspbList" resultType="com.buit.commons.model.OpYspb">
+	SELECT
+		ghks.KSMC AS ksmc,
+		person.PERSONNAME AS personName,
+		yspb.GZRQ AS gzrq,
+		yspb.KSDM AS ksdm,
+		yspb.YSDM AS ysdm,
+		yspb.ZBLB AS zblb,
+		yspb.JGID AS jgid,
+		yspb.GHXE AS ghxe,
+		yspb.YGRS AS ygrs,
+		yspb.YYRS AS yyrs,
+		yspb.JZXH AS jzxh,
+		yspb.YYXE AS yyxe,
+		yspb.TGBZ AS tgbz,
+		yspb.FWLX AS fwlx 
+	FROM
+		OP_YSPB yspb
+		LEFT JOIN OP_GHKS ghks ON yspb.KSDM = ghks.KSDM
+		LEFT JOIN HR_PERSONNEL person ON yspb.YSDM = person.PERSONID 
+	<where>
+		<if test="@sqlt.Ognl@isNotEmpty(gzrq)">
+			AND yspb.GZRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+			AND yspb.ZBLB = #{zblb}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+			AND yspb.JGID = #{jgid}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+			AND yspb.KSDM = #{ksdm}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(keyword)">
+			AND (ghks.KSMC LIKE CONCAT(CONCAT('%',#{keyword}),'%')
+			OR person.PERSONNAME LIKE CONCAT(CONCAT('%',#{keyword}),'%')
+			OR person.PYCODE LIKE CONCAT(CONCAT('%',#{keyword}),'%')
+			OR ghks.PYDM LIKE CONCAT(CONCAT('%',#{keyword}),'%'))
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(keyword)">
+			AND (ghks.KSMC LIKE CONCAT(CONCAT('%',#{keyword}),'%') OR person.PERSONNAME LIKE CONCAT(CONCAT('%',#{keyword}),'%'))
+		</if>
+	</where>
+	ORDER BY yspb.KSDM, yspb.YSDM
+	</select>
+    <!-- 复制一周批量插入 -->
+	<insert id="insertForEach" parameterType="java.util.List">
+		INSERT INTO OP_YSPB (
+		GZRQ ,
+		KSDM ,
+		YSDM ,
+		ZBLB ,
+		JGID ,
+		GHXE ,
+		YGRS ,
+		YYRS ,
+		JZXH ,
+		YYXE ,
+		TGBZ ,
+		FWLX ,
+		ZSID ,
+		SFTZ
+		) VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.gzrq},
+			#{item.ksdm},
+			#{item.ysdm},
+			#{item.zblb},
+			#{item.jgid},
+			#{item.ghxe},
+			#{item.ygrs},
+			#{item.yyrs},
+			#{item.jzxh},
+			#{item.yyxe},
+			#{item.tgbz},
+			#{item.fwlx},
+			#{item.zsid},
+			#{item.sftz}
+			)
+		</foreach>
+	</insert>
+	
+	<!-- 根据条件删除医生排班信息 -->
+	<delete id="delYspbByCondition">
+		DELETE FROM OP_YSPB
+		<where>
+		    <if test="ksdm != null">
+				AND KSDM = #{ksdm}
+			</if>
+			<if test="ysdm != null">
+				AND YSDM = #{ysdm}
+			</if>
+			<if test="zblb != null">
+				AND ZBLB = #{zblb}
+			</if>
+			<if test="beginOfDay != null">
+				AND GZRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="jgid != null">
+				AND JGID = #{jgid}
+			</if>
+		</where>
+	</delete>
+	
+	<!-- 退号更新医生排班已挂人数 -->
+	<update id="updateByTh" parameterType="Map">
+		UPDATE OP_YSPB SET YGRS = YGRS - 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(YSDM)">
+				AND YSDM = #{YSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GHRQ)">
+				AND GZRQ BETWEEN #{ldt_begin} AND #{ldt_end}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 挂号管理-医生排班列表 -->
+	<select id="getGhYspbList" parameterType="Map" resultType="java.util.Map">
+		SELECT b.PYCODE AS PYCODE,
+			b.PERSONNAME AS PERSONNAME,
+			b.EXPERTCOST AS EXPERTCOST,
+			b.ISEXPERT AS ISEXPERT,
+			CASE
+				b.ISEXPERT 
+				WHEN 0 THEN
+				'否' 
+				WHEN 1 THEN
+				'是' 
+			END AS isexperttext,
+			b.specialcost AS specialcost,
+			b.isspecial AS isspecial,
+			CASE
+				b.isspecial 
+				WHEN 0 THEN
+				'否' 
+				WHEN 1 THEN
+				'是' 
+			END AS isspecial_text,
+			a.GHXE AS GHXE,
+			a.YGRS AS YGRS,
+			a.YSDM AS YSDM,
+			a.KSDM AS KSDM,
+			b.EXPERTCOST AS EXPERTCOST,
+			a.TGBZ AS TGBZ,
+			a.YYRS AS YYRS,
+			b.PRESCRIBERIGHT AS PRESCRIBERIGHT,
+			a.ZBLB AS ZBLB,
+			a.YYXE AS YYXE,
+			0 AS Selected,
+			b.YGDM AS OLDYSDM,
+			0 AS HZRS,
+			0 AS ZGRS,
+			a.ZSID AS ZSID,
+			a.SFTZ AS SFTZ,
+			CASE
+				a.SFTZ 
+				WHEN '1' THEN
+				'是' ELSE '否' 
+			END AS sftztext ,
+			ghks.MZKS 
+		FROM
+			OP_YSPB a 
+			inner join HR_PERSONNEL b on a.YSDM = b.PERSONID 
+			left join OP_GHKS ghks on a.KSDM = ghks.KSDM 
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND a.JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND a.ZBLB IN
+				<foreach collection="ZBLB.split(',')" item="z" open="(" separator="," close=")">
+					#{z}
+				</foreach>
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fwlx)">
+				AND a.FWLX = #{fwlx}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GZRQ)">
+				AND a.GZRQ BETWEEN #{adt_begin} AND #{adt_end}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND a.KSDM = #{KSDM}
+			</if>
+		</where>
+		ORDER BY b.PERSONNAME
+	</select>
+	
+	<!-- 就诊序号加1 -->
+	<select id="getJzxhIncrease" parameterType="Map" resultType="java.util.Map">
+		SELECT ifnull(JZXH,0)+1 as JZXH FROM OP_YSPB
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GZRQ)">
+				AND GZRQ BETWEEN #{ldt_begin} AND #{ldt_end}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(YSDM)">
+				AND YSDM = #{YSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 挂号时更新已挂人数、预约人数-->
+	<update id="updateYgrs" parameterType="Map">
+		UPDATE OP_YSPB SET YGRS = ifnull(YGRS,0) + 1,YYRS = if(YYRS=0,1,YYRS) - 1
+		<where>
+			AND YYRS>0
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GZRQ)">
+				AND GZRQ BETWEEN #{ldt_begin} AND #{ldt_end}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(YSDM)">
+				AND YSDM = #{YSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 挂号时更新已挂人数、就诊序号 -->
+	<update id="updateYgrsAndJzxh" parameterType="Map">
+		UPDATE OP_YSPB SET YGRS = ifnull(YGRS,0) + 1,JZXH = ifnull(JZXH,0) + 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GZRQ)">
+				AND GZRQ BETWEEN #{ldt_begin} AND #{ldt_end}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(YSDM)">
+				AND YSDM = #{YSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 医生排班已挂人数减1-->
+	<update id="updateYgrsSub" parameterType="Map">
+		UPDATE OP_YSPB SET YGRS = if(YGRS=0,1,YGRS) - 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GZRQ)">
+				AND GZRQ BETWEEN #{ldt_begin} AND #{ldt_end}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(YSDM)">
+				AND YSDM = #{YSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 医生排班已挂人数加1-->
+	<update id="updateYgrsAdd" parameterType="Map">
+		UPDATE OP_YSPB SET YGRS = YGRS + 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(GZRQ)">
+				AND GZRQ BETWEEN #{ldt_begin} AND #{ldt_end}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZRKS)">
+				AND KSDM = #{ZRKS}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZRYS)">
+				AND YSDM = #{ZRYS}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZBLB)">
+				AND ZBLB = #{ZBLB}
+			</if>
+		</where>
+	</update>
+    <update id="updateYyrs">
+		UPDATE OP_YSPB
+		SET YYRS = YYRS + 1
+		WHERE
+			KSDM = #{KSDM}
+			AND GZRQ = #{GZRQ}
+			AND YSDM = #{YSDM}
+			AND ZBLB = #{ZBLB}
+	</update>
+	
+	<!-- 查询会诊人数 -->
+	<select id="getHzrsAndZgrs" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			YSDM AS YSDM,
+			ZSID,
+			sum( hzrs ) HZRS,
+			sum( zgrs ) zgrs,
+			count( 1 ) YGRS 
+		FROM
+			(
+			SELECT
+				YSDM AS YSDM,
+				ZSID,
+				if(ifnull(JZZT,0)=0,1,0) hzrs,
+				if(ifnull(JZZT,0)=2,1,0) zgrs 
+			FROM
+				OP_GHMX a 
+			WHERE
+				a.JGID = #{jgid} 
+				AND ifnull( JZJS, 0 )= 0 
+				AND ifnull( THBZ, 0 )= 0 
+				AND a.GHSJ <![CDATA[ >= ]]> #{currDate} 
+				AND a.KSDM = #{ksdm}
+				
+				AND YSDM IS NOT NULL 
+			UNION ALL
+			SELECT
+				YSDM AS YSDM,
+				ZSID,
+				if(ifnull(JZZT,0)=0,1,0) hzrs,
+				if(ifnull(JZZT,0)=2,1,0) zgrs 
+			FROM
+				DIY_GHMX_ZZGH a 
+			WHERE
+				ifnull(JZJS,0)= 0 
+				AND ifnull ( THBZ, 0 )= 0 
+				AND a.GHSJ <![CDATA[ >= ]]> #{currDate} 
+				AND a.KSDM = #{ksdm}
+				AND YSDM IS NOT NULL 
+			) t 
+		GROUP BY
+			YSDM,
+			ZSID
+	</select>
+	
+	<select id="getZjPb" parameterType="Map" resultType="java.lang.Integer">
+		select count(1) from OP_YSPB where GZRQ =#{GZRQ}  and KSDM=#{KSDM} and  ZBLB=#{ZBLB}
+	</select>
+	<select id="queryYspb" resultType="com.buit.commons.response.QueryYspbResp">
+		SELECT
+			a.gzrq AS yyrq,
+			sum( zblb ) zblb
+		FROM
+			OP_YSPB a
+		WHERE
+			a.fwlx = 1
+			AND a.jgid = #{jgid}
+			AND a.ksdm = #{ksdm}
+			AND a.ysdm = #{ysdm}
+		GROUP BY
+			a.gzrq
+	</select>
+	
+	<select id="doVaildYspbByZblb" resultType="OpZblbResp">
+		SELECT
+			yspb.ZBLB as zblb,
+			person.PERSONNAME as personName  
+		FROM
+			op_yspb yspb
+			INNER JOIN hr_personnel person ON yspb.YSDM = person.PERSONID 
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND yspb.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(gzrq)">
+				AND yspb.GZRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND yspb.KSDM = #{ksdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+				AND yspb.YSDM = #{ysdm}
+			</if>
+		</where>
+	</select>
+	<select id="getInternetYspbByCondition" resultType="com.buit.op.model.mphis.response.MphisGhysPbDto">
+		select ob.SDMC, ob.SBSJ, ob.XBSJ, oy.ysdm, oy.ZBLB, oy.GHXE, oy.YGRS, oy.YYRS, oy.JZXH, oy.YYXE,
+		       oy.TGBZ, oy.ZSID, oy.SFTZ, date_format(oy.GZRQ, '%Y.%m.%d') gzrq
+		from op_yspb oy
+		left join op_bcsj ob on oy.ZBLB = ob.SDDM
+		where
+		if(left(SBSJ, 2) > left(XBSJ, 2),
+		CONCAT(date_format(DATE_SUB(oy.GZRQ,INTERVAL -1 DAY), '%Y-%m-%d'), ' ', ob.XBSJ) > date_add(NOW(), INTERVAL 30 minute),
+		CONCAT(date_format(oy.GZRQ, '%Y-%m-%d'), ' ', ob.XBSJ) > date_add(NOW(), INTERVAL 30 minute) )
+		<if test="@sqlt.Ognl@isNotEmpty(opYspb.ksdm)">
+			AND oy.KSDM = #{opYspb.ksdm}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(opYspb.jgid)">
+			AND oy.JGID = #{opYspb.jgid}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(opYspb.ysdm)">
+			AND oy.YSDM = #{opYspb.ysdm}
+		</if>
+		order by oy.GZRQ, oy.ZBLB
+		<if test="@sqlt.Ognl@isNotEmpty(pageSize)">
+			LIMIT #{pageSize}
+		</if>
+	</select>
+    <select id="countYspbToday" resultType="com.buit.commons.dto.OpYspbZtDto">
+		select count(*) count, oy.YSDM
+		from op_yspb oy left join op_bcsj ob on oy.ZBLB = ob.SDDM
+		where if(left(SBSJ, 2) > left(XBSJ, 2),
+		    CONCAT(date_format(DATE_SUB(oy.GZRQ,INTERVAL -1 DAY), '%Y-%m-%d'), ' ', ob.XBSJ) > NOW(),
+		    CONCAT(date_format(oy.GZRQ, '%Y-%m-%d'), ' ', ob.XBSJ) > NOW())
+		and date_format(oy.GZRQ, '%Y-%m-%d') = date_format(NOW(), '%Y-%m-%d')
+		and oy.tgbz = 0
+		<if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+		   and oy.ysdm in
+			<foreach item="item" index="index" collection="ysdm" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		group by oy.YSDM
+	</select>
+
+	<select id="countYspbFuture" resultType="com.buit.commons.dto.OpYspbZtDto">
+		select count(*) count, oy.YSDM
+		from op_yspb oy left join op_bcsj ob on oy.ZBLB = ob.SDDM
+		where if(left(SBSJ, 2) > left(XBSJ, 2),
+		CONCAT(date_format(DATE_SUB(oy.GZRQ,INTERVAL -1 DAY), '%Y-%m-%d'), ' ', ob.XBSJ) > NOW(),
+		CONCAT(date_format(oy.GZRQ, '%Y-%m-%d'), ' ', ob.XBSJ) > NOW())
+		and oy.tgbz = 0
+		<if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+			and oy.ysdm in
+			<foreach item="item" index="index" collection="ysdm" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		group by oy.YSDM
+	</select>
+
+</mapper>
+

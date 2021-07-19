@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 互联网医院配送信息表 -->
+<mapper namespace="com.buit.commons.dao.MpPsxxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id, JGID as jgid, JZKH as jzkh,BRID as brid,GHKS as ghks,CFHM as cfhm, SBXH as sbxh, JZLSH as jzlsh, CJSJ as cjsj,XGSJ as xgsj,DDH as ddh,PSZT as pszt,SHR as shr,SHRDH as shrdh,PSDZ as psdz,PSFS as psfs,PJY as pjy, PYYDH as pjydh, KDGS as kdgs,KDDH as kddh,YJDDSJ as yjddsj, KSSJ as kssj, JSSJ as jssj, BZ as bz
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO MP_PSXX (
+            ID ,
+            JGID ,
+            JZKH ,
+            BRID ,
+            GHKS ,
+            CFHM ,
+            SBXH ,
+            JZLSH ,
+            CJSJ ,
+            XGSJ ,
+            DDH ,
+            PSZT ,
+            SHR ,
+            SHRDH ,
+            PSDZ ,
+            PSFS ,
+            PJY ,
+            KDGS ,
+            KDDH ,
+            YJDDSJ ,
+            KSSJ,
+            JSSJ,
+            BZ
+        ) VALUES (
+            #{id} ,
+            #{jgid},
+            #{jzkh} ,
+            #{brid} ,
+            #{ghks} ,
+            #{cfhm} ,
+            #{sbxh},
+            #{jzlsh},
+            #{cjsj} ,
+            #{xgsj} ,
+            #{ddh} ,
+            #{pszt} ,
+            #{shr} ,
+            #{shrdh} ,
+            #{psdz} ,
+            #{psfs} ,
+            #{pjy} ,
+            #{kdgs} ,
+            #{kddh} ,
+            #{yjddsj} ,
+            #{kssj},
+            #{jssj},
+            #{bz}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE MP_PSXX SET
+                XGSJ = #{xgsj} ,
+                PSZT = #{pszt} ,
+                PJY = #{pjy} ,
+                PYYDH = #{pjydh} ,
+                KDGS = #{kdgs} ,
+                KDDH = #{kddh} ,
+                YJDDSJ = #{yjddsj} ,
+                KSSJ = #{kssj} ,
+                JSSJ = #{jssj} ,
+                BZ = #{bz}
+        WHERE
+            ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM MP_PSXX WHERE
+        ID = #{id}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM MP_PSXX <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="com.buit.commons.model.MpPsxx">
+        SELECT <include refid="columns" />
+            FROM MP_PSXX
+            WHERE
+        ID = #{id}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND ID = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzkh)"> -->
+<!--                     AND JZKH = #{jzkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghks)"> -->
+<!--                     AND GHKS = #{ghks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfhm)"> -->
+<!--                     AND CFHM = #{cfhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cjsj)"> -->
+<!--                     AND CJSJ = #{cjsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xgsj)"> -->
+<!--                     AND XGSJ = #{xgsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ddh)"> -->
+<!--                     AND DDH = #{ddh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pszt)"> -->
+<!--                     AND PSZT = #{pszt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(shr)"> -->
+<!--                     AND SHR = #{shr} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(shrdh)"> -->
+<!--                     AND SHRDH = #{shrdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psdz)"> -->
+<!--                     AND PSDZ = #{psdz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psfs)"> -->
+<!--                     AND PSFS = #{psfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pjy)"> -->
+<!--                     AND PJY = #{pjy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kdgs)"> -->
+<!--                     AND KDGS = #{kdgs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kddh)"> -->
+<!--                     AND KDDH = #{kddh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yjddsj)"> -->
+<!--                     AND YJDDSJ = #{yjddsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bz)"> -->
+<!--                     AND BZ = #{bz} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM MP_PSXX
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="com.buit.commons.model.MpPsxx">
+        SELECT <include refid="columns" />
+        FROM MP_PSXX
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <select id="getList" resultType="com.buit.commons.response.MpPsxxResp">
+        select mp.*, mb.BRXM, og.KSMC, dt.YPMC, oc02.YFGG, oc02.YFDW, oc02.YPSL, oc02.SBXH,
+               oc02.HJJE, oc01.FPHM
+        from mp_psxx mp
+                 left join op_cf02 oc02 on mp.SBXH = oc02.SBXH
+                 left join op_cf01 oc01 on oc01.CFSB = oc02.CFSB
+                 left join drugs_typk dt on dt.YPXH = oc02.YPXH
+                 left join mpi_brda mb on mb.BRID = mp.BRID
+                 left join op_ghks og on mp.GHKS = og.KSDM
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(pszt)">
+                AND mp.PSZT = #{pszt}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                AND mp.jgid = #{jgid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(keyword)">
+                AND (mb.BRXM LIKE CONCAT(CONCAT('%',#{keyword}),'%') OR mp.JZKH LIKE CONCAT(CONCAT('%',#{keyword}),'%')
+                OR mp.DDH LIKE CONCAT(CONCAT('%',#{keyword}),'%') OR oc01.FPHM LIKE CONCAT(CONCAT('%',#{keyword}),'%'))
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(beginDay)">
+                AND mp.cjsj between CONCAT(#{beginDay},' ', '00:00:00') and CONCAT(#{endDay}, ' ' ,'23:59:59')
+            </if>
+        </where>
+        order by mp.CJSJ DESC
+    </select>
+
+    <update id="updateZtBycfsbList">
+        update mp_psxx mp
+        left join op_cf02 cf02 on mp.SBXH = cf02.SBXH
+        left join op_cf01 cf01 on cf01.CFSB = cf02.CFSB
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="@sqlt.Ognl@isNotEmpty(psxx.pszt)">
+                mp.PSZT = #{psxx.pszt},
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(psxx.jssj)">
+                mp.JSSJ = #{psxx.jssj},
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(psxx.xgsj)">
+                mp.XGSJ = #{psxx.xgsj},
+            </if>
+        </trim>
+        WHERE cf01.CFSB in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>
+

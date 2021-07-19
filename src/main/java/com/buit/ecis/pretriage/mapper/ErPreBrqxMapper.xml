@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 病人去向 -->
+<mapper namespace="com.buit.ecis.pretriage.dao.ErPreBrqxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        QXID as qxid,JGID as jgid,QX as qx,PXH as pxh,ZT as zt
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO ER_PRE_BRQX (
+            QXID ,
+            JGID ,
+            QX ,
+            PXH ,
+            ZT 
+        ) VALUES (
+            #{qxid} ,
+            #{jgid} ,
+            #{qx} ,
+            #{pxh} ,
+            #{zt} 
+        )
+    </insert>
+    
+    <update id="update" >
+        UPDATE ER_PRE_BRQX SET
+            JGID = #{jgid} ,
+            QX = #{qx} ,
+            PXH = #{pxh} ,
+            ZT = #{zt} 
+        WHERE 
+            QXID = #{qxid} 
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM ER_PRE_BRQX WHERE
+        QXID = #{qxid} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM ER_PRE_BRQX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="ErPreBrqx">
+        SELECT <include refid="columns" />
+            FROM ER_PRE_BRQX 
+            WHERE 
+        QXID = #{qxid} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qxid)"> -->
+<!--                     AND QXID = #{qxid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qx)"> -->
+<!--                     AND QX = #{qx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pxh)"> -->
+<!--                     AND PXH = #{pxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zt)"> -->
+<!--                     AND ZT = #{zt} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM ER_PRE_BRQX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="ErPreBrqx">
+        SELECT <include refid="columns" />
+        FROM ER_PRE_BRQX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+</mapper>
+

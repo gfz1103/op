@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 主诉记录 -->
+<mapper namespace="com.buit.ecis.pretriage.dao.ErPreZsjlDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ZSMSID as zsmsid,JGID as jgid,ZSMS as zsms,BQFJ as bqfj,PYM as pym,WBM as wbm,ZSLBID as zslbid
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO ER_PRE_ZSJL (
+            ZSMSID ,
+            JGID ,
+            ZSMS ,
+            BQFJ ,
+            PYM ,
+            WBM ,
+            ZSLBID 
+        ) VALUES (
+            #{zsmsid} ,
+            #{jgid} ,
+            #{zsms} ,
+            #{bqfj} ,
+            #{pym} ,
+            #{wbm} ,
+            #{zslbid} 
+        )
+    </insert>
+    
+    <update id="update" >
+        UPDATE ER_PRE_ZSJL SET
+            JGID = #{jgid} ,
+            ZSMS = #{zsms} ,
+            BQFJ = #{bqfj} ,
+            PYM = #{pym} ,
+            WBM = #{wbm} ,
+            ZSLBID = #{zslbid} 
+        WHERE 
+            ZSMSID = #{zsmsid} 
+
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM ER_PRE_ZSJL WHERE
+        ZSMSID = #{zsmsid} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM ER_PRE_ZSJL <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="ErPreZsjl">
+        SELECT <include refid="columns" />
+            FROM ER_PRE_ZSJL 
+            WHERE 
+        ZSMSID = #{zsmsid} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+                <if test="@sqlt.Ognl@isNotEmpty(zsmsid)">
+                     AND ZSMSID = #{zsmsid}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(zsms)">
+                     AND ZSMS = #{zsms}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bqfj)"> -->
+<!--                     AND BQFJ = #{bqfj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pym)"> -->
+<!--                     AND PYM = #{pym} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wbm)"> -->
+<!--                     AND WBM = #{wbm} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(zslbid)">
+                     AND ZSLBID = #{zslbid}
+                </if>
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM ER_PRE_ZSJL 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="ErPreZsjl">
+        SELECT <include refid="columns" />
+        FROM ER_PRE_ZSJL 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+</mapper>
+

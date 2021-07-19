@@ -1,0 +1,1572 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_挂号科室 -->
+<mapper namespace="com.buit.commons.dao.OpGhksDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        KSDM as ksdm,JGID as jgid,KSMC as ksmc,GHLB as ghlb,PYDM as pydm,WBDM as wbdm,JXDM as jxdm,QTDM as qtdm,GHF as ghf,ZLF as zlf,ZJMZ as zjmz,GHXE as ghxe,YGRS as ygrs,YYRS as yyrs,GHRQ as ghrq,MZKS as mzks,TJPB as tjpb,TJF as tjf,MZLB as mzlb,JZXH as jzxh,JJRGHF as jjrghf,DDXX as ddxx,DDDM as dddm,SFQY as sfqy,LRJKBK as lrjkbk,BSRUNKSDM as bsrunksdm,SZDM as szdm,PTMZ as ptmz,ZKMZ as zkmz,TXMZ as txmz,KSFJH as ksfjh,KSLB as kslb,XBXZ as xbxz,NLXZ as nlxz,FWTID as fwtid,JZMZ as jzmz,DBTYPE as dbtype,INTERNET as internet,PEDIATRICS as pediatrics
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_GHKS (
+            KSDM ,
+            JGID ,
+            KSMC ,
+            GHLB ,
+            PYDM ,
+            WBDM ,
+            JXDM ,
+            QTDM ,
+            GHF ,
+            ZLF ,
+            ZJMZ ,
+            GHXE ,
+            YGRS ,
+            YYRS ,
+            GHRQ ,
+            MZKS ,
+            TJPB ,
+            TJF ,
+            MZLB ,
+            JZXH ,
+            JJRGHF ,
+            DDXX ,
+            DDDM ,
+            SFQY ,
+            LRJKBK ,
+            BSRUNKSDM ,
+            SZDM ,
+            PTMZ ,
+            ZKMZ ,
+            TXMZ ,
+            KSFJH,
+            KSLB,
+            XBXZ,
+            NLXZ ,
+            JZMZ ,
+            DBTYPE,
+			INTERNET,
+			PEDIATRICS
+        ) VALUES (
+            #{ksdm} ,
+            #{jgid} ,
+            #{ksmc} ,
+            #{ghlb} ,
+            #{pydm} ,
+            #{wbdm} ,
+            #{jxdm} ,
+            #{qtdm} ,
+            #{ghf} ,
+            #{zlf} ,
+            #{zjmz} ,
+            #{ghxe} ,
+            #{ygrs} ,
+            #{yyrs} ,
+            #{ghrq} ,
+            #{mzks} ,
+            #{tjpb} ,
+            #{tjf} ,
+            #{mzlb} ,
+            #{jzxh} ,
+            #{jjrghf} ,
+            #{ddxx} ,
+            #{dddm} ,
+            #{sfqy} ,
+            #{lrjkbk} ,
+            #{bsrunksdm} ,
+            #{szdm} ,
+            #{ptmz} ,
+            #{zkmz} ,
+            #{txmz} ,
+            #{ksfjh},
+            #{kslb},
+            #{xbxz},
+            #{nlxz},
+            #{jzmz},
+            #{dbtype},
+			#{internet},
+			#{pediatrics}
+        )
+    </insert>
+
+    <update id="update">
+    <!--
+	UPDATE OP_GHKS
+	<trim prefix="SET" suffixOverrides=",">
+		<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+			JGID = #{jgid} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ksmc)">
+			KSMC = #{ksmc} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ghlb)">
+			GHLB = #{ghlb} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(pydm)">
+			PYDM = #{pydm} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(wbdm)">
+			WBDM = #{wbdm} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+			JXDM = #{jxdm} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(qtdm)">
+			QTDM = #{qtdm} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ghf)">
+			GHF = #{ghf} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(zlf)">
+			ZLF = #{zlf} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(zjmz)">
+			ZJMZ = #{zjmz} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ghxe)">
+			GHXE = #{ghxe} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ygrs)">
+			YGRS = #{ygrs} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(yyrs)">
+			YYRS = #{yyrs} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+			GHRQ = #{ghrq} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(mzks)">
+			MZKS = #{mzks} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(tjpb)">
+			TJPB = #{tjpb} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(tjf)">
+			TJF = #{tjf} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(mzlb)">
+			MZLB = #{mzlb} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(jzxh)">
+			JZXH = #{jzxh} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(jjrghf)">
+			JJRGHF = #{jjrghf} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ddxx)">
+			DDXX = #{ddxx} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(dddm)">
+			DDDM = #{dddm} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(sfqy)">
+			SFQY = #{sfqy} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(lrjkbk)">
+			LRJKBK = #{lrjkbk} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(szdm)">
+			SZDM = #{szdm} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ptmz)">
+			PTMZ = #{ptmz} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(zkmz)">
+			ZKMZ = #{zkmz} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(txmz)">
+			TXMZ = #{txmz} ,
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(ksfjh)">
+			KSFJH = #{ksfjh},
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(kslb)">
+			KSLB = #{kslb},
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(xbxz)">
+			XBXZ = #{xbxz},
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(nlxz)">
+			NLXZ = #{nlxz},
+		</if>
+	</trim>
+	WHERE KSDM = #{ksdm}
+	-->
+	UPDATE OP_GHKS set
+			KSMC = #{ksmc} ,
+			MZKS = #{mzks} ,
+			PTMZ = #{ptmz} ,
+			ZJMZ = #{zjmz} ,
+			ZKMZ = #{zkmz} ,
+			TXMZ = #{txmz} ,
+			PYDM = #{pydm} ,
+			WBDM = #{wbdm} ,
+			SZDM = #{szdm} ,
+			JXDM = #{jxdm} ,
+			GHF = #{ghf} ,
+			ZLF = #{zlf} ,
+			MZLB = #{mzlb} ,
+			DDXX = #{ddxx} ,
+			KSFJH = #{ksfjh},
+			SFQY = #{sfqy} ,
+			LRJKBK = #{lrjkbk} ,
+			KSLB = #{kslb},
+			XBXZ = #{xbxz},
+			NLXZ = #{nlxz},
+			JZMZ = #{jzmz} ,
+		    DBTYPE = #{dbtype},
+	        INTERNET = #{internet},
+			PEDIATRICS = #{pediatrics}
+			WHERE KSDM = #{ksdm}
+	</update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_GHKS WHERE
+        KSDM = #{ksdm}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_GHKS <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpGhks">
+        SELECT <include refid="columns" />
+            FROM OP_GHKS
+            WHERE
+        KSDM = #{ksdm}
+    </select>
+
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                    AND JGID = #{jgid}
+               </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ksmc)">
+                     AND KSMC LIKE CONCAT(CONCAT('%',#{ksmc}),'%')
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghlb)"> -->
+<!--                     AND GHLB = #{ghlb} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+					AND PYDM LIKE CONCAT(CONCAT('%',#{pydm}),'%')
+			   </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wbdm)"> -->
+<!--                     AND WBDM = #{wbdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jxdm)"> -->
+<!--                     AND JXDM = #{jxdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtdm)"> -->
+<!--                     AND QTDM = #{qtdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghf)"> -->
+<!--                     AND GHF = #{ghf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zlf)"> -->
+<!--                     AND ZLF = #{zlf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjmz)"> -->
+<!--                     AND ZJMZ = #{zjmz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghxe)"> -->
+<!--                     AND GHXE = #{ghxe} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ygrs)"> -->
+<!--                     AND YGRS = #{ygrs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyrs)"> -->
+<!--                     AND YYRS = #{yyrs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghrq)"> -->
+<!--                     AND GHRQ = #{ghrq} -->
+<!--                </if> -->
+               <!-- <if test="@sqlt.Ognl@isNotEmpty(mzks)">
+                    AND MZKS = #{mzks}
+               </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tjpb)"> -->
+<!--                     AND TJPB = #{tjpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tjf)"> -->
+<!--                     AND TJF = #{tjf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzxh)"> -->
+<!--                     AND JZXH = #{jzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jjrghf)"> -->
+<!--                     AND JJRGHF = #{jjrghf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ddxx)"> -->
+<!--                     AND DDXX = #{ddxx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dddm)"> -->
+<!--                     AND DDDM = #{dddm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfqy)"> -->
+<!--                     AND SFQY = #{sfqy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lrjkbk)"> -->
+<!--                     AND LRJKBK = #{lrjkbk} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bsrunksdm)"> -->
+<!--                     AND BSRUNKSDM = #{bsrunksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(szdm)"> -->
+<!--                     AND SZDM = #{szdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ptmz)"> -->
+<!--                     AND PTMZ = #{ptmz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zkmz)"> -->
+<!--                     AND ZKMZ = #{zkmz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(txmz)"> -->
+<!--                     AND TXMZ = #{txmz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksfjh)"> -->
+<!--                     AND KSFJH = #{ksfjh} -->
+<!--                </if> -->
+					<if test="@sqlt.Ognl@isNotEmpty(fwtid)">
+						 AND FWTID = #{fwtid}
+					</if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzmz)"> -->
+<!--                     AND JZMZ = #{jzmz} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_GHKS
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpGhks">
+        SELECT <include refid="columns" />
+        FROM OP_GHKS
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <!-- 判断当前科室是否已被分配业务权限 -->
+    <select id="isAuth" resultType = "java.lang.Integer">
+	SELECT COUNT(*) FROM  SYS_YWQXKZ
+		<where>
+			AND YWLB=11
+			<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND KSDM = #{ksdm}
+			</if>
+		</where>
+	</select>
+
+	<!-- 挂号科室维护新增或修改时门诊列表 -->
+	<select id="getMzksList" resultType="OpGhksOffice">
+	SELECT
+		dicKszd.id ,
+		dicKszd.OFFICENAME ,
+		dicKszd.ORGANIZCODE ,
+		dicKszd.PYCODE ,
+		dicKszd.LOGOFF
+	FROM
+		DIC_KSZD dicKszd
+	WHERE
+		(
+			dicKszd.OFFICECODE NOT IN (
+			SELECT
+				dicKszd1.PARENTID
+			FROM
+				DIC_KSZD dicKszd1
+			WHERE
+				dicKszd1.ORGANIZCODE != dicKszd1.PARENTID
+				AND dicKszd1.LOGOFF = 0
+				AND dicKszd1.ORGANIZCODE = #{hospitalId}
+			)
+		)
+		AND dicKszd.OUTPATIENTCLINIC = '1'
+		AND dicKszd.LOGOFF = '0'
+	ORDER BY
+		dicKszd.PYCODE
+	</select>
+
+	<!-- 首次进入挂号页面初始化已挂人数和预约人数 -->
+	<update id="initGhrs">
+		UPDATE OP_GHKS
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(jzxh)">
+				JZXH = #{jzxh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ygrs)">
+				YGRS = #{ygrs} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yyrs)">
+				YYRS = #{yyrs} ,
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND KSDM = #{ksdm}
+			</if>
+		</where>
+	</update>
+	<!-- 获取未排班信息 -->
+	<select id="getGhksNoPb" resultType="OpGhks">
+		SELECT
+		#{ghrq} AS GHRQ,
+		#{zblb} AS ZBLB,
+		mzlb.MZMC AS MZMC,
+		ghks.KSDM AS KSDM,
+		ghks.KSMC AS KSMC,
+		1 AS KSPB,
+		ghks.JGID AS JGID,
+		0 AS GHXE,
+		0 AS YYXE,
+		0 AS YGRS,
+		0 AS YYRS,
+		0 AS JZXH,
+		0 AS TGBZ
+		<!--
+		ghks.KSDM AS KSDM,
+		ghks.KSMC AS KSMC,
+		ghks.JGID AS JGID-->
+		FROM OP_GHKS ghks
+		LEFT JOIN dic_kszd kszd ON kszd.ID = ghks.ksdm
+		INNER JOIN OP_MZLB mzlb ON ghks.MZLB = mzlb.MZLB
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ghks.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(internet)">
+				AND kszd.INTERNET = #{internet}
+			</if>
+			AND ghks.KSDM NOT IN (
+			SELECT GHKS FROM OP_KSPB
+			<where>
+				<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+					AND JGID = #{jgid}
+				</if>
+				<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+					AND GHRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+				</if>
+				<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+					AND ZBLB = #{zblb}
+				</if>
+			</where>
+			)
+		</where>
+	</select>
+
+	<!-- 查询yytag为1的科室列表 -->
+	<select id="getGhksListByYyTagOne" resultType="OpGhks">
+		SELECT
+		kspb.GHRQ AS GHRQ,
+		ghks.PYDM AS PYDM,
+		ghks.ZJMZ AS ZJMZ,
+		ghks.TXMZ AS TXMZ,
+		ghks.WBDM AS WBDM,
+		ghks.SZDM AS SZDM,
+		ghks.JXDM AS JXDM,
+		ghks.QTDM AS QTDM,
+		ghks.KSDM AS KSDM,
+		ghks.KSMC AS KSMC,
+		ghks.GHLB AS GHLB,
+		ghks.GHF AS GHF,
+		ghks.ZLF AS ZLF,
+		kspb.GHXE AS GHXE,
+		ghks.YGRS AS YGRS,
+		ghks.YYRS AS YYRS,
+		kspb.TGBZ AS TGBZ,
+		ghks.JJRGHF AS JJRGHF,
+		0 AS Selected,
+		ghks.KSLB,
+		ghks.XBXZ,
+		ghks.NLXZ,
+		ghks.JZMZ AS jzmz
+		FROM
+		OP_GHKS ghks
+		INNER JOIN OP_KSPB kspb ON ghks.KSDM = kspb.GHKS
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ghks.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(internet)">
+				AND ghks.INTERNET = #{internet}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(mzlb)">
+				AND ghks.MZLB = #{mzlb}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+				AND kspb.GHRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND (kspb.ZBLB = #{zblb} OR kspb.ZBLB = '1000010')
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzmz)">
+				AND ghks.JZMZ = #{jzmz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(dbtype)">
+				AND #{dbtype} in ( ghks.DBTYPE )
+			</if>
+		</where>
+		ORDER BY ghks.PYDM ASC
+	</select>
+	<!-- 查询yytag为2的科室列表 -->
+	<select id="getGhksListByYyTagTwo" resultType="OpGhks">
+		SELECT
+		kspb.GHRQ AS GHRQ,
+		ghks.PYDM AS PYDM,
+		ghks.ZJMZ AS ZJMZ,
+		ghks.TXMZ AS TXMZ,
+		ghks.WBDM AS WBDM,
+		ghks.JXDM AS JXDM,
+		ghks.QTDM AS QTDM,
+		ghks.KSDM AS KSDM,
+		ghks.KSMC AS KSMC,
+		ghks.GHLB AS GHLB,
+		ghks.GHF AS GHF,
+		ghks.ZLF AS ZLF,
+		kspb.GHXE AS GHXE,
+		kspb.YGRS AS YGRS,
+		ghks.ZJMZ AS ZJMZ,
+		kspb.YYRS AS YYRS,
+		kspb.TGBZ AS TGBZ,
+		ghks.JJRGHF AS JJRGHF,
+		ghks.PYDM AS PYDM,
+		0 AS Selected,
+		ghks.KSLB,
+		ghks.XBXZ,
+		ghks.NLXZ,
+		ghks.JZMZ AS jzmz
+		FROM
+		OP_GHKS ghks
+		INNER JOIN OP_KSPB kspb ON ghks.KSDM = kspb.GHKS
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ghks.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(internet)">
+				AND ghks.INTERNET = #{internet}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(mzlb)">
+				AND ghks.MZLB = #{mzlb}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghrq)">
+				AND kspb.GHRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND (kspb.ZBLB = #{zblb} OR kspb.ZBLB = '1000010')
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzmz)">
+				AND ghks.JZMZ = #{jzmz}
+			</if>
+		</where>
+		ORDER BY ghks.PYDM ASC
+	</select>
+    <select id="getOldKsdm" resultType="java.util.Map">
+		SELECT
+	BSRUNKSDM
+		FROM
+			OP_GHKS
+		WHERE
+			ksdm = #{ksdm}
+	</select>
+
+    <update id="updateYgrs" parameterType="Map">
+		UPDATE OP_GHKS set YGRS = if(YGRS=0,1,YGRS) - 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+		</where>
+	</update>
+
+	<!-- 挂号时更新已挂人数、预约人数-->
+	<update id="updateYgrsAndYyrs" parameterType="Map">
+		UPDATE OP_GHKS SET YGRS = ifnull(YGRS,0) + 1,YYRS = YYRS - 1
+		<where>
+			AND YYRS>0
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+		</where>
+	</update>
+
+	<!-- 挂号时更新已挂人数、就诊序号 -->
+	<update id="updateYgrsAndJzxh" parameterType="Map">
+		UPDATE OP_GHKS SET YGRS = ifnull(YGRS,0) + 1,JZXH = ifnull(JZXH,0) + 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+		</where>
+	</update>
+
+	<!-- 转科已挂人数加1-->
+	<update id="updateYgrsAdd" parameterType="Map">
+		UPDATE OP_GHKS SET YGRS = YGRS + 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ZRKS)">
+				AND KSDM = #{ZRKS}
+			</if>
+		</where>
+	</update>
+    <update id="updateYyrs">
+		UPDATE OP_GHKS
+		SET YYRS = YYRS + 1
+		WHERE
+			KSDM = #{KSDM}
+	</update>
+
+	<select id="getMzksAndKsdm" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			a.mzks AS MZKS,
+			a.ksdm AS KSDM
+		FROM
+			OP_GHKS a,
+			SYS_YWQXKZ b,
+			HR_PERSONNEL c
+		WHERE
+			c.personid = b.ygdm
+			AND a.ksdm = b.ksdm
+			AND b.ywlb = 10
+			AND c.personid =#{YGDM}
+	</select>
+    <select id="yyglQuery" resultType="com.buit.his.op.reg.response.YyglResp">
+		SELECT
+			b.GHRQ AS ghrq,
+			a.PYDM AS pydm,
+			a.ZJMZ AS zjmz,
+			a.WBDM AS wbdm,
+			a.SZDM AS szdm,
+			a.JXDM AS jxdm,
+			a.QTDM AS qtdm,
+			a.KSDM AS ksdm,
+			a.KSMC AS ksmc,
+			a.GHLB AS ghlb,
+			a.GHF AS ghf,
+			a.ZLF AS zlf,
+			( SELECT count( c.YYXH ) FROM OP_YYGH c WHERE c.YYRQ = #{ghrq} AND c.KSDM = a.KSDM ) AS yyrs,
+			b.TGBZ AS tgbz,
+			a.JJRGHF AS jjrghf,
+			0 AS selected,
+			a.TXMZ AS txmz,
+			b.GHXE AS ghxe,
+			a.NLXZ AS nlxz,
+			a.XBXZ AS xbxz
+		FROM
+			OP_GHKS a,
+			OP_KSPB b
+		WHERE
+			a.KSDM = b.GHKS
+			AND a.JGID = #{jgid}
+			AND a.MZLB = #{mzlb}
+			AND b.GHRQ = #{ghrq}
+			<if test="@sqlt.Ognl@isNotEmpty(zblb)">
+				AND b.ZBLB IN
+				<foreach collection="zblb.split(',')" item="z" open="(" separator="," close=")">
+					#{z}
+				</foreach>
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND a.KSDM = #{ksdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(pydm)">
+				AND PYDM LIKE CONCAT(CONCAT('%',#{pydm}),'%')
+			</if>
+	</select>
+
+	<select id="checkKsfy" parameterType="Map" resultType="java.util.Map">
+		SELECT KSMC as KSMC ,GHF as GHF,ZLF as ZLF,YGRS as YGRS
+		From OP_GHKS Where JGID = #{JGID} And KSDM = #{KSDM}
+	</select>
+
+	<select id="doQueryOfficeCode" resultType="QueryOfficeCodeResp">
+		select ksdm as ghks,ksmc as ksmc,mzks as officeCode from OP_GHKS
+	</select>
+
+	<select id="doRegisteredQuery" parameterType="Map" resultType="com.buit.commons.response.QueryRegisteredResp">
+		SELECT
+			b.mzlb AS mzlb,
+			b.ZSFPHM AS zsfphm,
+			b.jzkh AS jzkh,
+			a.MZHM AS mzhm,
+			a.BRXM AS brxm,
+			a.BRID AS brid,
+			b.BRXZ AS brxz,
+			a.BRXB AS brxb,
+			b.KSDM AS ksmc,
+			b.SBXH AS sbxh,
+			b.KSDM AS ksdm,
+			b.YSDM AS ysxm,
+			b.GHSJ AS ghsj,
+			b.GHJE AS ghf,
+			b.ZLJE AS zlf,
+			b.ZJFY AS zjf,
+			b.BLJE AS blf,
+			b.GHJE AS ghje,
+			b.ZLJE AS zlje,
+			b.BLJE AS blje,
+			b.ZJFY AS zjfy,
+			b.THBZ AS thbz,
+			IFNULL((select FKJE  from op_gh_fkxx where FKFS = 1 AND JZLSH = b.JZLSH), 0) AS xjje,
+			IFNULL((select FKJE  from op_gh_fkxx where FKFS = 3 AND JZLSH = b.JZLSH), 0) AS wxje,
+			IFNULL((select FKJE  from op_gh_fkxx where FKFS = 4 AND JZLSH = b.JZLSH), 0) AS zfbje,
+			IFNULL((select FKJE  from op_gh_fkxx where FKFS = 5 AND JZLSH = b.JZLSH), 0) AS posje,
+			b.ZPJE AS zpje,
+			b.ZHJE AS zhje,
+			b.QTYS AS qtys,
+			b.GHJE + b.ZLJE + b.ZJFY + b.BLJE + b.CKJE + b.WZJE AS hjje,
+			b.JZHM AS jzhm,
+			b.CZGH AS czgh,
+			c.CZGH AS thgh,
+			c.THRQ AS thrq
+		FROM
+			MPI_BRDA a
+			INNER JOIN OP_GHMX b ON a.BRID = b.BRID
+			LEFT JOIN OP_THMX c ON b.SBXH = c.SBXH
+			LEFT JOIN shyb_sh02 ss02 on ss02.GHXH = b.SBXH
+		<where>
+			b.JGID = #{jgid}
+			<if test="@sqlt.Ognl@isNotEmpty(jzhm)">
+				AND b.JZHM = #{jzhm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND a.JZKH = #{jzkh}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brxm)">
+				AND a.BRXM LIKE CONCAT(CONCAT('%',#{brxm}),'%')
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+				AND b.YSDM = #{ysdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND b.KSDM = #{ksdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brxz)">
+				AND a.BRXZ = #{brxz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghlb)">
+				AND b.GHLB = #{ghlb}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(beginFphm)">
+				AND b.JZHM <![CDATA[ >= ]]> #{beginFphm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(endFphm)">
+				AND b.JZHM <![CDATA[ <= ]]> #{endFphm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(dbbz)">
+				AND ss02.DBBZ = #{dbbz}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ghczgh)">
+				AND b.CZGH = #{ghczgh}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(thczgh)">
+				AND c.CZGH = #{thczgh}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(beginDay)">
+				AND b.GHSJ BETWEEN DATE_FORMAT(#{beginDay}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDay}, '%Y-%m-%d 23:59:59')
+			</if>
+		</where>
+
+		ORDER BY
+			b.SBXH DESC
+	</select>
+
+	<select id="doQueryList" resultType="QueryBrdaListResp">
+		SELECT DISTINCT
+			a.BRID AS BRID,
+			a.MZHM AS MZHM,
+			a.BRXM AS BRXM,
+			(select CARDNO from mpi_card where BRID = a.BRID  limit 1) as CARDNO,
+			a.FYZH AS FYZH,
+			a.BRXZ AS BRXZ,
+			a.BRXB AS BRXB,
+			a.CSNY AS CSNY,
+			a.SFZH AS SFZH,
+			a.HYZK AS HYZK,
+			a.ZYDM AS ZYDM,
+			a.MZDM AS MZDM,
+			a.XXDM AS XXDM,
+			a.GMYW AS GMYW,
+			a.DWXH AS DWXH,
+			a.DWMC AS DWMC,
+			a.DWDH AS DWDH,
+			a.DWYB AS DWYB,
+			a.HKDZ AS HKDZ,
+			a.JTDH AS JTDH,
+			a.HKYB AS HKYB,
+			a.JZCS AS JZCS,
+			a.JZRQ AS JZRQ,
+			a.CZRQ AS CZRQ,
+			a.JZKH AS JZKH,
+			a.SFDM AS SFDM,
+			a.JGDM AS JGDM,
+			a.GJDM AS GJDM,
+			a.LXRM AS LXRM,
+			a.LXGX AS LXGX,
+			a.LXDZ AS LXDZ,
+			a.LXDH AS LXDH,
+			a.DBRM AS DBRM,
+			a.DBGX AS DBGX,
+			a.SBHM AS SBHM,
+			a.YBKH AS YBKH,
+			a.ZZTX AS ZZTX,
+			a.JDJG AS JDJG,
+			a.JDSJ AS JDSJ,
+			a.JDR AS JDR,
+			a.ZXBZ AS ZXBZ,
+			a.ZXR AS ZXR,
+			a.ZXSJ AS ZXSJ,
+			a.XGSJ AS XGSJ,
+			a.CSD_SQS AS CSDSQS,
+			a.CSD_S AS CSDS,
+			a.CSD_X AS CSDX,
+			a.JGDM_SQS AS JGDMSQS,
+			a.JGDM_S AS JGDMS,
+			a.XZZ_SQS AS XZZSQS,
+			a.XZZ_S AS XZZS,
+			a.XZZ_X AS XZZX,
+			a.XZZ_YB AS XZZYB,
+			a.XZZ_DH AS XZZDH,
+			a.HKDZ_SQS AS HKDZSQS,
+			a.HKDZ_S AS HKDZS,
+			a.HKDZ_X AS HKDZX,
+			a.XZZ_QTDZ AS XZZQTDZ,
+			a.HKDZ_QTDZ AS HKDZQTDZ
+		FROM
+			MPI_BRDA a
+			LEFT JOIN MPI_Card c ON a.BRID = c.BRID
+		WHERE
+			a.JDJG = #{jgid}
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND (c.cardNo LIKE CONCAT(CONCAT('%',#{jzkh}),'%')
+				OR a.SFZH LIKE CONCAT(CONCAT('%',#{jzkh}),'%')
+				OR a.BRXM LIKE CONCAT(CONCAT('%',#{jzkh}),'%') )
+			</if>
+		ORDER BY
+			a.XGSJ DESC
+	</select>
+
+	<select id="doQueryKsmcAndKswz" parameterType="Map" resultType="java.util.Map">
+        SELECT
+			KSMC AS KSMC,
+			DDXX AS KSWZ
+		FROM
+			OP_GHKS
+		WHERE
+			KSDM = #{KSDM}
+    </select>
+
+	<!-- 挂号时更新已挂人数、就诊序号 -->
+	<update id="lessYgrsAndJzxh" parameterType="Map">
+		UPDATE OP_GHKS SET YGRS = ifnull(YGRS,1) - 1,JZXH = ifnull(JZXH,1) - 1
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(JGID)">
+				AND JGID = #{JGID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(KSDM)">
+				AND KSDM = #{KSDM}
+			</if>
+		</where>
+	</update>
+	<update id="changeFwtId">
+		UPDATE OP_GHKS
+		SET FWTID = #{fwtid}
+		WHERE
+		KSDM in
+		<foreach item="item" index="index" collection="ksdmList" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+	<select id="getSfgs" parameterType="Map" resultType="java.util.Map">
+        SELECT
+			SFGS AS SFGS
+		FROM
+			OP_GHKS
+		WHERE
+			KSDM = #{ksdm} and jgid=#{jgid}
+    </select>
+
+    <select id="doQueryGhxeByDay" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			ifnull(kspb.GHXE,0) AS GHXE,
+			ifnull(ghks.YGRS,0) AS YGRS
+		FROM
+			OP_GHKS ghks
+			INNER JOIN OP_KSPB kspb ON ghks.KSDM = kspb.GHKS
+		WHERE
+			kspb.GHRQ BETWEEN #{GHSJ_B} AND #{GHSJ_E}
+			AND kspb.GHKS = #{KSDM}
+			AND kspb.ZBLB = #{ZBLB}
+    </select>
+	<select id="queryWaitMs" resultType="com.buit.commons.model.OpGhks">
+		SELECT <include refid="columns" />
+		FROM OP_GHKS
+		where FWTID is null
+		<if test="@sqlt.Ognl@isNotEmpty(ksmc)">
+			AND KSMC LIKE CONCAT(CONCAT('%',#{ksmc}),'%')
+		</if>
+	</select>
+
+	<select id="doQueryYjfzbrInfo" resultType = "QueryYjfzbrResp">
+		SELECT
+			LSH AS lsh,
+			date_format( lzsj, '%Y-%m-%d' ) AS fzrq,
+			date_format( lzsj, '%H:%i:%s' ) AS lzsj,
+			KH AS jzkh,
+			XM AS brxm,
+			XB AS brxb,
+			NL AS brnl,
+			LXFS AS lxfs,
+			ZS AS zs,
+			BRPJ AS fzjb,
+			FZKSDM AS fzksdm,
+			YSDM AS ysdm,
+			FZHSDM AS fzhsdm
+		FROM
+			ER_PRE_YJFZ
+		<where>
+			AND DRZT = '0'
+			AND JGID = #{jgid}
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND KH = #{jzkh}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brxm)">
+				AND XM LIKE CONCAT(CONCAT('%',#{brxm}),'%')
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fzrq)">
+				AND LZSJ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+		</where>
+		ORDER BY ER_PRE_YJFZ.LZSJ DESC
+	</select>
+
+	<select id="doQueryBrxzInfo" resultType = "PubBrxzsResp">
+		SELECT
+			brxz as brxz,xzmc as xzmc,sjxz as sjxz,sfgg as sfgg,tsdm as tsdm
+		  FROM
+			PUB_BRXZ where  sjxz!=-1  order by sjxz, brxz
+	</select>
+
+	<select id="getInternetGhks" resultType="com.buit.commons.model.OpGhks">
+		select * from op_ghks where KSDM in (select og.KSDM as KSDM
+		from op_ghks og
+		left join dic_kszd dk on dk.ID = og.MZKS
+		left join hr_personnel hp on hp.OFFICECODE = dk.ID
+		left join mkey_user mu on mu.sys_user_id = hp.PERSONID
+		left join op_yspb oy on oy.KSDM = og.KSDM
+		left join op_bcsj ob on oy.ZBLB = ob.SDDM
+		where 	if(left(SBSJ, 2) > left(XBSJ, 2),
+		CONCAT(date_format(DATE_SUB(oy.GZRQ,INTERVAL -1 DAY), '%Y-%m-%d'), ' ', ob.XBSJ) > date_add(NOW(), INTERVAL 30 minute),
+		CONCAT(date_format(oy.GZRQ, '%Y-%m-%d'), ' ', ob.XBSJ) > date_add(NOW(), INTERVAL 30 minute) )
+		and og.INTERNET = 1 and mu.mkey_user_id is not null and mu.status = 1 and hp.LOGOFF = 0 and hp.INTERNET = 1
+		<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+			AND ob.JGID = #{jgid}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(keyword)">
+			AND (og.KSMC LIKE CONCAT(CONCAT('%',#{keyword}),'%') or og.PYDM LIKE CONCAT(CONCAT('%',#{keyword}),'%'))
+		</if>
+		group by og.KSDM, hp.PERSONID
+		having count(oy.GZRQ) > 0)
+	</select>
+
+	<select id="getInternetGhksPersonnel" resultType="com.buit.op.model.mphis.response.MphisGhysResponse">
+		select hp.PERSONID, hp.PERSONNAME, hp.PHOTO, hp.GENDER, hp.EMAIL, hp.MOBILE, hp.EDUCATION, hp.EDUCATIONBACKGROUND, hp.JOININWORK,
+		hp.REMARK, hp.WZFS, xz.DATA_VALUE_REMARK as xzzw, zy.DATA_VALUE_REMARK as zyjszg, og.KSMC, og.KSDM from
+		mkey_user mu
+		left join hr_personnel hp on hp.PERSONID = mu.sys_user_id
+		left join dic_kszd dk on hp.OFFICECODE = dk.ID
+		left join op_ghks og on og.MZKS = dk.ID
+		left join op_yspb oy on oy.KSDM = og.KSDM
+		left join op_bcsj ob on oy.ZBLB = ob.SDDM
+		left join dic_gbsj02 zy on hp.MAJORQUALIFY = zy.DATA_VALUE and zy.PRIMARYDATA_ID = 471
+		left join dic_gbsj02 xz on hp.JOBPOST = xz.DATA_VALUE and xz.PRIMARYDATA_ID = 1
+		where 	if(left(SBSJ, 2) > left(XBSJ, 2),
+		CONCAT(date_format(DATE_SUB(oy.GZRQ,INTERVAL -1 DAY), '%Y-%m-%d'), ' ', ob.XBSJ) > date_add(NOW(), INTERVAL 30 minute),
+		CONCAT(date_format(oy.GZRQ, '%Y-%m-%d'), ' ', ob.XBSJ) > date_add(NOW(), INTERVAL 30 minute) )
+		and og.INTERNET = 1 and mu.mkey_user_id is not null and mu.status = 1 and hp.LOGOFF = 0 and hp.INTERNET = 1
+		<include refid="ghkssql"/>
+		group by hp.PERSONID, hp.PERSONNAME, hp.PHOTO, hp.GENDER, hp.EMAIL, hp.MOBILE, hp.EDUCATION, hp.EDUCATIONBACKGROUND, hp.JOININWORK,
+		hp.REMARK, hp.WZFS, xz.DATA_VALUE_REMARK, zy.DATA_VALUE_REMARK, og.KSMC, og.KSDM
+		having count(oy.GZRQ) > 0
+	</select>
+	<sql id="ghkssql">
+		<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+			and og.KSDM = #{ksdm}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+			and og.JGID = #{jgid}
+		</if>
+		<if test="@sqlt.Ognl@isNotEmpty(keyword)">
+			AND hp.PERSONNAME LIKE CONCAT(CONCAT('%',#{keyword}),'%')
+		</if>
+	</sql>
+
+	<select id="getGhysList" resultType="com.buit.op.model.mphis.response.MphisGhysResponse">
+		select  xz.DATA_VALUE_REMARK xzzw, zy.DATA_VALUE_REMARK zyjszg, h.*
+		from hr_personnel h
+		left join dic_gbsj02 zy on h.MAJORQUALIFY = zy.DATA_VALUE and  zy.PRIMARYDATA_ID = 471
+		left join dic_gbsj02 xz on h.JOBPOST = xz.DATA_VALUE and xz.PRIMARYDATA_ID = 1
+		where
+		<if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+			h.PERSONID in
+			<foreach item="item" index="index" collection="ysdm" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="isInternet" resultType="java.lang.String">
+		select INTERNET from dic_kszd
+		where id = #{mzks}
+	</select>
+	<select id="yyzd" resultType="com.buit.op.model.mphis.entity.TbDicHospital">
+		select dy.HOSPITAL_ID as JGID, dy.HOSPITAL_CODE as YLJGDM, dy.ORGANIZATION_CODE as WSJGDM, dy.HOSPITAL_NAME as YYMC,
+			   '2' as YLJGJB, '9' as YLJGDJ, dg02.DATA_VALUE as YLJGLB, '010' as ZFFS, '2' as YLJGSX, dy.COUNTRY_ID as SSQDM,
+			   '2' as FZPDYJ, '1' as FZPDSJLY, 2 as FZPDSX, '1' as XGBZ
+		from dic_yljg dy
+				 left join dic_gbsj02 dg02 on dg02.DATAVALUE_ID = dy.HOSPITAL_CLASS_ID
+		where dy.HOSPITAL_ID = #{jgid}
+	</select>
+	<select id="kszd" resultType="com.buit.op.model.mphis.entity.TbDicDepartment">
+		select distinct dy.HOSPITAL_CODE as YLJGDM, dk.XSYBKS as WSJDM, dy.ORGANIZATION_CODE as WSJGDM, '1' as KSTYBZ,
+			   if(dk.PARENTID = null, '1', '2') as KSJB, '0' as SFKZYY, '1' as XGBZ
+		from op_ghks og
+				 left join dic_kszd dk on og.MZKS = dk.ID
+				 left join dic_yljg dy on dk.ORGANIZCODE = dy.HOSPITAL_ID
+		where dk.ORGANIZCODE = #{jgid} and og.INTERNET = 1 and dk.OUTPATIENTCLINIC = 1
+	</select>
+	<select id="ywryzd" resultType="com.buit.op.model.mphis.entity.TbDicPractitioner">
+		select dy.HOSPITAL_CODE as YLJGDM, h.PERSONID as GH, dk.XSYBKS as SSKS, dy.ORGANIZATION_CODE as WSJGDM,
+			   h.PERSONNAME as XM,
+			   case h.CARDTYPE when '01' then '01'
+							   else '02' end as ZJLX,
+		       h.CARDNUM as ZJHM, xz.DATA_VALUE as ZWDM, zy.DATA_VALUE as ZCDM,
+			   case h.MAJORTYPE
+				   when '1' then  '11'
+				   when '2' then '12'
+				   when '3' then '13'
+				   when '4' then '21'
+				   when '5' then '22'
+				   when '6' then '31'
+				   when '7' then '41'
+				   when '8' then '42'
+				   when '9' then '50'
+				   when '10' then '69'
+				   when '11' then '80'
+				   when '12' then '90'
+				   end as LB,
+			   mu.ca_zsxlh as CAZSXLM,
+			   1 as 'XGBZ'
+		from mkey_user mur
+				 left join hr_personnel h on mur.sys_user_id = h.PERSONID
+				 left join dic_gbsj02 zy on h.MAJORQUALIFY = zy.DATA_VALUE and  zy.PRIMARYDATA_ID = 471
+				 left join dic_gbsj02 xz on h.JOBPOST = xz.DATA_VALUE and xz.PRIMARYDATA_ID = 1
+				 left join dic_yljg dy on h.ORGANIZCODE = dy.HOSPITAL_ID
+				 left join mkey_user mu on mu.sys_user_id = h.PERSONID
+				 left join dic_kszd dk on h.OFFICECODE = dk.ID
+				 left join op_ghks og on og.MZKS = dk.ID
+		where og.INTERNET = 1 and mur.status = 1 and h.LOGOFF = 0 and h.ORGANIZCODE = #{jgid}
+	</select>
+	<select id="ypxx" resultType="com.buit.op.model.mphis.entity.TbDicMedicines">
+		select distinct dy.HOSPITAL_CODE as YLJGDM, dyp.ybbm as YBMLBM, dy.ORGANIZATION_CODE as WSJGDM,
+			   '1' as SYBZ, dt.YPMC as TYMC,
+				case dt.ypsx when 1 then '01'
+							when 5 then '19'
+							when 7 then '23'
+							when 9 then '30'
+							when 10 then '15'
+							when 19 then '14'
+							when 23 then '32'
+							when 28 then '09'
+							when 31 then '25'
+							when 32 then '05'
+							when 35 then '29'
+							when 38 then '26'
+							when 41 then '27'
+							when 70 or 71 then '12'
+							when 91 then '31'
+							when 92 then '16'
+							when 100 then '00'
+							when 101 then '02'
+							when 102 then '03'
+							when 103 then '04'
+							when 104 then '06'
+							when 105 then '07'
+							when 106 then '08'
+							when 107 then '10'
+							when 108 then '11'
+							when 109 then '13'
+							when 110 then '17'
+							when 111 then '18'
+							when 112 then '20'
+							when 113 then '21'
+							when 114 then '22'
+							when 115 then '24'
+							when 116 then '28'
+							when 117 then '33'
+							when 118 then '34'
+							when 119 then '35'
+							when 120 then '36'
+							when 121 then '37'
+							when 122 then '38'
+							when 123 then '39'
+							when 124 then '40'
+							when 125 then '41'
+							when 126 then '70'
+							when 127 then '71'
+							when 128 then '72'
+							when 129 then '90'
+							when 130 then '99'
+							else dt.ypsx end as jxdm,
+			   dt.PZWH as YPPZWH,
+			   dyx.SXMC as BZJX,
+			   '0' as YNZJBZ,
+			   case dt.JYLX
+				   when 2 then '1'
+				   when 3 then '2'
+				   else '0'
+				   end as JYBZ,
+			   dt.KSBZ as KSSBZ,
+			   if(dt.TSYP = 0, '0', '1') as DMJFBS,
+			   null as BZSH,
+			   '1' as XGBZ
+		from drugs_typk dt
+				 left join phar_ypxx py on dt.YPXH = py.YPXH
+				 left join dic_yljg dy on dy.HOSPITAL_ID = py.JGID
+				 left join drugs_ybyp dyp on dyp.ypxh = dt.YPXH
+				 left join drugs_ypsx dyx on dyx.YPSX = dt.YPSX
+		where py.JGID = #{jgid} and dyp.ybbm is not null and dt.ZFPB = 0  and py.YFSB = 4
+	</select>
+	<select id="ywltj" resultType="com.buit.op.model.mphis.entity.TbTjHlwyyYwl">
+		select  dy.HOSPITAL_CODE as YLJGDM, dk.XSYBKS as KSBM, DATE_FORMAT(#{dateTime}, '%Y%m%d') as YWSJ, dy.ORGANIZATION_CODE as WSJGDM,
+				0 as JKDADYCS,
+				0 as ZXZRC,
+				0 as ZXYYRC,
+				og.ksdm,
+				(select count(*) from op_ghmx where KSDM = og.KSDM and CZSJ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')) as ZXGHRC,
+				(select count(*) from op_ys_jzls where KSDM = og.MZKS and KSSJ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')) as FZZLRC,
+				(select count(*) from op_cf01 where KSDM = og.MZKS and KFRQ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')) as DZCFZS,
+				0 as JYSQDS,
+				0 as JCSQDS,
+				0 as HLFWRC,
+				1 as XGBZ
+		from dic_kszd dk
+				 left join dic_yljg dy on dk.ORGANIZCODE = dy.HOSPITAL_ID
+				 left join op_ghks og on og.MZKS = dk.ID
+		where dy.HOSPITAL_ID = #{jgid} and og.INTERNET = 1
+	</select>
+	<select id="ywsrtj" resultType="com.buit.op.model.mphis.entity.TbTjHlwyyYwsr">
+		select  dy.HOSPITAL_CODE as YLJGDM, dk.XSYBKS as KSBM, DATE_FORMAT(#{dateTime}, '%Y%m%d') as YWSJ, dy.ORGANIZATION_CODE as WSJGDM,
+				IFNULL((select sum(XJJE) + sum(ZPJE) + sum(ZHJE) + sum(HBWC) + sum(QTYS) from op_ghmx where KSDM = og.KSDM and THBZ = 0 and CZSJ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')), 0.000)
+					+ IFNULL((select sum(ZJJE) from op_mzxx where KSDM = og.KSDM and ZFPB = 0 and  SFRQ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')), 0.000) as HLWZLZSR,
+				IFNULL((select sum(ZJJE) from op_mzxx where KSDM = og.KSDM and ZFPB = 0 and SFRQ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')), 0.000) as HLWZLYPSR,
+				IFNULL((select sum(QTYS) from op_ghmx where KSDM = og.KSDM and THBZ = 0 and CZSJ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')), 0.000)
+					+ IFNULL((select sum(QTYS) from op_mzxx where KSDM = og.KSDM and ZFPB = 0 and SFRQ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')), 0.000) as HLWZLYBSR,
+				IFNULL((select sum(XJJE) + sum(ZPJE) + sum(ZHJE) + sum(HBWC) from op_ghmx where KSDM = og.KSDM and THBZ = 0 and CZSJ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')), 0.000)
+					+ IFNULL((select sum(ZFJE) from op_mzxx where KSDM = og.KSDM and ZFPB = 0 and SFRQ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')), 0.000) as HLWZLZFSR,
+				'1' as XGBZ
+		from dic_kszd dk
+				 left join dic_yljg dy on dk.ORGANIZCODE = dy.HOSPITAL_ID
+				 left join op_ghks og on og.MZKS = dk.ID
+		where dy.HOSPITAL_ID = #{jgid} and og.INTERNET = 1
+	</select>
+	<select id="fwsf" resultType="com.buit.op.model.mphis.entity.TbYlHlwyyFwsf">
+		select (select ybjgid from op_mzlb where mzlb = f.mzlb) as yljgdm,
+		c.CFHM as stfbh,
+		case b.zfpb when 0 then '1'
+		when 1 then '2'
+		else '' end as stfbz,
+		concat(b.jgid,d.organization_code,d.hospital_class_id) as wsjgdm,
+		b.jzlsh as fzlsh,
+		b.jzkh as kh,
+		case when length(b.jzkh) = 9 and ( select sjxz from pub_brxz where brxz = e.brxz and e.brxz != 310) = 6021 then 0
+		when length(b.jzkh) = 10 and ( select sjxz from pub_brxz where brxz = e.brxz and e.brxz != 310) = 6021 then 1
+		when e.brxz = 20 then 2
+		when e.brxz = 310 then (select regioncode from mpi_card where cardno = b.jzkh)
+		else 9 end as klx,
+		e.sfzh as sfzjhm,
+		case e.zjlx when '08' then '03'
+		when '02' or '03' then '04'
+		when '04' or '05' then '06'
+		when '06' then '07'
+		else e.zjlx end as sfzjlx,
+		case when (select sjxz from pub_brxz where brxz = e.brxz and e.brxz and e.brxz != 309) = 6021 then '1'
+		when e.brxz = 309 then '2'
+		when e.brxz = 6024 then '6'
+		when e.brxz in (2, 20, 6026) then '7'
+		else '9' end as bxlx,
+		case b.zfpb when 0 then date_format(b.sfrq,'%Y-%m-%d %H:%i:%S')
+		when 1 then (select date_format(zfrq,'%Y-%m-%d %H:%i:%S') from op_zffp where jzlsh = b.jzlsh and mzxh = b.mzxh)
+		else '' end as stfsj,
+		b.zjje + f.xjje + f.qtys as stfze,
+		b.xjje + f.xjje as ybfwwzf,
+		f.ghje as ghf,
+		f.zlje as zlf,
+		0 as zhf,
+		0 as hlf,
+		0 as jcf,
+		0 as hyf,
+		0 as tsf,
+		0 as spf,
+		case when c.cflx = 1 then b.zjje
+		else 0 end as xyf,
+		case when c.cflx = 2 then b.zjje
+		else 0 end as zcyf,
+		case when c.cflx = 3 then b.zjje
+		else 0 end as zcaf,
+		f.wzje as qtf,
+		'2' as zfzgqd,
+		count(b.fphm) as cfzs,
+		b.fphm as fph,
+		'1' as xgbz
+		from op_mzxx b left join shyb_si12 a on a.mzxh = b.mzxh, op_cf01 c, dic_yljg d, mpi_brda e,
+		op_ghmx f, op_ghks g
+		where b.fphm = c.fphm
+		and b.brid = e.brid
+		and b.jzlsh = f.jzlsh
+		and f.ksdm = g.ksdm
+		and g.internet = 1
+		and b.jgid = d.hospital_id
+		and b.JGID = #{jgid}
+		and b.SFRQ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')
+		group by f.mzlb, c.CFHM, b.zfpb, b.jgid, d.organization_code, d.hospital_class_id,
+		b.jzlsh, b.jzkh, e.brxz, e.sfzh, e.zjlx,  b.zjje, f.xjje, f.qtys, f.ghje, f.zlje, b.sfrq, b.mzxh, c.cflx, f.wzje
+	</select>
+	<select id="fwsfmx" resultType="com.buit.op.model.mphis.entity.TbYlHlwyyFwsfmx">
+		select e.ybjgid as yljgdm,
+			   b.sbxh as sfmxid,
+			   a.zfpb as stfbz,
+			   concat(a.jgid,g.organization_code,g.hospital_class_id) as wsjgdm,
+			   a.jzlsh as fzlsh,
+			   a.cfhm as stfbh,
+			   case when a.zfpb = 0 then (select date_format(sfrq,'%Y-%m-%d %H:%i:%S') from op_mzxx where fphm = a.fphm)
+					else (select date_format(zfrq,'%Y-%m-%d %H:%i:%S') from op_zffp where fphm = a.fphm) end as stfsj,
+			   a.cfhm as yzbm,
+			   case a.cflx when 1 then '12'
+						   when 2 then '13'
+						   when 3 then '14'
+						   else '15' end as mxfylb,
+			   f.ybbm as mxxmbmyb,
+			   b.yfdw as mxxmdw,
+			   b.ypdj as mxxmdj,
+			   b.ypsl as mxxmsl,
+			   b.hjje as mxxmje,
+			   '1' as xgbz
+		from op_cf01 a , op_cf02 b, op_ghks c, op_ghmx d, op_mzlb e,
+			 drugs_ybyp f, dic_yljg g
+		where a.cfsb = b.cfsb
+		  and c.ksdm  = d.ksdm
+		  and c.internet = 1
+		  and a.jzlsh = d.jzlsh
+		  and d.mzlb = e.mzlb
+		  and b.ypxh = f.ypxh
+		  and b.ypcd = f.ypcd
+		  and a.jgid = g.hospital_id
+		  and a.fphm is not null
+		  and a.KFRQ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')
+		  and a.JGID = #{jgid}
+	</select>
+	<select id="dzyzxx" resultType="com.buit.op.model.mphis.entity.TbYlDzyzxx">
+		select d.ybjgid as yljgdm,
+			   '01' as yzxmlx,
+			   a.cfhm as yzbm,
+			   a.jgid as wsjgdm,
+			   a.jzlsh as fzlsh,
+			   a.jzkh as kh,
+			   case when length(c.jzkh) = 9 and ( select sjxz from pub_brxz where brxz = e.brxz and e.brxz != 310) = 6021 then 0
+					when length(c.jzkh) = 10 and ( select sjxz from pub_brxz where brxz = e.brxz and e.brxz != 310) = 6021 then 1
+					when e.brxz = 20 then 2
+						when e.brxz = 310 then (select regioncode from mpi_card where cardno = c.jzkh)
+					else 9 end as klx,
+			   e.sfzh as sfzjhm,
+			   case e.zjlx when '08' then '03'
+						   when '02' or '03' then '04'
+						   when '04' or '05' then '06'
+						   when '06' then '07'
+						   else e.zjlx end as sfzjlx,
+			   (select ybks from dic_kszd where id = a.ksdm) as jzksdm,
+			   a.kfrq as yzkjsj,
+			   a.ysdm as ysgh,
+			   (select personname from hr_personnel where personid = a.ysdm) as ysxm,
+			   (select cardnum from hr_personnel where personid = a.ysdm) as yssfz,
+			   case when a.fphm is not null then '1'
+					else '0' end as sfbz,
+			   (select ms.seal FROM mkey_record mr LEFT JOIN mkey_record_seal ms on mr.id = ms.record_id where  mr.data_type = 2 and mr.data_id = a.cfsb and mr.status = 1
+				   order by mr.create_time desc limit 1) as yzkjqmz,
+			   (select ca_zsxlh from mkey_user where sys_user_id = a.ysdm) as yhryzsxlh,
+			   (select mt.ts FROM mkey_record mr LEFT JOIN mkey_record_ts mt on mr.id = mt.record_id where mr.data_type = 2 and mr.data_id = a.cfsb and mr.status = 1
+				   order by mr.create_time desc limit 1) as kxsjc,
+			   IFNULL(a.shysxm, '') as sfysxm,
+			   IF(a.shysxm is null , '', (select cardnum from hr_personnel where personid = a.shys) )as sfyssfz,
+			   (select personname from hr_personnel where personid = a.fygh) as fyysxm,
+			   (select cardnum from hr_personnel where personid = a.fygh) as fyyssfz,
+			   '1' as XGBZ
+		from op_cf01 a, op_ghks b, op_ghmx c, op_mzlb d, mpi_brda e
+		where b.ksdm = c.ksdm
+		  and b.internet = 1
+		  and a.jzlsh = c.jzlsh
+		  and c.mzlb = d.mzlb
+		  and a.fybz = 1
+		  and a.brid = e.brid
+		  and a.JGID = #{jgid}
+		  and a.KFRQ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')
+	</select>
+	<select id="dzcfmx" resultType="com.buit.op.model.mphis.entity.TbYlDzcfmx">
+		select e.ybjgid as yljgdm,
+			   a.cfhm as cfh,
+			   b.sbxh as cfmxh,
+			   date_format(a.kfrq,'%Y-%m-%d %H:%i:%S') as kfsj,
+			   f.ybbm as xmbmyb,
+			   case g.ypsx when 1 then '01'
+						   when 5 then '19'
+						   when 7 then '23'
+						   when 9 then '30'
+						   when 10 then '15'
+						   when 19 then '14'
+						   when 23 then '32'
+						   when 28 then '09'
+						   when 31 then '25'
+						   when 32 then '05'
+						   when 35 then '29'
+						   when 38 then '26'
+						   when 41 then '27'
+						   when 70 or 71 then '12'
+						   when 91 then '31'
+						   when 92 then '16'
+						   when 100 then '00'
+						   when 101 then '02'
+						   when 102 then '03'
+						   when 103 then '04'
+						   when 104 then '06'
+						   when 105 then '07'
+						   when 106 then '08'
+						   when 107 then '10'
+						   when 108 then '11'
+						   when 109 then '13'
+						   when 110 then '17'
+						   when 111 then '18'
+						   when 112 then '20'
+						   when 113 then '21'
+						   when 114 then '22'
+						   when 115 then '24'
+						   when 116 then '28'
+						   when 117 then '33'
+						   when 118 then '34'
+						   when 119 then '35'
+						   when 120 then '36'
+						   when 121 then '37'
+						   when 122 then '38'
+						   when 123 then '39'
+						   when 124 then '40'
+						   when 125 then '41'
+						   when 126 then '70'
+						   when 127 then '71'
+						   when 128 then '72'
+						   when 129 then '90'
+						   when 130 then '99'
+						   else g.ypsx end as jxdm,
+			   case b.gytj when 1 then '1'
+						   when 2 then '403'
+						   when 3 or 7 then '404'
+						   when 6 then '2'
+						   when 8 then '401'
+						   when 10 then '402'
+						   when 12 then '5'
+						   when 17 then '607'
+						   when 24 then '608'
+						   when 25 then '610'
+						   when 141 then '605'
+						   when 151 then '3'
+						   when 152 then '6'
+						   when 153 then '601'
+						   when 154 then '602'
+						   when 155 then '603'
+						   when 156 then '604'
+						   when 157 then '606'
+						   when 158 then '609'
+						   when 159 then '611'
+						   when 160 then '612'
+						   when 161 then '699'
+						   else '9' end as yf,
+			   b.yyts,
+			   b.ypsl,
+			   g.ypdw as ypdw,
+			   upper(b.ypyf) as sypcdm,
+			   b.ycjl as jl,
+			   b.yfdw as dw,
+			   a.cfts,
+			   case b.jf when 14 then '1'
+						 when 15 then '2'
+						 when 16 then '3'
+						 when 17 then '4'
+						 when 18 then '5'
+						 when 19 then '6'
+						 when 20 then '7'
+						 else '9' end as jydm,
+			   '1' as xgbz,
+			   d.mzlb
+		from op_cf01 a , op_cf02 b, op_ghks c, op_ghmx d, op_mzlb e,
+			 drugs_ybyp f, drugs_typk g
+		where a.cfsb = b.cfsb
+		  and c.ksdm  = d.ksdm
+		  and c.internet = 1
+		  and a.jzlsh = d.jzlsh
+		  and d.mzlb = e.mzlb
+		  and b.ypxh = f.ypxh
+		  and b.ypcd = f.ypcd
+		  and b.ypxh = g.ypxh
+		  and a.KFRQ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')
+		  and a.JGID = #{jgid}
+	</select>
+	<select id="ghdxx" resultType="com.buit.op.model.mphis.entity.TbYlGhdxx">
+		select c.ybjgid as yljgdm,
+			   case a.thbz when 0 then date_format(a.CZSJ,'%Y%m%d')
+						   when 1 then (select date_format(thrq,'%Y%m%d') from op_thmx where jzlsh = a.jzlsh)
+						   else '' end as ghrq,
+			   a.jzlsh as fzlsh,
+			   case a.thbz when 0 then '1'
+						   when 1 then '2'
+						   else '' end as gthbz,
+			   concat(b.jgid,d.organization_code,d.hospital_class_id) as wsjgdm,
+			   a.jzkh as kh,
+			   case when length(a.jzkh) = 9 and ( select sjxz from pub_brxz where brxz = e.brxz and e.brxz != 310) = 6021 then 0
+                when length(a.jzkh) = 10 and ( select sjxz from pub_brxz where brxz = e.brxz and e.brxz != 310) = 6021 then 1
+                when e.brxz = 20 then 2
+                    when e.brxz = 310 then (select regioncode from mpi_card where cardno = a.jzkh)
+                else 9 end as klx,
+			   e.sfzh as sfzjhm,
+			   case e.zjlx when '08' then '03'
+						   when '02' or '03' then '04'
+						   when '04' or '05' then '06'
+						   when '06' then '07'
+						   else e.zjlx end as sfzjlx,
+			   '' as jkmbs,
+			   '' as dyrq,
+			   '' as rzlx,
+			   case when (select sjxz from pub_brxz where brxz = e.brxz and e.brxz and e.brxz != 309) = 6021 then '1'
+			   when e.brxz = 309 then '2'
+			   when e.brxz = 6024 then '6'
+			   when e.brxz in (2, 20, 6026) then '7'
+			   else '9' end as bxlx,
+			   '0' as sfyy,
+			   '' as yydid,
+			   a.jzhm as fph,
+			   '100' as ghlb,
+			   (select ybks from dic_kszd where id = b.mzks) as ksbm,
+			   case when e.HJBZ = 1 then '1'
+					when e.HJBZ = 2 or e.HJBZ = 3 then '2'
+					when e.zjlx in ('04','05','06','14','17') then '3'
+					when e.zjlx in ('07','08','11','12','13') then '4'
+					else '5' end as wdbz,
+			   '1' as xgbz
+		from op_ghmx a, op_ghks b, op_mzlb c, dic_yljg d, mpi_brda e
+		where a.ksdm = b.ksdm
+		  and a.mzlb = c.mzlb
+		  and a.jgid = d.hospital_id
+		  and a.brid = e.brid
+		  and b.internet = 1
+		  and a.JGID = #{jgid}
+		  and a.CZSJ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')
+	</select>
+	<select id="zxfzjl" resultType="com.buit.op.model.mphis.entity.TbYlZxfzjl">
+		select dy.HOSPITAL_CODE as YLJGDM, oyj.JZLSH as FZLSH, concat(oyj.jgid,dy.organization_code,dy.hospital_class_id) as wsjgdm,
+			   og.CZSJ as FZSQSJ, oyj.KSSJ as HZQDSJ, oyj.KSSJ as FZJZSJ, IF(oyj.JSSJ is null, 20, MINUTE(timediff(KSSJ, JSSJ)))  as ZJSC, og.JZKH as KH,
+			   case when length(og.jzkh) = 9 and ( select sjxz from pub_brxz where brxz = mb.brxz and mb.brxz != 310) = 6021 then 0
+				when length(og.jzkh) = 10 and ( select sjxz from pub_brxz where brxz = mb.brxz and mb.brxz != 310) = 6021 then 1
+				when mb.brxz = 20 then 2
+				when mb.brxz = 310 then (select regioncode from mpi_card where cardno = og.jzkh)
+				else 9 end as klx,
+			   mb.sfzh as sfzjhm,
+			   case mb.zjlx when '08' then '03'
+							when '02' or '03' then '04'
+							when '04' or '05' then '06'
+							when '06' then '07'
+							else mb.zjlx end as sfzjlx,
+			   mb.BRXM as HZXM,
+			   dk.XSYBKS as JZKSBM,
+			   ob.ICD10 as ZDBM,
+			   case ob.CFLX
+				   when 1 then '01'
+				   when 2 then '02'
+				   end as ZDBMLX,
+			   '' as TWYSPDAH,
+			   (select mc.cert FROM mkey_record mr LEFT JOIN mkey_record_cert mc on mr.id = mc.record_id where mr.data_type = 1 and mr.biz_sn = oyj.BIZSN and mr.status = 1
+				   order by mr.create_time desc limit 1) as SJYWQMZ,
+			   (select ca_zsxlh from mkey_user where sys_user_id = oyj.YSDM) as YHRYZSXLH,
+			   (select mt.ts FROM mkey_record mr LEFT JOIN mkey_record_ts mt on mr.id = mt.record_id where mr.data_type = 1 and mr.biz_sn = oyj.BIZSN and mr.status = 1
+				   order by mr.create_time desc limit 1) as KXSJC,
+			   '1' as PJ,
+			   '1' as XGBZ
+		from op_ys_jzls oyj
+				 left join op_ghmx og on og.JZLSH = oyj.JZLSH
+				 left join op_ghks ogs on ogs.KSDM = og.KSDM
+				 left join dic_kszd dk on dk.id = ogs.MZKS
+				 left join dic_yljg dy on dy.HOSPITAL_ID = oyj.JGID
+				 left join mpi_brda mb on mb.BRID = og.BRID
+				 left join op_brzd ob on ob.JZLSH = og.JZLSH and ob.ZZBZ = 1
+		where oyj.KSSJ between DATE_FORMAT(#{dateTime}, '%Y-%m-%d 00:00:00') and DATE_FORMAT(#{dateTime}, '%Y-%m-%d 23:59:59')
+		  and ogs.INTERNET = 1 and ob.ICD10 is not null
+		  and oyj.JGID = #{jgid}
+	</select>
+	<select id="yppsxx" resultType="com.buit.op.model.mphis.entity.TbYlYppsxx">
+		select DISTINCT mp.CFHM as cfh, mp.JZLSH as fzlsh,
+		                case mp.PSFS
+		                when '1' then '1'
+		                when '2' then '0'
+		                end as psfs,
+						case mp.PSFS when '2' then oc01.FYRQ
+									 when '1' then (select KSSJ from mp_psxx where CFHM = mp.CFHM and JZLSH = mp.JZLSH limit 1)
+						end as PSKSSJ,
+						case mp.PSFS when '2' then oc01.FYRQ
+									 when '1' then (select JSSJ from mp_psxx where CFHM = mp.CFHM and JZLSH = mp.JZLSH limit 1)
+						end as PSJSSJ,
+						'1' as PSZT,
+						'1' as XGBZ
+			from mp_psxx mp
+			left join op_cf01 oc01 on oc01.CFHM = mp.CFHM and oc01.JZLSH = mp.JZLSH
+			where
+			if(mp.PSFS = 1, mp.PSZT = 2 and oc01.FYBZ = 1, oc01.FYBZ = 1 and (mp.PSZT IS NULL or mp.PSZT != 3)) and
+			if(mp.PSFS = 1, date_format(mp.JSSJ, '%Y-%m-%d') = date_format(#{dateTime}, '%Y-%m-%d'), date_format(oc01.FYRQ, '%Y-%m-%d') = date_format(#{dateTime}, '%Y-%m-%d'))
+	</select>
+	<select id="getXxKsdmList" resultType="java.lang.Integer">
+		select og.KSDM
+		from  op_ghks og
+				  left join dic_kszd dk on og.MZKS = dk.ID
+				  left join op_ghks xsghks on xsghks.MZKS = dk.ID
+		where xsghks.KSDM = #{ksdm}
+	</select>
+	<select id="checkZyhz" resultType="java.lang.Boolean">
+		select count(1) from im_hzry where 8 > CYPB and JZKH = #{jzkh}
+	</select>
+	<select id="checkGhksInfo" resultType="java.lang.Integer">
+		select count(1) from op_ghks where ksmc = #{ksmc} and mzks = #{mzks}
+		<if test="ksdm != null">
+			and ksdm != #{ksdm}
+		</if>
+	</select>
+</mapper>
+

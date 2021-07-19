@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 手术申请 -->
+<mapper namespace="com.buit.commons.dao.OptSssqDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SQDH as sqdh,JGID as jgid,MZHM as mzhm,SSKS as ssks,SQKS as sqks,SQYS as sqys,SQRQ as sqrq,SSRQ as ssrq,SSNM as ssnm,SSYS as ssys,SSYZ as ssyz,SSEZ as ssez,SSSZ as sssz,MZDM as mzdm,MZYS as mzys,CZGH as czgh,NSSMC as nssmc,SSJB as ssjb,SSBZ as ssbz,SJYS as sjys,ZYHM as zyhm,BRID as brid,SQZD as sqzd,BRKS as brks,SQLX as sqlx,ZYH as zyh,FYXH as fyxh,MZMC as mzmc,SSMC as ssmc
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OPT_SSSQ (
+            SQDH ,
+            JGID ,
+            MZHM ,
+            SSKS ,
+            SQKS ,
+            SQYS ,
+            SQRQ ,
+            SSRQ ,
+            SSNM ,
+            SSYS ,
+            SSYZ ,
+            SSEZ ,
+            SSSZ ,
+            MZDM ,
+            MZYS ,
+            CZGH ,
+            NSSMC ,
+            SSJB ,
+            SSBZ ,
+            SJYS ,
+            ZYHM ,
+            BRID ,
+            SQZD ,
+            BRKS ,
+            SQLX ,
+            ZYH ,
+            FYXH ,
+            MZMC ,
+            SSMC ,
+            JZLSH
+        ) VALUES (
+            #{sqdh} ,
+            #{jgid} ,
+            #{mzhm} ,
+            #{ssks} ,
+            #{sqks} ,
+            #{sqys} ,
+            #{sqrq} ,
+            #{ssrq} ,
+            #{ssnm} ,
+            #{ssys} ,
+            #{ssyz} ,
+            #{ssez} ,
+            #{sssz} ,
+            #{mzdm} ,
+            #{mzys} ,
+            #{czgh} ,
+            #{nssmc} ,
+            #{ssjb} ,
+            #{ssbz} ,
+            #{sjys} ,
+            #{zyhm} ,
+            #{brid} ,
+            #{sqzd} ,
+            #{brks} ,
+            #{sqlx} ,
+            #{zyh} ,
+            #{fyxh} ,
+            #{mzmc} ,
+            #{ssmc} ,
+            #{jzlsh}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE OPT_SSSQ SET
+            JGID = #{jgid} ,
+            MZHM = #{mzhm} ,
+            SSKS = #{ssks} ,
+            SQKS = #{sqks} ,
+            SQYS = #{sqys} ,
+            SQRQ = #{sqrq} ,
+            SSRQ = #{ssrq} ,
+            SSNM = #{ssnm} ,
+            SSYS = #{ssys} ,
+            SSYZ = #{ssyz} ,
+            SSEZ = #{ssez} ,
+            SSSZ = #{sssz} ,
+            MZDM = #{mzdm} ,
+            MZYS = #{mzys} ,
+            CZGH = #{czgh} ,
+            NSSMC = #{nssmc} ,
+            SSJB = #{ssjb} ,
+            SSBZ = #{ssbz} ,
+            SJYS = #{sjys} ,
+            ZYHM = #{zyhm} ,
+            BRID = #{brid} ,
+            SQZD = #{sqzd} ,
+            BRKS = #{brks} ,
+            SQLX = #{sqlx} ,
+            ZYH = #{zyh} ,
+            FYXH = #{fyxh} ,
+            MZMC = #{mzmc} ,
+            SSMC = #{ssmc}
+        WHERE
+            SQDH = #{sqdh}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OPT_SSSQ WHERE
+        SQDH = #{sqdh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OPT_SSSQ <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OptSssq">
+        SELECT <include refid="columns" />
+            FROM OPT_SSSQ
+            WHERE
+        SQDH = #{sqdh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqdh)"> -->
+<!--                     AND SQDH = #{sqdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzhm)"> -->
+<!--                     AND MZHM = #{mzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssks)"> -->
+<!--                     AND SSKS = #{ssks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqks)"> -->
+<!--                     AND SQKS = #{sqks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqys)"> -->
+<!--                     AND SQYS = #{sqys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqrq)"> -->
+<!--                     AND SQRQ = #{sqrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssrq)"> -->
+<!--                     AND SSRQ = #{ssrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssnm)"> -->
+<!--                     AND SSNM = #{ssnm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssys)"> -->
+<!--                     AND SSYS = #{ssys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssyz)"> -->
+<!--                     AND SSYZ = #{ssyz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssez)"> -->
+<!--                     AND SSEZ = #{ssez} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sssz)"> -->
+<!--                     AND SSSZ = #{sssz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzdm)"> -->
+<!--                     AND MZDM = #{mzdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzys)"> -->
+<!--                     AND MZYS = #{mzys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nssmc)"> -->
+<!--                     AND NSSMC = #{nssmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssjb)"> -->
+<!--                     AND SSJB = #{ssjb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssbz)"> -->
+<!--                     AND SSBZ = #{ssbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sjys)"> -->
+<!--                     AND SJYS = #{sjys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zyhm)"> -->
+<!--                     AND ZYHM = #{zyhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqzd)"> -->
+<!--                     AND SQZD = #{sqzd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brks)"> -->
+<!--                     AND BRKS = #{brks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqlx)"> -->
+<!--                     AND SQLX = #{sqlx} -->
+<!--                </if> -->
+            <if test="@sqlt.Ognl@isNotEmpty(zyh)">
+                 AND ZYH = #{zyh}
+            </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyxh)"> -->
+<!--                     AND FYXH = #{fyxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzmc)"> -->
+<!--                     AND MZMC = #{mzmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssmc)"> -->
+<!--                     AND SSMC = #{ssmc} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OPT_SSSQ
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OptSssq">
+        SELECT <include refid="columns" />
+        FROM OPT_SSSQ
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="findByEntityMz" resultType="OptSssqPageResp">
+        SELECT
+        a.sqdh AS SQDH,
+        a.sqrq AS SQRQ,
+        a.mzhm AS MZHM,
+        a.brks AS BRKS,
+        b.brxm AS BRXM,
+        b.brxb AS BRXB,
+        FLOOR( DATEDIFF( CURDATE(), b.csny ) / 365.2422 ) AS brnn,
+        a.ssrq AS SSRQ,
+        ( SELECT f.FYMC FROM FEE_YLSFXM f WHERE a.FYXH = f.FYXH ) AS SSNM,
+        a.ssjb AS SSJB,
+        a.ssys AS SSYS,
+        a.ssyz AS SSYZ,
+        a.ssez AS SSEZ,
+        a.sssz AS SSSZ,
+        a.mzdm AS MZDM,
+        a.mzmc AS MZMC,
+        a.mzys AS MZYS,
+        a.sjys AS SJYS,
+        a.sqys AS SQYS,
+        a.sqzd AS SQZD,
+        a.ssbz AS SSBZ
+        FROM
+        OPT_SSSQ a,
+        MPI_BRDA b
+        WHERE
+        a.brid = b.brid
+        AND a.sqlx = 1
+        AND EXISTS ( SELECT 1 FROM OP_YJCF01 e WHERE e.SSSQID = a.SQDH )
+        <if test="@sqlt.Ognl@isNotEmpty(brid)">
+            AND a.brid = #{brid}
+        </if>
+        AND a.SQYS = #{sqys}
+        <if test="@sqlt.Ognl@isNotEmpty(ssys)">
+            AND a.SSYS = #{ssys}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(brks)">
+            AND a.BRKS = #{brks}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+            AND date_format(a.SSRQ,'%Y-%m-%d') >= #{beginDate}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(endDate)">
+            AND #{endDate} >= date_format(a.SSRQ,'%Y-%m-%d')
+        </if>
+    </select>
+    <select id="findByEntityZy" resultType="OptSssqPageResp">
+        SELECT
+            a.sqdh AS sqdh,
+            a.sqrq AS sqrq,
+            a.zyhm AS zyhm,
+            b.brxm AS brxm,
+            b.brxb AS brxb,
+            FLOOR(DATEDIFF(CURDATE(), b.csny)/365.2422)  AS brnn,
+            a.brks AS brks,
+            b.brch AS brch,
+            a.ssrq AS ssrq,
+            b.MQZD AS sqzd,
+            a.SSMC AS ssnm,
+            a.ssjb AS ssjb,
+            a.ssys AS ssys,
+            a.ssyz AS ssyz,
+            a.ssez AS ssez,
+            a.sssz AS sssz,
+            a.mzdm AS mzdm,
+            a.mzmc AS mzmc,
+            a.mzys AS mzys,
+            a.sjys AS sjys,
+            a.sqys AS sqys,
+            a.ssbz AS ssbz
+        FROM
+            OPT_SSSQ a,
+            IM_HZRY b
+        WHERE
+            a.zyh = b.zyh
+            AND a.sqlx = 2
+            AND EXISTS ( SELECT 1 FROM CIS_HZYZ e WHERE e.SQID = a.SQDH AND e.JFBZ = 3 )
+            <if test="@sqlt.Ognl@isNotEmpty(brid)">
+                AND a.brid = #{brid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(sqys)">
+               AND a.SQYS = #{sqys}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(ssys)">
+                AND a.SSYS = #{ssys}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(brks)">
+                AND a.BRKS = #{brks}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+                AND a.SSRQ &gt;= #{beginDate}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(endDate)">
+                AND #{endDate} &gt;= a.SSRQ
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zyh)">
+                AND a.ZYH = #{zyh}
+            </if>
+            order by a.ssrq
+    </select>
+    <select id="findByEntityAllZy" resultType="OptSssqPageResp">
+        SELECT
+            a.sqdh AS sqdh,
+            a.sqrq AS sqrq,
+            a.zyhm AS zyhm,
+            b.brxm AS brxm,
+            b.brxb AS brxb,
+            FLOOR( DATEDIFF( CURDATE(), b.csny )/ 365.2422 ) AS brnn,
+            a.brks AS brks,
+            b.brch AS brch,
+            a.ssrq AS ssrq,
+            b.MQZD AS sqzd,
+            a.SSMC AS ssnm,
+            a.ssjb AS ssjb,
+            a.ssys AS ssys,
+            a.ssyz AS ssyz,
+            a.ssez AS ssez,
+            a.sssz AS sssz,
+            a.mzdm AS mzdm,
+            a.mzmc AS mzmc,
+            a.mzys AS mzys,
+            a.sjys AS sjys,
+            a.sqys AS sqys,
+            a.ssbz AS ssbz
+        FROM
+            OPT_SSSQ a,
+            IM_HZRY b
+        WHERE
+            a.zyh = b.zyh
+            AND a.sqlx = 2
+            AND EXISTS ( SELECT 1 FROM CIS_HZYZ e WHERE e.SQID = a.SQDH AND e.JFBZ = 3 )
+            <if test="@sqlt.Ognl@isNotEmpty(ssys)">
+                AND a.SSYS = #{ssys}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(brks)">
+                AND a.BRKS = #{brks}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+                AND a.SSRQ >= #{beginDate}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(endDate)">
+                AND #{endDate} >= a.SSRQ
+            </if>
+    </select>
+    <select id="findByEntityAllMz" resultType="OptSssqPageResp">
+        SELECT
+            a.sqdh AS sqdh,
+            a.sqrq AS sqrq,
+            a.mzhm AS mzhm,
+            a.brks AS brks,
+            b.brxm AS brxm,
+            b.brxb AS brxb,
+            FLOOR( DATEDIFF( CURDATE(), b.csny )/ 365.2422 ) AS brnn,
+            a.ssrq AS ssrq,
+            ( SELECT f.FYMC FROM FEE_YLSFXM f WHERE a.FYXH = f.FYXH ) AS ssnm,
+            a.ssjb AS ssjb,
+            a.ssys AS ssys,
+            a.ssyz AS ssyz,
+            a.ssez AS ssez,
+            a.sssz AS sssz,
+            a.mzdm AS mzdm,
+            a.mzmc AS mzmc,
+            a.mzys AS mzys,
+            a.sjys AS sjys,
+            a.sqys AS sqys,
+            a.sqzd AS sqzd,
+            a.ssbz AS ssbz
+        FROM
+            OPT_SSSQ a,
+            MPI_BRDA b
+        WHERE
+            a.brid = b.brid
+            AND a.sqlx = 1
+            AND EXISTS (
+                    SELECT
+                        1
+                    FROM
+                        OP_YJCF01 e
+                WHERE
+                    e.SSSQID = a.SQDH)
+            <if test="@sqlt.Ognl@isNotEmpty(ssys)">
+                AND a.SSYS = #{ssys}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(brks)">
+                AND a.BRKS = #{brks}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(beginDate)">
+                AND a.SSRQ >= #{beginDate}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(endDate)">
+                AND #{endDate} >= a.SSRQ
+            </if>
+    </select>
+</mapper>
+

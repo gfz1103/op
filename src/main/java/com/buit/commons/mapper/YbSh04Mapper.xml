@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 医保挂号 -->
+<mapper namespace="com.buit.commons.dao.YbSh04Dao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ZXLSH as zxlsh,JSSQXH as jssqxh,JLCH as jlch,JGID as jgid,GHXH as ghxh,GHSJ as ghsj,KLBBZ as klbbz,BRKH as brkh,JYFYZE as jyfyze,DNZHZFS as dnzhzfs,LNZHZFS as lnzhzfs,ZFDXJZFS as zfdxjzfs,TCDXJZFS as tcdxjzfs,TCZFS as tczfs,FJDXJZFS as fjdxjzfs,FJZFS as fjzfs,DNZHYE as dnzhye,LNZHYE as lnzhye,YBJSFWFYZE as ybjsfwfyze,FYBJSFWGRZF as fybjsfwgrzf,JMJSBZ as jmjsbz,ZT as zt,ZFPB as zfpb,TCDZHZFS as tcdzhzfs,FJDZHZFS as fjdzhzfs,DBBZ as dbbz
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO YB_SH04 (
+            ZXLSH ,
+            JSSQXH ,
+            JLCH ,
+            JGID ,
+            GHXH ,
+            GHSJ ,
+            KLBBZ ,
+            BRKH ,
+            JYFYZE ,
+            DNZHZFS ,
+            LNZHZFS ,
+            ZFDXJZFS ,
+            TCDXJZFS ,
+            TCZFS ,
+            FJDXJZFS ,
+            FJZFS ,
+            DNZHYE ,
+            LNZHYE ,
+            YBJSFWFYZE ,
+            FYBJSFWGRZF ,
+            JMJSBZ ,
+            ZT ,
+            ZFPB ,
+            TCDZHZFS ,
+            FJDZHZFS ,
+            DBBZ 
+        ) VALUES (
+            #{zxlsh} ,
+            #{jssqxh} ,
+            #{jlch} ,
+            #{jgid} ,
+            #{ghxh} ,
+            #{ghsj} ,
+            #{klbbz} ,
+            #{brkh} ,
+            #{jyfyze} ,
+            #{dnzhzfs} ,
+            #{lnzhzfs} ,
+            #{zfdxjzfs} ,
+            #{tcdxjzfs} ,
+            #{tczfs} ,
+            #{fjdxjzfs} ,
+            #{fjzfs} ,
+            #{dnzhye} ,
+            #{lnzhye} ,
+            #{ybjsfwfyze} ,
+            #{fybjsfwgrzf} ,
+            #{jmjsbz} ,
+            #{zt} ,
+            #{zfpb} ,
+            #{tcdzhzfs} ,
+            #{fjdzhzfs} ,
+            #{dbbz} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE YB_SH04 SET
+            ZXLSH = #{zxlsh} ,
+            JLCH = #{jlch} ,
+            JGID = #{jgid} ,
+            GHXH = #{ghxh} ,
+            GHSJ = #{ghsj} ,
+            KLBBZ = #{klbbz} ,
+            BRKH = #{brkh} ,
+            JYFYZE = #{jyfyze} ,
+            DNZHZFS = #{dnzhzfs} ,
+            LNZHZFS = #{lnzhzfs} ,
+            ZFDXJZFS = #{zfdxjzfs} ,
+            TCDXJZFS = #{tcdxjzfs} ,
+            TCZFS = #{tczfs} ,
+            FJDXJZFS = #{fjdxjzfs} ,
+            FJZFS = #{fjzfs} ,
+            DNZHYE = #{dnzhye} ,
+            LNZHYE = #{lnzhye} ,
+            YBJSFWFYZE = #{ybjsfwfyze} ,
+            FYBJSFWGRZF = #{fybjsfwgrzf} ,
+            JMJSBZ = #{jmjsbz} ,
+            ZT = #{zt} ,
+            ZFPB = #{zfpb} ,
+            TCDZHZFS = #{tcdzhzfs} ,
+            FJDZHZFS = #{fjdzhzfs} ,
+            DBBZ = #{dbbz} 
+        WHERE 
+            JSSQXH = #{jssqxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM YB_SH04 WHERE
+        JSSQXH = #{jssqxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM YB_SH04 <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="YbSh04">
+        SELECT <include refid="columns" />
+            FROM YB_SH04 
+            WHERE 
+        JSSQXH = #{jssqxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxlsh)"> -->
+<!--                     AND ZXLSH = #{zxlsh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jssqxh)"> -->
+<!--                     AND JSSQXH = #{jssqxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlch)"> -->
+<!--                     AND JLCH = #{jlch} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghxh)"> -->
+<!--                     AND GHXH = #{ghxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghsj)"> -->
+<!--                     AND GHSJ = #{ghsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(klbbz)"> -->
+<!--                     AND KLBBZ = #{klbbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brkh)"> -->
+<!--                     AND BRKH = #{brkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jyfyze)"> -->
+<!--                     AND JYFYZE = #{jyfyze} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dnzhzfs)"> -->
+<!--                     AND DNZHZFS = #{dnzhzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lnzhzfs)"> -->
+<!--                     AND LNZHZFS = #{lnzhzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfdxjzfs)"> -->
+<!--                     AND ZFDXJZFS = #{zfdxjzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tcdxjzfs)"> -->
+<!--                     AND TCDXJZFS = #{tcdxjzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tczfs)"> -->
+<!--                     AND TCZFS = #{tczfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fjdxjzfs)"> -->
+<!--                     AND FJDXJZFS = #{fjdxjzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fjzfs)"> -->
+<!--                     AND FJZFS = #{fjzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dnzhye)"> -->
+<!--                     AND DNZHYE = #{dnzhye} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lnzhye)"> -->
+<!--                     AND LNZHYE = #{lnzhye} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybjsfwfyze)"> -->
+<!--                     AND YBJSFWFYZE = #{ybjsfwfyze} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fybjsfwgrzf)"> -->
+<!--                     AND FYBJSFWGRZF = #{fybjsfwgrzf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jmjsbz)"> -->
+<!--                     AND JMJSBZ = #{jmjsbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zt)"> -->
+<!--                     AND ZT = #{zt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfpb)"> -->
+<!--                     AND ZFPB = #{zfpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tcdzhzfs)"> -->
+<!--                     AND TCDZHZFS = #{tcdzhzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fjdzhzfs)"> -->
+<!--                     AND FJDZHZFS = #{fjdzhzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbbz)"> -->
+<!--                     AND DBBZ = #{dbbz} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM YB_SH04 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="YbSh04">
+        SELECT <include refid="columns" />
+        FROM YB_SH04 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    
+    <!-- 更新挂号序号-->
+	<update id="updateGhxh" parameterType="Map">
+		UPDATE YB_SH04
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(sbxhqj)">
+				GHXH = #{sbxhqj},
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(zxlsh)">
+				AND ZXLSH = #{zxlsh}
+			</if>
+		</where>
+	</update>
+</mapper>
+

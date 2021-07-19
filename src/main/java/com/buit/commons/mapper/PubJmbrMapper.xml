@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 妇幼病人 -->
+<mapper namespace="com.buit.commons.dao.PubJmbrDao">
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		BRXZ as brxz,FYZH as fyzh,FYDW as fydw,BRXM as brxm,PYDM as pydm,BRXB as
+		brxb,CSNY as csny,LZRQ as lzrq,JZXM as jzxm,ZFPB as zfpb,ZHXQ as
+		zhxq,SCBZ as scbz
+	</sql>
+
+	<insert id="insert">
+		INSERT INTO PUB_JMBR (
+		BRXZ ,
+		FYZH ,
+		FYDW ,
+		BRXM ,
+		PYDM ,
+		BRXB ,
+		CSNY ,
+		LZRQ ,
+		JZXM ,
+		ZFPB ,
+		ZHXQ ,
+		SCBZ
+		) VALUES (
+		#{brxz} ,
+		#{fyzh} ,
+		#{fydw} ,
+		#{brxm} ,
+		#{pydm} ,
+		#{brxb} ,
+		#{csny} ,
+		#{lzrq} ,
+		#{jzxm} ,
+		#{zfpb} ,
+		#{zhxq} ,
+		#{scbz}
+		)
+	</insert>
+
+	<update id="update"><!-- UPDATE PUB_JMBR SET BRXZ = #{brxz} , FYDW 
+			= #{fydw} , BRXM = #{brxm} , PYDM = #{pydm} , BRXB = #{brxb} , CSNY = #{csny} 
+			, LZRQ = #{lzrq} , JZXM = #{jzxm} , ZFPB = #{zfpb} , ZHXQ = #{zhxq} , SCBZ 
+			= #{scbz} WHERE FYZH = #{fyzh} -->
+	</update>
+
+	<delete id="deleteById">
+		DELETE FROM PUB_JMBR WHERE
+		FYZH = #{fyzh}
+	</delete>
+
+	<delete id="removeByEntity">
+		DELETE FROM PUB_JMBR
+		<include refid="where" />
+	</delete>
+
+	<select id="getById" resultType="PubJmbr">
+		SELECT
+		<include refid="columns" />
+		FROM PUB_JMBR
+		WHERE
+		FYZH = #{fyzh}
+	</select>
+
+	<sql id="where">
+		<where>
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(brxz)"> -->
+			<!-- AND BRXZ = #{brxz} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(fyzh)"> -->
+			<!-- AND FYZH = #{fyzh} -->
+			<!-- </if> -->
+			<if test="@sqlt.Ognl@isNotEmpty(fydw)">
+				AND FYDW = #{fydw}
+			</if>
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(brxm)"> -->
+			<!-- AND BRXM = #{brxm} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(pydm)"> -->
+			<!-- AND PYDM = #{pydm} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(brxb)"> -->
+			<!-- AND BRXB = #{brxb} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(csny)"> -->
+			<!-- AND CSNY = #{csny} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(lzrq)"> -->
+			<!-- AND LZRQ = #{lzrq} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(jzxm)"> -->
+			<!-- AND JZXM = #{jzxm} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(zfpb)"> -->
+			<!-- AND ZFPB = #{zfpb} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(zhxq)"> -->
+			<!-- AND ZHXQ = #{zhxq} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(scbz)"> -->
+			<!-- AND SCBZ = #{scbz} -->
+			<!-- </if> -->
+		</where>
+	</sql>
+
+	<select id="findByEntityCount" resultType="long">
+		SELECT count(*) FROM PUB_JMBR
+		<include refid="where" />
+	</select>
+
+	<select id="findByEntity" resultType="PubJmbr">
+		SELECT
+		<include refid="columns" />
+		FROM PUB_JMBR
+		<include refid="where" />
+
+		<if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 业务sql -->
+	<update id="updateFybrInfo">
+		UPDATE PUB_JMBR set 
+			LZRQ = #{lzrq},
+			JZXM = #{jzxm},
+			ZHXQ = #{zhxq} 
+		WHERE FYZH = #{fyzh}
+	</update>
+	
+	<select id="doQueryIsJmbr" resultType="java.lang.Integer">
+		SELECT
+		count(1) 
+		FROM PUB_JMBR
+		where BRXZ = #{brxz} and FYZH = #{cardno}
+	</select>
+</mapper>
+

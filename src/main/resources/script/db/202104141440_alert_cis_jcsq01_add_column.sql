@@ -1,0 +1,2 @@
+ALTER TABLE `cis_jcsq01`
+ADD COLUMN `JZLSH` varchar(50) NULL COMMENT '就诊流水号' AFTER `TZTZ`;

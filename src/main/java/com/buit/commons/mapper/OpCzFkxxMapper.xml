@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 充值_充值收费付款信息 -->
+<mapper namespace="com.buit.commons.dao.OpCzFkxxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,CARDID as cardid,JGID as jgid,CZRQ as czrq,CZFS as czfs,CZJE as czje,CZGH as czgh,CZPJ as czpj,JZRQ as jzrq,HZRQ as hzrq,MZLB as mzlb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_CZ_FKXX (
+            JLXH ,
+            CARDID ,
+            JGID ,
+            CZRQ ,
+            CZFS ,
+            CZJE ,
+            CZGH ,
+			CZPJ ,
+            JZRQ ,
+            HZRQ ,
+            MZLB 
+        ) VALUES (
+            #{jlxh} ,
+            #{cardid} ,
+            #{jgid} ,
+            #{czrq} ,
+            #{czfs} ,
+            #{czje} ,
+            #{czgh} ,
+			#{czpj} ,
+            #{jzrq} ,
+            #{hzrq} ,
+            #{mzlb} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_CZ_FKXX SET
+            CARDID = #{cardid} ,
+            JGID = #{jgid} ,
+            CZRQ = #{czrq} ,
+            CZFS = #{czfs} ,
+            CZJE = #{czje} ,
+            CZGH = #{czgh} ,
+            JZRQ = #{jzrq} ,
+            HZRQ = #{hzrq} ,
+            MZLB = #{mzlb} 
+        WHERE 
+            JLXH = #{jlxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_CZ_FKXX WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_CZ_FKXX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpCzFkxx">
+        SELECT <include refid="columns" />
+            FROM OP_CZ_FKXX 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardid)"> -->
+<!--                     AND CARDID = #{cardid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czrq)"> -->
+<!--                     AND CZRQ = #{czrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czfs)"> -->
+<!--                     AND CZFS = #{czfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czje)"> -->
+<!--                     AND CZJE = #{czje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzrq)"> -->
+<!--                     AND HZRQ = #{hzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_CZ_FKXX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpCzFkxx">
+        SELECT <include refid="columns" />
+        FROM OP_CZ_FKXX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="doQueryCzFkxx"  parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			t.fkfs,
+			sum( t.zje ) AS zje,(
+			SELECT
+				f.fkmc 
+			FROM
+				PUB_FKFS f 
+			WHERE
+				f.fkfs = t.fkfs 
+			) AS fkmc 
+		FROM
+			(
+			SELECT
+				a.czfs AS fkfs,
+				sum( a.czje ) AS zje 
+			FROM
+				OP_CZ_FKXX a 
+			WHERE
+				a.czgh = #{userId} 
+				AND a.czrq <![CDATA[ >= ]]> #{dateFrom} 
+				AND a.czrq <![CDATA[ <= ]]> #{dateTo} 
+			GROUP BY
+				a.czfs 
+			UNION ALL
+			SELECT
+				b.tffs AS fkfs,- sum( b.tfje ) AS zje 
+			FROM
+				OP_CZ_TFXX b 
+			WHERE
+				b.czgh = #{userId} 
+				AND b.tfrq<![CDATA[ >= ]]> #{dateFrom} 
+				AND b.tfrq<![CDATA[ <= ]]> #{dateTo} 
+			GROUP BY
+				b.tffs 
+			) t 
+		GROUP BY
+			t.fkfs
+    </select>
+    
+    <select id="doQueryCzrbFields"  parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			t.cardno AS CARDNO,
+			t.brxm AS BRXM,
+			t.cztype AS CZTYPE,
+			t.fkfs AS FKFS,
+			t.fkje AS FKJE,
+			DATE_FORMAT(t.czsj,'%Y-%m-%d %H:%i:%s')  AS CZSJ,
+			t.czgh AS CZGH,(
+			SELECT
+				f.fkmc 
+			FROM
+				PUB_FKFS f 
+			WHERE
+				f.fkfs = t.fkfs 
+			) AS FKMC 
+		FROM
+			(
+			SELECT
+				b.cardno AS cardno,
+				b.brxm AS brxm,
+				'充值' AS cztype,
+				a.czfs AS fkfs,
+				a.czje AS fkje,
+				a.czrq AS czsj,
+				a.czgh AS czgh 
+			FROM
+				OP_CZ_FKXX a,
+				MPI_KPXX b 
+			WHERE
+				a.cardid = b.cardid 
+				AND a.czgh = #{userId} 
+				AND a.czrq <![CDATA[ >= ]]> #{dateFrom} 
+				AND a.czrq <![CDATA[ <= ]]> #{dateTo} 
+			UNION ALL
+			SELECT
+				b.cardno AS cardno,
+				b.brxm AS brxm,
+				'退费' AS cztype,
+				a.tffs AS fkfs,- a.tfje AS fkje,
+				a.tfrq AS czsj,
+				a.czgh AS czgh 
+			FROM
+				OP_CZ_TFXX a,
+				MPI_KPXX b 
+			WHERE
+				a.cardid = b.cardid 
+				AND a.czgh = #{userId} 
+				AND a.tfrq <![CDATA[ >= ]]> #{dateFrom} 
+				AND a.tfrq <![CDATA[ <= ]]> #{dateTo} 
+			) t 
+		ORDER BY
+			t.fkfs DESC,
+			t.czsj DESC
+    </select>
+	<select id="doQueryCzFkxxList" resultType="com.buit.commons.response.OpCzFkxxResp">
+		select mb.MZHM as mzhm, ocf.CZPJ as czpj, mc.CARDNO as JZKH, mb.BRXM as brxm, pb.XZMC as BRXZ, hp.PERSONNAME as czxm, om.mzlb as mzlb, om.MZMC as mzmc,
+			   ocf.JLXH as jlxh, ocf.CZRQ as czrq, ocf.CZFS as czfs, ocf.CZJE as czje, ocf.CZGH as czgh, ocf.JZRQ as jzrq, ocf.hzrq as hzrq
+		from op_cz_fkxx ocf
+		 left join mpi_kpxx mk on mk.CARDID = ocf.CARDID
+		 left join mpi_card mc on mc.CARDNO = mk.CARDNO
+		 left join mpi_brda mb on mb.BRID = mc.BRID
+		 left join pub_brxz pb on pb.BRXZ = mb.BRXZ
+		 left join hr_personnel hp on hp.PERSONID = ocf.CZGH
+		 left join op_mzlb om on om.MZLB = ocf.MZLB
+		 <where>
+			 <if test="@sqlt.Ognl@isNotEmpty(beginPjhm)">
+				 AND ocf.CZPJ <![CDATA[ >= ]]> #{beginPjhm}
+			 </if>
+			 <if test="@sqlt.Ognl@isNotEmpty(endPjhm)">
+				 AND ocf.CZPJ <![CDATA[ <= ]]> #{endPjhm}
+			 </if>
+			 <if test="@sqlt.Ognl@isNotEmpty(beginCzrq)">
+				 AND ocf.CZRQ <![CDATA[ >= ]]> DATE_FORMAT(#{beginCzrq}, '%Y-%m-%d 00:00:00')
+			 </if>
+			 <if test="@sqlt.Ognl@isNotEmpty(endCzrq)">
+				 AND ocf.CZRQ <![CDATA[ <= ]]> DATE_FORMAT(#{endCzrq}, '%Y-%m-%d 23:59:59')
+			 </if>
+			 <if test="@sqlt.Ognl@isNotEmpty(brxz)">
+				 AND mb.BRXZ = #{brxz}
+			 </if>
+			 <if test="@sqlt.Ognl@isNotEmpty(brxm)">
+				 AND hp.PERSONNAME LIKE CONCAT(CONCAT('%',#{brxm}),'%')
+			 </if>
+			 <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				 AND mc.CARDNO LIKE CONCAT(CONCAT(#{jzkh}),'%')
+			 </if>
+			 <if test="@sqlt.Ognl@isNotEmpty(czgh)">
+				 AND ocf.CZGH = #{czgh}
+			 </if>
+			 <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				 AND ocf.jgid = #{jgid}
+			 </if>
+		 </where>
+	</select>
+	<select id="doPrintFpxx" resultType="com.buit.commons.response.MpiKpxxPrintFpResp">
+		select  ocf.CZPJ as czpj, mc.CARDNO as JZKH, mb.BRXM as brxm, mb.BRXB as brxb ,hp.PERSONNAME as czxm,
+				ocf.JLXH as jlxh, ocf.CZRQ as czrq, ocf.CZFS as czfs, ocf.CZJE as czje, ocf.CZGH as czgh
+		from op_cz_fkxx ocf
+				 left join mpi_kpxx mk on mk.CARDID = ocf.CARDID
+				 left join mpi_card mc on mc.CARDNO = mk.CARDNO
+				 left join mpi_brda mb on mb.BRID = mc.BRID
+				 left join hr_personnel hp on hp.PERSONID = ocf.CZGH
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jlxh)">
+				AND ocf.jlxh = #{jlxh}
+			</if>
+		</where>
+	</select>
+</mapper>
+

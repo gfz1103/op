@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.buit.cis.op.dctwork.ybtspost.dao.YbtspostDao">
+    <select id="getPatientJzsj" resultType="com.buit.cis.op.dctwork.ybtspost.model.PatientJzsj">
+        SELECT
+        mpi_brda.SFZH AS ZJHM,
+        mpi_brda.BRXM AS XM,
+        mpi_brda.BRXB AS XB,
+        mpi_brda.MZDM AS MZ,
+        DATE_FORMAT(mpi_brda.CSNY,'%Y%m%d') AS CSRQ,
+        mpi_brda.HYZK AS HYZK,
+        mpi_brda.JTDH AS GDLXDH,
+        mpi_brda.BRDH AS YDLXDH,
+        null AS HJDZ,
+        null AS JZDZ,
+        op_ghmx.JZKH AS KH,
+        case when length(op_ghmx.JZKH) = 9 and ( select sjxz from pub_brxz where brxz = op_ghmx.brxz and op_ghmx.brxz != 310) = 6021 then 0
+                when length(op_ghmx.JZKH) = 10 and ( select sjxz from pub_brxz where brxz = op_ghmx.brxz and op_ghmx.brxz != 310) = 6021 then 1
+                when op_ghmx.brxz = 20 then 2
+                when op_ghmx.brxz = 310 then (select regioncode from mpi_card where cardno = op_ghmx.jzkh)
+                else 9 end as klx,
+        (SELECT HOSPITAL_CODE FROM dic_yljg WHERE HOSPITAL_ID = op_ghmx.JGID) AS YLJGDM,
+        CASE WHEN op_ghmx.GHLX = '0' THEN '100'
+                 WHEN op_ghmx.GHLX = '1' THEN '200'
+                 WHEN op_ghmx.GHLX = '2' THEN '102'
+                 WHEN op_ghmx.GHLX = '3' THEN '103'
+                 WHEN op_ghmx.DBBZ = '1' THEN '110'
+                 ELSE '999' END AS JZLX,
+        op_ghmx.JZLSH AS MZH,
+        null AS ZYH,
+        dic_kszd.OFFICECODE AS YYKSBM,
+        dic_kszd.YBKS AS YBKSBM,
+        dic_kszd.OFFICENAME AS YYKSMC,
+        hr_personnel.RYBH AS YYYSGH,
+        hr_personnel.CERTIFICATENUM AS YBYSGH,
+        hr_personnel.PERSONNAME AS YSXM,
+        null AS ZS,
+        null AS LCBX,
+        null AS SSY,
+        null AS SZY,
+        null AS SFSCXYYC
+        FROM op_ghmx
+        LEFT JOIN mpi_brda ON op_ghmx.BRID = mpi_brda.BRID
+        LEFT JOIN op_ghks ON op_ghmx.KSDM = op_ghks.KSDM
+        LEFT JOIN dic_kszd ON op_ghks.MZKS = dic_kszd.ID
+        LEFT JOIN hr_personnel ON op_ghmx.YSDM = hr_personnel.PERSONID
+        WHERE op_ghmx.JZLSH = #{jzlsh} AND op_ghmx.JGID = #{jgid}
+    </select>
+
+    <select id="getMzzd" resultType="com.buit.cis.op.dctwork.ybtspost.model.Mzzd">
+        select
+        ICD10 AS ZDBM,
+        ZDMC AS ZDMC,
+        CASE WHEN CFLX = '1' THEN '01'
+             WHEN CFLX = '2' THEN '03'
+                 ELSE '' END AS BMLX,
+        null AS YZ
+        FROM op_brzd
+        WHERE JZLSH = #{jzlsh} AND JGID = #{jgid} AND ZZBZ = '1'
+    </select>
+
+    <select id="getDrug" resultType="com.buit.cis.op.dctwork.ybtspost.model.Drug">
+        SELECT
+        CASE WHEN drugs_ybyp.YBBM IS NOT NULL THEN 10
+             ELSE 11 END AS BMLX,
+        CASE WHEN op_cf02.XMLX = 1 THEN '08'
+             WHEN op_cf02.XMLX = 2 THEN '09'
+             WHEN op_cf02.XMLX = 3 THEN '10' END AS FYLB,
+        drugs_typk.YPMC AS YPMC,
+        drugs_typk.YPBM AS YYYPDM,
+        drugs_ybyp.ybbm AS YBYPDM,
+        drugs_typk.YFDW AS BZGGDW,
+        drugs_typk.YFBZ AS BZDWSLY,
+        drugs_typk.YPGG AS YPGG,
+        op_cf02.YCJL AS DCYPSL,
+        drugs_typk.ZXDW AS DCYPDW,
+        op_cf02.GYTJ AS YYTJDM,
+        im_dic_ypyf.XMMC AS YYTJ,
+        op_cf02.YPYF AS YYPCDM,
+        dic_sypc.PCMC AS YYPC,
+        op_cf02.YPSL AS FYSL,
+        drugs_typk.YFDW AS FYSLDW,
+        op_cf02.YYTS AS YYTS,
+        op_cf02.YPDJ AS YPDJ
+        FROM op_cf02
+        LEFT JOIN drugs_typk ON op_cf02.YPXH = drugs_typk.YPXH
+        LEFT JOIN drugs_ybyp ON op_cf02.YPXH = drugs_ybyp.ypxh AND op_cf02.YPCD = drugs_ybyp.ypcd AND drugs_ybyp.QYBZ=1
+        LEFT JOIN im_dic_ypyf ON op_cf02.GYTJ = im_dic_ypyf.YPYF
+        LEFT JOIN dic_sypc ON op_cf02.YPYF = dic_sypc.PCBM
+        WHERE op_cf02.CFSB = #{cfsb} AND op_cf02.JGID = #{jgid}
+    </select>
+
+    <select id="getDrugByYpxhAndYpcd" resultType="com.buit.cis.op.dctwork.ybtspost.model.Drug">
+        SELECT
+        CASE WHEN drugs_ybyp.YBBM IS NOT NULL THEN 10
+             ELSE 11 END AS BMLX,
+        CASE WHEN drugs_typk.TYPE = 1 THEN '08'
+             WHEN drugs_typk.TYPE = 2 THEN '09'
+             WHEN drugs_typk.TYPE = 3 THEN '10' END AS FYLB,
+        drugs_typk.YPBM AS YYYPDM,
+        drugs_ybyp.ybbm AS YBYPDM,
+        drugs_typk.YFDW AS BZGGDW,
+        drugs_typk.YFBZ AS BZDWSLY
+        -- CONCAT(drugs_typk.YPJL,drugs_typk.JLDW,'/',drugs_typk.ZXDW)	AS YPGG
+        FROM drugs_typk
+        LEFT JOIN drugs_ybyp ON drugs_typk.YPXH = drugs_ybyp.ypxh
+        WHERE drugs_typk.YPXH = #{ypxh} AND drugs_ybyp.ypcd = #{ypcd} AND drugs_ybyp.QYBZ=1
+    </select>
+
+    <select id="getFwxm" resultType="com.buit.cis.op.dctwork.ybtspost.model.Fwxm">
+        SELECT
+        CASE WHEN OP_YJCF01.XMLX=4 THEN 3
+             WHEN OP_YJCF01.XMLX=5 THEN 2
+             WHEN OP_YJCF01.XMLX=7 THEN 9
+             END AS FWLB,
+        CASE WHEN (FEE_YLSFXM.YBBM IS NULL OR FEE_YLSFXM.YBBM='NULL') THEN 11
+             ELSE 10 END AS BMLX,
+        '' AS FYLB,
+        FEE_YLSFXM.FYMC AS XMMC, -- 如果为组套显示组套
+        FEE_YLSFXM.XMBM AS YYXMDM,
+        FEE_YLSFXM.YBBM AS YBXMDM,
+        OP_YJCF02.YLSL AS XMSL,
+        FEE_YLSFXM.FYDW AS XMSLDW,
+        '' AS JCBWBM, -- 检 查 部 位 编 码
+        '' AS JCBW, -- 检 查 部 位 名 称
+        '' AS ZLBWBM, -- 诊 疗 部 位 编 码
+        FEE_YLSFXM.FYDJ AS XMDJ,
+        OP_YJCF02.ZTBZ AS ZTBZ,
+        OP_YJCF02.ZTYZSBXH AS ZTBH  -- 组套表主键
+        FROM
+        OP_YJCF02
+        LEFT JOIN FEE_YLSFXM ON OP_YJCF02.YLXH = FEE_YLSFXM.FYXH
+        LEFT JOIN OP_YJCF01 ON OP_YJCF02.YJXH = OP_YJCF01.YJXH
+        WHERE OP_YJCF02.JZLSH = #{jzlsh} and OP_YJCF02.JGID = #{jgid}
+        <if test="@sqlt.Ognl@isNotEmpty(ztbh)">
+            AND OP_YJCF02.ztbh = #{ztbh}
+        </if>
+        AND OP_YJCF01.XMLX in (4,5,7) -- 4检查 5检验 7治疗
+    </select>
+
+    <select id="getztFwxm" resultType="com.buit.cis.op.dctwork.ybtspost.model.Ztfwxm">
+        SELECT
+        CASE WHEN OP_YJ02_ZT.XMLX=4 THEN 3
+             WHEN OP_YJ02_ZT.XMLX=5 THEN 2
+                 WHEN OP_YJ02_ZT.XMLX=7 THEN 9
+                 END AS FWLB,
+        OP_YJ02_ZT.YLXH	AS YYXMDM,
+        OP_YJ02_ZT.YLSL AS XMSL,
+        '次' AS XMSLDW,
+        '' AS JCBWBM,
+        '' AS JCBW,
+        '' AS ZLBWBM,
+        OP_YJ02_ZT.YLDJ AS XMDJ
+        FROM OP_YJ02_ZT
+        WHERE OP_YJ02_ZT.JZLSH = #{jzlsh} and OP_YJ02_ZT.JGID = #{jgid}
+        and OP_YJ02_ZT.SBXH = #{ztbh}
+    </select>
+
+    <select id="getYycl" resultType="com.buit.cis.op.dctwork.ybtspost.model.Yycl">
+        SELECT
+        CASE
+            WHEN (FEE_YLSFXM.YBBM IS NULL OR FEE_YLSFXM.YBBM='NULL') THEN 11
+            ELSE 10 END AS BMLX,
+        '' AS FYLB,
+        FEE_YLSFXM.FYMC AS CLMC,
+        FEE_YLSFXM.XMBM AS YYCLBM,
+        FEE_YLSFXM.YBBM AS YBCLBM,
+        FEE_YLSFXM.YYCLGG	AS CLGG,
+        OP_YJCF02.YLSL AS CLSL,
+        FEE_YLSFXM.FYDW AS CLSLDW,
+        FEE_YLSFXM.FYDJ AS CLDJ
+        FROM
+        OP_YJCF02
+        LEFT JOIN FEE_YLSFXM ON OP_YJCF02.YLXH = FEE_YLSFXM.FYXH
+        LEFT JOIN OP_YJCF01 ON OP_YJCF02.YJXH = OP_YJCF01.YJXH
+        WHERE 1=1 AND OP_YJCF02.JZLSH = #{jzlsh} AND OP_YJCF02.JGID = #{jgid}
+        AND OP_YJCF01.XMLX in (10) -- 材料
+    </select>
+</mapper>
+

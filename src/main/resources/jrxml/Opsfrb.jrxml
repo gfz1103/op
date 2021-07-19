@@ -1,0 +1,1086 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Opsfrb" language="groovy" pageWidth="750" pageHeight="1070" columnWidth="710" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57afc71e-118f-40d7-8e94-5daea1f26bb6">
+	<property name="ireport.zoom" value="0.9090909090909095"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="jgid" class="java.lang.String"/>
+	<parameter name="jzksrq" class="java.lang.String"/>
+	<parameter name="jzjsrq" class="java.lang.String"/>
+	<parameter name="userid" class="java.lang.String"/>
+	<parameter name="username" class="java.lang.String"/>
+	<parameter name="djbh" class="java.lang.String"/>
+	<parameter name="czrq" class="java.lang.String"/>
+	<parameter name="XJ" class="java.lang.String"/>
+	<parameter name="ZP" class="java.lang.String"/>
+	<parameter name="POS" class="java.lang.String"/>
+	<parameter name="HBWC" class="java.lang.String"/>
+	<parameter name="KYCK" class="java.lang.String"/>
+	<parameter name="YHJE" class="java.lang.String"/>
+	<parameter name="JZJE" class="java.lang.String"/>
+	<parameter name="QTYS" class="java.lang.String"/>
+	<parameter name="SBJZ" class="java.lang.String"/>
+	<parameter name="QTJZ" class="java.lang.String"/>
+	<parameter name="ZJE" class="java.lang.String"/>
+	<parameter name="YJJ_XJ" class="java.lang.String"/>
+	<parameter name="YJJ_ZP" class="java.lang.String"/>
+	<parameter name="YJJ_POS" class="java.lang.String"/>
+	<parameter name="TJJ_XJ" class="java.lang.String"/>
+	<parameter name="TJJ_ZP" class="java.lang.String"/>
+	<parameter name="TJJ_POS" class="java.lang.String"/>
+	<parameter name="YJJ_HJ" class="java.lang.String"/>
+	<parameter name="TJJ_HJ" class="java.lang.String"/>
+	<parameter name="SS_HJ" class="java.lang.String"/>
+	<parameter name="sjh" class="java.lang.String"/>
+	<parameter name="sjzs" class="java.lang.String"/>
+	<parameter name="sjje" class="java.lang.String"/>
+	<parameter name="fph" class="java.lang.String"/>
+	<parameter name="fpzs" class="java.lang.String"/>
+	<parameter name="fpje" class="java.lang.String"/>
+	<parameter name="ZFB" class="java.lang.String"/>
+	<parameter name="WX" class="java.lang.String"/>
+	<parameter name="CZK" class="java.lang.String"/>
+	<parameter name="POSA" class="java.lang.String"/>
+	<field name="SFMC" class="java.lang.String"/>
+	<field name="ZJJE" class="java.lang.String"/>
+	<field name="ZKJE" class="java.lang.String"/>
+	<field name="SJJE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="72" splitType="Stretch">
+			<textField>
+				<reportElement x="264" y="0" width="159" height="27" uuid="ec09e3d7-764f-445d-acc8-13baf5fdf323"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jgid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="263" y="28" width="164" height="20" uuid="732afc14-fbb7-4481-a32e-59253b49b007"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[门诊结账单（收费处）]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="201" y="49" width="120" height="20" uuid="a6a470f7-d065-4052-b3ea-f7e24c01f83f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{jzksrq}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="49" width="120" height="20" uuid="b0ee0304-cfdb-437d-a6a0-4df30ec1481e"/>
+				<textFieldExpression><![CDATA[$P{jzjsrq}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="323" y="49" width="34" height="20" uuid="8284113a-2a74-47f1-94a5-c456964f5608"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[- - -]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="154" y="4" width="51" height="20" uuid="2abeb448-f4e0-4ce9-836f-be61fe0b0db0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{userid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="4" width="77" height="20" uuid="77a72e16-d0db-4b03-ad72-5408818dcab3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="4" width="75" height="20" uuid="aca83b4f-dd66-4381-94e4-e9dc090a9d13"/>
+				<textFieldExpression><![CDATA[$P{djbh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="501" y="4" width="120" height="20" uuid="c7238915-a26c-46ae-835f-dceff44be63b"/>
+				<textFieldExpression><![CDATA[$P{czrq}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="101" y="4" width="53" height="20" uuid="d0725e52-1c90-45dc-a335-5507bcf4e3ef"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[收款员：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="4" width="64" height="20" uuid="5533578b-42c0-487c-a7a9-cabf78646f6e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[单据编号：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="4" width="71" height="20" uuid="fc1fd2ad-31ed-4422-beba-bb53c2e35783"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[打印日期：]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="101" y="6" width="100" height="20" uuid="5ce6ab3e-1e7b-4547-a53e-f72e73be216b"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[收入汇总：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="29" width="122" height="20" uuid="2994d07b-014e-4959-ac52-2439f1b505ce"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[收费项目]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="29" width="122" height="20" uuid="be97e4af-a895-4979-9eed-b50e97a9df42"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[收入合计]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="29" width="122" height="20" uuid="c1d12a59-5d00-414d-b210-a3b2f19678ce"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[折扣]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="29" width="122" height="20" uuid="1a08e8dc-ef50-4add-93f0-94f70be511ae"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[实际收入]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="218" y="0" width="122" height="20" uuid="383d3f58-f1a5-40a6-9804-c0bce48fd084"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ZJJE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="122" height="20" uuid="df669c0c-849e-4836-8210-918118e0a63f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ZKJE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="0" width="122" height="20" uuid="18691f9a-d036-476e-8678-17f568b50da6"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{SJJE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="0" width="122" height="20" uuid="cdc686b5-d9cb-4b29-b1e0-4ec1bc36eced"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{SFMC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="442">
+			<staticText>
+				<reportElement x="96" y="264" width="100" height="20" uuid="a28779d7-eb51-43a9-b566-a2dc1ee52720"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[商保明细：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="109" width="77" height="20" uuid="1c9b7513-24a6-4847-bb28-7ed1a3db7fee"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[结算总收入：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="156" y="377" width="155" height="20" uuid="fa88772a-99d8-4587-9360-0a57f55171b4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{fph}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="199" width="81" height="20" uuid="775c6681-ece5-4b82-91bc-c6d0b5165891"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[          POS K：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="461" y="349" width="88" height="20" uuid="3b455542-fb98-444e-b2bb-5161f81aa14d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{sjje}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="89" width="81" height="20" uuid="84c24f0b-4220-4768-b370-4fc6a17f6fc7"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[其中 其他记账：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="179" width="81" height="20" uuid="d16b3407-3a44-4a23-aee1-bb0a9f0b7835"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[               支票B：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="329" y="159" width="91" height="20" uuid="e5824ecc-548d-401b-a1f0-f742de483e6b"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{TJJ_XJ}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="286" width="165" height="20" uuid="6fbc5091-4a9d-4142-9879-638d2617c3ce"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[总金额]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="501" y="219" width="83" height="20" uuid="0cb105bf-924b-4b1e-b5f4-9485a20e99de"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{SS_HJ}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="97" y="349" width="59" height="20" uuid="d34c0c8b-7ee4-415c-ab63-cfab4ff61f35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[收据号：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="239" width="81" height="20" uuid="d1d67ecb-c203-4658-9bbe-a82101e78020"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[应缴款=A-E+I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="89" width="85" height="20" uuid="dfc7eaa9-70fb-4016-93cf-4ac2cde81dd5"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[其中 商保记账：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="159" width="74" height="20" uuid="adb0c561-246b-4272-9a32-72d03f9c3630"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[退预缴金 现金E：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="377" width="51" height="20" uuid="9a50bed5-6516-4a0e-b0df-97a018731364"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[总金额：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="159" width="81" height="20" uuid="8310c3de-ed12-4e68-a5e6-4fcaa2b95190"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[实收     现金I：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="177" y="219" width="78" height="20" uuid="fd00651f-f32f-46af-afdd-6a46b71bbd0b"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{YJJ_HJ}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="377" width="87" height="20" uuid="67f3121f-05de-487f-80a2-4ba9f1374b7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{fpje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="199" width="78" height="20" uuid="e99256dd-f2a7-467a-bc83-3e0c1f059d96"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{YJJ_POS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="311" y="377" width="41" height="20" uuid="ef56fa72-4fcc-492f-a93c-7d2192f77069"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[张数：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="352" y="349" width="56" height="20" uuid="1489c0f3-837c-4342-9380-d5cd805706f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{sjzs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="49" width="63" height="20" uuid="1202af20-429b-4399-92f8-13b6cb50e80b"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[优惠金额：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="501" y="89" width="83" height="20" uuid="cd426736-51c9-47ab-8315-2402bfa641b8"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{QTJZ}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="501" y="239" width="83" height="20" uuid="dbf51abd-d494-45eb-af82-d3bef285ef90"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{XJ}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="219" width="81" height="20" uuid="d3a1492d-d5ed-445f-a5dc-afe3db60bb0e"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[合计=I+J+K]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="196" y="89" width="59" height="20" uuid="b524509d-46fc-4f02-9179-9b02679c85d1"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{QTYS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="154" y="29" width="101" height="20" uuid="dbb1fcb2-0921-41c5-8026-333471957d73"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{ZFB}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="159" width="81" height="20" uuid="a3bd9845-023c-4dc5-92d5-c239f8a9d963"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[收预缴金 现金A：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="352" y="377" width="56" height="20" uuid="4a273a62-a993-4df7-8c72-bc2825fbac81"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{fpzs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="306" width="165" height="20" uuid="71b9cf11-2185-46c2-a6e4-918228ff92d7"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="329" y="239" width="91" height="20" uuid="b9641888-0fb5-450f-baea-d27692e92956"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{ZP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="311" y="349" width="41" height="20" uuid="1ff52c9e-a40e-4ca5-bafa-514035a2c49b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[张数：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="219" width="81" height="20" uuid="2cdaefc6-2431-4e9b-82f9-e7b4d169a282"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[合计=A+B+C]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="97" y="377" width="57" height="20" uuid="22fda6f4-35ee-4c87-88a7-95d0799fea5f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[发票号：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="318" y="49" width="102" height="20" uuid="20d2149b-0c7c-456e-9ec3-7c8a416bb31f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{KYCK}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="306" width="159" height="20" uuid="940b7c12-3f39-4adb-b434-9057271e97f8"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[合计]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="219" width="74" height="20" uuid="e0120c52-e2ee-4c55-ba29-7873896d0da1"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[合计=E+F+G]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="159" y="49" width="96" height="20" uuid="b98e1494-7c06-4b7d-b64b-5f7c3e106f79"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{HBWC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="501" y="199" width="83" height="20" uuid="bdddaad2-6640-47ff-85ef-c3a711fed539"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{POSA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="173" y="69" width="411" height="20" uuid="2870fc78-95d3-4760-92b0-e244008835bf"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{JZJE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="501" y="179" width="83" height="20" uuid="2ef8ade5-d22b-4077-86c9-1c48ddef1ed5"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{ZP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="501" y="159" width="83" height="20" uuid="397da2a2-17f6-4eee-953a-45145db27b69"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{XJ}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="29" width="58" height="20" uuid="2566e2ce-18e1-4a7b-aa86-192df1edea0b"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[支付宝：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="179" width="81" height="20" uuid="0b9e3566-bd82-40d3-987a-6d3ad3a63e54"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[            支票J：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="29" width="60" height="20" uuid="04e2397e-cb4b-4ac7-bb99-18f801356d0a"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[充值卡：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="29" width="46" height="20" uuid="e93568d3-fa26-43ac-8e66-e255d1bcaae2"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[微信：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="286" width="159" height="20" uuid="f486ae6c-1e71-4185-925d-5e98c22af8a7"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[单位]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="69" width="77" height="20" uuid="dd52991a-2fdb-4b17-823c-9845fb69d487"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[记账金额：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="286" width="164" height="20" uuid="7db2d837-64c3-49a6-aa20-1a515834ece0"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[记账]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="89" width="80" height="20" uuid="7fe0c1ab-98b0-4521-90fa-1f023503a0e1"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{SBJZ}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="29" width="119" height="20" uuid="d2a53383-4b14-4e49-8abe-ab3021daf3f9"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{WX}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="199" width="81" height="20" uuid="d9881116-56d4-4467-b9fc-34251c83adfe"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[             POS C：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="109" width="411" height="20" uuid="2a24146e-90d2-48e7-9dd9-1d3d9c056746"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{ZJE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="156" y="349" width="155" height="20" uuid="3ad9e4fa-73fd-4753-99da-525a177570c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{sjh}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="49" width="63" height="20" uuid="1fa29efb-ba4a-48b9-8303-864f52fa39fe"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[扣预存款：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="327" width="487" height="20" uuid="59b58460-edb7-48d3-94ed-c5930eb6e50d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[_________________________________________________________________________________________]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="177" y="159" width="78" height="20" uuid="47f4dec6-4579-4554-8957-bea3a08669e9"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{YJJ_XJ}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="29" width="104" height="20" uuid="61969121-a923-404b-8bae-f2c4049acfd8"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{CZK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="329" y="179" width="91" height="20" uuid="e9e1a792-4968-4a8d-9c7c-467444eb0d1f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{TJJ_ZP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="89" width="100" height="20" uuid="4ea77e95-5704-4d3c-a566-4e0a651c8c61"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[其中 医保记账：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="329" y="219" width="91" height="20" uuid="31960eab-68a1-476f-994c-c96fc8966ce5"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{TJJ_HJ}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="179" width="74" height="20" uuid="068b0ee0-f185-4e91-a441-85b5adfebb13"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[               支票F：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="239" width="81" height="20" uuid="6601787a-fa80-40cb-a111-276bbae0ba5d"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[POS合计=C-G+K]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="199" width="74" height="20" uuid="3d5a20de-a374-44e6-9cf6-7965ac94c387"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[              POS G：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="483" y="49" width="101" height="20" uuid="0ea6d309-dba8-4252-abe5-a8c0e9e42e8b"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{YHJE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="306" width="164" height="20" uuid="b3dcd0fb-c265-4332-8ffa-20892580b8d9"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="239" width="74" height="20" uuid="d7100317-641e-46ca-af18-7433182ad79d"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[支票合计=B-F+J]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="177" y="239" width="78" height="20" uuid="39afa53e-ff9a-4fae-bf3e-90582d5c1a9f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{POS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="179" width="78" height="20" uuid="2f86befa-1848-4b74-8c1a-de848844ecac"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{YJJ_ZP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="399" width="487" height="20" uuid="e1156157-acf9-4f92-88e4-76f16f5ac1d2"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[_______________________________________________________________________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="49" width="63" height="20" uuid="9312c41e-b278-4c4f-b9a7-18ad912aa3c7"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[四舍五入：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="329" y="199" width="91" height="20" uuid="f51d3338-cad5-4c5c-87d3-9ad81ba0ebb5"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{TJJ_POS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="137" width="100" height="20" uuid="caa28570-be9f-42c1-b269-90d97aaec6fc"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[补充内容：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="349" width="51" height="20" uuid="3db8dc7e-2a88-4151-b251-209fb1102e39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[总金额：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="465" y="9" width="119" height="20" uuid="c9eb9b17-145c-4865-8a85-2e4944f6b6f3"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{POS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="9" width="46" height="20" uuid="9a9f4511-fa4d-4888-9c21-89162c6527d6"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[支票：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="9" width="40" height="20" uuid="48901018-592b-4c81-89aa-2b6d51932d83"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[现金：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="9" width="45" height="20" uuid="472c7ec9-04ca-4155-a0c3-d80ade5d3496"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[POS：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="301" y="9" width="119" height="20" uuid="d7c873aa-a373-4eb9-b609-17529080a949"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{ZP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="9" width="119" height="20" uuid="661c30a0-9e77-4ed4-a908-f3025268829d"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{XJ}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="46" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

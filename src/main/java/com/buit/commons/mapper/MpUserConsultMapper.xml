@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 用户咨询表（客服使用） -->
+<mapper namespace="com.buit.commons.dao.MpUserConsultDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id,USERID as userid,ZXRID as zxrid,ZXRXM as zxrxm,ZXRSJHM as zxrsjhm,ZXKSSJ as zxkssj,ZXJSSJ as zxjssj,ZXZT as zxzt,CREATE_TIME as createTime
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO MP_USER_CONSULT (
+            ID ,
+            USERID ,
+            ZXRID ,
+            ZXRXM ,
+            ZXRSJHM ,
+            ZXKSSJ ,
+            ZXJSSJ ,
+            ZXZT ,
+            CREATE_TIME
+        ) VALUES (
+            #{id} ,
+            #{userid} ,
+            #{zxrid} ,
+            #{zxrxm} ,
+            #{zxrsjhm},
+            #{zxkssj} ,
+            #{zxjssj} ,
+            #{zxzt} ,
+            #{createTime}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE MP_USER_CONSULT SET
+            USERID = #{userid} ,
+            ZXRID = #{zxrid} ,
+            ZXKSSJ = #{zxkssj} ,
+            ZXJSSJ = #{zxjssj} ,
+            ZXZT = #{zxzt} ,
+            CREATE_TIME = #{createTime}
+        WHERE
+            ID = #{id}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM MP_USER_CONSULT WHERE
+        ID = #{id}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM MP_USER_CONSULT <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="MpUserConsult">
+        SELECT <include refid="columns" />
+            FROM MP_USER_CONSULT
+            WHERE
+        ID = #{id}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND ID = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(userid)"> -->
+<!--                     AND USERID = #{userid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxrid)"> -->
+<!--                     AND ZXRID = #{zxrid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxkssj)"> -->
+<!--                     AND ZXKSSJ = #{zxkssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxjssj)"> -->
+<!--                     AND ZXJSSJ = #{zxjssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxzt)"> -->
+<!--                     AND ZXZT = #{zxzt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(createTime)"> -->
+<!--                     AND CREATE_TIME = #{createTime} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM MP_USER_CONSULT
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="MpUserConsult">
+        SELECT <include refid="columns" />
+        FROM MP_USER_CONSULT
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="onlineConsultCount" resultType="com.buit.commons.model.OnlineConsultCount">
+
+        SELECT
+        euser.USERID as userid,
+        euser.USERNAME as username,
+        CASE WHEN conparent.zxsl IS NULL THEN 0 ELSE conparent.zxsl END AS zxsl
+        FROM  mp_easemob_user euser
+        LEFT JOIN
+        (SELECT con.USERID,COUNT(con.ID) AS zxsl FROM mp_user_consult con LEFT JOIN mp_easemob_user easuser ON con.USERID = easuser.USERID
+        WHERE 1=1 AND DATE_FORMAT(con.CREATE_TIME,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d') AND con.ZXZT = '1'
+        and easuser.USERNAME in
+        <foreach collection="userNames" separator="," item="item" open="(" close=")">
+            #{item}
+        </foreach>
+        GROUP BY con.USERID
+        ) conparent
+        ON euser.USERID = conparent.USERID
+        WHERE euser.ACTIVATED = 'true'
+        and euser.USERNAME IN
+        <foreach collection="userNames" separator="," item="item" open="(" close=")">
+            #{item}
+        </foreach>
+        ORDER BY conparent.zxsl
+    </select>
+
+    <update id="updateConsultZt">
+        UPDATE MP_USER_CONSULT
+        SET
+            ZXZT = #{zxzt},
+            ZXJSSJ = now()
+        WHERE
+            ID = #{id} and ZXZT = 1
+    </update>
+
+    <select id="workloadAccountForKF" resultType="com.buit.commons.model.WorkloadAccountForKF">
+        SELECT zx.kfgh,zx.kfxm,SUM(zx.zxsl) AS zxsl
+        FROM
+        (SELECT
+        con.USERID AS kfgh,
+        per.PERSONNAME AS kfxm,
+        DATE_FORMAT(con.CREATE_TIME,'%Y-%m-%d') AS createTime,
+        count(DISTINCT con.ZXRID) AS zxsl
+        FROM mp_user_consult con
+        LEFT JOIN hr_personnel per ON con.USERID = per.PERSONID
+        WHERE 1=1
+        <if test="@sqlt.Ognl@isNotEmpty(zxsjks)">
+            AND DATE_FORMAT(con.ZXKSSJ,'%Y-%m-%d') >= #{zxsjks}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(zxsjjs)">
+            AND DATE_FORMAT(con.ZXKSSJ,'%Y-%m-%d') &lt;= #{zxsjjs}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(userid)">
+            AND con.USERID = #{userid}
+        </if>
+        GROUP BY con.USERID,per.PERSONNAME,DATE_FORMAT(con.CREATE_TIME,'%Y-%m-%d')) zx
+        GROUP BY zx.kfgh
+<!--        SELECT-->
+<!--        con.USERID AS kfgh,-->
+<!--        per.PERSONNAME AS kfxm,-->
+<!--        count(*) AS zxsl-->
+<!--        FROM mp_user_consult con-->
+<!--        LEFT JOIN hr_personnel per ON con.USERID = per.PERSONID-->
+<!--        WHERE 1=1-->
+<!--        <if test="@sqlt.Ognl@isNotEmpty(zxsjks)">-->
+<!--            AND DATE_FORMAT(con.ZXKSSJ,'%Y-%m-%d') >= #{zxsjks}-->
+<!--        </if>-->
+<!--        <if test="@sqlt.Ognl@isNotEmpty(zxsjjs)">-->
+<!--            AND DATE_FORMAT(con.ZXKSSJ,'%Y-%m-%d') &lt;= #{zxsjjs}-->
+<!--        </if>-->
+<!--        <if test="@sqlt.Ognl@isNotEmpty(userid)">-->
+<!--            AND con.USERID = #{userid}-->
+<!--        </if>-->
+<!--        GROUP BY con.USERID,per.PERSONNAME-->
+    </select>
+    <select id="workloadAccountForYS" resultType="com.buit.cis.op.dctwork.response.WorkloadAccountForYSResp">
+        select hp.PERSONID as ysdm, hp.RYBH as ysgh, hp.PERSONNAME as ysxm, ogs.KSDM as ksdm, ogs.KSMC as ksmc, count(oyj.JZLSH) as zlrs
+        from mkey_user mu
+        left join hr_personnel hp on hp.PERSONID = mu.sys_user_id
+        left join op_ys_jzls oyj on oyj.YSDM = mu.sys_user_id
+        left join op_ghmx og on og.JZLSH = oyj.JZLSH
+        left join op_ghks ogs on ogs.KSDM = og.KSDM
+        where ogs.INTERNET = 1 and hp.INTERNET = 1 and mu.status = 1 and hp.LOGOFF = 0
+        <if test="@sqlt.Ognl@isNotEmpty(keyword)">
+            AND (hp.RYBH LIKE CONCAT(CONCAT('%',#{keyword}),'%') or hp.PERSONNAME LIKE CONCAT(CONCAT('%',#{keyword}),'%'))
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+            AND ogs.KSDM = #{ksdm}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(kssj)">
+            AND oyj.KSSJ BETWEEN #{kssj} AND #{jssj}
+        </if>
+        group by hp.PERSONID, hp.PERSONNAME, ogs.KSDM, ogs.KSMC
+    </select>
+
+    <select id="selectzxjl" resultType="com.buit.commons.model.MpUserConsult">
+        select * FROM mp_user_consult
+        where ZXRID = #{zxrid} AND DATE_FORMAT(ZXKSSJ,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')
+        ORDER BY CREATE_TIME DESC LIMIT 1
+    </select>
+
+    <select id="consultCount" resultType="com.buit.op.response.ConsultCountResp">
+        select
+        DATE_FORMAT(CREATE_TIME,'%Y-%m-%d') AS zxsj,
+        USERID as userid,
+        COUNT(*) as zxl
+        from mp_user_consult
+        where 1=1 and USERID = #{userid} AND DATE_FORMAT(CREATE_TIME,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d')
+        GROUP BY CREATE_TIME,userid
+    </select>
+</mapper>
+

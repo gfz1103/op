@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 数据签名 -->
+<mapper namespace="com.buit.commons.dao.MkeyRecordSealDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id as id,record_id as recordId,user_id as userId,seal as seal,create_time as createTime,update_time as updateTime
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO MKEY_RECORD_SEAL (
+            id ,
+            record_id ,
+            user_id ,
+            seal ,
+            create_time ,
+            update_time
+        ) VALUES (
+            #{id} ,
+            #{recordId} ,
+            #{userId} ,
+            #{seal} ,
+            #{createTime} ,
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE MKEY_RECORD_SEAL SET
+            record_id = #{recordId} ,
+            user_id = #{userId} ,
+            seal = #{seal} ,
+            create_time = #{createTime} ,
+            update_time = #{updateTime}
+        WHERE
+            id = #{id}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM MKEY_RECORD_SEAL WHERE
+        id = #{id}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM MKEY_RECORD_SEAL <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="MkeyRecordSeal">
+        SELECT <include refid="columns" />
+            FROM MKEY_RECORD_SEAL
+            WHERE
+        id = #{id}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND id = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recordId)"> -->
+<!--                     AND record_id = #{recordId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(userId)"> -->
+<!--                     AND user_id = #{userId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(seal)"> -->
+<!--                     AND seal = #{seal} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(createTime)"> -->
+<!--                     AND create_time = #{createTime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(updateTime)"> -->
+<!--                     AND update_time = #{updateTime} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM MKEY_RECORD_SEAL
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="MkeyRecordSeal">
+        SELECT <include refid="columns" />
+        FROM MKEY_RECORD_SEAL
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+</mapper>
+

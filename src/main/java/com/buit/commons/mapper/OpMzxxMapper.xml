@@ -1,0 +1,6014 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_门诊收费信息 -->
+<mapper namespace="com.buit.commons.dao.OpMzxxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        MZXH as mzxh,JGID as jgid,FPHM as fphm, CDFPHM AS cdfphm, SFRQ as sfrq,BRID as brid,BRXM as brxm,BRXB as brxb,BRXZ as brxz,FYZH as fyzh,DWXH as dwxh,XJJE as xjje,ZPJE as zpje,ZHJE as zhje,HBWC as hbwc,QTYS as qtys,ZJJE as zjje,ZFJE as zfje,ZHLB as zhlb,ZFPB as zfpb,THPB as thpb,FPGL as fpgl,MZGL as mzgl,MZLB as mzlb,GHGL as ghgl,CZGH as czgh,JZRQ as jzrq,HZRQ as hzrq,SFFS as sffs,HBBZ as hbbz,XNFP as xnfp,JKJE as jkje,TZJE as tzje,ND as nd,JSLSH as jslsh,JSDH as jsdh,CBXZ as cbxz,HZJE as hzje,JJZFJE as jjzfje,FYZE as fyze,MZJZJE as mzjzje,FFFS as fffs,YDCZSF as ydczsf,YDCZFPBD as ydczfpbd,FPZS as fpzs,FWBXX as fwbxx,KLBBZ as klbbz,KNSJ as knsj,YBZFJE as ybzfje,YBJYLSH as ybjylsh,ZHBZ as zhbz,DBXM as dbxm,FJDDFFJ as fjddffj,FJDLNZH as fjdlnzh,TCDTC as tcdtc,TCDLNZH as tcdlnzh,ZFDDNZH as zfddnzh,ZFDLNZH as zfdlnzh,FLZF as flzf,CZFJE as czfje,YBKS as ybks,FYETDJID as fyetdjid,GRBH as grbh,FYETBRXZ as fyetbrxz,FYETJMJE as fyetjmje,JZKH as jzkh,DJID as djid,BXJE as bxje,NHBH as nhbh,NHBXID as nhbxid,NHBXRQ as nhbxrq,AXKTCBH as axktcbh,AXKJMJE as axkjmje,SBLSH as sblsh,FYGRZF as fygrzf,FYFLZF as fyflzf,FYYBTZ as fyybtz,GRZFZFS as grzfzfs,GRZFXJ as grzfxj,FLZFZFS as flzfzfs,FLZFXJ as flzfxj,GRZFZFSLJ as grzfzfslj,FLZFZFSLJ as flzfzfslj,MZJZLSH as mzjzlsh,JSSQH as jssqh,ZSFPHM as zsfphm,ZSFPBZ as zsfpbz,JMJE as jmje,MPJE as mpje,LPJE as lpje,HLSYJE as hlsyje,CFJE as cfje,YCZJE as yczje,YHZJE as yhzje,BINVCODE as binvcode,BINVNR as binvnr,GZDWMC as gzdwmc,JZLSH as jzlsh,KSDM as ksdm,YSDM as ysdm, PSJE as psje
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_MZXX (
+            MZXH ,
+            JGID ,
+            FPHM ,
+			CDFPHM,
+            SFRQ ,
+            BRID ,
+            BRXM ,
+            BRXB ,
+            BRXZ ,
+            FYZH ,
+            DWXH ,
+            XJJE ,
+            ZPJE ,
+            ZHJE ,
+            HBWC ,
+            QTYS ,
+            ZJJE ,
+            ZFJE ,
+            ZHLB ,
+            ZFPB ,
+            THPB ,
+            FPGL ,
+            MZGL ,
+            MZLB ,
+            GHGL ,
+            CZGH ,
+            JZRQ ,
+            HZRQ ,
+            SFFS ,
+            HBBZ ,
+            XNFP ,
+            JKJE ,
+            TZJE ,
+            ND ,
+            JSLSH ,
+            JSDH ,
+            CBXZ ,
+            HZJE ,
+            JJZFJE ,
+            FYZE ,
+            MZJZJE ,
+            FFFS ,
+            YDCZSF ,
+            YDCZFPBD ,
+            FPZS ,
+            FWBXX ,
+            KLBBZ ,
+            KNSJ ,
+            YBZFJE ,
+            YBJYLSH ,
+            ZHBZ ,
+            DBXM ,
+            FJDDFFJ ,
+            FJDLNZH ,
+            TCDTC ,
+            TCDLNZH ,
+            ZFDDNZH ,
+            ZFDLNZH ,
+            FLZF ,
+            CZFJE ,
+            YBKS ,
+            FYETDJID ,
+            GRBH ,
+            FYETBRXZ ,
+            FYETJMJE ,
+            JZKH ,
+            DJID ,
+            BXJE ,
+            NHBH ,
+            NHBXID ,
+            NHBXRQ ,
+            AXKTCBH ,
+            AXKJMJE ,
+            SBLSH ,
+            FYGRZF ,
+            FYFLZF ,
+            FYYBTZ ,
+            GRZFZFS ,
+            GRZFXJ ,
+            FLZFZFS ,
+            FLZFXJ ,
+            GRZFZFSLJ ,
+            FLZFZFSLJ ,
+            MZJZLSH ,
+            JSSQH ,
+            ZSFPHM ,
+            ZSFPBZ ,
+            JMJE ,
+            MPJE ,
+            LPJE ,
+            HLSYJE ,
+            CFJE ,
+            YCZJE ,
+            YHZJE ,
+            BINVCODE ,
+            BINVNR ,
+            GZDWMC ,
+            JZLSH,
+            KSDM,
+            YSDM,
+            PSJE
+        ) VALUES (
+            #{mzxh} ,
+            #{jgid} ,
+            #{fphm} ,
+            #{cdfphm},
+            #{sfrq} ,
+            #{brid} ,
+            #{brxm} ,
+            #{brxb} ,
+            #{brxz} ,
+            #{fyzh} ,
+            #{dwxh} ,
+            #{xjje} ,
+            #{zpje} ,
+            #{zhje} ,
+            #{hbwc} ,
+            #{qtys} ,
+            #{zjje} ,
+            #{zfje} ,
+            #{zhlb} ,
+            #{zfpb} ,
+            #{thpb} ,
+            #{fpgl} ,
+            #{mzgl} ,
+            #{mzlb} ,
+            #{ghgl} ,
+            #{czgh} ,
+            #{jzrq} ,
+            #{hzrq} ,
+            #{sffs} ,
+            #{hbbz} ,
+            #{xnfp} ,
+            #{jkje} ,
+            #{tzje} ,
+            #{nd} ,
+            #{jslsh} ,
+            #{jsdh} ,
+            #{cbxz} ,
+            #{hzje} ,
+            #{jjzfje} ,
+            #{fyze} ,
+            #{mzjzje} ,
+            #{fffs} ,
+            #{ydczsf} ,
+            #{ydczfpbd} ,
+            #{fpzs} ,
+            #{fwbxx} ,
+            #{klbbz} ,
+            #{knsj} ,
+            #{ybzfje} ,
+            #{ybjylsh} ,
+            #{zhbz} ,
+            #{dbxm} ,
+            #{fjddffj} ,
+            #{fjdlnzh} ,
+            #{tcdtc} ,
+            #{tcdlnzh} ,
+            #{zfddnzh} ,
+            #{zfdlnzh} ,
+            #{flzf} ,
+            #{czfje} ,
+            #{ybks} ,
+            #{fyetdjid} ,
+            #{grbh} ,
+            #{fyetbrxz} ,
+            #{fyetjmje} ,
+            #{jzkh} ,
+            #{djid} ,
+            #{bxje} ,
+            #{nhbh} ,
+            #{nhbxid} ,
+            #{nhbxrq} ,
+            #{axktcbh} ,
+            #{axkjmje} ,
+            #{sblsh} ,
+            #{fygrzf} ,
+            #{fyflzf} ,
+            #{fyybtz} ,
+            #{grzfzfs} ,
+            #{grzfxj} ,
+            #{flzfzfs} ,
+            #{flzfxj} ,
+            #{grzfzfslj} ,
+            #{flzfzfslj} ,
+            #{mzjzlsh} ,
+            #{jssqh} ,
+            #{zsfphm} ,
+            #{zsfpbz} ,
+            #{jmje} ,
+            #{mpje} ,
+            #{lpje} ,
+            #{hlsyje} ,
+            #{cfje} ,
+            #{yczje} ,
+            #{yhzje} ,
+            #{binvcode} ,
+            #{binvnr} ,
+            #{gzdwmc} ,
+            #{jzlsh}  ,
+            #{ksdm}   ,
+            #{ysdm}	,
+            #{psje}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE OP_MZXX SET
+            JGID = #{jgid} ,
+            FPHM = #{fphm} ,
+            SFRQ = #{sfrq} ,
+            BRID = #{brid} ,
+            BRXM = #{brxm} ,
+            BRXB = #{brxb} ,
+            BRXZ = #{brxz} ,
+            FYZH = #{fyzh} ,
+            DWXH = #{dwxh} ,
+            XJJE = #{xjje} ,
+            ZPJE = #{zpje} ,
+            ZHJE = #{zhje} ,
+            HBWC = #{hbwc} ,
+            QTYS = #{qtys} ,
+            ZJJE = #{zjje} ,
+            ZFJE = #{zfje} ,
+            ZHLB = #{zhlb} ,
+            ZFPB = #{zfpb} ,
+            THPB = #{thpb} ,
+            FPGL = #{fpgl} ,
+            MZGL = #{mzgl} ,
+            MZLB = #{mzlb} ,
+            GHGL = #{ghgl} ,
+            CZGH = #{czgh} ,
+            JZRQ = #{jzrq} ,
+            HZRQ = #{hzrq} ,
+            SFFS = #{sffs} ,
+            HBBZ = #{hbbz} ,
+            XNFP = #{xnfp} ,
+            JKJE = #{jkje} ,
+            TZJE = #{tzje} ,
+            ND = #{nd} ,
+            JSLSH = #{jslsh} ,
+            JSDH = #{jsdh} ,
+            CBXZ = #{cbxz} ,
+            HZJE = #{hzje} ,
+            JJZFJE = #{jjzfje} ,
+            FYZE = #{fyze} ,
+            MZJZJE = #{mzjzje} ,
+            FFFS = #{fffs} ,
+            YDCZSF = #{ydczsf} ,
+            YDCZFPBD = #{ydczfpbd} ,
+            FPZS = #{fpzs} ,
+            FWBXX = #{fwbxx} ,
+            KLBBZ = #{klbbz} ,
+            KNSJ = #{knsj} ,
+            YBZFJE = #{ybzfje} ,
+            YBJYLSH = #{ybjylsh} ,
+            ZHBZ = #{zhbz} ,
+            DBXM = #{dbxm} ,
+            FJDDFFJ = #{fjddffj} ,
+            FJDLNZH = #{fjdlnzh} ,
+            TCDTC = #{tcdtc} ,
+            TCDLNZH = #{tcdlnzh} ,
+            ZFDDNZH = #{zfddnzh} ,
+            ZFDLNZH = #{zfdlnzh} ,
+            FLZF = #{flzf} ,
+            CZFJE = #{czfje} ,
+            YBKS = #{ybks} ,
+            FYETDJID = #{fyetdjid} ,
+            GRBH = #{grbh} ,
+            FYETBRXZ = #{fyetbrxz} ,
+            FYETJMJE = #{fyetjmje} ,
+            JZKH = #{jzkh} ,
+            DJID = #{djid} ,
+            BXJE = #{bxje} ,
+            NHBH = #{nhbh} ,
+            NHBXID = #{nhbxid} ,
+            NHBXRQ = #{nhbxrq} ,
+            AXKTCBH = #{axktcbh} ,
+            AXKJMJE = #{axkjmje} ,
+            SBLSH = #{sblsh} ,
+            FYGRZF = #{fygrzf} ,
+            FYFLZF = #{fyflzf} ,
+            FYYBTZ = #{fyybtz} ,
+            GRZFZFS = #{grzfzfs} ,
+            GRZFXJ = #{grzfxj} ,
+            FLZFZFS = #{flzfzfs} ,
+            FLZFXJ = #{flzfxj} ,
+            GRZFZFSLJ = #{grzfzfslj} ,
+            FLZFZFSLJ = #{flzfzfslj} ,
+            MZJZLSH = #{mzjzlsh} ,
+            JSSQH = #{jssqh} ,
+            ZSFPHM = #{zsfphm} ,
+            ZSFPBZ = #{zsfpbz} ,
+            JMJE = #{jmje} ,
+            MPJE = #{mpje} ,
+            LPJE = #{lpje} ,
+            HLSYJE = #{hlsyje} ,
+            CFJE = #{cfje} ,
+            YCZJE = #{yczje} ,
+            YHZJE = #{yhzje} ,
+            BINVCODE = #{binvcode} ,
+            BINVNR = #{binvnr} ,
+            GZDWMC = #{gzdwmc} ,
+            JZLSH = #{jzlsh}
+        WHERE
+            MZXH = #{mzxh}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_MZXX WHERE
+        MZXH = #{mzxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_MZXX <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpMzxx">
+        SELECT <include refid="columns" />
+            FROM OP_MZXX
+            WHERE
+        MZXH = #{mzxh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzxh)"> -->
+<!--                     AND MZXH = #{mzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fphm)"> -->
+<!--                     AND FPHM = #{fphm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfrq)"> -->
+<!--                     AND SFRQ = #{sfrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxm)"> -->
+<!--                     AND BRXM = #{brxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxb)"> -->
+<!--                     AND BRXB = #{brxb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxz)"> -->
+<!--                     AND BRXZ = #{brxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyzh)"> -->
+<!--                     AND FYZH = #{fyzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dwxh)"> -->
+<!--                     AND DWXH = #{dwxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xjje)"> -->
+<!--                     AND XJJE = #{xjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zpje)"> -->
+<!--                     AND ZPJE = #{zpje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhje)"> -->
+<!--                     AND ZHJE = #{zhje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hbwc)"> -->
+<!--                     AND HBWC = #{hbwc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtys)"> -->
+<!--                     AND QTYS = #{qtys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjje)"> -->
+<!--                     AND ZJJE = #{zjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfje)"> -->
+<!--                     AND ZFJE = #{zfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhlb)"> -->
+<!--                     AND ZHLB = #{zhlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfpb)"> -->
+<!--                     AND ZFPB = #{zfpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(thpb)"> -->
+<!--                     AND THPB = #{thpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fpgl)"> -->
+<!--                     AND FPGL = #{fpgl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzgl)"> -->
+<!--                     AND MZGL = #{mzgl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghgl)"> -->
+<!--                     AND GHGL = #{ghgl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzrq)"> -->
+<!--                     AND HZRQ = #{hzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sffs)"> -->
+<!--                     AND SFFS = #{sffs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hbbz)"> -->
+<!--                     AND HBBZ = #{hbbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xnfp)"> -->
+<!--                     AND XNFP = #{xnfp} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jkje)"> -->
+<!--                     AND JKJE = #{jkje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tzje)"> -->
+<!--                     AND TZJE = #{tzje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nd)"> -->
+<!--                     AND ND = #{nd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jslsh)"> -->
+<!--                     AND JSLSH = #{jslsh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jsdh)"> -->
+<!--                     AND JSDH = #{jsdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cbxz)"> -->
+<!--                     AND CBXZ = #{cbxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzje)"> -->
+<!--                     AND HZJE = #{hzje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jjzfje)"> -->
+<!--                     AND JJZFJE = #{jjzfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyze)"> -->
+<!--                     AND FYZE = #{fyze} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzjzje)"> -->
+<!--                     AND MZJZJE = #{mzjzje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fffs)"> -->
+<!--                     AND FFFS = #{fffs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ydczsf)"> -->
+<!--                     AND YDCZSF = #{ydczsf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ydczfpbd)"> -->
+<!--                     AND YDCZFPBD = #{ydczfpbd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fpzs)"> -->
+<!--                     AND FPZS = #{fpzs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fwbxx)"> -->
+<!--                     AND FWBXX = #{fwbxx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(klbbz)"> -->
+<!--                     AND KLBBZ = #{klbbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(knsj)"> -->
+<!--                     AND KNSJ = #{knsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybzfje)"> -->
+<!--                     AND YBZFJE = #{ybzfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybjylsh)"> -->
+<!--                     AND YBJYLSH = #{ybjylsh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhbz)"> -->
+<!--                     AND ZHBZ = #{zhbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dbxm)"> -->
+<!--                     AND DBXM = #{dbxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fjddffj)"> -->
+<!--                     AND FJDDFFJ = #{fjddffj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fjdlnzh)"> -->
+<!--                     AND FJDLNZH = #{fjdlnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tcdtc)"> -->
+<!--                     AND TCDTC = #{tcdtc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tcdlnzh)"> -->
+<!--                     AND TCDLNZH = #{tcdlnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfddnzh)"> -->
+<!--                     AND ZFDDNZH = #{zfddnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfdlnzh)"> -->
+<!--                     AND ZFDLNZH = #{zfdlnzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(flzf)"> -->
+<!--                     AND FLZF = #{flzf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czfje)"> -->
+<!--                     AND CZFJE = #{czfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ybks)"> -->
+<!--                     AND YBKS = #{ybks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyetdjid)"> -->
+<!--                     AND FYETDJID = #{fyetdjid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(grbh)"> -->
+<!--                     AND GRBH = #{grbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyetbrxz)"> -->
+<!--                     AND FYETBRXZ = #{fyetbrxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyetjmje)"> -->
+<!--                     AND FYETJMJE = #{fyetjmje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzkh)"> -->
+<!--                     AND JZKH = #{jzkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djid)"> -->
+<!--                     AND DJID = #{djid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bxje)"> -->
+<!--                     AND BXJE = #{bxje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nhbh)"> -->
+<!--                     AND NHBH = #{nhbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nhbxid)"> -->
+<!--                     AND NHBXID = #{nhbxid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nhbxrq)"> -->
+<!--                     AND NHBXRQ = #{nhbxrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(axktcbh)"> -->
+<!--                     AND AXKTCBH = #{axktcbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(axkjmje)"> -->
+<!--                     AND AXKJMJE = #{axkjmje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sblsh)"> -->
+<!--                     AND SBLSH = #{sblsh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fygrzf)"> -->
+<!--                     AND FYGRZF = #{fygrzf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyflzf)"> -->
+<!--                     AND FYFLZF = #{fyflzf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fyybtz)"> -->
+<!--                     AND FYYBTZ = #{fyybtz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(grzfzfs)"> -->
+<!--                     AND GRZFZFS = #{grzfzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(grzfxj)"> -->
+<!--                     AND GRZFXJ = #{grzfxj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(flzfzfs)"> -->
+<!--                     AND FLZFZFS = #{flzfzfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(flzfxj)"> -->
+<!--                     AND FLZFXJ = #{flzfxj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(grzfzfslj)"> -->
+<!--                     AND GRZFZFSLJ = #{grzfzfslj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(flzfzfslj)"> -->
+<!--                     AND FLZFZFSLJ = #{flzfzfslj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzjzlsh)"> -->
+<!--                     AND MZJZLSH = #{mzjzlsh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jssqh)"> -->
+<!--                     AND JSSQH = #{jssqh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsfphm)"> -->
+<!--                     AND ZSFPHM = #{zsfphm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsfpbz)"> -->
+<!--                     AND ZSFPBZ = #{zsfpbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jmje)"> -->
+<!--                     AND JMJE = #{jmje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mpje)"> -->
+<!--                     AND MPJE = #{mpje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lpje)"> -->
+<!--                     AND LPJE = #{lpje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hlsyje)"> -->
+<!--                     AND HLSYJE = #{hlsyje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfje)"> -->
+<!--                     AND CFJE = #{cfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yczje)"> -->
+<!--                     AND YCZJE = #{yczje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yhzje)"> -->
+<!--                     AND YHZJE = #{yhzje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(binvcode)"> -->
+<!--                     AND BINVCODE = #{binvcode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(binvnr)"> -->
+<!--                     AND BINVNR = #{binvnr} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gzdwmc)"> -->
+<!--                     AND GZDWMC = #{gzdwmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)"> -->
+<!--                     AND JZLSH = #{jzlsh} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_MZXX
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpMzxx">
+        SELECT <include refid="columns" />
+        FROM OP_MZXX
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <!-- 获得处方信息 -->
+    <select id="getCfInfo" parameterType="Map" resultType="java.util.Map">
+       SELECT
+		( SELECT bb.ksdm FROM OP_YS_JZLS aa, OP_GHMX bb WHERE aa.ghxh = bb.sbxh AND aa.jzxh = a.jzxh ) ghks,
+		(
+		SELECT
+			dd.sbxh
+		FROM
+			OP_YS_JZLS cc,
+			OP_GHMX dd
+		WHERE
+			cc.ghxh = dd.sbxh
+			AND cc.jzxh = a.jzxh
+			limit 1
+		) AS ghsb,
+		#{XQ} AS XQ,
+		a.CFLX AS CFLX,
+		CASE
+			a.CFLX
+			WHEN 1 THEN
+			'西药方'
+			WHEN 2 THEN
+			'中药方' ELSE '草药方'
+		END AS djlxText,
+		a.KFRQ AS KDRQ,
+		a.KSDM AS KDKS,
+		a.YSDM AS KDYS,
+		a.CFSB AS CFSB,
+		SUM( b.HJJE ) AS HJJE,
+		0 AS LSBZ,
+		a.JZXH AS JZXH,
+		a.JZLSH AS JZLSH,
+		a.DJLY AS DJLY,
+		CASE
+			a.DJLY
+			WHEN 1 THEN
+			'医生开单'
+			WHEN 2 THEN
+			'药房划价'
+			WHEN 3 THEN
+			'药房退药'
+			WHEN 4 THEN
+			'医技划价'
+			WHEN 5 THEN
+			'体检开单'
+			WHEN 6 THEN
+			'收费划价'
+			WHEN 7 THEN
+			'门诊退费'
+		END AS DJLYTEXT
+	FROM
+		OP_CF01 a,
+		OP_CF02 b
+	WHERE
+		b.ZFYP != 1
+		AND (b.KJYWSP IS NULL OR b.KJYWSP = 1)
+		AND a.CFSB = b.CFSB
+		AND a.JGID =#{JGID}
+		AND a.BRID =#{BRID}
+		AND ( a.FPHM IS NULL OR a.FPHM = '' )
+		AND a.ZFPB = 0
+		AND ( a.KFRQ <![CDATA[ > ]]> #{KDRQ} )
+		AND ( a.DJLY != 7 OR a.DJLY IS NULL )
+		AND (#{QYMZSF} = 0
+		OR NOT EXISTS (
+		SELECT
+			1
+		FROM
+			OP_CF02 c
+		WHERE
+			a.CFSB = c.CFSB
+			AND a.JGID = #{JGID}
+			AND a.BRID = #{BRID}
+			AND a.KFRQ <![CDATA[ > ]]> #{KDRQ}
+		AND ( c.SFJG != 1 OR c.SFJG IS NULL ))
+		)
+		AND a.JZKH = #{JZKH}
+		GROUP BY a.CFLX,a.KFRQ,a.KSDM,a.YSDM,a.CFSB,a.JZXH,a.JZLSH,a.DJLY order by a.KFRQ
+    </select>
+
+    <!-- union ALL获得处方信息 -->
+    <select id="getAllCfInfo" parameterType="Map" resultType="java.util.Map">
+		SELECT
+	( SELECT bb.ksdm FROM OP_YS_JZLS aa, OP_GHMX bb WHERE aa.ghxh = bb.sbxh AND aa.jzxh = e.jzxh ) ghks,
+	(
+	SELECT
+		dd.sbxh
+	FROM
+		OP_YS_JZLS cc,
+		OP_GHMX dd
+	WHERE
+		cc.ghxh = dd.sbxh
+		AND cc.jzxh = e.jzxh
+		limit 1
+	) AS ghsb,
+	e.XQ AS XQ,
+	e.CFLX AS CFLX,
+	e.djlxText AS djlxText,
+	e.KDRQ AS KDRQ,
+	e.KDKS AS KDKS,
+	e.KDYS AS KDYS,
+	e.CFSB AS CFSB,
+	e.ZXKS AS ZXKS,
+	SUM( e.HJJE ) AS HJJE,
+	e.LSBZ AS LSBZ,
+	e.JZXH AS JZXH,
+	e.JZLSH AS JZLSH,
+	e.DJLY AS DJLY,
+	e.DJLYTEXT AS DJLYTEXT
+FROM
+	(
+	SELECT
+		#{XQ} AS XQ,
+		0 AS CFLX,
+		CASE
+			c.XMLX
+			WHEN 4 THEN
+			'检验单'
+			WHEN 5 THEN
+			'检查单'
+			WHEN 6 THEN
+			'手术'
+			WHEN 7 THEN
+			'治疗'
+			WHEN 8 THEN
+			'护理'
+			WHEN 9 THEN
+			'饮食'
+			WHEN 10 THEN
+			'卫材'
+			WHEN 99 THEN
+			'其他'
+			ELSE '其他类'
+		END AS djlxText,
+		a.KDRQ AS KDRQ,
+		a.KSDM AS KDKS,
+		a.YSDM AS KDYS,
+		a.YJXH AS CFSB,
+		a.ZXKS AS ZXKS,
+		b.HJJE AS HJJE,
+		0 AS LSBZ,
+		a.JZXH AS JZXH,
+		a.JZLSH AS JZLSH,
+		a.DJLY AS DJLY,
+		CASE
+			a.DJLY
+			WHEN 1 THEN
+			'医生开单'
+			WHEN 2 THEN
+			'药房划价'
+			WHEN 3 THEN
+			'药房退药'
+			WHEN 4 THEN
+			'医技划价'
+			WHEN 5 THEN
+			'体检开单'
+			WHEN 6 THEN
+			'收费划价'
+			WHEN 7 THEN
+			'门诊退费'
+			ELSE '其他'
+		END AS DJLYTEXT
+	FROM
+		OP_YJCF01 a,
+		OP_YJCF02 b,
+		FEE_YLSFXM c
+	WHERE
+		a.YJXH = b.YJXH
+		AND b.YLXH = c.FYXH
+		AND a.JZKH = #{JZKH}
+		AND a.JGID = #{JGID}
+		AND a.BRID = #{BRID}
+		AND ( a.FPHM IS NULL OR a.FPHM = '' )
+		AND a.ZFPB = 0
+		AND ( a.CFBZ IS NULL OR a.CFBZ != 2 )
+		AND ( a.KDRQ <![CDATA[ > ]]> #{KDRQ} )
+		AND ( a.DJLY != 7 OR a.DJLY IS NULL )
+		AND ( a.FJGL IS NULL OR a.FJGL = 0 )
+	UNION ALL
+	SELECT
+		#{XQ} AS XQ,
+		0 AS CFLX,
+		'皮试' AS djlxText,
+		a.KDRQ AS KDRQ,
+		a.KSDM AS KDKS,
+		a.YSDM AS KDYS,
+		a.YJXH AS CFSB,
+		a.ZXKS AS ZXKS,
+		b.PSJE AS HJJE,
+		0 AS LSBZ,
+		a.JZXH AS JZXH,
+		a.JZLSH AS JZLSH,
+		a.DJLY AS DJLY,
+		CASE
+			a.DJLY
+			WHEN 1 THEN
+			'医生开单'
+			WHEN 2 THEN
+			'药房划价'
+			WHEN 3 THEN
+			'药房退药'
+			WHEN 4 THEN
+			'医技划价'
+			WHEN 5 THEN
+			'体检开单'
+			WHEN 6 THEN
+			'收费划价'
+			WHEN 7 THEN
+			'门诊退费'
+			ELSE '其他'
+		END AS DJLYTEXT
+	FROM
+		OP_YJCF01 a,
+		OP_YJCF02 b
+	WHERE
+		a.YJXH = b.YJXH
+		AND a.JZKH = #{JZKH}
+		AND a.JGID = #{JGID}
+		AND a.BRID = #{BRID}
+		AND ( a.FPHM IS NULL OR a.FPHM = '' )
+		AND a.ZFPB = 0
+		AND ( a.CFBZ IS NULL OR a.CFBZ != 2 )
+		AND ( a.KDRQ <![CDATA[ > ]]> #{KDRQ} )
+		AND ( a.DJLY != 7 OR a.DJLY IS NULL )
+		AND ( a.FJGL IS NULL OR a.FJGL = 0 )
+		AND a.FJLB = 2
+	UNION ALL
+	SELECT
+		${XQ} AS XQ,
+		0 AS CFLX,
+		CASE
+			c.XMLX
+			WHEN 4 THEN
+			'检验单'
+			WHEN 5 THEN
+			'检查单'
+			WHEN 6 THEN
+			'手术'
+			WHEN 7 THEN
+			'治疗'
+			WHEN 8 THEN
+			'护理'
+			WHEN 9 THEN
+			'饮食'
+			WHEN 10 THEN
+			'卫材'
+			WHEN 99 THEN
+			'其他'
+			ELSE '其他类'
+		END AS djlxText,
+		a.KDRQ AS KDRQ,
+		a.KSDM AS KDKS,
+		a.YSDM AS KDYS,
+		a.YJXH AS CFSB,
+		a.ZXKS AS ZXKS,
+		b.HJJE AS HJJE,
+		0 AS LSBZ,
+		a.JZXH AS JZXH,
+		a.JZLSH AS JZLSH,
+		a.DJLY AS DJLY,
+	CASE
+			a.DJLY
+			WHEN 1 THEN
+			'医生开单'
+			WHEN 2 THEN
+			'药房划价'
+			WHEN 3 THEN
+			'药房退药'
+			WHEN 4 THEN
+			'医技划价'
+			WHEN 5 THEN
+			'体检开单'
+			WHEN 6 THEN
+			'收费划价'
+			WHEN 7 THEN
+			'门诊退费'
+			ELSE '其他'
+		END AS DJLYTEXT
+	FROM
+		OP_YJCF01 a,
+		OP_YJCF02 b ,
+		FEE_YLSFXM c
+	WHERE
+		a.YJXH = b.YJXH
+		AND b.YLXH = c.FYXH
+		AND A.JZKH = #{JZKH}
+		AND a.JGID = #{JGID}
+		AND a.BRID = #{BRID}
+		AND ( a.FPHM IS NULL OR a.FPHM = '' )
+		AND a.ZFPB = 0
+		AND ( a.CFBZ IS NULL OR a.CFBZ != 2 )
+		AND ( a.KDRQ <![CDATA[ > ]]> #{KDRQ} )
+		AND ( a.DJLY != 7 OR a.DJLY IS NULL )
+		AND ( a.FJGL IS NOT NULL AND a.FJGL > 0 )
+		AND (
+			a.FJLB = 3  OR ${QYMZSF} = 0
+			OR EXISTS (
+			SELECT
+				1
+			FROM
+				OP_CF01 c,
+				OP_CF02 d
+			WHERE
+				c.CFSB = d.CFSB
+				AND c.JGID = #{JGID}
+				AND c.BRID = #{BRID}
+				AND ( d.SFJG = 1 AND d.SFJG IS NOT NULL )
+				AND c.KFRQ <![CDATA[ > ]]> #{KDRQ}
+				AND c.ZFPB = 0
+				AND ( c.CFBZ IS NULL OR c.CFBZ != 2 )
+				AND ( c.DJLY != 7 OR c.DJLY IS NULL )
+				AND a.FJGL = d.YPZH
+			))) e
+	GROUP BY
+		e.XQ,
+		e.CFLX,
+		e.djlxText,
+		e.KDRQ,
+		e.KDKS,
+		e.KDYS,
+		e.CFSB,
+		e.ZXKS,
+		e.LSBZ,
+		e.JZXH,
+		e.JZLSH,
+		e.DJLY,
+		e.DJLYTEXT
+	ORDER BY
+		e.KDRQ
+    </select>
+
+    <!-- 发票作废查询 -->
+    <select id="getFpzfInfo" parameterType="Map" resultType="java.util.Map">
+        SELECT
+			b.MZXH,
+			a.EMPIID AS EMPIID,
+			a.MZHM AS MZHM,
+			b.BRXM AS BRXM,
+			b.BRXZ AS BRXZ,
+			b.BRXB AS BRXB,
+			a.CSNY AS CSNY,
+			b.JZKH AS JZKH,
+			b.ZFPB AS ZFPB,
+			c.JZRQ AS JZRQ,
+			b.JZLSH AS JZLSH
+		FROM
+			MPI_BRDA a,
+			OP_MZXX b
+			LEFT OUTER JOIN OP_ZFFP c ON b.MZXH = c.MZXH
+		WHERE
+			a.BRID = b.BRID
+			AND b.JGID =#{JGID}
+			AND b.FPHM =#{FPHM}
+    </select>
+
+    <!-- 获取门诊信息 -->
+    <select id="getMzxxByCondition" parameterType="Map" resultType="java.util.Map">
+    	select MZXH as MZXH,ZFPB as ZFPB,SFRQ as SFRQ ,BRXM as BRXM,BRXZ as BRXZ,THPB as THPB  from OP_MZXX where FPHM=#{FPHM} and JGID=#{JGID}
+    </select>
+
+    <update id="updateZfpb" parameterType="Map">
+        update OP_MZXX
+        <trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(ZFPB)">
+				ZFPB = #{ZFPB},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(THPB)">
+				THPB = #{THPB},
+			</if>
+		</trim>
+        where JGID=#{JGID} and MZXH=#{MZXH}
+    </update>
+
+    <select id="getCountByConditiion" parameterType="Map" resultType="java.lang.Integer">
+    	select count(1) from OP_MZXX
+    	<where>
+    		and JGID=#{JGID}
+    		and FPHM=#{FPHM}
+	    	<if test="@sqlt.Ognl@isNotEmpty(thpb)">
+	        	AND THPB = #{thpb}
+	        </if>
+    	</where>
+    </select>
+
+    <select id="getFpzfList" resultType="OpMzxx">
+		SELECT
+		mzxx.MZXH,
+		mzxx.BRXM,
+		mzxx.JZKH,
+		mzxx.FPHM,
+		mzxx.SFRQ,
+		mzxx.ZFPB
+		FROM
+		OP_MZXX mzxx
+		<where>
+			and mzxx.ZFPB = 0
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND JZKH LIKE CONCAT(CONCAT(#{jzkh}),'%')
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fphm)">
+				AND FPHM LIKE CONCAT(CONCAT(#{fphm}),'%')
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sfrq)">
+				AND SFRQ BETWEEN #{beginOfDay} AND #{endOfDay}
+			</if>
+		</where>
+	</select>
+
+	<update id="updateZfpbByCondition" parameterType="Map">
+        update OP_MZXX set ZFPB = 0 Where JGID=#{JGID} and MZXH=#{MZXH}
+    </update>
+
+     <select id="doQueryJcZtInfo" resultType="QueryJsZtInfoResp">
+        SELECT
+			a.ZTBH AS ypxh,
+			a.ZTMC AS ypmc,
+			a.ztlb AS ztlb
+		FROM
+			OP_ZT01 a
+		<where>
+			a.SFQY = 1
+			AND a.SSLB = 3
+			AND a.ZTLB = #{cflx}
+			AND a.JGID = #{jgid}
+			<if test="@sqlt.Ognl@isNotEmpty(pydm)">
+               AND (a.PYDM like concat(concat('%',#{pydm}),'%')
+               OR a.ZTMC like concat(concat('%',#{pydm}),'%') )
+          	</if>
+         </where>
+    </select>
+
+    <select id="doQueryMzxxFpxx" resultType="OpMzxx">
+        SELECT <include refid="columns" /> FROM OP_MZXX
+        where FPHM like concat(concat('%',#{fphm}),'%')
+        AND JGID = #{jgid} AND ZFPB = 0
+		ORDER BY SFRQ DESC
+    </select>
+
+    <select id="doQueryJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( t.jzrq ) AS jzrq
+		FROM
+			(
+			SELECT
+				max( jzrq ) AS jzrq
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				max( jzrq ) AS jzrq
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh} ) t
+    </select>
+
+    <select id="doQuerySfxx" parameterType="Map" resultType="java.util.Map">
+		    SELECT
+			a.CZGH AS CZGH,
+			sum( ifnull( a.FPZS, 1 ) )
+			+ (
+			SELECT
+				count( JZHM )
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{ jgid }
+				AND JZRQ IS NULL
+				AND CZGH = #{ czgh }
+				AND MZLB = #{ mzlb }
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull( zkbz, 0 ) = 0
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=  #{begindate}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+				)
+			+(
+			SELECT
+				count( JZHM )
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{ jgid }
+				AND JZRQ IS NULL
+				AND CZGH = #{ czgh }
+				AND MZLB = #{ mzlb }
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull( zkbz, 0 ) = 0
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=  #{begindate}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+				)  AS FPZS,
+			sum( a.ZJJE - ifnull( a.JMJE, 0 ) ) AS ZJJE,
+			sum( a.XJJE ) AS XJJE,
+			sum( a.ZPJE ) AS ZPJE,
+			sum( a.ZHJE ) AS ZHJE,
+			sum( a.QTYS + a.ZHJE ) AS QTYS,
+			sum( a.JJZFJE ) AS JJZFJE,
+			sum( a.HBWC ) AS HBWC,
+			sum( a.JMJE ) AS JMJE
+		FROM
+			OP_MZXX a
+		WHERE
+			a.JGID = #{ jgid }
+			AND a.JZRQ IS NULL
+			AND a.MZLB = #{ mzlb }
+			AND a.CZGH = #{ czgh }
+		AND DATE_FORMAT(a.SFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+		AND DATE_FORMAT(a.SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			a.CZGH
+    </select>
+
+    <select id="doQuerySfzfxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			CZGH AS CZGH,
+			sum( FPZS ) AS FPZS,
+			sum( ZJJE - ifnull( JMJE, 0 ) ) AS ZJJE,
+			sum( XJJE ) AS XJJE,
+			sum( ZPJE ) AS ZPJE,
+			sum( ZHJE ) AS ZHJE,
+			sum( QTYS ) AS QTYS,
+			SUM( JMJE ) AS JMJE,
+			sum( JJZFJE ) AS JJZFJE,
+			sum( HBWC ) AS HBWC
+		FROM
+			(
+			SELECT
+				zf.CZGH AS CZGH,
+				sum( ifnull( mz.FPZS, 1 ) ) AS FPZS,
+				sum( mz.ZJJE ) AS ZJJE,
+				sum( mz.XJJE ) AS XJJE,
+				sum( mz.ZPJE ) AS ZPJE,
+				sum( mz.ZHJE ) AS ZHJE,
+				sum( mz.QTYS + mz.ZHJE ) AS QTYS,
+				sum( mz.JJZFJE ) AS JJZFJE,
+				sum( mz.HBWC ) AS HBWC,
+				sum( mz.JMJE ) AS JMJE
+			FROM
+				OP_MZXX mz,
+				OP_ZFFP zf
+			WHERE
+				mz.MZXH = zf.MZXH
+				AND zf.JGID = #{jgid}
+				AND zf.JZRQ IS NULL
+				AND zf.MZLB = #{mzlb}
+				AND zf.CZGH = #{czgh}
+				AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			GROUP BY
+				zf.CZGH
+			) t
+		GROUP BY
+			CZGH
+    </select>
+
+    <select id="doQuerySfmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sf.SFXM AS SFXM,
+			sum( sf.ZJJE ) AS ZJJE
+		FROM
+			OP_SFMX sf,
+			OP_MZXX mz
+		WHERE
+			sf.MZXH = mz.MZXH
+			AND mz.JGID = #{jgid}
+			AND mz.JZRQ IS NULL
+			AND mz.MZLB = #{mzlb}
+			AND mz.CZGH = #{czgh}
+			AND DATE_FORMAT(mz.SFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(mz.SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			sf.SFXM
+    </select>
+
+    <select id="doQuerySfzfmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sf.SFXM AS SFXM,
+			sum( sf.ZJJE ) AS ZJJE
+		FROM
+			OP_SFMX sf,
+			OP_ZFFP zf,
+			OP_MZXX mz
+		WHERE
+			sf.MZXH = mz.MZXH
+			AND sf.MZXH = zf.MZXH
+			AND sf.JGID = #{jgid}
+			AND zf.JZRQ IS NULL
+			AND zf.MZLB = #{mzlb}
+			AND zf.CZGH = #{czgh}
+			AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			sf.SFXM
+    </select>
+
+    <select id="doQueryXzmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			BRXZ AS BRXZ,
+			sum( ifnull( FPZS, 1 ) )  AS FPZS,
+			sum( ZJJE ) AS ZJJE
+		FROM
+			OP_MZXX
+		WHERE
+			JGID = #{ jgid }
+			AND JZRQ IS NULL
+			AND MZLB = #{ mzlb }
+			AND CZGH = #{ czgh }
+			AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			BRXZ
+    </select>
+
+    <select id="doQueryXzzfmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			BRXZ AS BRXZ,
+			sum( FPZS ) AS FPZS,
+			sum( ZJJE ) AS ZJJE
+		FROM
+			(
+			SELECT
+				mz.BRXZ AS BRXZ,
+				sum( ifnull( mz.FPZS, 1 ) ) AS FPZS,
+				sum( mz.ZJJE ) AS ZJJE
+			FROM
+				OP_MZXX mz,
+				OP_ZFFP zf
+			WHERE
+				mz.MZXH = zf.MZXH
+				AND zf.JGID = #{jgid}
+				AND zf.JZRQ IS NULL
+				AND zf.MZLB = #{mzlb}
+				AND zf.CZGH = #{czgh}
+				AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			GROUP BY
+				mz.BRXZ
+			) t
+		GROUP BY
+			BRXZ
+    </select>
+
+    <select id="doQueryFkxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			fk.FKFS AS FKFS,
+			SUM( fk.FKJE ) AS FKJE
+		FROM
+			OP_FKXX fk,
+			OP_MZXX mz
+		WHERE
+			fk.MZXH = mz.MZXH
+			AND mz.JGID = #{jgid}
+			AND mz.JZRQ IS NULL
+			AND mz.MZLB = #{mzlb}
+			AND mz.CZGH = #{czgh}
+			AND DATE_FORMAT(mz.SFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(mz.SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			fk.FKFS
+    </select>
+
+    <select id="doQueryFkzfxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			fk.FKFS AS FKFS,
+			SUM( fk.FKJE ) AS FKJE
+		FROM
+			OP_FKXX fk,
+			OP_ZFFP zf
+		WHERE
+			fk.MZXH = zf.MZXH
+			AND zf.JGID = #{jgid}
+			AND zf.JZRQ IS NULL
+			AND zf.MZLB = #{mzlb}
+			AND zf.CZGH = #{czgh}
+			AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			fk.FKFS
+    </select>
+
+    <select id="doQueryFpxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			FPHM AS FPHM,
+			FPZS AS FPZS,
+			LB AS LB
+		FROM
+			(
+			SELECT
+				FPHM AS FPHM,
+				ifnull ( FPZS, 1 ) AS FPZS,
+				0 AS lb
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+				AND ZFPB = 0
+				AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				a.FPHM AS FPHM,
+				b.FPZS AS FPZS,
+				1 AS LB
+			FROM
+				OP_ZFFP a,
+				OP_MZXX b
+			WHERE
+				a.FPHM = b.FPHM
+				AND a.JGID = #{jgid}
+				AND a.CZGH = #{czgh}
+				AND a.MZLB = #{mzlb}
+				AND a.JZRQ IS NULL
+				AND DATE_FORMAT(a.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(a.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS,
+				if(
+					thbz = 1,
+					2,
+				if( zkbz = 1, 3, 0 )) lb
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+				AND JZHM NOT LIKE 'MGH%'
+				AND thbz != 1
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				a.JZHM AS FPHM,
+				1 AS FPZS,
+				2 AS lb
+			FROM
+				OP_GHMX a,
+				OP_THMX b
+			WHERE
+				a.sbxh = b.sbxh
+				AND b.JGID = #{jgid}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND b.JZRQ IS NULL
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND a.thbz = 1
+				AND DATE_FORMAT(b.THRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+			AND DATE_FORMAT(b.THRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS,
+				if( zkbz=1, 3, 0 ) lb
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+				AND JZHM NOT LIKE 'MGH%'
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+
+			) t
+		ORDER BY
+			lb,
+			FPHM
+    </select>
+
+    <select id="doQueryFpzfxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.FPHM AS FPHM,
+			ifnull ( b.FPZS, 1 ) AS FPZS,
+			b.ZFJE AS ZFJE,
+			b.BRXM AS BRXM,
+			d.FKMC AS FKMC,
+			c.FKJE AS FKJE
+		FROM
+			OP_ZFFP a,
+			OP_MZXX b,
+			OP_FKXX c,
+			PUB_FKFS d
+		WHERE
+			c.FKFS = d.FKFS
+			AND c.MZXH = b.MZXH
+			AND c.FKFS IN ( 1, 3, 12, 18, 19 )
+			AND a.MZXH = b.MZXH
+			AND a.JGID = #{jgid}
+			AND a.MZLB = #{mzlb}
+			AND a.CZGH = #{czgh}
+			AND a.JZRQ IS NULL
+			AND DATE_FORMAT(a.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(a.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		ORDER BY
+			a.FPHM
+    </select>
+
+    <!--
+    <select id="doQueryJczffpxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			b.FPHM AS FPHM,
+			1 AS FPZS,
+			b.ZFHJ AS ZFJE,
+			c.BRXM AS BRXM,
+			f.FKMC AS FKMC,
+			e.FKJE AS FKJE
+		FROM
+			JC_JSZF a,
+			JC_JCJS b,
+			JC_BRRY d,
+			MPI_BRDA c,
+			JC_FKXX e,
+			PUB_FKFS f
+		WHERE
+			e.FKFS = f.FKFS
+			AND e.ZYH = b.ZYH
+			AND e.JSCS = b.JSCS
+			AND e.FKFS IN ( 1, 3, 12 )
+			AND b.ZYH = d.ZYH
+			AND d.BRID = c.BRID
+			AND a.ZYH = b.ZYH
+			AND a.JSCS = b.JSCS
+			AND b.JGID = #{jgid}
+			AND a.ZFGH = #{czgh}
+			AND b.MZLB = #{mzlb}
+			AND a.JZRQ IS NULL
+		ORDER BY
+			b.FPHM
+    </select>
+    -->
+
+    <!--
+    <select id="doQueryJjhjfpxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.FPHM AS FPHM,
+			1 AS FPZS,
+			a.ZFHJ AS ZFJE,
+			d.BRXM AS BRXM,
+			f.FKMC AS FKMC,
+			e.FKJE AS FKJE
+		FROM
+			LNHL_FPZF a,
+			LNHL_BRRY d,
+			LNHL_FKXX e,
+			PUB_FKFS f
+		WHERE
+			a.djid = d.id
+			AND a.jsid = e.jsxh
+			AND e.FKFS = f.FKFS
+			AND e.FKFS IN ( 1, 3, 12 )
+			AND a.JGID = #{jgid}
+			AND a.MZLB = #{mzlb}
+			AND a.ZFGH = #{czgh}
+			AND a.JZRQ IS NULL
+		ORDER BY
+			a.FPHM
+    </select>
+    -->
+
+    <select id="doQueryGhmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.CZGH AS CZGH,
+			count( a.CZGH ) AS FPZS,
+			sum( a.XJJE + a.QTYS + a.HBWC ) AS ZJJE,
+			sum( a.XJJE ) AS XJJE,
+			sum( a.ZPJE ) AS ZPJE,
+			sum( a.ZHJE ) AS ZHJE,
+			sum( a.QTYS ) AS QTYS,
+			sum( a.HBWC ) AS HBWC
+		FROM
+			(
+			SELECT
+				CZGH,
+				XJJE,
+				QTYS,
+				HBWC,
+				ZPJE,
+				ZHJE
+			FROM
+				OP_GHMX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ IS NULL
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				CZGH,
+				XJJE,
+				QTYS,
+				HBWC,
+				ZPJE,
+				ZHJE
+			FROM
+				OP_GHMX_ZK a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ IS NULL
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+
+
+			) a
+		GROUP BY
+			a.CZGH
+    </select>
+
+    <select id="doQueryGhthmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			th.CZGH AS CZGH,
+			count( th.CZGH ) AS THSL,
+			sum( gh.XJJE + gh.QTYS + gh.HBWC ) AS ZJJE,
+			sum( gh.XJJE ) AS XJJE,
+			sum( gh.ZPJE ) AS ZPJE,
+			sum( gh.ZHJE ) AS ZHJE,
+			sum( gh.QTYS ) AS QTYS,
+			sum( gh.HBWC ) AS HBWC
+		FROM
+			OP_GHMX gh,
+			OP_THMX th
+		WHERE
+			gh.SBXH = th.SBXH
+			AND th.JGID = #{jgid}
+			AND th.JZRQ IS NULL
+			AND th.MZLB = #{mzlb}
+			AND th.CZGH = #{czgh}
+			AND gh.JZHM NOT LIKE 'MGH%'
+			AND DATE_FORMAT(th.THRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(th.THRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			th.CZGH
+    </select>
+
+    <select id="doQueryGrmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			b.XZMC AS XM,
+			a.BRXZ AS BRXZ,
+			count( a.BRXZ ) AS GHRC,
+			sum( a.XJJE + a.QTYS + a.HBWC ) AS ZJJE,
+			sum( a.GHJE ) AS GHJE,
+			sum( a.ZLJE ) AS ZLJE,
+			sum( a.ZJFY ) AS ZJFY,
+			sum( a.BLJE ) AS BLJE
+		FROM
+		(SELECT
+			jgid,
+			BRXZ,
+			XJJE,
+			QTYS,
+			HBWC,
+			GHJE,
+			ZLJE,
+			ZJFY,
+			BLJE
+		FROM
+			OP_GHMX a
+		WHERE
+			a.JGID = #{jgid}
+			AND a.JZRQ IS NULL
+			AND a.MZLB = #{mzlb}
+			AND a.CZGH = #{czgh}
+			AND a.JZHM NOT LIKE 'MGH%'
+			AND ifnull ( a.zkbz, 0 )= 0
+			AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		UNION ALL
+		SELECT
+			jgid,
+			BRXZ,
+			XJJE,
+			QTYS,
+			HBWC,
+			GHJE,
+			ZLJE,
+			ZJFY,
+			BLJE
+		FROM
+			OP_GHMX_ZK a
+		WHERE
+			a.JGID = #{jgid}
+			AND a.JZRQ IS NULL
+			AND a.MZLB = #{mzlb}
+			AND a.CZGH = #{czgh}
+			AND a.JZHM NOT LIKE 'MGH%'
+			AND ifnull ( a.zkbz, 0 )= 0
+			AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+
+			) a,
+			PUB_BRXZ b
+		WHERE
+			a.BRXZ = b.BRXZ
+		GROUP BY
+			a.BRXZ,
+			b.XZMC
+    </select>
+
+    <select id="doQueryGrthmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			xz.XZMC AS XM,
+			gh.BRXZ AS BRXZ,
+			count( gh.BRXZ ) AS GHRC,
+			sum( gh.XJJE + gh.QTYS + gh.HBWC ) AS ZJJE,
+			sum( gh.GHJE ) AS GHJE,
+			sum( gh.ZLJE ) AS ZLJE,
+			sum( gh.ZJFY ) AS ZJFY,
+			sum( gh.BLJE ) AS BLJE
+		FROM
+			OP_GHMX gh,
+			OP_THMX th,
+			PUB_BRXZ xz
+		WHERE
+			gh.SBXH = th.SBXH
+			AND gh.BRXZ = xz.BRXZ
+			AND th.JGID = #{jgid}
+			AND th.JZRQ IS NULL
+			AND th.MZLB = #{mzlb}
+			AND th.CZGH = #{czgh}
+			AND gh.JZHM NOT LIKE 'MGH%'
+			AND DATE_FORMAT(th.THRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(th.THRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			gh.BRXZ,
+			xz.XZMC
+    </select>
+
+    <select id="doQueryGhfkxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			fk.FKFS AS FKFS,
+			SUM( fk.FKJE ) AS FKJE
+		FROM
+			OP_GH_FKXX fk,
+			OP_GHMX mz
+		WHERE
+			fk.SBXH = mz.SBXH
+			AND mz.JGID = #{jgid}
+			AND mz.JZRQ IS NULL
+			AND mz.MZLB = #{mzlb}
+			AND mz.CZGH = #{czgh}
+			AND mz.JZHM NOT LIKE 'MGH%'
+			AND DATE_FORMAT(mz.GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(mz.GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			fk.FKFS
+    </select>
+
+    <select id="doQueryGhfkzfxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			fk.FKFS AS FKFS,
+			SUM( fk.FKJE ) AS FKJE
+		FROM
+			OP_GH_FKXX fk,
+			OP_THMX th,
+			OP_GHMX mz
+		WHERE
+			fk.SBXH = mz.SBXH
+			AND th.SBXH = mz.SBXH
+			AND th.JGID = #{jgid}
+			AND th.JZRQ IS NULL
+			AND th.MZLB = #{mzlb}
+			AND th.CZGH = #{czgh}
+			AND mz.JZHM NOT LIKE 'MGH%'
+			AND DATE_FORMAT(th.THRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(th.THRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		GROUP BY
+			fk.FKFS
+    </select>
+
+    <!--
+    <select id="doQueryJcxm" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			ifnull(sum( t.ZJJE ),0) AS ZJJE
+		FROM
+			(
+			SELECT
+				sum( FYHJ ) AS ZJJE
+			FROM
+				JC_JCJS
+			WHERE
+				JZRQ IS NULL
+				AND CZGH = #{CZGH}
+				AND JGID = #{JGID}
+				AND MZLB = #{MZLB}
+			UNION ALL
+			SELECT
+				- sum( a.FYHJ ) AS ZJJE
+			FROM
+				JC_JCJS a,
+				JC_JSZF b
+			WHERE
+				a.ZYH = b.ZYH
+				AND a.JSCS = b.JSCS
+				AND b.MZLB = #{MZLB}
+				AND b.JZRQ IS NULL
+				AND b.ZFGH = #{CZGH}
+				AND b.JGID = #{JGID}
+			) t
+    </select>
+    -->
+
+    <!--
+    <select id="doQueryYjk" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			ifnull ( sum( JKJE ), 0 ) AS JKJE
+		FROM
+			JC_TBKK
+		WHERE
+			CZGH = #{CZGH}
+			AND JZRQ IS NULL
+			AND JGID = #{JGID}
+			AND MZLB = #{MZLB}
+    </select>
+    -->
+    <!--
+    <select id="doQueryYjkzf" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			ifnull ( sum( a.JKJE ), 0 ) AS JKJE
+		FROM
+			JC_TBKK a,
+			JC_JKZF b
+		WHERE
+			a.JKXH = b.JKXH
+			AND b.ZFGH = #{CZGH}
+			AND b.JZRQ IS NULL
+			AND b.JGID = #{JGID}
+			AND b.MZLB = #{MZLB}
+    </select>
+    -->
+    <!--
+    <select id="doQueryJkhj" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			ifnull(sum( t.JKHJ ),0) AS JKHJ
+		FROM
+			(
+			SELECT
+				sum( a.FYHJ ) AS JKHJ
+			FROM
+				LNHL_JS a
+			WHERE
+				a.JGID = #{JGID}
+				AND a.JZRQ IS NULL
+				AND a.CZGH = #{CZGH}
+				AND a.MZLB = #{mzlb}
+			UNION ALL
+			SELECT
+				- sum( b.FYHJ ) AS JKHJ
+			FROM
+				LNHL_FPZF b
+			WHERE
+				b.JGID = #{JGID}
+				AND b.JZRQ IS NULL
+			AND b.ZFGH = #{CZGH}
+			AND b.MZLB = #{mzlb}) t
+    </select>
+    -->
+
+    <select id="doQueryJzhmzf" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			gh.JZHM AS PJHM,
+			gh.XJJE AS XJJE,
+			c.BRXM AS BRXM,
+			e.FKMC AS FKMC,
+			d.FKJE AS FKJE
+		FROM
+			OP_GHMX gh,
+			OP_THMX th,
+			MPI_BRDA c,
+			OP_GH_FKXX d,
+			PUB_FKFS e
+		WHERE
+			gh.SBXH = d.SBXH
+			AND d.FKFS = e.FKFS
+			AND d.FKFS IN ( 1, 3, 12, 18, 19, 21, 30, 28, 29 )
+			AND gh.BRID = c.BRID
+			AND gh.SBXH = th.SBXH
+			AND th.JGID = #{jgid}
+			AND th.MZLB = #{mzlb}
+			AND th.CZGH = #{czgh}
+			AND th.JZRQ IS NULL
+			AND DATE_FORMAT(th.THRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(th.THRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+		ORDER BY
+			gh.JZHM
+    </select>
+
+    <select id="doQuerySfrbJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( JZRQ ) AS JZRQ
+		FROM
+			OP_HZRB
+		WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH}
+    </select>
+
+    <select id="doQueryGhrbJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( JZRQ ) AS JZRQ
+		FROM
+			OP_GHRB
+		WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH}
+    </select>
+
+    <select id="doQueryMinSfrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			min( SFRQ ) AS SFRQ
+		FROM
+			OP_MZXX
+		WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH}
+			<if test="@sqlt.Ognl@isNotEmpty(MZLB)">
+				AND MZLB = #{MZLB}
+			</if>
+    </select>
+
+    <select id="doQueryMinGhsj" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			min( GHSJ ) AS GHSJ
+		FROM
+			OP_GHMX
+		WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH}
+			<if test="@sqlt.Ognl@isNotEmpty(MZLB)">
+				AND MZLB = #{MZLB}
+			</if>
+    </select>
+
+    <select id="doQueryBrxz" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			ifnull(sum( c.QTYS ),0) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			ifnull ( d.DBPB, 0 ) AS DBPB
+		FROM
+			(
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ IS NULL
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,
+				(- 1 * a.QTYS) AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_ZFFP b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ IS NULL
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND DATE_FORMAT(b.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(b.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ IS NULL
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ IS NULL
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,
+				(- 1 * a.QTYS) AS QTYS
+			FROM
+				OP_GHMX a,
+				OP_THMX b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ IS NULL
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND DATE_FORMAT(b.THRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(b.THRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			) c
+			LEFT OUTER JOIN PUB_BRXZ d ON c.BRXZ = d.BRXZ
+		WHERE
+			c.BRXZ != '6024'
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+		UNION ALL
+		SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			ifnull ( d.DBPB, 0 ) AS DBPB
+		FROM
+			(
+			SELECT
+				BRXZ AS BRXZ,
+				LPJE AS QTYS
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ IS NULL
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.LPJE
+				) AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_ZFFP b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ IS NULL
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND DATE_FORMAT(b.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(b.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ IS NULL
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ IS NULL
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_GHMX a,
+				OP_THMX b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ IS NULL
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND DATE_FORMAT(b.THRQ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(b.THRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			) c
+			LEFT OUTER JOIN PUB_BRXZ d ON c.BRXZ = d.BRXZ
+		WHERE
+			c.BRXZ = '6024'
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+    </select>
+
+    <select id="doQueryJzhmBrid" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.*,
+			b.brxm
+		FROM
+			(
+			SELECT
+				a.jzhm AS jzhm,
+				a.brid
+			FROM
+				OP_GHMX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ IS NULL
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND a.zkbz = 1
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			UNION ALL
+			SELECT
+				a.jzhm AS jzhm,
+				a.brid
+			FROM
+				OP_GHMX_ZK a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ IS NULL
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND a.zkbz = 1
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') >=#{begindate}
+				AND DATE_FORMAT(a.GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{enddate}
+			) a
+			LEFT JOIN MPI_BRDA b ON a.brid = b.brid
+		ORDER BY
+			a.jzhm
+    </select>
+
+    <select id="doQuerySfrbJzrqList" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( JZRQ ) AS JZRQ
+		FROM
+			OP_HZRB
+		WHERE
+			JGID = #{jgid}
+			AND CZGH = #{czgh}
+			AND JZRQ BETWEEN #{beginDay} AND #{endDay}
+    </select>
+
+    <select id="doQueryGhrbJzrqList" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( JZRQ ) AS JZRQ
+		FROM
+			OP_GHRB
+		WHERE
+			JGID = #{jgid}
+			AND CZGH = #{czgh}
+			AND JZRQ BETWEEN #{beginDay} AND #{endDay}
+    </select>
+    <!--
+    <select id="doQueryJsJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			czgh AS czgh,
+			jzrq AS jzrq
+		FROM
+			jc_jcjs
+		WHERE
+			czgh = #{czgh}
+			AND jgid = #{jgid}
+			AND mzlb = #{mzlb}
+			AND jzrq is not null
+			group by czgh,jzrq
+	</select>
+	-->
+	<select id="doQuerySumMzxxJe" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			CZGH AS CZGH,
+			count( CZGH ) AS FPZS,
+			sum( ZJJE ) AS ZJJE,
+			sum( XJJE ) AS XJJE,
+			sum( ZPJE ) AS ZPJE,
+			sum( ZHJE ) AS ZHJE,
+			sum( QTYS ) AS QTYS,
+			sum( JJZFJE ) AS JJZFJE,
+			sum( HBWC ) AS HBWC
+		FROM
+			OP_MZXX
+		WHERE
+			JGID = #{jgid}
+			AND JZRQ IS NULL
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND SFRQ &lt;=#{jzjsrq}
+		GROUP BY
+			CZGH
+	</select>
+
+	<select id="doQuerySumGhmxJe" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			CZGH AS CZGH,
+			count( CZGH ) AS FPZS,
+			sum( GHJE + ZLJE + ZJFY + BLJE ) AS ZJJE,
+			sum( XJJE ) AS XJJE,
+			sum( ZPJE ) AS ZPJE,
+			sum( ZHJE ) AS ZHJE,
+			sum( QTYS ) AS QTYS,
+			sum( HBWC ) AS HBWC
+		FROM
+			OP_GHMX
+		WHERE
+			JGID = #{jgid}
+			AND JZRQ IS NULL
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND GHSJ &lt;=#{jzjsrq}
+		GROUP BY
+			CZGH
+	</select>
+
+	<!--
+	<select id="doQueryJcjsJe" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			CZGH AS CZGH,
+			count( CZGH ) AS FPZS,
+			sum( ZFHJ ) AS ZJJE,
+			sum( ZFHJ ) AS ZFHJ,
+			sum( JKHJ ) AS JKHJ
+		FROM
+			JC_JCJS
+		WHERE
+			JGID = #{jgid}
+			AND JZRQ IS NULL
+			AND CZGH = #{czgh}
+			AND MZLB = #{mzlb}
+		GROUP BY
+			CZGH
+	</select>
+	-->
+
+	<!--
+	<select id="doQueryJszfCount" parameterType="Map" resultType="java.lang.Integer">
+		SELECT
+			count( 1 )
+		FROM
+			JC_JSZF
+		WHERE
+			JGID = #{jgid}
+			and ZFGH= #{czgh}
+			and MZLB = #{mzlb}
+			<if test="@sqlt.Ognl@isNotEmpty(jzrq)">
+				AND ZFRQ <![CDATA[ >= ]]> #{jzrq}
+			</if>
+			and JZRQ IS NULL
+	</select>
+	-->
+
+	<select id="doQueryCountBySfrq" parameterType="Map" resultType="java.lang.Integer">
+		SELECT
+			count( 1 ) as count
+		FROM
+			OP_MZXX
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			<if test="@sqlt.Ognl@isNotEmpty(jzrq)">
+				AND SFRQ <![CDATA[ >= ]]> #{jzrq}
+			</if>
+			AND JZRQ IS NULL
+	</select>
+
+	<!--
+	<select id="doQueryCountByJsrq" parameterType="Map" resultType="java.lang.Integer">
+		SELECT
+			count( 1 )
+		FROM
+			JC_JCJS
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			<if test="@sqlt.Ognl@isNotEmpty(jzrq)">
+				AND JSRQ <![CDATA[ >= ]]> #{jzrq}
+			</if>
+			AND JZRQ IS NULL
+	</select>
+	-->
+
+	<select id="doQueryFphmFpzs" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			FPHM AS FPHM,
+			FPZS AS FPZS
+		FROM
+			(
+			SELECT
+				FPHM AS FPHM,
+				ifnull ( FPZS, 1 ) AS FPZS
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+			) t
+		ORDER BY
+			FPHM
+	</select>
+
+	<select id="doQueryMzxxJe" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			t.CZGH,
+			sum( t.fpzs ) AS FPZS,
+			sum( t.zjje + t.jcje ) AS ZJJE,
+			sum( t.xjje ) AS XJJE,
+			sum( t.zpje ) AS ZPJE,
+			sum( t.zhje ) AS ZHJE,
+			sum( t.qtys ) AS QTYS,
+			sum( t.jjzfje ) AS JJZFJE,
+			sum( t.hbwc ) AS HBWC,
+			sum( t.jcje ) AS JCJE,
+			sum( t.jctjkje ) AS JCTJKJE
+		FROM
+			(
+			SELECT
+				a.CZGH AS CZGH,
+				sum(
+					ifnull ( a.FPZS, 1 )) +(
+				SELECT
+					count( JZHM )
+				FROM
+					OP_GHMX
+				WHERE
+					JGID = #{jgid}
+					AND JZRQ IS NULL
+					AND CZGH = #{czgh}
+					AND MZLB = #{mzlb}
+					AND ifnull ( ZKBZ, 0 ) = 0
+					) +(
+				SELECT
+					count( JZHM )
+				FROM
+					OP_GHMX_ZK
+				WHERE
+					JGID = #{jgid}
+
+					AND JZRQ IS NULL
+					AND CZGH = #{czgh}
+
+					AND JZHM NOT LIKE 'MGH%'
+					AND MZLB = #{mzlb}
+
+					AND ifnull ( ZKBZ, 0 ) = 0
+					) AS FPZS,
+					sum(
+					a.ZJJE - ifnull ( a.JMJE, 0 )) AS ZJJE,
+					sum( a.XJJE ) AS XJJE,
+					sum( a.ZPJE ) AS ZPJE,
+					sum( a.ZHJE ) AS ZHJE,
+					sum( a.QTYS + a.ZHJE ) AS QTYS,
+					sum( a.JJZFJE ) AS JJZFJE,
+					sum( a.HBWC ) AS HBWC,
+					0 AS JCJE,
+					0 AS JCTJKJE,
+					a.jgid AS JGID,
+					a.jzrq AS JZRQ
+				FROM
+					OP_MZXX a
+				WHERE
+					a.JGID = #{jgid}
+					AND a.JZRQ IS NULL
+					AND a.MZLB = #{mzlb}
+					AND a.CZGH = #{czgh}
+				GROUP BY
+					a.CZGH,
+					a.JGID,
+					a.JZRQ
+				) t
+			GROUP BY
+				t.CZGH,
+				t.JGID,
+				t.JZRQ
+	</select>
+
+	<select id="doQueryMzxxJeZf" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			CZGH AS CZGH,
+			sum( FPZS ) AS FPZS,
+			sum( ZJJE ) AS ZJJE,
+			sum( XJJE ) AS XJJE,
+			sum( ZPJE ) AS ZPJE,
+			sum( ZHJE ) AS ZHJE,
+			sum( QTYS ) AS QTYS,
+			sum( JJZFJE ) AS JJZFJE,
+			sum( HBWC ) AS HBWC,
+			sum( JCJE ) AS JCJE,
+			sum( JCTJKJE ) AS JCTJKJE
+		FROM
+			(
+			SELECT
+				zf.CZGH AS CZGH,
+				sum(
+				ifnull ( mz.FPZS, 1 )) AS FPZS,
+				sum(
+				mz.ZJJE - ifnull ( mz.JMJE, 0 )) AS ZJJE,
+				sum( mz.XJJE ) AS XJJE,
+				sum( mz.ZPJE ) AS ZPJE,
+				sum( mz.ZHJE ) AS ZHJE,
+				sum( mz.QTYS + mz.ZHJE ) AS QTYS,
+				sum( mz.JJZFJE ) AS JJZFJE,
+				sum( mz.HBWC ) AS HBWC,
+				0 AS JCJE,
+				0 AS JCTJKJE
+			FROM
+				OP_MZXX mz,
+				OP_ZFFP zf
+			WHERE
+				mz.MZXH = zf.MZXH
+				AND zf.JGID = #{jgid}
+				AND zf.JZRQ IS NULL
+				AND zf.MZLB = #{mzlb}
+				AND zf.CZGH = #{czgh}
+			GROUP BY
+				zf.CZGH
+			) t
+		GROUP BY
+			CZGH
+	</select>
+
+	<select id="doQuerySfmxZf" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			sf.SFXM AS SFXM,
+			sum( sf.ZJJE ) AS ZJJE
+		FROM
+			OP_SFMX sf,
+			OP_ZFFP zf
+		WHERE
+			sf.MZXH = zf.MZXH
+			AND sf.JGID = #{jgid}
+			AND zf.JZRQ IS NULL
+			AND zf.MZLB = #{mzlb}
+			AND zf.CZGH = #{czgh}
+		GROUP BY
+			sf.SFXM
+	</select>
+
+	<select id="doQueryXzmxFphm" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			BRXZ AS BRXZ,
+			sum(
+				ifnull ( FPZS, 1 )) AS FPZS,
+			sum( ZJJE ) AS ZJJE
+		FROM
+			OP_MZXX
+		WHERE
+			JGID = #{jgid}
+			AND JZRQ IS NULL
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+		GROUP BY
+			BRXZ
+	</select>
+
+	<select id="doQueryXzmxZf" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			BRXZ AS BRXZ,
+			sum( FPZS ) AS FPZS,
+			sum( ZJJE ) AS ZJJE
+		FROM
+			(
+			SELECT
+				mz.BRXZ AS BRXZ,
+				sum(
+				ifnull ( mz.FPZS, 1 )) AS FPZS,
+				sum( mz.ZJJE ) AS ZJJE
+			FROM
+				OP_MZXX mz,
+				OP_ZFFP zf
+			WHERE
+				mz.MZXH = zf.MZXH
+				AND zf.JGID = #{jgid}
+				AND zf.JZRQ IS NULL
+				AND zf.MZLB = #{mzlb}
+				AND zf.CZGH = #{czgh}
+			GROUP BY
+				mz.BRXZ
+			) t
+		GROUP BY
+			BRXZ
+	</select>
+
+	<select id="doQueryFpxxRb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			t.FPHM AS FPHM,
+			t.FPZS AS FPZS,
+			t.lb AS LB
+		FROM
+			(
+			SELECT
+				FPHM AS FPHM,
+				if( substr( FPHM, 0, 2 )='MS', 1, ifnull ( FPZS, 1 ) ) AS FPZS,
+				zfpb lb
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS,
+				if(
+					thbz=1,
+					2,
+				if( zkbz=1, 3, 0 )) lb
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+				AND JZHM NOT LIKE 'MGH%'
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS,
+				if( zkbz=1, 3, 0 ) lb
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+				AND JZHM NOT LIKE 'MGH%'
+			) t
+		ORDER BY
+			t.lb,
+			t.FPHM
+	</select>
+
+	<select id="doQueryFpxxRbZf" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			a.FPHM AS FPHM,
+			ifnull ( b.FPZS, 1 ) AS FPZS,
+			b.ZFJE AS ZFJE,
+			b.BRXM AS BRXM,
+			d.FKMC AS FKMC,
+			c.FKJE AS FKJE
+		FROM
+			OP_ZFFP a,
+			OP_MZXX b,
+			OP_FKXX c,
+			PUB_FKFS d
+		WHERE
+			c.FKFS = d.FKFS
+			AND c.MZXH = b.MZXH
+			AND c.FKFS IN ( 1, 3 )
+			AND a.MZXH = b.MZXH
+			AND a.JGID = #{jgid}
+			AND a.MZLB = #{mzlb}
+			AND a.CZGH = #{czgh}
+			AND a.JZRQ IS NULL
+		ORDER BY
+			a.FPHM
+	</select>
+
+	<select id="doQueryGhmxRb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			t.CZGH AS CZGH,
+			count( t.CZGH ) AS FPZS,
+			sum( t.xjje + t.qtys + t.HBWC ) AS ZJJE,
+			sum( t.XJJE ) AS XJJE,
+			sum( t.ZPJE ) AS ZPJE,
+			sum( t.ZHJE ) AS ZHJE,
+			sum( t.QTYS ) AS QTYS,
+			sum( t.HBWC ) AS HBWC
+		FROM
+			(
+			SELECT
+				CZGH,
+				XJJE,
+				QTYS,
+				HBWC,
+				ZPJE,
+				ZHJE
+			FROM
+				OP_GHMX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ IS NULL
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+			UNION ALL
+			SELECT
+				CZGH,
+				XJJE,
+				QTYS,
+				HBWC,
+				ZPJE,
+				ZHJE
+			FROM
+				OP_GHMX_ZK a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ IS NULL
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+			) t
+		GROUP BY
+			t.CZGH
+	</select>
+
+	<select id="doQueryGrmxRb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			b.XZMC AS XM,
+			a.BRXZ AS BRXZ,
+			count( a.BRXZ ) AS GHRC,
+			sum( a.XJJE + a.QTYS + a.HBWC ) AS ZJJE,
+			sum( a.GHJE ) AS GHJE,
+			sum( a.ZLJE ) AS ZLJE,
+			sum( a.ZJFY ) AS ZJFY,
+			sum( a.BLJE ) AS BLJE
+		FROM
+			(
+			SELECT
+				BRXZ,
+				XJJE,
+				QTYS,
+				HBWC,
+				GHJE,
+				ZLJE,
+				ZJFY,
+				BLJE
+			FROM
+				OP_GHMX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ IS NULL
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+			UNION ALL
+			SELECT
+				BRXZ,
+				XJJE,
+				QTYS,
+				HBWC,
+				GHJE,
+				ZLJE,
+				ZJFY,
+				BLJE
+			FROM
+				OP_GHMX_ZK a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ IS NULL
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+			) a,
+			PUB_BRXZ b
+		WHERE
+			a.BRXZ = b.BRXZ
+		GROUP BY
+			a.BRXZ,
+			b.XZMC
+	</select>
+
+	<select id="doQueryGhFkxxRb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			fk.FKFS AS FKFS,
+			SUM( fk.FKJE ) AS FKJE
+		FROM
+			OP_GH_FKXX fk,(
+			SELECT
+				SBXH
+			FROM
+				OP_GHMX mz
+			WHERE
+				mz.JGID = #{jgid}
+				AND mz.JZRQ IS NULL
+				AND mz.MZLB = #{mzlb}
+				AND mz.CZGH = #{czgh}
+				AND mz.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( mz.ZKBZ, 0 )= 0
+			UNION ALL
+			SELECT
+				GHSB
+			FROM
+				OP_GHMX_ZK mz
+			WHERE
+				mz.JGID = #{jgid}
+				AND mz.JZRQ IS NULL
+				AND mz.MZLB = #{mzlb}
+				AND mz.CZGH = #{czgh}
+				AND mz.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( mz.ZKBZ, 0 )= 0
+			) mz
+		WHERE
+			fk.SBXH = mz.SBXH
+		GROUP BY
+			fk.FKFS
+	</select>
+
+	<select id="doQueryJzhmZfRb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			gh.JZHM AS PJHM,
+			gh.XJJE AS XJJE,
+			c.BRXM AS BRXM,
+			e.FKMC AS FKMC,
+			d.FKJE AS FKJE
+		FROM
+			OP_GHMX gh,
+			OP_THMX th,
+			MPI_BRDA c,
+			OP_GH_FKXX d,
+			PUB_FKFS e
+		WHERE
+			gh.SBXH = d.SBXH
+			AND d.FKFS = e.FKFS
+			AND d.FKFS IN ( 1, 3 )
+			AND gh.BRID = c.BRID
+			AND gh.JZHM NOT LIKE 'MGH%'
+			AND gh.SBXH = th.SBXH
+			AND th.JGID = #{jgid}
+			AND th.MZLB = #{mzlb}
+			AND th.CZGH = #{czgh}
+			AND gh.JZHM NOT LIKE 'MGH%'
+			AND th.JZRQ IS NULL
+		ORDER BY
+			gh.JZHM
+	</select>
+
+	<!--  暂时注释掉
+	<select id="doQuerySfje" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			SFMC AS SFMC,
+			sum( ZJJE ) AS ZJJE,
+			sum( ZFJE ) AS ZFJE,
+			sum( ZLJE ) AS ZLJE
+		FROM
+			(
+			SELECT
+				a.SFMC AS SFMC,
+				sum( b.ZJJE ) AS ZJJE,
+				sum( b.ZFJE ) AS ZFJE,
+				sum( b.ZLJE ) AS ZLJE
+			FROM
+				DIC_SFXMLB a,
+				JC_FYMX_JS b,
+				JC_JCJS c
+			WHERE
+				a.SFXM = b.FYXM
+				AND b.ZYH = c.ZYH
+				AND b.JSCS = c.JSCS
+				AND c.JZRQ IS NULL
+				AND c.CZGH = #{czgh}
+				AND c.JGID = #{jgid}
+				AND c.MZLB = #{mzlb}
+			GROUP BY
+				a.SFMC
+			UNION ALL
+			SELECT
+				a.SFMC AS SFMC,- sum( b.ZJJE ) AS ZJJE,- sum( b.ZFJE ) AS ZFJE,- sum( b.ZLJE ) AS ZLJE
+			FROM
+				DIC_SFXMLB a,
+				JC_FYMX_JS b,
+				JC_JCJS c,
+				JC_JSZF d
+			WHERE
+				d.ZYH = c.ZYH
+				AND d.JSCS = c.JSCS
+				AND a.SFXM = b.FYXM
+				AND b.ZYH = c.ZYH
+				AND b.JSCS = c.JSCS
+				AND c.JZRQ IS NULL
+				AND c.CZGH = #{czgh}
+				AND c.JGID = #{jgid}
+				AND c.MZLB = #{mzlb}
+			GROUP BY
+				a.SFMC
+			) t
+		GROUP BY
+			SFMC
+	</select>
+	-->
+	<select id="doQueryHzrb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			QZPJ AS QZQJ,
+			ZFFP AS ZFFP,
+			JZRQ AS JZRQ,
+			JGID AS JGID,
+			CZGH AS CZGH,
+			JZRQ AS JZRQ,
+			QZPJ AS QZPJ,
+			ZJJE AS ZJJE,
+			ZPJE AS ZPJE,
+			ZFZF AS ZFZF,
+			QTYS AS QTYS,
+			HBWC AS HBWC,
+			HZRQ AS HZRQ,
+			FPZS AS FPZS,
+			MZLB AS MZLB,
+			ZFFP AS ZFFP,
+			ZFJE AS ZFJE,
+			ZFZS AS ZFZS,
+			YSQTFB AS YSQTFB,
+			XJJE AS XJJE,
+			JJZFJE AS JJZFJE,
+			ZKZS AS ZKZS,
+			ZKFP AS ZKFP
+		FROM
+			OP_HZRB
+		WHERE
+			JGID = #{jgid}
+			AND JZRQ = #{jzrq}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+	</select>
+
+	<select id="doQueryZjje" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			hz.ZJJE AS ZJJE
+		FROM
+			OP_HZRB hz
+		WHERE
+			hz.JGID = #{jgid}
+			AND hz.JZRQ = #{jzrq}
+			AND hz.MZLB = #{mzlb}
+			AND hz.CZGH = #{czgh}
+	</select>
+
+	<select id="doQueryGhrb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			JGID AS JGID,
+			CZGH AS CZGH,
+			JZRQ AS JZRQ,
+			QZPJ AS QZPJ,
+			ZJJE AS ZJJE,
+			XJJE AS XJJE,
+			ZPJE AS ZPJE,
+			ZHJE AS ZHJE,
+			QTYS AS QTYS,
+			HBWC AS HBWC,
+			HZRQ AS HZRQ,
+			FPZS AS FPZS,
+			MZLB AS MZLB,
+			THFP AS THFP,
+			THJE AS THJE,
+			THSL AS THSL
+		FROM
+			OP_GHRB
+		WHERE
+			JGID = #{jgid}
+			AND JZRQ = #{jzrq}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+	</select>
+
+	<select id="doQueryGhrbmx" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			rb.CZGH AS CZGH,
+			SUM( mx.GHJE ) AS GHJE,
+			SUM( mx.ZLJE ) AS ZLJE,
+			SUM( mx.ZJFY ) AS ZJFY,
+			SUM( mx.BLJE ) AS BLJE
+		FROM
+			OP_GHRB rb,
+			OP_GRMX mx
+		WHERE
+			rb.CZGH = mx.CZGH
+			AND rb.JZRQ = mx.JZRQ
+			AND rb.JGID = #{jgid}
+			AND rb.JZRQ = #{jzrq}
+			AND rb.MZLB = #{mzlb}
+			AND rb.CZGH = #{czgh}
+		GROUP BY
+			rb.CZGH
+	</select>
+
+	<select id="doQueryMaxHzrbJzrq" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			max( JZRQ ) AS JZRQ
+		FROM
+			OP_HZRB
+		WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH}
+			AND JZRQ <![CDATA[ < ]]> #{jzrq}
+	</select>
+
+	<select id="doQueryMaxGhrbJzrq" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			max( JZRQ ) AS JZRQ
+		FROM
+			OP_GHRB
+		WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH}
+			AND JZRQ <![CDATA[ < ]]> #{jzrq}
+	</select>
+
+	<select id="doQuerySfrbFkmx" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			fk.JGID AS JGID,
+			fk.CZGH AS CZGH,
+			fk.JZRQ AS JZRQ,
+			fk.FKFS AS FKFS,
+			fk.FKJE AS FKJE
+		FROM
+			OP_SFRB_FKMX fk,
+			OP_HZRB hz
+		WHERE
+			hz.CZGH = fk.CZGH
+			AND hz.JZRQ = fk.JZRQ
+			AND hz.JGID = #{jgid}
+			AND hz.JZRQ =  #{jzrq}
+			AND hz.MZLB = #{mzlb}
+			AND hz.CZGH = #{czgh}
+	</select>
+
+	<select id="doQueryGhrbFkmx" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			fk.JGID AS JGID,
+			fk.CZGH AS CZGH,
+			fk.JZRQ AS JZRQ,
+			fk.FKFS AS FKFS,
+			fk.FKJE AS FKJE
+		FROM
+			OP_GHRB rb,
+			OP_GHRB_FKMX fk
+		WHERE
+			rb.CZGH = fk.CZGH
+			AND rb.JZRQ = fk.JZRQ
+			AND rb.JGID = #{jgid}
+			AND rb.JZRQ = #{jzrq}
+			AND rb.MZLB = #{mzlb}
+			AND rb.CZGH = #{czgh}
+	</select>
+
+	<!-- 注释掉
+	<select id="doQuerySumZjje" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			ifnull(sum( ZJJE ),0) AS ZJJE
+		FROM
+			(
+			SELECT
+				sum( FYHJ ) AS ZJJE
+			FROM
+				JC_JCJS
+			WHERE
+				JZRQ = #{jzrq}
+				AND CZGH = #{CZGH}
+				AND JGID = #{JGID}
+			UNION ALL
+			SELECT
+				- sum( a.FYHJ ) AS ZJJE
+			FROM
+				JC_JCJS a,
+				JC_JSZF b
+			WHERE
+				a.ZYH = b.ZYH
+				AND a.JSCS = b.JSCS
+				AND b.JZRQ = #{jzrq}
+				AND b.ZFGH = #{CZGH}
+				AND b.JGID = #{JGID}
+			) t
+	</select>-->
+
+	<!--
+	<select id="doQueryTbkkJkJe" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			ifnull ( sum( JKJE ), 0 ) AS JKJE
+		FROM
+			JC_TBKK
+		WHERE
+			CZGH = #{CZGH}
+			AND JZRQ = #{jzrq}
+			AND JGID = #{JGID}
+	</select>
+	-->
+
+	<!--
+	<select id="doQueryJkjeZf" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			ifnull ( sum( a.JKJE ), 0 ) AS JKJE
+		FROM
+			JC_TBKK a,
+			JC_JKZF b
+		WHERE
+			a.JKXH = b.JKXH
+			AND b.ZFGH = #{CZGH}
+			AND b.JZRQ = #{jzrq}
+			AND b.JGID = #{JGID}
+	</select>
+	-->
+
+	<!-- 注释掉
+	<select id="doQuerySumJkhj" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			ifnull(sum( JKHJ ),0) AS JKHJ
+		FROM
+			(
+			SELECT
+				sum( a.FYHJ ) AS JKHJ
+			FROM
+				LNHL_JS a
+			WHERE
+				a.JGID = #{JGID}
+				AND a.JZRQ = #{jzrq}
+				AND a.CZGH = #{CZGH}
+				AND MZLB = #{mzlb}
+			UNION ALL
+			SELECT
+				- sum( a.FYHJ ) AS JKHJ
+			FROM
+				LNHL_FPZF a
+			WHERE
+				a.JGID = #{JGID}
+				AND a.JZRQ = #{jzrq}
+			AND a.CZGH = #{CZGH}
+			AND MZLB = #{mzlb}) t
+	</select> -->
+
+	<select id="doQueryGrmxJeRb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			b.XZMC AS XM,
+			a.BRXZ AS BRXZ,
+			count( a.BRXZ ) AS GHRC,
+			sum( a.XJJE + a.QTYS + a.HBWC ) AS ZJJE,
+			sum( a.GHJE ) AS GHJE,
+			sum( a.ZLJE ) AS ZLJE,
+			sum( a.ZJFY ) AS ZJFY,
+			sum( a.BLJE ) AS BLJE
+		FROM
+			OP_GHMX a,
+			PUB_BRXZ b
+		WHERE
+			a.BRXZ = b.BRXZ
+			AND a.JGID = #{jgid}
+			AND a.JZRQ = #{jzrq}
+			AND a.MZLB = #{mzlb}
+			AND a.CZGH = #{czgh}
+			AND a.JZHM NOT LIKE 'MGH%'
+		GROUP BY
+			a.BRXZ,
+			b.XZMC
+	</select>
+
+	<select id="doQueryGrthmxRb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			xz.XZMC AS XM,
+			gh.BRXZ AS BRXZ,
+			count( gh.BRXZ ) AS GHRC,
+			sum( gh.XJJE + gh.QTYS + gh.HBWC ) AS ZJJE,
+			sum( gh.GHJE ) AS GHJE,
+			sum( gh.ZLJE ) AS ZLJE,
+			sum( gh.ZJFY ) AS ZJFY,
+			sum( gh.BLJE ) AS BLJE
+		FROM
+			OP_GHMX gh,
+			OP_THMX th,
+			PUB_BRXZ xz
+		WHERE
+			gh.SBXH = th.SBXH
+			AND gh.BRXZ = xz.BRXZ
+			AND th.JGID = #{jgid}
+			AND th.JZRQ = #{jzrq}
+			AND th.MZLB = #{mzlb}
+			AND th.CZGH = #{czgh}
+			AND gh.JZHM NOT LIKE 'MGH%'
+		GROUP BY
+			gh.BRXZ,
+			xz.XZMC
+	</select>
+
+	<select id="doQueryJmje" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			sum( a.JMJE ) AS JMJE,
+			a.CZGH AS CZGH,
+			sum(
+				ifnull ( a.FPZS, 1 ))+(
+			SELECT
+				count( JZHM )
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ= #{JZRQ}
+				AND CZGH = #{czgh}
+				AND MZLB = #{mzlb}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+				) +(
+			SELECT
+				count( JZHM )
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ= #{JZRQ}
+				AND CZGH = #{czgh}
+				AND MZLB = #{mzlb}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+				) AS FPZS,
+			SUM( A.ZJJE )- SUM(
+			ifnull ( A.JMJE, 0 )) AS ZJJE,
+			sum( a.XJJE ) AS XJJE,
+			sum( a.ZPJE ) AS ZPJE,
+			sum( a.ZHJE ) AS ZHJE,
+			sum( a.QTYS + a.ZHJE ) AS QTYS,
+			sum( a.JJZFJE ) AS JJZFJE,
+			sum( a.HBWC ) AS HBWC
+		FROM
+			OP_MZXX a
+		WHERE
+			a.JGID = #{jgid}
+			AND JZRQ= #{JZRQ}
+			AND a.MZLB = #{mzlb}
+			AND a.CZGH = #{czgh}
+		GROUP BY
+			a.CZGH
+	</select>
+
+	<select id="doQueryJmjeZf" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			SUM( JMJE ) AS JMJE,
+			CZGH AS CZGH,
+			sum( FPZS ) AS FPZS,
+			sum(
+			ZJJE - ifnull ( JMJE, 0 )) AS ZJJE,
+			sum( XJJE ) AS XJJE,
+			sum( ZPJE ) AS ZPJE,
+			sum( ZHJE ) AS ZHJE,
+			sum( QTYS ) AS QTYS,
+			sum( JJZFJE ) AS JJZFJE,
+			sum( HBWC ) AS HBWC
+		FROM
+			(
+			SELECT
+				zf.CZGH AS CZGH,
+				sum(
+				ifnull ( mz.FPZS, 1 )) AS FPZS,
+				sum( mz.ZJJE ) AS ZJJE,
+				sum( mz.XJJE ) AS XJJE,
+				sum( mz.ZPJE ) AS ZPJE,
+				sum( mz.ZHJE ) AS ZHJE,
+				sum( mz.QTYS + mz.ZHJE ) AS QTYS,
+				sum( mz.JJZFJE ) AS JJZFJE,
+				sum( mz.HBWC ) AS HBWC,
+				sum( mz.JMJE ) AS JMJE
+			FROM
+				OP_MZXX mz,
+				OP_ZFFP zf
+			WHERE
+				mz.MZXH = zf.MZXH
+				AND zf.JGID = #{jgid}
+				AND mz.JZRQ= #{JZRQ}
+				AND zf.MZLB = #{mzlb}
+				AND zf.CZGH = #{czgh}
+			GROUP BY
+				zf.CZGH
+			) t
+		GROUP BY
+			CZGH
+	</select>
+
+	<select id="doQuerySfmxRb" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			sf.SFXM AS SFXM,
+			sum( sf.ZJJE ) AS ZJJE
+		FROM
+			OP_SFMX sf,
+			OP_MZXX mz
+		WHERE
+			sf.MZXH = mz.MZXH
+			AND mz.JGID = #{jgid}
+			AND JZRQ= #{JZRQ}
+			AND mz.MZLB = #{mzlb}
+			AND mz.CZGH = #{czgh}
+		GROUP BY
+			sf.SFXM
+    </select>
+
+    <select id="doQuerySfzfmxRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sf.SFXM AS SFXM,
+			sum( sf.ZJJE ) AS ZJJE
+		FROM
+			OP_SFMX sf,
+			OP_ZFFP zf,
+			OP_MZXX mz
+		WHERE
+			sf.MZXH = mz.MZXH
+			AND sf.MZXH = zf.MZXH
+			AND sf.JGID = #{jgid}
+			AND mz.JZRQ= #{JZRQ}
+			AND zf.MZLB = #{mzlb}
+			AND zf.CZGH = #{czgh}
+		GROUP BY
+			sf.SFXM
+    </select>
+
+    <select id="doQueryXzmxRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			BRXZ AS BRXZ,
+			sum(
+				ifnull ( FPZS, 1 )) AS FPZS,
+			sum( ZJJE ) AS ZJJE
+		FROM
+			OP_MZXX
+		WHERE
+			JGID = #{jgid}
+			AND JZRQ= #{JZRQ}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+		GROUP BY
+			BRXZ
+    </select>
+
+    <select id="doQueryxzmxZfRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			BRXZ AS BRXZ,
+			sum( FPZS ) AS FPZS,
+			sum( ZJJE ) AS ZJJE
+		FROM
+			(
+			SELECT
+				mz.BRXZ AS BRXZ,
+				sum(
+				ifnull ( mz.FPZS, 1 )) AS FPZS,
+				sum( mz.ZJJE ) AS ZJJE
+			FROM
+				OP_MZXX mz,
+				OP_ZFFP zf
+			WHERE
+				mz.MZXH = zf.MZXH
+				AND zf.JGID = #{jgid}
+				AND zf.JZRQ= #{JZRQ}
+				AND zf.MZLB = #{mzlb}
+				AND zf.CZGH = #{czgh}
+			GROUP BY
+				mz.BRXZ
+			) t
+		GROUP BY
+			BRXZ
+    </select>
+
+    <select id="doQueryFkxxRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			fk.FKFS AS FKFS,
+			SUM( fk.FKJE ) AS FKJE
+		FROM
+			OP_FKXX fk,
+			OP_MZXX mz
+		WHERE
+			fk.MZXH = mz.MZXH
+			AND mz.JGID = #{jgid}
+			AND mz.JZRQ= #{JZRQ}
+			AND mz.MZLB = #{mzlb}
+			AND mz.CZGH = #{czgh}
+		GROUP BY
+			fk.FKFS
+    </select>
+
+    <select id="doQueryFkxxZf" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			fk.FKFS AS FKFS,
+			SUM( fk.FKJE ) AS FKJE
+		FROM
+			OP_FKXX fk,
+			OP_ZFFP zf
+		WHERE
+			fk.MZXH = zf.MZXH
+			AND zf.JGID = #{jgid}
+			AND zf.JZRQ= #{JZRQ}
+			AND zf.MZLB = #{mzlb}
+			AND zf.CZGH = #{czgh}
+		GROUP BY
+			fk.FKFS
+    </select>
+
+    <select id="doQueryFphmFpzsRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			t.FPHM AS FPHM,
+			t.FPZS AS FPZS,
+			t.LB AS LB
+		FROM
+			(
+			SELECT
+				FPHM AS FPHM,
+				if( substr( FPHM, 0, 2 )='MS', 1, ifnull ( FPZS, 1 ) ) AS FPZS,
+				0 AS LB
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ= #{JZRQ}
+				AND ZFPB = 0
+			UNION ALL
+			SELECT
+				a.FPHM AS FPHM,
+				b.FPZS AS FPZS,
+				1 AS LB
+			FROM
+				OP_ZFFP a,
+				OP_MZXX b
+			WHERE
+				a.FPHM = b.FPHM
+				AND a.JGID = #{jgid}
+				AND a.CZGH = #{czgh}
+				AND a.MZLB = #{mzlb}
+				AND b.JZRQ= #{JZRQ}
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS,
+				if(
+					thbz=1,
+					2,
+				if( zkbz=1, 3, 0 )) LB
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ= #{JZRQ}
+				AND JZHM NOT LIKE 'MGH%'
+				AND thbz != 1
+			UNION ALL
+			SELECT
+				a.JZHM AS FPHM,
+				1 AS FPZS,
+				2 AS LB
+			FROM
+				OP_GHMX a,
+				OP_THMX b
+			WHERE
+				a.sbxh = b.sbxh
+				AND b.JGID = #{jgid}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND b.JZRQ= #{JZRQ}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND a.thbz = 1
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS,
+				if( zkbz=1, 3, 0 ) LB
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ= #{JZRQ}
+				AND JZHM NOT LIKE 'MGH%'
+			UNION ALL
+			SELECT
+				ZSFPHM AS FPHM,
+				1 AS FPZS,
+				if( zkbz=1, 3, 0 ) LB
+			FROM
+				OP_GHMX_ZJJS_ZSFP
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ= #{JZRQ}
+				AND ZSFPHM NOT LIKE 'MGH%'
+				<!--
+			UNION ALL
+			SELECT
+				FPHM AS FPHM,
+				1 AS FPZS,
+				zfpb lb
+			FROM
+				LNHL_JS a
+			WHERE
+				a.JGID = #{jgid}
+				AND JZRQ= #{JZRQ}
+				AND a.CZGH = #{czgh}
+				AND MZLB = #{mzlb}
+				-->
+			) t
+		ORDER BY
+			t.LB,
+			t.FPHM
+    </select>
+
+    <select id="doQueryFpzfxxRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.FPHM AS FPHM,
+			ifnull ( b.FPZS, 1 ) AS FPZS,
+			b.ZFJE AS ZFJE,
+			b.BRXM AS BRXM,
+			d.FKMC AS FKMC,
+			c.FKJE AS FKJE
+		FROM
+			OP_ZFFP a,
+			OP_MZXX b,
+			OP_FKXX c,
+			PUB_FKFS d
+		WHERE
+			c.FKFS = d.FKFS
+			AND c.MZXH = b.MZXH
+			AND c.FKFS IN ( 1, 3, 12, 18, 19 )
+			AND a.MZXH = b.MZXH
+			AND a.JGID = #{jgid}
+			AND a.MZLB = #{mzlb}
+			AND a.CZGH = #{czgh}
+			AND a.JZRQ= #{JZRQ}
+		ORDER BY
+			a.FPHM
+    </select>
+
+    <!--
+    <select id="doQueryJczffpxxRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			b.FPHM AS FPHM,
+			1 AS FPZS,
+			b.ZFHJ AS ZFJE,
+			c.BRXM AS BRXM,
+			f.FKMC AS FKMC,
+			e.FKJE AS FKJE
+		FROM
+			JC_JSZF a,
+			JC_JCJS b,
+			JC_BRRY d,
+			MPI_BRDA c,
+			JC_FKXX e,
+			PUB_FKFS f
+		WHERE
+			e.FKFS = f.FKFS
+			AND e.ZYH = b.ZYH
+			AND e.JSCS = b.JSCS
+			AND e.FKFS IN ( 1, 3, 12 )
+			AND b.ZYH = d.ZYH
+			AND d.BRID = c.BRID
+			AND a.ZYH = b.ZYH
+			AND a.JSCS = b.JSCS
+			AND b.JGID = #{jgid}
+			AND a.ZFGH = #{czgh}
+			AND b.MZLB = #{mzlb}
+			AND a.JZRQ= #{JZRQ}
+		ORDER BY
+			b.FPHM
+    </select>
+    -->
+
+    <!--
+    <select id="doQueryJjhjfpxxRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.FPHM AS FPHM,
+			1 AS FPZS,
+			a.ZFHJ AS ZFJE,
+			d.BRXM AS BRXM,
+			f.FKMC AS FKMC,
+			e.FKJE AS FKJE
+		FROM
+			LNHL_FPZF a,
+			LNHL_BRRY d,
+			LNHL_FKXX e,
+			PUB_FKFS f
+		WHERE
+			a.djid = d.id
+			AND a.jsid = e.jsxh
+			AND e.FKFS = f.FKFS
+			AND e.FKFS IN ( 1, 3, 12 )
+			AND a.JGID = #{jgid}
+			AND a.MZLB = #{mzlb}
+			AND a.ZFGH = #{czgh}
+			AND a.JZRQ= #{JZRQ}
+		ORDER BY
+			a.FPHM
+    </select>
+    -->
+
+    <select id="doQueryGhmxRbA" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.CZGH AS CZGH,
+			count( a.CZGH ) AS FPZS,
+			sum( a.XJJE + a.QTYS + a.HBWC ) AS ZJJE,
+			sum( a.XJJE ) AS XJJE,
+			sum( a.ZPJE ) AS ZPJE,
+			sum( a.ZHJE ) AS ZHJE,
+			sum( a.QTYS ) AS QTYS,
+			sum( a.HBWC ) AS HBWC
+		FROM
+			(
+			SELECT
+				CZGH,
+				XJJE,
+				QTYS,
+				HBWC,
+				ZPJE,
+				ZHJE
+			FROM
+				OP_GHMX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ= #{JZRQ}
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+			UNION ALL
+			SELECT
+				CZGH,
+				XJJE,
+				QTYS,
+				HBWC,
+				ZPJE,
+				ZHJE
+			FROM
+				OP_GHMX_ZK a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ= #{JZRQ}
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+			) a
+		GROUP BY
+			a.CZGH
+    </select>
+
+    <select id="doQueryGhthmxRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			th.CZGH AS CZGH,
+			count( th.CZGH ) AS THSL,
+			sum( gh.XJJE + gh.QTYS + gh.HBWC ) AS ZJJE,
+			sum( gh.XJJE ) AS XJJE,
+			sum( gh.ZPJE ) AS ZPJE,
+			sum( gh.ZHJE ) AS ZHJE,
+			sum( gh.QTYS ) AS QTYS,
+			sum( gh.HBWC ) AS HBWC
+		FROM
+			OP_GHMX gh,
+			OP_THMX th
+		WHERE
+			gh.SBXH = th.SBXH
+			AND th.JGID = #{jgid}
+			AND th.JZRQ= #{JZRQ}
+			AND th.MZLB = #{mzlb}
+			AND th.CZGH = #{czgh}
+			AND gh.JZHM NOT LIKE 'MGH%'
+		GROUP BY
+			th.CZGH
+    </select>
+
+    <select id="doQueryGrmxRbA" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			b.XZMC AS XM,
+			a.BRXZ AS BRXZ,
+			count( a.BRXZ ) AS GHRC,
+			sum( a.XJJE + a.QTYS + a.HBWC ) AS ZJJE,
+			sum( a.GHJE ) AS GHJE,
+			sum( a.ZLJE ) AS ZLJE,
+			sum( a.ZJFY ) AS ZJFY,
+			sum( a.BLJE ) AS BLJE
+		FROM
+			(
+			SELECT
+				BRXZ,
+				XJJE,
+				QTYS,
+				HBWC,
+				GHJE,
+				ZLJE,
+				ZJFY,
+				BLJE
+			FROM
+				OP_GHMX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ= #{JZRQ}
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+			UNION ALL
+			SELECT
+				BRXZ,
+				XJJE,
+				QTYS,
+				HBWC,
+				GHJE,
+				ZLJE,
+				ZJFY,
+				BLJE
+			FROM
+				OP_GHMX_ZK a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ= #{JZRQ}
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND ifnull ( a.zkbz, 0 )= 0
+			) a,
+			PUB_BRXZ b
+		WHERE
+			a.BRXZ = b.BRXZ
+		GROUP BY
+			a.BRXZ,
+			b.XZMC
+    </select>
+
+    <select id="doQueryGhFkxxA" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			fk.FKFS AS FKFS,
+			SUM( fk.FKJE ) AS FKJE
+		FROM
+			OP_GH_FKXX fk,
+			OP_GHMX mz
+		WHERE
+			fk.SBXH = mz.SBXH
+			AND mz.JGID = #{jgid}
+			AND mz.JZRQ = #{JZRQ}
+			AND mz.MZLB = #{mzlb}
+			AND mz.CZGH = #{czgh}
+			AND mz.JZHM NOT LIKE 'MGH%'
+		GROUP BY
+			fk.FKFS
+    </select>
+
+    <select id="doQueryGhfkxxZf" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			fk.FKFS AS FKFS,
+			SUM( fk.FKJE ) AS FKJE
+		FROM
+			OP_GH_FKXX fk,
+			OP_THMX th,
+			OP_GHMX mz
+		WHERE
+			fk.SBXH = mz.SBXH
+			AND th.SBXH = mz.SBXH
+			AND th.JGID = #{jgid}
+			AND th.JZRQ = #{JZRQ}
+			AND th.MZLB = #{mzlb}
+			AND th.CZGH = #{czgh}
+			AND mz.JZHM NOT LIKE 'MGH%'
+		GROUP BY
+			fk.FKFS
+    </select>
+
+    <!--
+    <select id="doQueryJcxmRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( ZJJE ) AS ZJJE
+		FROM
+			(
+			SELECT
+				sum( FYHJ ) AS ZJJE
+			FROM
+				JC_JCJS
+			WHERE
+				JZRQ= #{JZRQ}
+				AND CZGH = #{CZGH}
+				AND JGID = #{JGID}
+				AND MZLB = #{MZLB}
+			UNION ALL
+			SELECT
+				- sum( a.FYHJ ) AS ZJJE
+			FROM
+				JC_JCJS a,
+				JC_JSZF b
+			WHERE
+				a.ZYH = b.ZYH
+				AND a.JSCS = b.JSCS
+				AND b.MZLB = #{MZLB}
+				AND b.JZRQ= #{JZRQ]
+				AND b.ZFGH = #{CZGH}
+				AND b.JGID = #{JGID}
+			) t
+    </select>
+    -->
+
+    <!--
+    <select id="doQueryYjkRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			ifnull ( sum( JKJE ), 0 ) AS JKJE
+		FROM
+			JC_TBKK
+		WHERE
+			CZGH = #{CZGH}
+			AND JZRQ = #{JZRQ}
+			AND JGID = #{JGID}
+			AND MZLB = #{MZLB}
+    </select>
+    -->
+
+    <!--
+    <select id="doQueryJkZf" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			ifnull ( sum( a.JKJE ), 0 ) AS JKJE
+		FROM
+			JC_TBKK a,
+			JC_JKZF b
+		WHERE
+			a.JKXH = b.JKXH
+			AND b.ZFGH = #{CZGH}
+			AND b.JZRQ = #{JZRQ}
+			AND b.JGID = #{JGID}
+			AND b.MZLB = #{MZLB}
+	</select>
+	-->
+
+	<!--
+	<select id="doQueryJjhj" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			sum( JKHJ ) AS JKHJ
+		FROM
+			(
+			SELECT
+				sum( a.FYHJ ) AS JKHJ
+			FROM
+				LNHL_JS a
+			WHERE
+				a.JGID = #{JGID}
+				AND a.JZRQ = #{JZRQ}
+				AND a.CZGH = #{CZGH}
+				AND a.MZLB = #{mzlb}
+			UNION ALL
+			SELECT
+				- sum( b.FYHJ ) AS JKHJ
+			FROM
+				LNHL_FPZF b
+			WHERE
+				b.JGID = #{JGID}
+				AND b.JZRQ = #{JZRQ}
+			AND b.ZFGH = #{CZGH}
+			AND b.MZLB = #{mzlb}) t
+	</select>
+	-->
+
+	<select id="doQueryJzhmzfRbA" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			gh.JZHM AS PJHM,
+			gh.XJJE AS XJJE,
+			c.BRXM AS BRXM,
+			e.FKMC AS FKMC,
+			d.FKJE AS FKJE
+		FROM
+			OP_GHMX gh,
+			OP_THMX th,
+			MPI_BRDA c,
+			OP_GH_FKXX d,
+			PUB_FKFS e
+		WHERE
+			gh.SBXH = d.SBXH
+			AND d.FKFS = e.FKFS
+			AND d.FKFS IN ( 1, 3, 12, 18, 19, 21, 30, 28, 29 )
+			AND gh.BRID = c.BRID
+			AND gh.JZHM NOT LIKE 'MGH%'
+			AND gh.SBXH = th.SBXH
+			AND th.JGID = #{jgid}
+			AND th.MZLB = #{mzlb}
+			AND th.CZGH = #{czgh}
+			AND gh.JZHM NOT LIKE 'MGH%'
+			AND th.JZRQ = #{JZRQ}
+		ORDER BY
+			gh.JZHM
+    </select>
+
+    <select id="doQuerySfrbA" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( JZRQ ) AS JZRQ
+		FROM
+			OP_HZRB
+		WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH}
+			AND JZRQ <![CDATA[ < ]]>
+			(SELECT
+				max( JZRQ ) AS JZRQ
+			FROM
+				OP_HZRB
+			WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH})
+    </select>
+
+    <select id="doQueryGhrbA" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( JZRQ ) AS JZRQ
+		FROM
+			OP_GHRB
+		WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH}
+			AND JZRQ  <![CDATA[ < ]]>
+			(SELECT
+				max( JZRQ ) AS JZRQ
+			FROM
+				OP_GHRB
+			WHERE
+			JGID = #{JGID}
+			AND CZGH = #{CZGH})
+    </select>
+
+    <select id="doQueryFkfs" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE
+			FROM
+				OP_FKXX a,
+				OP_MZXX b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ = #{JZRQ}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE
+				) AS FKJE
+			FROM
+				OP_FKXX a,
+				OP_ZFFP b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ = #{JZRQ}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				if( b.ZKBZ=1, 0, a.FKJE ) AS FKJE
+			FROM
+				OP_GH_FKXX a,
+				OP_GHMX b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ = #{JZRQ}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND b.JZHM NOT LIKE 'MGH%'
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				if( b.ZKBZ=1, 0, a.FKJE ) AS FKJE
+			FROM
+				OP_GH_FKXX a,
+				OP_GHMX_ZK b
+			WHERE
+				a.SBXH = b.GHSB
+				AND b.JGID = #{jgid}
+				AND b.JZRQ = #{JZRQ}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND b.JZHM NOT LIKE 'MGH%'
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE
+				) AS FKJE
+			FROM
+				OP_GH_FKXX a,
+				OP_THMX b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ = #{JZRQ}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+			) c
+			LEFT OUTER JOIN PUB_FKFS d ON c.FKFS = d.FKFS
+		GROUP BY
+			c.FKFS,
+			d.FKMC
+		ORDER BY
+			c.FKFS
+    </select>
+
+    <select id="doQueryBrxzRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			ifnull ( d.DBPB, 0 ) AS DBPB
+		FROM
+			(
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ = #{JZRQ}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_ZFFP b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ = #{JZRQ}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ = #{JZRQ}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+			UNION ALL
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ = #{JZRQ}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_GHMX a,
+				OP_THMX b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ = #{JZRQ}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+			) c
+			LEFT OUTER JOIN PUB_BRXZ d ON c.BRXZ = d.BRXZ
+		WHERE
+			c.BRXZ != '6024'
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+		UNION ALL
+		SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			ifnull ( d.DBPB, 0 ) AS DBPB
+		FROM
+			(
+			SELECT
+				BRXZ AS BRXZ,
+				LPJE AS QTYS
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ = #{JZRQ}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.LPJE
+				) AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_ZFFP b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ = #{JZRQ}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ = #{JZRQ}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+			UNION ALL
+			SELECT
+				BRXZ AS BRXZ,
+				QTYS AS QTYS
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ = #{JZRQ}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZHM NOT LIKE 'MGH%'
+				AND ifnull ( ZKBZ, 0 )= 0
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_GHMX a,
+				OP_THMX b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ = #{JZRQ}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+			) c
+			LEFT OUTER JOIN PUB_BRXZ d ON c.BRXZ = d.BRXZ
+		WHERE
+			c.BRXZ = '6024'
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+    </select>
+
+    <select id="doQueryJzhmBridRb" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.*,
+			b.brxm
+		FROM
+			(
+			SELECT
+				a.jzhm AS jzhm,
+				a.brid
+			FROM
+				OP_GHMX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ = #{JZRQ}
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND a.zkbz = 1
+			UNION ALL
+			SELECT
+				a.jzhm AS jzhm,
+				a.brid
+			FROM
+				OP_GHMX_ZK a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ = #{JZRQ}
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+				AND a.JZHM NOT LIKE 'MGH%'
+				AND a.zkbz = 1
+			) a
+			LEFT JOIN MPI_BRDA b ON a.brid = b.brid
+		ORDER BY
+			a.jzhm
+    </select>
+
+    <select id="doQueryMzxxJeInfo" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			aa.*,
+			ifnull ( p.transamount, 0 ) AS POSJE,
+			ifnull ( ali.totalamount, 0 ) AS ZFBJE
+		FROM
+			(
+			SELECT
+				a.fphm,
+				ifnull ( a.FPZS, 1 ) AS FPZS,
+				ifnull ( a.HZJE, 0 ) AS HZJE,
+				ifnull ( a.JJZFJE, 0 ) AS JJZFJE,
+				ifnull ( a.MZJZJE, 0 ) AS MZJZJE,
+				<!--
+				format ( ifnull ( A.TZJE, 0 ), 'fm999990.0099' ) AS TZJE,
+				format ( ifnull ( A.JMJE, 0 ), 'fm999990.0099' ) AS JMJE,
+				format ( ifnull ( A.JKJE, 0 ), 'fm999990.0099' ) AS JKJE,
+				format ( ifnull ( a.XJJE, 0 ), 'fm999990.0099' ) AS XJJE,
+				-->
+				ifnull ( A.TZJE, 0 ) AS TZJE,
+				ifnull ( A.JMJE, 0 ) AS JMJE,
+				ifnull ( A.JKJE, 0 ) AS JKJE,
+				ifnull ( a.XJJE, 0 ) AS XJJE,
+				ifnull ( a.ZPJE, 0 ) AS ZPJE,
+				a.BRXZ AS BRXZ,
+				d.XZMC AS JSFS,
+				c.PERSONNAME AS SFY,
+				c.RYBH AS SFYGH,
+				a.MZXH AS MZXH,
+				b.MZHM AS XLH,
+				b.BRXM AS XM,
+				b.BRXB AS BRXB,
+				a.XNFP AS XNFP,
+				a.QTYS AS JZ,
+				<!--  format ( a.ZJJE, 'fm999990.0099' ) AS HJJE,-->
+				a.ZJJE AS HJJE,
+				a.ZFJE AS ZFJE,
+				a.SFRQ AS YYYY,
+				e.fkfs AS fpfkfs,
+				<!--  format ( e.fkje, 'fm999990.0099' ) AS fpfkje,-->
+				e.fkje AS fpfkje,
+				f.fkmc AS fpfkmc
+			FROM
+				OP_MZXX a,
+				MPI_BRDA b,
+				HR_PERSONNEL c,
+				PUB_BRXZ d,
+				OP_FKXX e,
+				PUB_FKFS f
+			WHERE
+				e.fkfs = f.fkfs
+				AND e.mzxh = a.mzxh
+				AND e.fkfs != #{HBWC}
+				AND a.BRXZ = d.BRXZ
+				AND a.CZGH = c.PERSONID
+				AND a.BRID = b.BRID
+				AND a.FPHM = #{FPHM}
+				AND a.JGID = #{JGID}
+			) aa
+			LEFT JOIN OP_POSMX p ON p.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+			LEFT JOIN OP_ALIPAY ali ON ali.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+    </select>
+
+    <select id="doQueryJzkh" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.JZKH AS SHBZK
+		FROM
+			OP_MZXX a
+		WHERE
+			a.mzxh = #{MZXH}
+    </select>
+
+    <select id="doQueryMzxxPosAndZfbJe" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			aa.*,
+			ifnull ( p.transamount, 0 ) AS POSJE,
+			ifnull ( ali.totalamount, 0 ) AS ZFBJE
+		FROM
+			(
+			SELECT
+				a.fphm,
+				ifnull ( a.FPZS, 1 ) AS FPZS,
+				ifnull ( a.HZJE, 0 ) AS HZJE,
+				ifnull ( a.JJZFJE, 0 ) AS JJZFJE,
+				ifnull ( a.MZJZJE, 0 ) AS MZJZJE,
+				ifnull ( a.TZJE, 0 ) AS TZJE,
+				ifnull ( a.JMJE, 0 ) AS JMJE,
+				ifnull ( a.JKJE, 0 ) AS JKJE,
+				a.XJJE AS XJJE,
+				a.BRXZ AS BRXZ,
+				d.XZMC AS JSFS,
+				c.PERSONNAME AS SFY,
+				a.MZXH AS MZXH,
+				b.MZHM AS XLH,
+				b.BRXM AS XM,
+				b.BRXB AS BRXB,
+				a.XNFP AS XNFP,
+				a.QTYS AS JZ,
+				a.ZJJE AS HJJE,
+				a.ZFJE AS ZFJE,
+				a.SFRQ AS YYYY,
+				e.fkfs AS fpfkfs,
+				e.fkje AS fpfkje
+			FROM
+				OP_MZXX a,
+				MPI_BRDA b,
+				HR_PERSONNEL c,
+				PUB_BRXZ d,
+				OP_FKXX e,
+				PUB_FKFS f
+			WHERE
+				e.fkfs = f.fkfs
+				AND e.zmxh AS a.mzxh
+				AND e.fkfs != '5'
+				AND a.BRXZ = d.BRXZ
+				AND a.CZGH = c.PERSONID
+				AND a.BRID = b.BRID
+				AND a.FPHM = #{FPHM}
+				AND a.JGID = #{JGID}
+			) aa
+			LEFT JOIN OP_POSMX p ON p.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+			LEFT JOIN OP_ALIPAY ali ON ali.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+    </select>
+
+    <select id="doQueryMzxxJeA" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			aa.*,
+			ifnull ( p.transamount, 0 ) AS POSJE,
+			ifnull ( ali.totalamount, 0 ) AS ZFBJE
+		FROM
+			(
+			SELECT
+				a.fphm,
+				ifnull ( a.FPZS, 1 ) AS FPZS,
+				a.BRXZ AS BRXZ,
+				d.XZMC AS JSFS,
+				c.PERSONNAME AS SFY,
+				a.MZXH AS MZXH,
+				b.MZHM AS XLH,
+				b.BRXM AS XM,
+				e.ZJJE - e.ZFJE AS JZ,
+				e.ZJJE AS HJJE,
+				e.ZFJE AS ZFJE,
+				a.SFRQ AS YYYY,
+				f.fkfs AS fpfkfs,
+				f.fkje AS fpfkje
+			FROM
+				OP_MZXX a,
+				MPI_BRDA b,
+				HR_PERSONNEL c,
+				PUB_BRXZ d,
+				OP_SFMX e,
+				OP_FKXX f,
+				PUB_FKFS g
+			WHERE
+				f.fkfs = g.fkfs
+				AND f.mzxh = a.mzxh
+				AND f.fkfs != '5'
+				AND a.MZXH = e.MZXH
+				AND e.SFXM = #{SFXM}
+				AND a.BRXZ = d.BRXZ
+				AND a.CZGH = c.PERSONID
+				AND a.BRID = b.BRID
+				AND a.FPHM = #{FPHM}
+				AND a.JGID = #{JGID}
+			) aa
+			LEFT JOIN OP_POSMX p ON p.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+			LEFT JOIN OP_ALIPAY ali ON ali.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+    </select>
+
+    <select id="doQueryMzxxJeB" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			aa.*,
+			ifnull ( p.transamount, 0 ) AS POSJE,
+			ifnull ( ali.totalamount, 0 ) AS ZFBJE
+		FROM
+			(
+			SELECT
+				a.fphm,
+				ifnull ( a.FPZS, 1 ) AS FPZS,
+				a.BRXZ AS BRXZ,
+				d.XZMC AS JSFS,
+				c.PERSONNAME AS SFY,
+				a.MZXH AS MZXH,
+				b.MZHM AS XLH,
+				b.BRXM AS XM,
+				sum(( 1-f.ZFBL )* f.HJJE ) AS JZ,
+				sum( f.HJJE ) AS HJJE,
+				sum( f.ZFBL * f.HJJE ) AS ZFJE,
+				a.SFRQ  AS YYYY,
+				g.fkfs AS fpfkfs,
+				g.fkje AS fpfkje
+			FROM
+				OP_MZXX a,
+				MPI_BRDA b,
+				HR_PERSONNEL c,
+				PUB_BRXZ d,
+				OP_CF01 e,
+				OP_CF02 f,
+				OP_FKXX g,
+				PUB_FKFS h
+			WHERE
+				g.mzxh = a.mzxh
+				AND g.fkfs = h.fkfs
+				AND g.fkfs != '5'
+				AND a.FPHM = e.FPHM
+				AND a.JGID = e.JGID
+				AND e.CFSB = f.CFSB
+				AND e.YFSB = #{YFSB}
+				AND a.BRXZ = d.BRXZ
+				AND a.CZGH = c.PERSONID
+				AND a.BRID = b.BRID
+				AND a.FPHM = #{FPHM}
+				AND a.JGID = #{JGID}
+			GROUP BY
+				a.BRXZ,
+				d.XZMC,
+				c.PERSONNAME,
+				a.MZXH,
+				b.MZHM,
+				b.BRXM,
+				a.SFRQ,
+				a.FPZS
+			) aa
+			LEFT JOIN OP_POSMX p ON p.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+			LEFT JOIN OP_ALIPAY ali ON ali.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+    </select>
+
+    <select id="doQueryMzxxYjJe" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			aa.*,
+			ifnull ( p.transamount, 0 ) AS POSJE,
+			ifnull ( ali.totalamount, 0 ) AS ZFBJE
+		FROM
+			(
+			SELECT
+				a.fphm,
+				ifnull ( a.FPZS, 1 ) AS FPZS,
+				a.BRXZ AS BRXZ,
+				d.XZMC AS JSFS,
+				c.PERSONNAME AS SFY,
+				a.MZXH AS MZXH,
+				b.MZHM AS XLH,
+				b.BRXM AS XM,
+				sum(( 1-f.ZFBL )* f.HJJE ) AS JZ,
+				sum( f.HJJE ) AS HJJE,
+				sum( f.ZFBL * f.HJJE ) AS ZFJE,
+				a.SFRQ AS YYYY,
+				g.fkfs AS fpfkfs,
+				g.fkje AS fpfkje
+			FROM
+				OP_MZXX a,
+				MPI_BRDA b,
+				HR_PERSONNEL c,
+				PUB_BRXZ d,
+				OP_YJCF01 e,
+				OP_YJCF02 f,
+				OP_FKXX g,
+				PUB_FKFS h
+			WHERE
+				g.mzxh = h.mzxh
+				AND g.fkfs = a.fkfs
+				AND g.fkfs != '5'
+				AND a.FPHM = e.FPHM
+				AND a.JGID = e.JGID
+				AND e.YJXH = f.YJXH
+				AND e.ZXKS = #{ZXKS}
+				AND a.BRXZ = d.BRXZ
+				AND a.CZGH = c.PERSONID
+				AND a.BRID = b.BRID
+				AND a.FPHM = #{FPHM}
+				AND a.JGID = #{JGID}
+			GROUP BY
+				a.BRXZ,
+				d.XZMC,
+				c.PERSONNAME,
+				a.MZXH,
+				b.MZHM,
+				b.BRXM,
+				a.SFRQ,
+				a.FPZS
+			) aa
+			LEFT JOIN OP_POSMX p ON p.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+			LEFT JOIN OP_ALIPAY ali ON ali.fphm = aa.fphm
+			AND aa.fphm = #{FPHM}
+    </select>
+
+    <select id="doQueryFphmFpzsRbA" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			FPHM AS FPHM,
+			FPZS AS FPZS
+		FROM
+			(
+			SELECT
+				FPHM AS FPHM,
+				ifnull( FPZS, 1 ) AS FPZS
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS
+			FROM
+				OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+				AND JZHM NOT LIKE 'MGH%'
+			UNION ALL
+			SELECT
+				JZHM AS FPHM,
+				1 AS FPZS
+			FROM
+				OP_GHMX_ZK
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ IS NULL
+				AND JZHM NOT LIKE 'MGH%'
+			) t
+		ORDER BY
+			FPHM
+    </select>
+
+    <update id="doUpdateJzrq" parameterType="Map">
+    	UPDATE OP_MZXX
+		SET JZRQ = #{jzrq}
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ IS NULL
+    </update>
+
+    <update id="doUpdateJzrqToNull" parameterType="Map">
+    	UPDATE OP_MZXX
+		SET JZRQ = NULL
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ = #{jzrq}
+    </update>
+
+    <select id="doQueryFphmInfo" parameterType="Map" resultType="QueryFphmResp">
+    	SELECT
+			a.JZKH AS jzkh,
+			a.CBXZ AS cbxz,
+			a.ZSFPHM AS zsfphm,
+			a.FPHM AS fphm,
+			a.BRXM AS brxm,
+			a.BRXZ AS brxz,
+			a.BRXB AS brxb,
+			a.BRID AS brid,
+			a.CZGH AS ysfy,
+			a.SFFS AS sffs,
+			a.MZLB AS mzlb,
+			a.SFRQ AS sfrq,
+			IFNULL((select FKJE from op_fkxx where FKFS = 1 AND MZXH = a.MZXH), 0) AS xjje,
+			IFNULL((select FKJE from op_fkxx where FKFS = 3 AND MZXH = a.MZXH), 0) AS wxje,
+			IFNULL((select FKJE from op_fkxx where FKFS = 4 AND MZXH = a.MZXH), 0) AS zfbje,
+			IFNULL((select FKJE from op_fkxx where FKFS = 5 AND MZXH = a.MZXH), 0) AS posje,
+			a.ZPJE AS zpje,
+			a.ZHJE AS zhje,
+			CASE
+			WHEN a.ZFPB = 1 AND a.CDFPHM IS NULL THEN '1'
+			WHEN (select ifnull(count(1), 0) from op_mzxx where CDFPHM = a.FPHM) > 0 THEN '2'
+			WHEN a.CDFPHM IS NOT NULL THEN '3'
+			ELSE '0'
+			END AS zfpb,
+			a.HBBZ AS hbbz,
+			a.THPB AS thpb,
+			a.FPGL AS fpgl,
+			a.FYZH AS fyzh,
+			a.ZFJE AS zfje,
+			a.MZXH AS mzxh,
+			d.MZHM AS mzhm,
+			a.ZJJE AS zjje,
+			QTYS AS qtys,
+			HBWC AS hbwc,
+			a.JZRQ AS jzrq,
+			a.HZRQ AS hzrq,
+			b.ZFRQ AS zfrq,
+			a.JJZFJE AS jjzfje,
+			a.YDCZSF AS ydczsf,
+			a.YDCZFPBD AS ydczfpbd
+		FROM
+			OP_MZXX a
+			LEFT JOIN OP_ZFFP b ON ( a.MZXH = b.MZXH ),
+			MPI_BRDA d
+			<!--  LEFT JOIN MPI_Card c ON c.cardTypeCode = #{cardTypeCode}  AND c.brid = d.brid-->
+		<where>
+			AND a.BRID = d.BRID
+			AND a.JGID = #{jgid}
+			AND a.ZSFPBZ = 0
+			<if test="@sqlt.Ognl@isNotEmpty(beginFphm)">
+            	AND a.FPHM <![CDATA[ >= ]]> #{beginFphm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(endFphm)">
+            	AND a.FPHM <![CDATA[ <= ]]> #{endFphm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(beginSfrq)">
+            	AND a.SFRQ <![CDATA[ >= ]]> #{beginSfrq}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(endSfrq)">
+            	AND a.SFRQ <![CDATA[ <= ]]> #{endSfrq}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(brxz)">
+            	AND a.BRXZ = #{brxz}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(brxm)">
+            	AND a.BRXM LIKE CONCAT(CONCAT('%',#{brxm}),'%')
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+            	AND a.JZKH LIKE CONCAT(CONCAT(#{jzkh}),'%')
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(czgh)">
+            	AND a.CZGH = #{czgh}
+            </if>
+		</where>
+		ORDER BY a.SFRQ DESC
+    </select>
+
+    <select id="doQueryMzqd" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			a.BRXM AS XM,
+			a.FPHM AS FPH,
+			a.SFRQ AS SFRQ,
+			a.ZJJE AS JEHJXX
+		FROM
+			OP_MZXX a
+		WHERE
+			a.FPHM = #{FPHM}
+			AND a.JGID =  #{JGID}
+    </select>
+
+    <select id="doQueryMzxxSfmx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			czgh AS czgh,
+			c.sfmc AS sfmc,
+			ifnull ( sum( zjje ), 0 ) AS zjje
+		FROM
+			(
+			SELECT
+				a.czgh,
+				b.sfxm,
+				b.zjje
+			FROM
+				OP_MZXX a,
+				OP_SFMX b
+			WHERE
+				a.mzxh = b.mzxh
+				AND a.jgid = #{jgid}
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+				AND a.mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.czgh AS czgh,
+				b.sfxm,- b.zjje
+			FROM
+				OP_ZFFP a,
+				OP_SFMX b
+			WHERE
+				a.mzxh = b.mzxh
+				AND a.jgid = #{jgid}
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+				AND a.mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) t
+			LEFT OUTER JOIN DIC_SFXMLB c ON t.sfxm = c.sfxm
+		GROUP BY
+			czgh,
+			sfmc
+    </select>
+
+    <select id="doQueryBrxzByJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			d.DBPB AS DBPB
+		FROM
+			(
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				OP_MZXX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ <![CDATA[ >= ]]> #{datefrom}
+				AND a.JZRQ <![CDATA[ <= ]]> #{dateTo}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_ZFFP b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ <![CDATA[ >= ]]> #{datefrom}
+				AND b.JZRQ <![CDATA[ <= ]]> #{dateTo}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				OP_GHMX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.JZRQ <![CDATA[ >= ]]> #{datefrom}
+				AND a.JZRQ <![CDATA[ <= ]]> #{dateTo}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_GHMX a,
+				OP_THMX b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.JZRQ <![CDATA[ >= ]]> #{datefrom}
+				AND b.JZRQ <![CDATA[ <= ]]> #{dateTo}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh}
+			) c
+			LEFT OUTER JOIN PUB_BRXZ d ON c.BRXZ = d.BRXZ
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+    </select>
+
+    <select id="doQueryMzxxSfxm" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			czgh AS czgh,
+			c.sfmc AS sfmc,
+			ifnull ( sum( zjje ), 0 ) AS zjje
+		FROM
+			(
+			SELECT
+				a.czgh,
+				b.sfxm,
+				c.fkje *(
+					b.zjje / a.zjje
+				) AS zjje
+			FROM
+				OP_MZXX a,
+				OP_SFMX b,
+				OP_FKXX c
+			WHERE
+				c.fkfs = 1
+				AND c.fkje > 0
+				AND a.mzxh = c.mzxh
+				AND a.mzxh = b.mzxh
+				AND a.jgid = #{jgid}
+				AND a.mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+			UNION ALL
+			SELECT
+				a.czgh AS czgh,
+				b.sfxm,- c.fkje *(
+					b.zjje / d.zjje
+				) AS zjje
+			FROM
+				OP_ZFFP a,
+				OP_SFMX b,
+				OP_FKXX c,
+				OP_MZXX d
+			WHERE
+				a.mzxh = d.mzxh
+				AND c.fkfs = 1
+				AND c.fkje > 0
+				AND a.mzxh = c.mzxh
+				AND a.mzxh = b.mzxh
+				AND a.jgid = #{jgid}
+				AND a.mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.jzrq <![CDATA[ >= ]]> #{begindate}
+				AND a.jzrq <![CDATA[ <= ]]> #{enddate}
+			) t,
+			DIC_SFXMLB c
+		WHERE
+			t.sfxm = c.sfxm
+		GROUP BY
+			czgh,
+			sfmc
+    </select>
+
+    <select id="doQueryBrxzByHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			ifnull ( d.DBPB, 0 ) AS DBPB
+		FROM
+			(
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_HZRB c
+			WHERE
+				c.JZRQ = a.JZRQ
+				AND c.CZGH = a.CZGH
+				AND a.JGID = #{jgid}
+				AND c.HZRQ IS NULL
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_ZFFP b,
+				OP_HZRB c
+			WHERE
+				c.JZRQ = b.JZRQ
+				AND c.CZGH = b.CZGH
+				AND a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND c.HZRQ IS NULL
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				OP_GHMX a,
+				OP_GHRB c
+			WHERE
+				c.JZRQ = a.JZRQ
+				AND c.CZGH = a.CZGH
+				AND a.JGID = #{jgid}
+				AND c.HZRQ IS NULL
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_GHMX a,
+				OP_THMX b,
+				OP_GHRB c
+			WHERE
+				c.JZRQ = b.JZRQ
+				AND c.CZGH = b.CZGH
+				AND a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND c.HZRQ IS NULL
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) c
+			LEFT OUTER JOIN PUB_BRXZ d ON c.BRXZ = d.BRXZ
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB;
+    </select>
+	<!--查询治疗项目信息-->
+	<select id="getAllZlInfo" resultType="java.util.Map">
+
+
+	</select>
+
+
+    <update id="doUpdateHzrq" parameterType="Map">
+        UPDATE OP_MZXX
+		SET HZRQ = #{ldt_hzrq}
+		WHERE
+			JGID = #{gl_jgid}
+			AND MZLB in
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NOT NULL
+			AND HZRQ IS NULL
+    </update>
+
+    <select id="doQueryBrxzQtysByHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			d.DBPB AS DBPB
+		FROM
+			(
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				op_mzxx a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.HZRQ = #{hzrq}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				op_mzxx a,
+				op_zffp b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.HZRQ = #{hzrq}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				op_ghmx a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.HZRQ = #{hzrq}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				op_ghmx a,
+				op_thmx b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.HZRQ = #{hzrq}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh}
+			) c
+			LEFT OUTER JOIN pub_brxz d ON c.BRXZ = d.BRXZ
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+    </select>
+
+    <select id="doQueryBrxzInfo" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			d.DBPB AS DBPB
+		FROM
+			(
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				op_mzxx a,
+				OP_HZRB c
+			WHERE
+				c.JZRQ = a.JZRQ
+				AND c.CZGH = a.CZGH
+				AND a.JGID = #{jgid}
+				AND c.HZRQ = #{hzrq}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				op_mzxx a,
+				op_zffp b,
+				OP_HZRB c
+			WHERE
+				c.JZRQ = b.JZRQ
+				AND c.CZGH = b.CZGH
+				AND a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND c.HZRQ = #{hzrq}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				op_ghmx a,
+				OP_GHRB c
+			WHERE
+				c.JZRQ = a.JZRQ
+				AND c.CZGH = a.CZGH
+				AND a.JGID = #{jgid}
+				AND c.HZRQ = #{hzrq}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				op_ghmx a,
+				op_thmx b,
+				OP_GHRB c
+			WHERE
+				c.JZRQ = b.JZRQ
+				AND c.CZGH = b.CZGH
+				AND a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND c.HZRQ = #{hzrq}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) c
+			LEFT OUTER JOIN pub_brxz d ON c.BRXZ = d.BRXZ
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+    </select>
+
+
+    <update id="updateHzrqToNull" >
+        UPDATE OP_MZXX
+		SET HZRQ = NULL
+		WHERE
+			JGID = #{jgid}
+			AND MZLB =#{mzlb}
+			AND JZRQ IS NOT NULL
+			AND HZRQ = #{hzrq}
+    </update>
+	<update id="updateFphmByMzxh">
+		UPDATE op_mzxx set FPHM = #{cdFphm} where MZXH = #{mzxh}
+	</update>
+
+	<select id="doQueryHzcxBrxz" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			d.DBPB AS DBPB
+		FROM
+			(
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				op_mzxx a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND a.HZRQ <![CDATA[ <= ]]> #{jsrq}
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				op_mzxx a,
+				op_zffp b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				op_ghmx a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND a.HZRQ <![CDATA[ <= ]]> #{jsrq}
+				AND a.MZLB = #{mzlb}
+				AND a.CZGH = #{czgh}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				op_ghmx a,
+				op_thmx b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh}
+			) c
+			LEFT OUTER JOIN pub_brxz d ON c.BRXZ = d.BRXZ
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+    </select>
+
+    <select id="doQueryHzcxBrxzA" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			d.DBPB AS DBPB
+		FROM
+			(
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_HZRB c
+			WHERE
+				c.JZRQ = a.JZRQ
+				AND c.CZGH = a.CZGH
+				AND a.JGID = #{jgid}
+				AND c.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND c.HZRQ <![CDATA[ <= ]]> #{jsrq}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_MZXX a,
+				op_zffp b,
+				OP_HZRB c
+			WHERE
+				c.JZRQ = b.JZRQ
+				AND c.CZGH = b.CZGH
+				AND a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND c.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND c.HZRQ <![CDATA[ <= ]]> #{jsrq}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				op_ghmx a,
+				OP_GHRB c
+			WHERE
+				c.JZRQ = a.JZRQ
+				AND c.CZGH = a.CZGH
+				AND a.JGID = #{jgid}
+				AND c.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND c.HZRQ <![CDATA[ <= ]]> #{jsrq}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				op_ghmx a,
+				op_thmx b,
+				OP_GHRB c
+			WHERE
+				c.JZRQ = b.JZRQ
+				AND c.CZGH = b.CZGH
+				AND a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND c.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND c.HZRQ <![CDATA[ <= ]]> #{jsrq}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) c
+			LEFT OUTER JOIN pub_brxz d ON c.BRXZ = d.BRXZ
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+    </select>
+
+
+    <select id="doQueryXmflhz" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( c.QTYS ) AS QTYS,
+			c.BRXZ AS BRXZ,
+			d.XZMC AS XZMC,
+			d.DBPB AS DBPB
+		FROM
+			(
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				OP_MZXX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND a.HZRQ <![CDATA[ <= ]]> #{jsrq}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_ZFFP b
+			WHERE
+				a.MZXH = b.MZXH
+				AND b.JGID = #{jgid}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,
+				a.QTYS AS QTYS
+			FROM
+				OP_GHMX a
+			WHERE
+				a.JGID = #{jgid}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND a.HZRQ <![CDATA[ <= ]]> #{jsrq}
+			UNION ALL
+			SELECT
+				a.BRXZ AS BRXZ,(- 1 * a.QTYS
+				) AS QTYS
+			FROM
+				OP_GHMX a,
+				OP_THMX b
+			WHERE
+				a.SBXH = b.SBXH
+				AND b.JGID = #{jgid}
+				AND b.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq}
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq}
+			) c
+			LEFT OUTER JOIN pub_brxz d ON c.BRXZ = d.BRXZ
+		GROUP BY
+			c.BRXZ,
+			d.XZMC,
+			d.DBPB
+    </select>
+
+    <select id="doQueryWjzsf" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( FPZS ) AS FPZS,
+			sum( ZJJE ) AS ZJJE,
+			sum( JCJE ) AS JCJE,
+			sum( JCTJKJE ) AS JCTJKJE
+		FROM
+			(
+			SELECT
+				count(*) AS FPZS,
+				sum( ZJJE ) AS ZJJE,
+				0 AS JCJE,
+				0 AS JCTJKJE
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND mzlb in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND JZRQ IS NULL
+				AND ZFPB = 0
+			UNION ALL
+			SELECT
+				count(*) AS FPZS,
+				0 AS ZJJE,
+				0 AS JCJE,
+				0 AS JCTJKJE
+			FROM
+				OP_MZXX
+			WHERE
+				JGID = #{jgid}
+				AND MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND JZRQ IS NULL
+				AND ZFPB = 1
+			) t
+    </select>
+
+    <select id="doQueryFkje" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			sum( FKJE ) AS FKJE,
+			FKLB AS FKLB,
+			sum( QTYS ) AS QTYS
+		FROM
+			(
+			SELECT
+				sum( b.FKJE ) AS FKJE,
+				c.FKLB AS FKLB,
+				sum( a.QTYS ) AS QTYS
+			FROM
+				op_mzxx a,
+				op_fkxx b
+				LEFT OUTER JOIN pub_fkfs c ON b.FKFS = c.FKFS
+			WHERE
+				a.MZXH = b.MZXH
+				AND a.JGID = b.JGID
+				AND a.JGID = #{jgid}
+				AND MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.JZRQ IS NULL
+				AND a.ZFPB = 0
+			GROUP BY
+				c.FKLB
+			UNION ALL
+			SELECT
+				sum( b.FKJE ) AS FKJE,
+				c.FKLB AS FKLB,
+				sum( a.QTYS ) AS QTYS
+			FROM
+				op_ghmx a,
+				op_gh_fkxx b
+				LEFT OUTER JOIN pub_fkfs c ON b.FKFS = c.FKFS
+			WHERE
+				a.SBXH = b.SBXH
+				AND a.JGID = #{jgid}
+				AND MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.JZRQ IS NULL
+				AND a.THBZ = 0
+			GROUP BY
+				c.FKLB
+			) t
+		GROUP BY
+			FKLB
+    </select>
+
+    <select id="doQueryFphmByCondition" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			FPHM AS FPHM
+		FROM
+			OP_MZXX
+		WHERE
+			JGID = #{jgid}
+			AND MZLB in
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NULL
+			AND ZFPB = 1
+    </select>
+
+    <select id="doQueryWjzsfhz" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			CZGH AS CZGH,
+			sum( GHRC ) AS GHRC,
+			sum( FPZS ) AS FPZS,
+			sum( GHJE ) AS GHJE,
+			sum( ZJJE ) AS ZJJE,
+			sum( JCJE ) AS JCJE,
+			sum( JCTJKJE ) AS JCTJKJE
+		FROM
+			(
+			SELECT
+				CZGH AS CZGH,
+				0 AS GHRC,
+				sum( FPZS ) AS FPZS,
+				0 AS GHJE,
+				sum( ZJJE ) AS ZJJE,
+				0 AS JCJE,
+				0 AS JCTJKJE
+			FROM
+				(
+				SELECT
+					CZGH AS CZGH,
+					count(*) AS FPZS,
+					sum( ZJJE ) AS ZJJE
+				FROM
+					OP_MZXX
+				WHERE
+					JGID = #{jgid}
+					AND MZLB in
+					<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+					AND JZRQ IS NULL
+					AND ( ZFPB IS NULL OR ZFPB = 0 )
+				GROUP BY
+					CZGH
+				UNION ALL
+				SELECT
+					CZGH AS CZGH,
+					count(*) AS FPZS,
+					0 AS ZJJE
+				FROM
+					OP_MZXX
+				WHERE
+					JGID = #{jgid}
+					AND MZLB in
+					<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+					AND JZRQ IS NULL
+					AND ZFPB = 1
+				GROUP BY
+					CZGH
+				) k
+			GROUP BY
+				CZGH
+			UNION ALL
+			SELECT
+				CZGH AS CZGH,
+				sum( GHRC ) AS GHRC,
+				0 AS FPZS,
+				sum( GHJE ) AS GHJE,
+				0 AS ZJJE,
+				0 AS JCJE,
+				0 AS JCTJKJE
+			FROM
+				(
+				SELECT
+					CZGH AS CZGH,
+					count(*) AS GHRC,
+					sum( GHJE + ZLJE + ZJFY + BLJE ) AS GHJE
+				FROM
+					OP_GHMX
+				WHERE
+					JGID = #{jgid}
+					AND MZLB in
+					<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+					AND JZRQ IS NULL
+					AND ( THBZ IS NULL OR THBZ = 0 )
+				GROUP BY
+					CZGH
+				UNION ALL
+				SELECT
+					CZGH AS CZGH,
+					count(*) AS GHRC,
+					0 AS GHJE
+				FROM
+					OP_GHMX
+				WHERE
+					JGID = #{jgid}
+					AND MZLB in
+					<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+					AND JZRQ IS NULL
+					AND THBZ = 1
+				GROUP BY
+					CZGH
+				) t
+			GROUP BY
+				CZGH
+			) z
+			GROUP BY
+				CZGH
+    </select>
+
+    <select id="doQueryWjzsfhzJe" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			CZGH AS CZGH,
+			sum( FKJE ) AS FKJE,
+			FKLB AS FKLB,
+			sum( QTYS ) AS QTYS
+		FROM
+			(
+			SELECT
+				a.CZGH AS CZGH,
+				sum( b.FKJE ) AS FKJE,
+				c.FKLB AS FKLB,
+				sum( a.QTYS ) AS QTYS
+			FROM
+				OP_MZXX a,
+				OP_FKXX b
+				LEFT OUTER JOIN pub_fkfs c ON b.FKFS = c.FKFS
+			WHERE
+				a.MZXH = b.MZXH
+				AND a.JGID = b.JGID
+				AND a.JGID = #{jgid}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.JZRQ IS NULL
+				AND a.ZFPB = 0
+			GROUP BY
+				a.CZGH,
+				c.FKLB
+			UNION ALL
+			SELECT
+				a.CZGH AS CZGH,
+				sum( b.FKJE ) AS FKJE,
+				c.FKLB AS FKLB,
+				sum( a.QTYS ) AS QTYS
+			FROM
+				OP_GHMX a,
+				op_gh_fkxx b
+				LEFT OUTER JOIN pub_fkfs c ON b.FKFS = c.FKFS
+			WHERE
+				a.SBXH = b.SBXH
+				AND a.JGID = #{jgid}
+				AND a.MZLB in
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND a.JZRQ IS NULL
+				AND a.THBZ = 0
+			GROUP BY
+				a.CZGH,
+				c.FKLB
+			) t
+			GROUP BY
+				CZGH,
+				FKLB
+    </select>
+
+    <select id="getYktypkInfo" parameterType="Map" resultType="java.util.Map">
+	   SELECT
+			a.YBFL AS YBFL,
+			#{YFSB} AS YFSB,
+			a.YPXH AS YPXH,
+			a.YPMC AS YPMC,
+			b.YFGG AS YFGG,
+			a.YPDW AS YPDW,
+			a.PSPB AS PSPB,
+			a.JLDW AS JLDW,
+			a.YPJL AS YPJL,
+			a.GYFF AS GYFF,
+			b.YFBZ AS YFBZ,
+			d.LSJG AS LSJG,
+			d.YPCD AS YPCD,
+			f.CDMC AS YPCD_text,
+			a.TYPE AS TYPE,
+			a.TSYP AS TSYP,
+			b.YFDW AS YFDW,
+			d.LSJG AS YPDJ,
+			a.ZBLB AS FYGB,
+			a.KSBZ AS KSBZ,
+			a.KSSDJ AS KSSDJ,
+			a.YQSYFS AS YQSYFS,
+			a.ZBLB AS FYGB,
+			ifnull ( h.MCSX, h.SFMC ) AS GBMC,
+			d.YPSL AS YPSL
+		FROM
+			DRUGS_TYPK a,
+			PHAR_YPXX b,
+			PHAR_KCMX d,
+			DRUGS_CDDZ f,
+			DIC_SFXMLB h
+		WHERE
+			h.SFXM = a.ZBLB
+			AND ( a.YPXH = d.YPXH )
+			AND ( b.YPXH = a.YPXH )
+			AND ( b.YFSB = d.YFSB )
+			AND ( a.ZFPB = 0 )
+			AND ( b.YFZF = 0 )
+			AND ( d.JYBZ = 0 )
+			AND ( d.YPCD = f.YPCD )
+			AND b.YFSB = #{YFSB}
+			AND a.YPXH = #{YPXH}
+		ORDER BY
+			d.SBXH
+    </select>
+
+    <!--  检验 输入法查询 -挂号收费专用 -->
+     <select id="doQueryJsjc" resultType="QueryJsJcResp">
+	  	SELECT
+		 	a.yyclgg,
+			a.YBBM,
+		    a.FYXH as ypxh ,
+		    a.FYMC as ypmc,
+		    a.FYDW as yfdw,
+		    a.BZJG,
+		    a.XMLX,
+		    c.FYDJ as lsjg ,
+		    c.FYKS,
+		    d.MZGB as fygb ,
+		    i.MCSX
+		  FROM
+		    FEE_YLSFXM a,
+		    FEE_YLSFXMDJ c,
+		    DIC_SFXMLB d,
+		    DIC_SFXMLB i
+		  WHERE d.MZGB = i.SFXM
+		    AND d.SFXM = a.FYGB
+		    AND a.FYXH = c.FYXH
+		    AND c.ZFPB = 0
+		    AND a.ZFPB = 0
+		    AND a.MZSY = 1
+		    AND c.JGID = #{jgid}
+		  <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+			  AND   EXISTS (SELECT BMXH FROM PUB_FYBM bm WHERE bm.FYXH = a.FYXH  AND (bm.PYDM LIKE concat(concat('%',#{pydm}),'%')
+			  OR bm.FYMC like concat(concat('%',#{pydm}),'%')) )
+		  </if>
+    </select>
+
+	<select id="doQueryybxxInfo"  resultType="java.util.Map">
+	   SELECT
+	  		a.zjje as hjje,
+	  		a.jmje as jmje,
+	  		a.zjje as grjf,
+			b.ybjsfwfyze-b.totalexpense+b.fybjsfwfyze+b.zfdxjzfs+b.tcdxjzfs+b.fjdxjzfs as xjzf,
+	  		a.xjje as grzf,
+	  		b.curaccountpay+b.hisaccountpay+b.zfdxjzfs as grzhzf,
+            b.tczfs as ybtczf,
+            b.fjzfs as fjzf,
+            b.ybjsfwfyze-b.totalexpense as flzf,
+            b.fybjsfwfyze as zifei,
+			b.zfdxjzfs+b.tcdxjzfs+b.fjdxjzfs	as zf,
+			b.curaccountamt as dnzhye,
+			b.hisaccountamt as lnzhye,
+			b.lsh as zxlsh
+		from
+			op_mzxx a, shyb_si12 b
+		where a.mzxh=b.mzxh and
+			a.zfpb=0 and
+			a.jzkh=b.cardid and
+			a.mzxh= #{mzxh}
+    </select>
+
+	<select id="getOpMzxxByJzlsh" resultType="com.buit.commons.model.OpMzxx">
+		 select <include refid="columns" />
+		 from op_mzxx
+		 where JZLSH = #{jzlsh}
+		 ORDER BY SFRQ DESC
+	</select>
+	<select id="getByFphm" resultType="com.buit.commons.model.OpMzxx">
+		select *
+		from op_mzxx where FPHM = #{fphm}
+	</select>
+
+
+	<select id="getGhks"  resultType="java.util.Map">
+    	SELECT
+			 ksdm,sbxh
+		FROM
+				OP_GHMX
+			WHERE
+				jzlsh = #{jzlsh}
+    </select>
+
+
+	<select id="doQuerySfxmList"  resultType="java.util.Map">
+		select a.SFXM as SFXM,a.SFMC,sum(ZJJE) as ZJJE,sum(ZKJE) as ZKJE,sum(SJJE) as SJJE from
+		  (SELECT 119 AS SFXM,
+				'挂号费' AS SFMC,
+				SUM(GHJE+ZJFY+BLJE+CKJE+WZJE) AS ZJJE,
+				SUM(JMJE) AS ZKJE,
+				SUM(GHJE+ZJFY+BLJE+CKJE+WZJE-JMJE) as SJJE
+			FROM OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ IS NULL
+				AND THBZ = 0
+				AND MZLB = #{mzlb}
+				AND CZGH = #{userid}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >= #{jzksrq}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+			GROUP BY
+				SFXM
+		  union
+			SELECT 120 AS SFXM,
+				'诊疗费' AS SFMC,
+				SUM(ZLJE) AS ZJJE,
+				0 AS ZKJE,
+				SUM(ZLJE) as SJJE
+			FROM OP_GHMX
+			WHERE
+				JGID = #{jgid}
+				AND JZRQ IS NULL
+				AND THBZ = 0
+				AND MZLB = #{mzlb}
+				AND CZGH = #{userid}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >= #{jzksrq}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+			GROUP BY
+				SFXM
+		  union
+		SELECT
+			sf.SFXM AS SFXM,
+			lb.SFMC AS SFMC,
+			sum( sf.ZJJE ) AS ZJJE,
+			sum( ifnull(sf.JMJE,0) ) AS ZKJE,
+			sum( sf.ZJJE-ifnull(sf.JMJE,0) ) AS SJJE
+		FROM
+			OP_SFMX sf,
+			OP_MZXX mz,
+			dic_sfxmlb lb
+		WHERE
+			sf.MZXH = mz.MZXH
+			AND sf.SFXM = lb.SFXM
+			AND mz.JGID = #{jgid}
+			AND mz.JZRQ IS NULL
+			AND mz.MZLB = #{mzlb}
+			AND mz.CZGH = #{userid}
+			AND DATE_FORMAT(mz.SFRQ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+			 AND DATE_FORMAT(mz.SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+		GROUP BY
+			sf.SFXM
+union
+SELECT
+			sf.SFXM AS SFXM,
+			lb.SFMC AS SFMC,
+			-sum( sf.ZJJE ) AS ZJJE,
+			-sum( ifnull(sf.JMJE,0) ) AS ZKJE,
+			-sum(sf.ZJJE- ifnull(sf.JMJE,0) ) AS SJJE
+		FROM
+			OP_SFMX sf,
+		  OP_ZFFP zf,
+			OP_MZXX mz,
+			dic_sfxmlb lb
+		WHERE
+		  sf.SFXM = lb.SFXM
+			AND sf.MZXH = mz.MZXH
+		  AND sf.MZXH = zf.MZXH
+			AND mz.JGID = #{jgid}
+			AND zf.JZRQ IS NULL
+			AND zf.MZLB = #{mzlb}
+			AND zf.CZGH = #{userid}
+			 AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+			 AND DATE_FORMAT(zf.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+		GROUP BY
+			sf.SFXM
+			) a GROUP BY
+			a.SFXM
+    </select>
+
+	<select id="doQueryFkxxMap"  resultType="java.util.Map">
+				select a.fkfs as fkfs,sum(a.fkje) as fkje from
+		(select a.fkfs as fkfs,sum(a.fkje) as fkje from
+			op_gh_fkxx a,op_ghmx b
+			where
+				a.sbxh=b.sbxh
+				AND b.jzrq is null
+				AND DATE_FORMAT(b.GHSJ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+				AND DATE_FORMAT(b.GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+				AND b.jgid=#{jgid}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{userid}
+			GROUP BY a.fkfs
+		union
+		select a.fkfs,-sum(a.fkje) from
+			op_gh_fkxx a,op_ghmx b,op_thmx c
+			where
+				a.sbxh=b.sbxh and b.sbxh=c.sbxh
+				AND c.jzrq is null
+				AND DATE_FORMAT(c.THRQ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+				AND DATE_FORMAT(c.THRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+				AND c.jgid=#{jgid}
+				AND c.MZLB = #{mzlb}
+				AND c.CZGH = #{userid}
+			GROUP BY a.fkfs
+		union
+		select a.fkfs,sum(a.fkje) from
+			op_fkxx a,op_mzxx b
+			where
+				a.mzxh=b.mzxh
+				AND b.jzrq is null
+				AND DATE_FORMAT(b.SFRQ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+				AND DATE_FORMAT(b.SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+				AND b.jgid=#{jgid}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{userid}
+			GROUP BY a.fkfs
+		union
+		select a.fkfs,-sum(a.fkje) from
+			op_fkxx a,op_zffp b
+			where
+				a.mzxh=b.mzxh
+				AND b.jzrq is null
+				AND DATE_FORMAT(b.ZFRQ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+				AND DATE_FORMAT(b.ZFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+				AND b.jgid=#{jgid}
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{userid}
+			GROUP BY a.fkfs
+		) a group by fkfs
+	</select>
+
+	<select id="doQueryGhybMap"  resultType="java.util.Map">
+			SELECT ifnull(SUM(QTYS),0) AS QTYS FROM OP_GHMX WHERE
+				jzrq is null
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+				AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+				AND jgid=#{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{userid}
+				AND THBZ=0
+	</select>
+
+	<select id="doQuerySfybMap"  resultType="java.util.Map">
+		SELECT ifnull(SUM(QTYS),0) AS QTYS FROM OP_MZXX WHERE
+			jzrq is null
+			AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+			AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+			AND jgid=#{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{userid}
+			AND ZFPB=0
+	</select>
+
+	<select id="doQuerySjh"  resultType="java.util.Map">
+		SELECT JZHM FROM OP_GHMX WHERE
+			jzrq is null
+			AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+			AND DATE_FORMAT(GHSJ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+			AND jgid=#{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{userid}
+			AND THBZ=0 ORDER BY GHSJ
+	</select>
+
+	<select id="doQueryFph"  resultType="java.util.Map">
+		SELECT FPHM FROM OP_MZXX WHERE
+			jzrq is null
+			AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') >=#{jzksrq}
+			AND DATE_FORMAT(SFRQ,'%Y-%m-%d %H:%i:%S') &lt;= #{jzjsrq}
+			AND jgid=#{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{userid}
+			AND ZFPB=0 ORDER BY SFRQ
+	</select>
+
+    <select id="doQuerySfrbList" parameterType="Map" resultType="java.util.Map">
+        SELECT jzrq,jzksrq,czgh,rbid
+        from
+          op_rbmx
+		WHERE
+			JGID = #{jgid}
+			AND CZGH = #{userid}
+			group by jzrq order by jzrq desc  LIMIT 7
+    </select>
+
+
+    <select id="getLastJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			STR_TO_DATE(max(jzrq),'%Y-%m-%d %H:%i:%S') AS JZRQ
+		FROM
+		  op_rbmx
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+    </select>
+
+    <select id="getFirstGhsfrq" parameterType="Map" resultType="java.util.Map">
+    	select STR_TO_DATE(min(sfrq),'%Y-%m-%d %H:%i:%S')  as SFRQ from (
+	SELECT
+			min(ghsj ) AS sfrq
+		FROM
+		  op_ghmx
+			WHERE
+				JGID =  #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+				AND JZRQ is null
+    union
+		SELECT
+			min(sfrq ) AS sfrq
+		FROM
+		  op_mzxx
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{czgh}
+		    AND JZRQ is null	)
+		    a
+    </select>
+
+	<select id="getOprbmxbyjzrq"  resultType="java.util.Map">
+		select SFXM as SFXM,SFMC,ZJJE as ZJJE,ZKJE as ZKJE,SJJE as SJJE from op_rbmx
+			where
+			JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH = #{userid}
+				AND jzrq = #{jzjsrq}
+	</select>
+
+	<select id="doQueryOprbmxsfmxbyjzrq" parameterType="Map" resultType="java.util.Map">
+  select * from op_rbmx_sfmx where
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+				AND CZGH =#{userid}
+				AND jzrq = #{jzjsrq}
+    </select>
+
+	<update id="doUpdateJzrqByRb" parameterType="Map">
+    	UPDATE OP_MZXX
+		SET JZRQ = #{jzjsrq}
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ IS NULL
+			AND SFRQ>=#{jzksrq} AND SFRQ&lt;=#{jzjsrq}
+    </update>
+	<update id="doUpdateZfJzrqByRb" parameterType="Map">
+    	UPDATE OP_ZFFP
+		SET JZRQ = #{jzjsrq}
+		WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND CZGH = #{czgh}
+			AND JZRQ IS NULL
+			AND ZFRQ>=#{jzksrq} AND ZFRQ&lt;=#{jzjsrq}
+    </update>
+
+	<select id="getLastHzJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			STR_TO_DATE(max(hzrq),'%Y-%m-%d %H:%i:%S') AS HZRQ
+		FROM
+		  op_rbmx
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+    </select>
+
+	<select id="getFirstHzrq"  resultType="java.util.Map">
+    	SELECT
+			STR_TO_DATE(min(jzrq),'%Y-%m-%d %H:%i:%S') AS HZRQ
+		FROM
+		  op_rbmx
+			WHERE
+				JGID = #{jgid}
+				AND MZLB = #{mzlb}
+    </select>
+
+	<select id="doQueryHzRyList"  resultType="java.util.Map">
+		SELECT czgh as CZGH from op_rbmx  	WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND HZRQ is null
+			AND jzrq>=#{hzksrq} and jzrq &lt;= #{hzjsrq}
+		group by czgh
+	</select>
+	<select id="doQueryHzRyedList"  resultType="java.util.Map">
+		SELECT czgh as CZGH from op_rbmx  	WHERE
+			JGID = #{jgid}
+			AND MZLB = #{mzlb}
+			AND hzrq = #{hzjsrq}
+		group by czgh
+	</select>
+
+	<select id="doQuerySfxmhzList"  resultType="java.util.Map">
+		SELECT a.czgh as CZGH,b.personname as YGXM,a.SFXM as SFXM,
+				a.SFMC as SFMC,a.ZJJE as ZJJE,a.ZKJE as ZKJE,a.SJJE as SJJE from op_rbmx a,hr_personnel b
+		where
+			a.czgh=b.personid
+			AND HZRQ is null
+			and a.jzrq>= #{hzksrq} and a.jzrq &lt;= #{hzjsrq} and a.mzlb=#{mzlb}
+			and a.jgid=#{jgid}
+			AND a.czgh=#{czgh}
+	</select>
+	<select id="doQuerySfxmhzedList"  resultType="java.util.Map">
+		SELECT a.czgh as CZGH,b.personname as YGXM,a.SFXM as SFXM,
+				a.SFMC as SFMC,a.ZJJE as ZJJE,a.ZKJE as ZKJE,a.SJJE as SJJE from op_rbmx a,hr_personnel b
+		where
+			a.czgh=b.personid
+			and a.hzrq= #{hzjsrq}
+			and a.mzlb=#{mzlb}
+			and a.jgid=#{jgid}
+			AND a.czgh=#{czgh}
+
+	</select>
+
+	<select id="doQuerySfrbhzList" parameterType="Map" resultType="java.util.Map">
+        SELECT jzrq as hzksrq,hzrq as hzjsrq,czgh
+        from
+          op_rbmx
+		WHERE
+			JGID = #{jgid}
+			AND mzlb=#{mzlb}
+			AND hzrq is not null
+			group by hzrq order by hzrq desc  LIMIT 7
+    </select>
+
+	<update id="updateHzrq">
+		UPDATE OP_MZXX
+		SET HZRQ=#{hzjsrq}
+		WHERE
+		JGID=#{jgid}
+		AND MZLB=#{mzlb}
+		AND JZRQ>= #{hzksrq} and JZRQ &lt;=#{hzjsrq}
+	</update>
+
+	<update id="updateZfHzrq">
+		UPDATE OP_ZFFP
+		SET HZRQ=#{hzjsrq}
+		WHERE
+		JGID=#{jgid}
+		AND MZLB=#{mzlb}
+		AND JZRQ>= #{hzksrq} and JZRQ &lt;=#{hzjsrq}
+	</update>
+
+	<update id="updateZfHzrqToNull">
+		UPDATE OP_ZFFP
+		SET HZRQ= NULL
+		WHERE
+		JGID=#{jgid}
+		AND MZLB=#{mzlb}
+		AND JZRQ = #{hzrq}
+	</update>
+
+	<select id="doQueryHzrq"  resultType="java.util.Map">
+    	select hzrq from op_rbmx where hzrq is not null and  jzrq= #{jzrq}
+    </select>
+
+</mapper>
+

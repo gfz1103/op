@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_门诊皮试记录 -->
+<mapper namespace="com.buit.commons.dao.YsMzPsjlDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLBH as jlbh,BRBH as brbh,YPBH as ypbh,PSJG as psjg,WCBZ as wcbz,SQYS as sqys,SQSJ as sqsj,PSYS as psys,PSSJ as pssj,JGID as jgid,CFSB as cfsb,GMPH as gmph
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO YS_MZ_PSJL (
+            JLBH ,
+            BRBH ,
+            YPBH ,
+            PSJG ,
+            WCBZ ,
+            SQYS ,
+            SQSJ ,
+            PSYS ,
+            PSSJ ,
+            JGID ,
+            CFSB ,
+            GMPH 
+        ) VALUES (
+            #{jlbh} ,
+            #{brbh} ,
+            #{ypbh} ,
+            #{psjg} ,
+            #{wcbz} ,
+            #{sqys} ,
+            #{sqsj} ,
+            #{psys} ,
+            #{pssj} ,
+            #{jgid} ,
+            #{cfsb} ,
+            #{gmph} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE YS_MZ_PSJL SET
+            BRBH = #{brbh} ,
+            YPBH = #{ypbh} ,
+            PSJG = #{psjg} ,
+            WCBZ = #{wcbz} ,
+            SQYS = #{sqys} ,
+            SQSJ = #{sqsj} ,
+            PSYS = #{psys} ,
+            PSSJ = #{pssj} ,
+            JGID = #{jgid} ,
+            CFSB = #{cfsb} ,
+            GMPH = #{gmph} 
+        WHERE 
+            JLBH = #{jlbh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM YS_MZ_PSJL WHERE
+        JLBH = #{jlbh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM YS_MZ_PSJL <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="YsMzPsjl">
+        SELECT <include refid="columns" />
+            FROM YS_MZ_PSJL 
+            WHERE 
+        JLBH = #{jlbh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlbh)"> -->
+<!--                     AND JLBH = #{jlbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brbh)"> -->
+<!--                     AND BRBH = #{brbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ypbh)"> -->
+<!--                     AND YPBH = #{ypbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psjg)"> -->
+<!--                     AND PSJG = #{psjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wcbz)"> -->
+<!--                     AND WCBZ = #{wcbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqys)"> -->
+<!--                     AND SQYS = #{sqys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqsj)"> -->
+<!--                     AND SQSJ = #{sqsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psys)"> -->
+<!--                     AND PSYS = #{psys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pssj)"> -->
+<!--                     AND PSSJ = #{pssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(cfsb)">
+                     AND CFSB = #{cfsb}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gmph)"> -->
+<!--                     AND GMPH = #{gmph} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM YS_MZ_PSJL 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="YsMzPsjl">
+        SELECT <include refid="columns" />
+        FROM YS_MZ_PSJL 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="queryByBrbhYpbh" resultType="java.util.Map">
+        SELECT
+            a.JLBH,
+            a.JGID,
+            a.BRBH,
+            a.CFSB,
+            c.MZHM,
+            d.CFHM,
+            c.BRXM,
+            a.PSSJ,
+            a.PSYS,
+            a.PSJG,
+            a.GMPH,
+            a.YPBH,
+            b.YPMC,
+            b.YPGG,
+            b.YPDW,
+            d.YSDM,
+            d.KSDM,
+            a.WCBZ,
+            a.SQYS,
+            a.SQSJ
+        FROM
+            YS_MZ_PSJL a,
+            MPI_BRDA c,
+            OP_CF01 d,
+            v_drugs_typk b
+        WHERE
+            (
+                a.BRBH = c.BRID
+                AND a.CFSB = d.CFSB
+                AND a.YPBH = b.YPXH
+                AND ((
+                        a.BRBH = #{brbh}
+                    AND a.YPBH = #{ypbh}
+            )))
+    </select>
+</mapper>
+

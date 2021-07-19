@@ -1,0 +1,2 @@
+ALTER TABLE `cis_jcsq01`
+ADD COLUMN `SFBLJC` varchar(1) NULL DEFAULT 0 COMMENT '是否病理检查 1是 0 否' AFTER `SXHDSSS`;

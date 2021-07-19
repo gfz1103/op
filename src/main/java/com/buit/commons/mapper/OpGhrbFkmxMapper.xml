@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_挂号日报付款明细 -->
+<mapper namespace="com.buit.commons.dao.OpGhrbFkmxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        CZGH as czgh,JZRQ as jzrq,FKFS as fkfs,JGID as jgid,FKJE as fkje,MZLB as mzlb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_GHRB_FKMX (
+            CZGH ,
+            JZRQ ,
+            FKFS ,
+            JGID ,
+            FKJE ,
+            MZLB 
+        ) VALUES (
+            #{czgh} ,
+            #{jzrq} ,
+            #{fkfs} ,
+            #{jgid} ,
+            #{fkje} ,
+            #{mzlb} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_GHRB_FKMX SET
+            JGID = #{jgid} ,
+            FKJE = #{fkje} ,
+            MZLB = #{mzlb} 
+        WHERE 
+            CZGH = #{czgh}  AND 
+                        JZRQ = #{jzrq}  AND 
+                        FKFS = #{fkfs} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_GHRB_FKMX WHERE
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq}  AND 
+        FKFS = #{fkfs} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_GHRB_FKMX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpGhrbFkmx">
+        SELECT <include refid="columns" />
+            FROM OP_GHRB_FKMX 
+            WHERE 
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq}  AND 
+        FKFS = #{fkfs} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fkfs)"> -->
+<!--                     AND FKFS = #{fkfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fkje)"> -->
+<!--                     AND FKJE = #{fkje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_GHRB_FKMX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpGhrbFkmx">
+        SELECT <include refid="columns" />
+        FROM OP_GHRB_FKMX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <delete id="doDeleteByCondition" parameterType="Map">
+        DELETE 
+		FROM
+			OP_GHRB_FKMX 
+		WHERE
+			CZGH = #{czgh} 
+			AND JGID = #{jgid} 
+			AND JZRQ = #{jzrq} 
+			AND MZLB = #{mzlb}
+    </delete>
+    
+     <select id="doQueryBeforeValid" parameterType="Map" resultType="java.util.Map">
+     	SELECT
+			OP_GHRB.CZGH AS YGDM,
+			OP_GHRB_FKMX.FKFS AS FKFS,
+			sum( OP_GHRB_FKMX.FKJE ) AS FKJE 
+		FROM
+			OP_GHRB_FKMX OP_GHRB_FKMX,
+			OP_GHRB OP_GHRB 
+		WHERE
+			OP_GHRB.CZGH = OP_GHRB_FKMX.CZGH 
+			AND OP_GHRB.JZRQ = OP_GHRB_FKMX.JZRQ 
+			AND OP_GHRB.JGID = #{JGID} 
+			AND OP_GHRB.MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND OP_GHRB.HZRQ IS NULL 
+		GROUP BY
+			OP_GHRB.CZGH,
+			OP_GHRB_FKMX.FKFS
+     </select>
+</mapper>
+

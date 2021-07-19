@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 急诊预检分诊 -->
+<mapper namespace="com.buit.ecis.pretriage.dao.ErPreYjfzDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        LSH as lsh,JGID as jgid,KH as kh,XM as xm,XB as xb,CSNY as csny,NL as nl,NLDW as nldw,ZJLX as zjlx,ZJHM as zjhm,LXFS as lxfs,XZZSF as xzzsf,XZZS as xzzs,XZZX as xzzx,XXZZ as xxzz,LYFS as lyfs,LZSJ as lzsj,TW as tw,MB as mb,HX as hx,XYSZY as xyszy,XYSSY as xyssy,XYBHD as xybhd,XL as xl,YSZT as yszt,SEWSPF as sewspf,TTPF as ttpf,XTPJ as xtpj,BRPJ as brpj,FZKSDM as fzksdm,YSDM as ysdm,FZHSDM as fzhsdm,LKSJ as lksj,QX as qx,TLSJ as tlsj,FZSJ as fzsj,ZT as zt,ZS as zs,DRZT as drzt
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO ER_PRE_YJFZ (
+            LSH ,
+            JGID ,
+            KH ,
+            XM ,
+            XB ,
+            CSNY ,
+            NL ,
+            NLDW ,
+            ZJLX ,
+            ZJHM ,
+            LXFS ,
+            XZZSF ,
+            XZZS ,
+            XZZX ,
+            XXZZ ,
+            LYFS ,
+            LZSJ ,
+            TW ,
+            MB ,
+            HX ,
+            XYSZY ,
+            XYSSY ,
+            XYBHD ,
+            XL ,
+            YSZT ,
+            SEWSPF ,
+            TTPF ,
+            XTPJ ,
+            BRPJ ,
+            FZKSDM ,
+            YSDM ,
+            FZHSDM ,
+            LKSJ ,
+            QX ,
+            TLSJ ,
+            FZSJ ,
+            ZT ,
+            ZS ,
+            DRZT
+        ) VALUES (
+            #{lsh} ,
+            #{jgid} ,
+            #{kh} ,
+            #{xm} ,
+            #{xb} ,
+            #{csny} ,
+            #{nl} ,
+            #{nldw} ,
+            #{zjlx} ,
+            #{zjhm} ,
+            #{lxfs} ,
+            #{xzzsf} ,
+            #{xzzs} ,
+            #{xzzx} ,
+            #{xxzz} ,
+            #{lyfs} ,
+            #{lzsj} ,
+            #{tw} ,
+            #{mb} ,
+            #{hx} ,
+            #{xyszy} ,
+            #{xyssy} ,
+            #{xybhd} ,
+            #{xl} ,
+            #{yszt} ,
+            #{sewspf} ,
+            #{ttpf} ,
+            #{xtpj} ,
+            #{brpj} ,
+            #{fzksdm} ,
+            #{ysdm} ,
+            #{fzhsdm} ,
+            #{lksj} ,
+            #{qx} ,
+            #{tlsj} ,
+            #{fzsj} ,
+            #{zt} ,
+            #{zs} ,
+            #{drzt}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE ER_PRE_YJFZ SET
+            JGID = #{jgid} ,
+            KH = #{kh} ,
+            XM = #{xm} ,
+            XB = #{xb} ,
+            NL = #{nl} ,
+            NLDW = #{nldw} ,
+            ZJLX = #{zjlx} ,
+            ZJHM = #{zjhm} ,
+            LXFS = #{lxfs} ,
+            XZZSF = #{xzzsf} ,
+            XZZS = #{xzzs} ,
+            XZZX = #{xzzx} ,
+            XXZZ = #{xxzz} ,
+            LYFS = #{lyfs} ,
+            LZSJ = #{lzsj} ,
+            TW = #{tw} ,
+            MB = #{mb} ,
+            HX = #{hx} ,
+            XYSZY = #{xyszy} ,
+            XYSSY = #{xyssy} ,
+            XYBHD = #{xybhd} ,
+            XL = #{xl} ,
+            YSZT = #{yszt} ,
+            SEWSPF = #{sewspf} ,
+            TTPF = #{ttpf} ,
+            XTPJ = #{xtpj} ,
+            BRPJ = #{brpj} ,
+            FZKSDM = #{fzksdm} ,
+            YSDM = #{ysdm} ,
+            FZHSDM = #{fzhsdm} ,
+            LKSJ = #{lksj} ,
+            QX = #{qx} ,
+            TLSJ = #{tlsj} ,
+            FZSJ = #{fzsj} ,
+            ZT = #{zt} ,
+            ZS = #{zs}
+        WHERE
+            LSH = #{lsh}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM ER_PRE_YJFZ WHERE
+        LSH = #{lsh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM ER_PRE_YJFZ <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="ErPreYjfz">
+        SELECT <include refid="columns" />
+            FROM ER_PRE_YJFZ
+            WHERE
+        LSH = #{j}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lsh)"> -->
+<!--                     AND LSH = #{lsh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kh)"> -->
+<!--                     AND KH = #{kh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(xm)">
+                     AND XM = #{xm}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xb)"> -->
+<!--                     AND XB = #{xb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nl)"> -->
+<!--                     AND NL = #{nl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(nldw)"> -->
+<!--                     AND NLDW = #{nldw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjlx)"> -->
+<!--                     AND ZJLX = #{zjlx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjhm)"> -->
+<!--                     AND ZJHM = #{zjhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lxfs)"> -->
+<!--                     AND LXFS = #{lxfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzsf)"> -->
+<!--                     AND XZZSF = #{xzzsf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzs)"> -->
+<!--                     AND XZZS = #{xzzs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzx)"> -->
+<!--                     AND XZZX = #{xzzx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xxzz)"> -->
+<!--                     AND XXZZ = #{xxzz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lyfs)"> -->
+<!--                     AND LYFS = #{lyfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lzsj)"> -->
+<!--                     AND LZSJ = #{lzsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tw)"> -->
+<!--                     AND TW = #{tw} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mb)"> -->
+<!--                     AND MB = #{mb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hx)"> -->
+<!--                     AND HX = #{hx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xyszy)"> -->
+<!--                     AND XYSZY = #{xyszy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xyssy)"> -->
+<!--                     AND XYSSY = #{xyssy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xybhd)"> -->
+<!--                     AND XYBHD = #{xybhd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xl)"> -->
+<!--                     AND XL = #{xl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yszt)"> -->
+<!--                     AND YSZT = #{yszt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sewspf)"> -->
+<!--                     AND SEWSPF = #{sewspf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ttpf)"> -->
+<!--                     AND TTPF = #{ttpf} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xtpj)"> -->
+<!--                     AND XTPJ = #{xtpj} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(brpj)">
+                     AND BRPJ = #{brpj}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fzksdm)"> -->
+<!--                     AND FZKSDM = #{fzksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ysdm)"> -->
+<!--                     AND YSDM = #{ysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fzhsdm)"> -->
+<!--                     AND FZHSDM = #{fzhsdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lksj)"> -->
+<!--                     AND LKSJ = #{lksj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qx)"> -->
+<!--                     AND QX = #{qx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tlsj)"> -->
+<!--                     AND TLSJ = #{tlsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fzsj)"> -->
+<!--                     AND FZSJ = #{fzsj} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(zt)">
+                     AND ZT = #{zt}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zs)"> -->
+<!--                     AND ZS = #{zs} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(lzsjStartTime)">
+                    AND LZSJ >= #{lzsjStartTime}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(lzsjEndTime)">
+                    AND #{lzsjEndTime} >= LZSJ
+                </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM ER_PRE_YJFZ
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="ErPreYjfz">
+        SELECT <include refid="columns" />
+        FROM ER_PRE_YJFZ
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <update id="cancel">
+        UPDATE ER_PRE_YJFZ SET
+            ZT = 3
+        WHERE
+            LSH = #{lsh}
+    </update>
+    <update id="patientWhereabouts">
+        UPDATE ER_PRE_YJFZ SET
+            lksj = #{lksj},
+            qx = #{qx},
+            tlsj = #{tlsj},
+            zt = 2
+        WHERE
+            LSH = #{lsh}
+    </update>
+
+    <select id="getByLsh" resultType="YjfzBrdaResp">
+        SELECT
+			LSH AS lsh,
+			JGID AS jgid,
+			KH AS jzkh,
+			XM AS brxm,
+			XB AS brxb,
+			ZJLX AS zjlx,
+			ZJHM AS sfzh,
+			NL AS ages,
+			LXFS AS brdh,
+			XZZSF AS xzzSqs,
+			XZZS AS xzzS,
+			XZZX AS xzzX,
+			XXZZ AS xzzQtdz,
+			DRZT AS drzt
+		FROM
+			ER_PRE_YJFZ
+        WHERE
+        	LSH = #{lsh}
+        	AND DRZT = #{drzt}
+    </select>
+
+    <update id="doProcessDrzt">
+        UPDATE ER_PRE_YJFZ SET DRZT = 1 WHERE LSH = #{lsh}
+    </update>
+
+    <update id="doUpdateJzkhByLsh">
+        UPDATE ER_PRE_YJFZ SET KH = #{jzkh} WHERE LSH = #{lsh}
+    </update>
+</mapper>
+

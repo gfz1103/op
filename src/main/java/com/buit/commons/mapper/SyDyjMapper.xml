@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 打印机 -->
+<mapper namespace="com.buit.commons.dao.SyDyjDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JGID as jgid,KSDM as ksdm,PTDYJ as ptdyj,XHDDYJ as xhddyj
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SY_DYJ (
+            JGID ,
+            KSDM ,
+            PTDYJ ,
+            XHDDYJ 
+        ) VALUES (
+            #{jgid} ,
+            #{ksdm} ,
+            #{ptdyj} ,
+            #{xhddyj} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE SY_DYJ SET
+            PTDYJ = #{ptdyj} ,
+            XHDDYJ = #{xhddyj} 
+        WHERE 
+            JGID = #{jgid}  AND 
+                        KSDM = #{ksdm} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SY_DYJ WHERE
+        JGID = #{jgid}  AND 
+        KSDM = #{ksdm} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM SY_DYJ <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="SyDyj">
+        SELECT <include refid="columns" />
+            FROM SY_DYJ 
+            WHERE 
+        JGID = #{jgid}  AND 
+        KSDM = #{ksdm} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ptdyj)"> -->
+<!--                     AND PTDYJ = #{ptdyj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xhddyj)"> -->
+<!--                     AND XHDDYJ = #{xhddyj} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SY_DYJ 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="SyDyj">
+        SELECT <include refid="columns" />
+        FROM SY_DYJ 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+    <select id="doQuerySyptdyj" resultType="SyDyjResp">
+        SELECT <include refid="columns" />
+        FROM SY_DYJ 
+        WHERE PTDYJ is not null and KSDM = #{ksdm} and JGID = #{jgid}
+    </select>
+    
+    <select id="doQuerySyxhddyj" resultType="SyDyjResp">
+        SELECT <include refid="columns" />
+        FROM SY_DYJ 
+        WHERE XHDDYJ is not null and KSDM = #{ksdm} and JGID = #{jgid}
+    </select>
+    
+    <select id="doQuerySyptdyjCount" resultType="java.lang.Integer">
+        SELECT count(1) as count 
+        FROM SY_DYJ 
+        WHERE KSDM = #{ksdm} and JGID = #{jgid} and PTDYJ = #{ptdyj}
+    </select>
+    
+    <select id="doQuerySyxhddyjCount" resultType="java.lang.Integer">
+        SELECT count(1) as count 
+        FROM SY_DYJ 
+        WHERE KSDM = #{ksdm} and JGID = #{jgid} and XHDDYJ = #{xhddyj}
+    </select>
+</mapper>
+

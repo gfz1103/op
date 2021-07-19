@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.SkinXmDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JGID as jgid,PSID as psid,PSMC as psmc,PSSC as pssc,PSLX as pslx,ZT as zt,PYDM as pydm,WBDM as wbdm,DW as dw
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SKIN_XM (
+            JGID ,
+            PSID ,
+            PSMC ,
+            PSSC ,
+            PSLX ,
+            ZT ,
+            PYDM ,
+            WBDM ,
+            DW
+        ) VALUES (
+            #{jgid} ,
+            #{psid} ,
+            #{psmc} ,
+            #{pssc} ,
+            #{pslx} ,
+            #{zt} ,
+            #{pydm} ,
+            #{wbdm} ,
+            #{dw}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE SKIN_XM SET
+            PSSC = #{pssc} ,
+            PSLX = #{pslx} ,
+            ZT = #{zt} ,
+            PYDM = #{pydm} ,
+            WBDM = #{wbdm}
+        WHERE
+            JGID = #{jgid}  AND
+                        PSID = #{psid}  AND
+                        PSMC = #{psmc}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SKIN_XM WHERE
+        JGID = #{jgid}  AND
+        PSID = #{psid}  AND
+        PSMC = #{psmc}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM SKIN_XM <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="SkinXm">
+        SELECT <include refid="columns" />
+            FROM SKIN_XM
+            WHERE
+        JGID = #{jgid}  AND
+        PSID = #{psid}  AND
+        PSMC = #{psmc}
+    </select>
+
+    <sql id="where">
+        <where>
+               <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                    AND JGID = #{jgid}
+               </if>
+               <if test="@sqlt.Ognl@isNotEmpty(psid)">
+                    AND PSID = #{psid}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psmc)"> -->
+<!--                     AND PSMC = #{psmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pssc)"> -->
+<!--                     AND PSSC = #{pssc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pslx)"> -->
+<!--                     AND PSLX = #{pslx} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(zt)">
+                    AND ZT = #{zt}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pydm)"> -->
+<!--                     AND PYDM = #{pydm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wbdm)"> -->
+<!--                     AND WBDM = #{wbdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dw)"> -->
+<!--                     AND DW = #{dw} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SKIN_XM
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="SkinXm">
+        SELECT <include refid="columns" />
+        FROM SKIN_XM
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="doQuerySkinTestList" resultType="SkinXmResp">
+        SELECT <include refid="columns" />
+        FROM SKIN_XM
+        where JGID = #{jgid}
+    </select>
+
+    <select id="isExistPsmc" resultType="java.lang.Integer">
+        SELECT count(1) FROM SKIN_XM
+        <where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(psmc)">
+				AND PSMC = #{psmc}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(psid)">
+				AND PSID != #{psid}
+			</if>
+		</where>
+    </select>
+
+    <update id="updatePsxm">
+		UPDATE SKIN_XM
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(psmc)">
+				PSMC = #{psmc},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(pssc)">
+				PSSC = #{pssc},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(pydm)">
+				PYDM = #{pydm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(wbdm)">
+				WBDM = #{wbdm},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(pslx)">
+				PSLX = #{pslx},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+				ZT = #{zt},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(dw)">
+				DW = #{dw},
+			</if>
+		</trim>
+		WHERE PSID = #{psid} AND JGID = #{jgid}
+	</update>
+
+	<delete id="doDeleteSkinTest">
+        DELETE FROM SKIN_XM WHERE JGID = #{jgid}  AND  PSID = #{psid}
+    </delete>
+
+    <select id="doQueryPsxmHz" resultType="com.buit.commons.response.SkinXmHzResp">
+        SELECT
+			xm.PSID AS psid,
+			xm.PSMC AS psmc,
+			xm.DW AS dw,
+			count( sfxm.SL ) AS sl,
+			sum( sfxm.SL * ylsfxmdj.FYDJ ) AS je
+			<!--  ylsf.FYXH AS fyxh -->
+		FROM
+			skin_xm xm
+			INNER JOIN skin_xmldsfxm sfxm ON xm.PSID = sfxm.PSID
+			INNER JOIN FEE_YLSFXM ylsf ON sfxm.SFXMDM = ylsf.FYXH
+			INNER JOIN FEE_YLSFXMDJ ylsfxmdj ON ylsf.FYXH = ylsfxmdj.FYXH
+		where xm.PSID = #{psid}
+		GROUP BY
+			xm.PSID,
+			xm.PSMC,
+			xm.DW
+			<!--  ylsf.FYXH-->
+    </select>
+
+    <select id="getpsxmByDrugs" resultType="com.buit.commons.response.SkinXmHzResp">
+        SELECT
+        skin.psid,
+        skin.psmc,
+        skin.dw,
+        -- count( skin.sl ) AS sl,
+        '1' AS sl,
+        sum( skin.je ) AS je
+        FROM
+        (SELECT DISTINCT
+        xm.PSID AS psid,
+        xm.PSMC AS psmc,
+        xm.DW AS dw,
+        sfxm.SFXMDM AS sfxmdm,
+        -- sfxm.SL AS sl,
+        sfxm.SL * ylsfxmdj.FYDJ AS je
+        FROM
+        skin_xm xm
+        INNER JOIN skin_xmldsfxm sfxm ON xm.PSID = sfxm.PSID
+        INNER JOIN FEE_YLSFXM ylsf ON sfxm.SFXMDM = ylsf.FYXH
+        INNER JOIN FEE_YLSFXMDJ ylsfxmdj ON ylsf.FYXH = ylsfxmdj.FYXH
+        INNER JOIN drugs_typk typk ON xm.PSID = typk.PSID
+        where 1=1
+        AND typk.YPXH in
+        <foreach collection="list" item="item" separator="," open="(" close=")" index="">#{item}
+        </foreach>
+        AND typk.PSPB = '1' AND typk.PSID IS NOT NULL
+        ) skin
+            GROUP BY
+                skin.PSID,
+                skin.PSMC,
+                skin.DW
+    </select>
+</mapper>
+

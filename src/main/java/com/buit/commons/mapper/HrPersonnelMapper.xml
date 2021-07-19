@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 员工信息 -->
+<mapper namespace="com.buit.commons.dao.HrPersonnelDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        PERSONID as personid,PERSONNAME as personname,PHOTO as photo,CARDTYPE as cardtype,CARDNUM as cardnum,BIRTHDAY as birthday,GENDER as gender,ETHNIC as ethnic,HOMETOWN as hometown,EMAIL as email,MOBILE as mobile,EDUCATION as education,EDUCATIONBACKGROUND as educationbackground,JOININWORK as joininwork,JOBPOST as jobpost,OPERATIONTYPE as operationtype,MAJORTYPE as majortype,MAJORJOB as majorjob,OFFICECODE as officecode,ORGANIZCODE as organizcode,ADDRESS as address,PYCODE as pycode,REMARK as remark,CERTIFICATENUM as certificatenum,MAJORQUALIFY as majorqualify,OPERATIONSCOPE as operationscope,MAJORNAME as majorname,EXPERTCOST as expertcost,PRESCRIBERIGHT as prescriberight,NARCOTICRIGHT as narcoticright,PSYCHOTROPICRIGHT as psychotropicright,LASTMODIFYDATE as lastmodifydate,LOGOFF as logoff,WBCODE as wbcode,JXCODE as jxcode,QTCODE as qtcode,MEDICALROLES as medicalroles,ANTIBIOTICLEVEL as antibioticlevel,ZYBH as zybh,GPROLE as gprole,RYBH as rybh,YGDM as ygdm,GPID as gpid,ZYYSXM as zyysxm,CARDID as cardid,LOGOFFOPERATER as logoffoperater,LOGOFFTIME as logofftime,RECOVEROPERATER as recoveroperater,RECOVERTIME as recovertime,SPECIALCOST as specialcost,YG_PASSWORD as ygPassword,CITY_ID as cityId,COUNTRY_ID as countryId,COUNTY_ID as countyId,DATA_VERSION as dataVersion,GMT_CREATE as gmtCreate,MARRIAGE_TYPE_ID as marriageTypeId,OFFICE_TELEPHONE as officeTelephone,PERSON_CLASS_ID as personClassId,PROVINCE_ID as provinceId,ISEXPERT as isexpert,ANTIBIOTICRIGHT as antibioticright,ISSPECIAL as isspecial,JCGLY as jcgly
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO HR_PERSONNEL (
+            PERSONID ,
+            PERSONNAME ,
+            PHOTO ,
+            CARDTYPE ,
+            CARDNUM ,
+            BIRTHDAY ,
+            GENDER ,
+            ETHNIC ,
+            HOMETOWN ,
+            EMAIL ,
+            MOBILE ,
+            EDUCATION ,
+            EDUCATIONBACKGROUND ,
+            JOININWORK ,
+            JOBPOST ,
+            OPERATIONTYPE ,
+            MAJORTYPE ,
+            MAJORJOB ,
+            OFFICECODE ,
+            ORGANIZCODE ,
+            ADDRESS ,
+            PYCODE ,
+            REMARK ,
+            CERTIFICATENUM ,
+            MAJORQUALIFY ,
+            OPERATIONSCOPE ,
+            MAJORNAME ,
+            EXPERTCOST ,
+            PRESCRIBERIGHT ,
+            NARCOTICRIGHT ,
+            PSYCHOTROPICRIGHT ,
+            LASTMODIFYDATE ,
+            LOGOFF ,
+            WBCODE ,
+            JXCODE ,
+            QTCODE ,
+            MEDICALROLES ,
+            ANTIBIOTICLEVEL ,
+            ZYBH ,
+            GPROLE ,
+            RYBH ,
+            YGDM ,
+            GPID ,
+            ZYYSXM ,
+            CARDID ,
+            RECOVEROPERATER ,
+            RECOVERTIME ,
+            SPECIALCOST ,
+            YG_PASSWORD ,
+            CITY_ID ,
+            COUNTRY_ID ,
+            COUNTY_ID ,
+            DATA_VERSION ,
+            GMT_CREATE ,
+            MARRIAGE_TYPE_ID ,
+            OFFICE_TELEPHONE ,
+            PERSON_CLASS_ID ,
+            PROVINCE_ID ,
+            ISEXPERT ,
+            ANTIBIOTICRIGHT ,
+            ISSPECIAL ,
+            JCGLY 
+        ) VALUES (
+            #{personid} ,
+            #{personname} ,
+            #{photo} ,
+            #{cardtype} ,
+            #{cardnum} ,
+            #{birthday} ,
+            #{gender} ,
+            #{ethnic} ,
+            #{hometown} ,
+            #{email} ,
+            #{mobile} ,
+            #{education} ,
+            #{educationbackground} ,
+            #{joininwork} ,
+            #{jobpost} ,
+            #{operationtype} ,
+            #{majortype} ,
+            #{majorjob} ,
+            #{officecode} ,
+            #{organizcode} ,
+            #{address} ,
+            #{pycode} ,
+            #{remark} ,
+            #{certificatenum} ,
+            #{majorqualify} ,
+            #{operationscope} ,
+            #{majorname} ,
+            #{expertcost} ,
+            #{prescriberight} ,
+            #{narcoticright} ,
+            #{psychotropicright} ,
+            #{lastmodifydate} ,
+            0 ,
+            #{wbcode} ,
+            #{jxcode} ,
+            #{qtcode} ,
+            #{medicalroles} ,
+            #{antibioticlevel} ,
+            #{zybh} ,
+            #{gprole} ,
+            #{rybh} ,
+            #{ygdm} ,
+            #{gpid} ,
+            #{zyysxm} ,
+            #{cardid} ,
+            #{recoveroperater} ,
+            #{recovertime} ,
+            #{specialcost} ,
+            #{ygPassword} ,
+            #{cityId} ,
+            #{countryId} ,
+            #{countyId} ,
+            #{dataVersion} ,
+            #{gmtCreate} ,
+            #{marriageTypeId} ,
+            #{officeTelephone} ,
+            #{personClassId} ,
+            #{provinceId} ,
+            #{isexpert} ,
+            #{antibioticright} ,
+            #{isspecial} ,
+            #{jcgly} 
+        )
+    </insert>
+    
+    <update id="update" >  
+        UPDATE HR_PERSONNEL SET
+            PERSONNAME = #{personname} ,
+            PHOTO = #{photo} ,
+            CARDTYPE = #{cardtype} ,
+            CARDNUM = #{cardnum} ,
+            BIRTHDAY = #{birthday} ,
+            GENDER = #{gender} ,
+            ETHNIC = #{ethnic} ,
+            HOMETOWN = #{hometown} ,
+            EMAIL = #{email} ,
+            MOBILE = #{mobile} ,
+            EDUCATION = #{education} ,
+            EDUCATIONBACKGROUND = #{educationbackground} ,
+            JOININWORK = #{joininwork} ,
+            JOBPOST = #{jobpost} ,
+            OPERATIONTYPE = #{operationtype} ,
+            MAJORTYPE = #{majortype} ,
+            MAJORJOB = #{majorjob} ,
+            OFFICECODE = #{officecode} ,
+            ADDRESS = #{address} ,
+            PYCODE = #{pycode} ,
+            REMARK = #{remark} ,
+            CERTIFICATENUM = #{certificatenum} ,
+            MAJORQUALIFY = #{majorqualify} ,
+            OPERATIONSCOPE = #{operationscope} ,
+            MAJORNAME = #{majorname} ,
+            EXPERTCOST = #{expertcost} ,
+            PRESCRIBERIGHT = #{prescriberight} ,
+            NARCOTICRIGHT = #{narcoticright} ,
+            PSYCHOTROPICRIGHT = #{psychotropicright} ,
+            LASTMODIFYDATE = #{lastmodifydate} ,          
+            WBCODE = #{wbcode} ,
+            JXCODE = #{jxcode} ,
+            QTCODE = #{qtcode} ,
+            MEDICALROLES = #{medicalroles} ,
+            ANTIBIOTICLEVEL = #{antibioticlevel} ,
+            ZYBH = #{zybh} ,
+            GPROLE = #{gprole} ,
+            RYBH = #{rybh} ,
+            YGDM = #{ygdm} ,
+            GPID = #{gpid} ,
+            ZYYSXM = #{zyysxm} ,
+            CARDID = #{cardid} ,
+            SPECIALCOST = #{specialcost} ,
+            YG_PASSWORD = #{ygPassword} ,
+            CITY_ID = #{cityId} ,
+            COUNTRY_ID = #{countryId} ,
+            COUNTY_ID = #{countyId} ,
+            DATA_VERSION = #{dataVersion} ,
+            MARRIAGE_TYPE_ID = #{marriageTypeId} ,
+            OFFICE_TELEPHONE = #{officeTelephone} ,
+            PERSON_CLASS_ID = #{personClassId} ,
+            PROVINCE_ID = #{provinceId} ,
+            ISEXPERT = #{isexpert} ,
+            ANTIBIOTICRIGHT = #{antibioticright} ,
+            ISSPECIAL = #{isspecial} ,LAST_LOGIN_IP = #{lastLoginIp}
+        WHERE 
+            PERSONID = #{personid} 
+    </update>
+    <update id="unlock" >
+        UPDATE HR_PERSONNEL SET
+            LOGOFF = '0' ,
+            RECOVEROPERATER = #{recoveroperater} ,
+            RECOVERTIME = #{recovertime}
+        WHERE 
+            PERSONID = #{personid} 
+    </update>
+    <update id="lock" >  
+        UPDATE HR_PERSONNEL SET
+            LOGOFF = '1' ,
+            LOGOFFOPERATER = #{logoffoperater} ,
+            LOGOFFTIME = #{logofftime}  
+        WHERE 
+            PERSONID = #{personid} 
+    </update>
+    
+
+    <delete id="deleteById">
+        DELETE FROM HR_PERSONNEL WHERE
+        PERSONID = #{personid} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM HR_PERSONNEL <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="HrPersonnel">
+        SELECT <include refid="columns" />
+            FROM HR_PERSONNEL 
+            WHERE 
+        PERSONID = #{personid} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+                <if test="@sqlt.Ognl@isNotEmpty(personid)"> 
+                     AND PERSONID = #{personid}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(personname)"> -->
+<!--                     AND PERSONNAME = #{personname} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(photo)"> -->
+<!--                     AND PHOTO = #{photo} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardtype)"> -->
+<!--                     AND CARDTYPE = #{cardtype} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardnum)"> -->
+<!--                     AND CARDNUM = #{cardnum} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(birthday)"> -->
+<!--                     AND BIRTHDAY = #{birthday} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gender)"> -->
+<!--                     AND GENDER = #{gender} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ethnic)"> -->
+<!--                     AND ETHNIC = #{ethnic} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hometown)"> -->
+<!--                     AND HOMETOWN = #{hometown} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(email)"> -->
+<!--                     AND EMAIL = #{email} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mobile)"> -->
+<!--                     AND MOBILE = #{mobile} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(education)"> -->
+<!--                     AND EDUCATION = #{education} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(educationbackground)"> -->
+<!--                     AND EDUCATIONBACKGROUND = #{educationbackground} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(joininwork)"> -->
+<!--                     AND JOININWORK = #{joininwork} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jobpost)"> -->
+<!--                     AND JOBPOST = #{jobpost} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(operationtype)"> -->
+<!--                     AND OPERATIONTYPE = #{operationtype} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(majortype)"> -->
+<!--                     AND MAJORTYPE = #{majortype} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(majorjob)"> -->
+<!--                     AND MAJORJOB = #{majorjob} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(officecode)"> 
+                    AND OFFICECODE = #{officecode} 
+               </if> 
+               <if test="@sqlt.Ognl@isNotEmpty(organizcode)">
+                    AND ORGANIZCODE = #{organizcode}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(address)"> -->
+<!--                     AND ADDRESS = #{address} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pycode)"> -->
+<!--                     AND PYCODE = #{pycode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(remark)"> -->
+<!--                     AND REMARK = #{remark} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(certificatenum)"> -->
+<!--                     AND CERTIFICATENUM = #{certificatenum} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(majorqualify)"> -->
+<!--                     AND MAJORQUALIFY = #{majorqualify} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(operationscope)"> -->
+<!--                     AND OPERATIONSCOPE = #{operationscope} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(majorname)"> -->
+<!--                     AND MAJORNAME = #{majorname} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(expertcost)"> -->
+<!--                     AND EXPERTCOST = #{expertcost} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(prescriberight)"> 
+                     AND PRESCRIBERIGHT = #{prescriberight} 
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(narcoticright)"> -->
+<!--                     AND NARCOTICRIGHT = #{narcoticright} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psychotropicright)"> -->
+<!--                     AND PSYCHOTROPICRIGHT = #{psychotropicright} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifydate)"> -->
+<!--                     AND LASTMODIFYDATE = #{lastmodifydate} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(logoff)">
+                    AND LOGOFF = #{logoff}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(wbcode)"> -->
+<!--                     AND WBCODE = #{wbcode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jxcode)"> -->
+<!--                     AND JXCODE = #{jxcode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtcode)"> -->
+<!--                     AND QTCODE = #{qtcode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(medicalroles)"> -->
+<!--                     AND MEDICALROLES = #{medicalroles} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(antibioticlevel)"> -->
+<!--                     AND ANTIBIOTICLEVEL = #{antibioticlevel} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zybh)"> -->
+<!--                     AND ZYBH = #{zybh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gprole)"> -->
+<!--                     AND GPROLE = #{gprole} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(rybh)"> -->
+<!--                     AND RYBH = #{rybh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ygdm)"> -->
+<!--                     AND YGDM = #{ygdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gpid)"> -->
+<!--                     AND GPID = #{gpid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zyysxm)"> -->
+<!--                     AND ZYYSXM = #{zyysxm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardid)"> -->
+<!--                     AND CARDID = #{cardid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(logoffoperater)"> -->
+<!--                     AND LOGOFFOPERATER = #{logoffoperater} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(logofftime)"> -->
+<!--                     AND LOGOFFTIME = #{logofftime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recoveroperater)"> -->
+<!--                     AND RECOVEROPERATER = #{recoveroperater} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(recovertime)"> -->
+<!--                     AND RECOVERTIME = #{recovertime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(specialcost)"> -->
+<!--                     AND SPECIALCOST = #{specialcost} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ygPassword)"> -->
+<!--                     AND YG_PASSWORD = #{ygPassword} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cityId)"> -->
+<!--                     AND CITY_ID = #{cityId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(countryId)"> -->
+<!--                     AND COUNTRY_ID = #{countryId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(countyId)"> -->
+<!--                     AND COUNTY_ID = #{countyId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dataVersion)"> -->
+<!--                     AND DATA_VERSION = #{dataVersion} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gmtCreate)"> -->
+<!--                     AND GMT_CREATE = #{gmtCreate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(marriageTypeId)"> -->
+<!--                     AND MARRIAGE_TYPE_ID = #{marriageTypeId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(officeTelephone)"> -->
+<!--                     AND OFFICE_TELEPHONE = #{officeTelephone} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(personClassId)"> -->
+<!--                     AND PERSON_CLASS_ID = #{personClassId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(provinceId)"> -->
+<!--                     AND PROVINCE_ID = #{provinceId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(isexpert)"> -->
+<!--                     AND ISEXPERT = #{isexpert} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(antibioticright)"> -->
+<!--                     AND ANTIBIOTICRIGHT = #{antibioticright} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(isspecial)"> -->
+<!--                     AND ISSPECIAL = #{isspecial} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jcgly)"> -->
+<!--                     AND JCGLY = #{jcgly} -->
+<!--                </if> -->
+
+<!--                <if test="@sqlt.Ognl@isNotEmpty(scbz)"> -->
+<!--                     AND SCBZ = #{scbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(babh)"> -->
+<!--                     AND BABH = #{babh} -->
+<!--                </if> -->
+				<if test="@sqlt.Ognl@isNotEmpty(groupId)">
+                    AND EXISTS (SELECT USERGROUP_ID FROM sys_user_group WHERE sys_user_group.USER_ID=HR_PERSONNEL.PERSONID  AND sys_user_group.GROUP_ID=#{groupId} )
+               </if>
+			   <if test="@sqlt.Ognl@isNotEmpty(haveGroup)">
+                    AND EXISTS (SELECT USERGROUP_ID FROM sys_user_group WHERE sys_user_group.USER_ID=HR_PERSONNEL.PERSONID)
+               </if>
+
+				<if test="@sqlt.Ognl@isNotEmpty(personname)">
+                    AND (	PERSONNAME LIKE CONCAT(CONCAT('%',UPPER(#{personname})),'%') 
+               				or PYCODE LIKE CONCAT(CONCAT('%',UPPER(#{personname})),'%') 
+               				or WBCODE LIKE CONCAT(CONCAT('%',UPPER(#{personname})),'%') 
+               			)
+               </if>
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM HR_PERSONNEL 
+        <include refid="where"/>    
+    </select>
+    <select id="countRybh" resultType="long">
+       SELECT COUNT(*) FROM HR_PERSONNEL  WHERE RYBH=#{rybh} 
+        <if test="@sqlt.Ognl@isNotEmpty(personid)">
+             AND PERSONID != #{personid}
+        </if>  
+    </select>
+    
+    <!-- 校验证件类型和证件号码唯一 -->
+    <select id="validCard" resultType="java.lang.Integer">
+		SELECT count(*) FROM HR_PERSONNEL
+		where  ORGANIZCODE = #{organizcode} AND CARDTYPE = #{cardtype}  AND CARDNUM = #{cardnum}
+		<if test="@sqlt.Ognl@isNotEmpty(personid)">
+             AND PERSONID != #{personid}
+        </if>
+	</select>
+    
+    
+    <select id="findByEntity" resultType="HrPersonnel">
+        SELECT <include refid="columns" />
+        FROM HR_PERSONNEL 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <!--     取所有 没有设置登录用户的 员工       -->
+    <select id="getLoginUser" resultType="HrPersonnel">
+        SELECT <include refid="columns" />
+		FROM HR_PERSONNEL A 
+		WHERE NOT EXISTS(SELECT B.PERSON_ID FROM SYS_USER B WHERE B.PERSON_ID = A.PERSONID)
+		AND LOGOFF = '0'  AND ORGANIZCODE = #{organizcode}
+		<if test="@sqlt.Ognl@isNotEmpty(personname)">
+              AND 
+              	( PERSONNAME LIKE CONCAT(CONCAT('%',UPPER(#{personname})),'%') 
+              	   or RYBH LIKE CONCAT(CONCAT('%',UPPER(#{personname})),'%')
+					or PYCODE LIKE CONCAT(CONCAT('%',UPPER(#{personname})),'%')
+					or WBCODE LIKE CONCAT(CONCAT('%',UPPER(#{personname})),'%')
+				)
+        </if>
+    </select>
+<!--     <select id="getYgdm" resultType="java.util.Map"> -->
+<!--         SELECT -->
+<!--             YGDM -->
+<!--         FROM -->
+<!--             HR_PERSONNEL -->
+<!--         WHERE -->
+<!--             personid = #{pid} -->
+<!--     </select> -->
+    
+    <!-- 根据拟邀科室查询人员信息 -->
+    <select id="queryYqysByKs" resultType="HrPersonnel">
+         SELECT <include refid="columns" />
+	        FROM HR_PERSONNEL 
+	        WHERE LOGOFF = 0
+	        and PRESCRIBERIGHT = 1
+	        and OFFICECODE in 
+	        <foreach collection="nyqhzksList" item="officecode" open="(" close=")" separator="," >
+                #{officecode}
+        	</foreach>
+    </select>
+    <select id="queryLoginDoctor" resultType="com.buit.system.response.HrPersonnelResp">
+        SELECT
+            hr_personnel.PERSONID AS personid,
+            hr_personnel.PERSONNAME AS personname
+        FROM
+            hr_personnel,
+            op_yspb
+        WHERE
+            hr_personnel.PERSONID = op_yspb.YSDM
+            AND DATE_FORMAT( now(), '%Y-%m-%d' ) = DATE_FORMAT( op_yspb.GZRQ, '%Y-%m-%d' )
+            AND op_yspb.KSDM = #{ksid}
+            <!-- 暂无数据不启动这个条件 AND LAST_LOGIN_IP is not null -->
+    </select>
+
+	<!-- 查询人员科室信息 -->
+    <select id="queryRyKsInfo" resultType="HrPersonnelKsResp">
+         select a.personid as personid, 
+         		a.personname as personname, 
+         		b.id as id, 
+         		b.officename as officename,
+         		a.medicalroles as medicalroles
+	        from hr_personnel a, dic_kszd b
+	        where a.logoff = 0
+	        and a.officecode  = b.id
+	        <if test="@sqlt.Ognl@isNotEmpty(personid)">
+              and a.personid = #{personid}
+        	</if> 
+        	<if test="@sqlt.Ognl@isNotEmpty(pycode)">
+              and a.pycode like CONCAT(CONCAT('%',UPPER(#{pycode})),'%')
+        	</if> 
+	        and a.organizcode = #{jgid}
+	        and b.organizcode = #{jgid}
+    </select>
+</mapper>
+

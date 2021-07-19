@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- EMPI个人基本信息(卡) -->
+<mapper namespace="com.buit.commons.dao.MpiCardDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        CARDID as cardid,EMPIID as empiid,CARDTYPECODE as cardtypecode,CARDNO as cardno,CREATEUNIT as createunit,CREATEUSER as createuser,STATUS as status,CREATETIME as createtime,VALIDTIME as validtime,LASTMODIFYTIME as lastmodifytime,LASTMODIFYUNIT as lastmodifyunit,LASTMODIFYUSER as lastmodifyuser,CARDCODE as cardcode,SCBZ as scbz,BRID as brid,BRXZ as brxz,REGIONCODE as regioncode
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO MPI_CARD (
+            CARDID ,
+            EMPIID ,
+            CARDTYPECODE ,
+            CARDNO ,
+            CREATEUNIT ,
+            CREATEUSER ,
+            STATUS ,
+            CREATETIME ,
+            VALIDTIME ,
+            LASTMODIFYTIME ,
+            LASTMODIFYUNIT ,
+            LASTMODIFYUSER ,
+            CARDCODE ,
+            SCBZ ,
+            BRID ,
+            BRXZ ,
+            REGIONCODE
+        ) VALUES (
+            #{cardid} ,
+            #{empiid} ,
+            #{cardtypecode} ,
+            #{cardno} ,
+            #{createunit} ,
+            #{createuser} ,
+            #{status} ,
+            #{createtime} ,
+            #{validtime} ,
+            #{lastmodifytime} ,
+            #{lastmodifyunit} ,
+            #{lastmodifyuser} ,
+            #{cardcode} ,
+            #{scbz} ,
+            #{brid} ,
+            #{brxz} ,
+            #{regioncode}
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE MPI_CARD SET
+            EMPIID = #{empiid} ,
+            CARDTYPECODE = #{cardtypecode} ,
+            CARDNO = #{cardno} ,
+            CREATEUNIT = #{createunit} ,
+            CREATEUSER = #{createuser} ,
+            STATUS = #{status} ,
+            CREATETIME = #{createtime} ,
+            VALIDTIME = #{validtime} ,
+            LASTMODIFYTIME = #{lastmodifytime} ,
+            LASTMODIFYUNIT = #{lastmodifyunit} ,
+            LASTMODIFYUSER = #{lastmodifyuser} ,
+            CARDCODE = #{cardcode} ,
+            SCBZ = #{scbz} ,
+            BRID = #{brid} ,
+            BRXZ = #{brxz} ,
+            REGIONCODE = #{regioncode} 
+        WHERE 
+            CARDID = #{cardid} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM MPI_CARD WHERE
+        CARDID = #{cardid} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM MPI_CARD <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="MpiCard">
+        SELECT <include refid="columns" />
+            FROM MPI_CARD 
+            WHERE 
+        CARDID = #{cardid} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardid)"> -->
+<!--                     AND CARDID = #{cardid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(empiid)"> -->
+<!--                     AND EMPIID = #{empiid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardtypecode)"> -->
+<!--                     AND CARDTYPECODE = #{cardtypecode} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(cardno)">
+                    AND CARDNO = #{cardno}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(createunit)"> -->
+<!--                     AND CREATEUNIT = #{createunit} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(createuser)"> -->
+<!--                     AND CREATEUSER = #{createuser} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(status)"> -->
+<!--                     AND STATUS = #{status} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(createtime)"> -->
+<!--                     AND CREATETIME = #{createtime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(validtime)"> -->
+<!--                     AND VALIDTIME = #{validtime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifytime)"> -->
+<!--                     AND LASTMODIFYTIME = #{lastmodifytime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifyunit)"> -->
+<!--                     AND LASTMODIFYUNIT = #{lastmodifyunit} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lastmodifyuser)"> -->
+<!--                     AND LASTMODIFYUSER = #{lastmodifyuser} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardcode)"> -->
+<!--                     AND CARDCODE = #{cardcode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(scbz)"> -->
+<!--                     AND SCBZ = #{scbz} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(brid)">
+                    AND BRID = #{brid}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxz)"> -->
+<!--                     AND BRXZ = #{brxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(regioncode)"> -->
+<!--                     AND REGIONCODE = #{regioncode} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM MPI_CARD 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="MpiCard">
+        SELECT <include refid="columns" />
+        FROM MPI_CARD 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!-- 根据卡号查询病人信息 -->
+    <select id="doQueryPerson" resultType="MpiCard">
+		SELECT BRID AS brid,BRXZ AS brxz,STATUS AS status,CARDNO as cardNo FROM MPI_CARD
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(status)">
+				AND STATUS = #{status}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(cardno)">
+				AND CARDNO = #{cardno}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(cardtypecode)">
+				AND CARDTYPECODE = #{cardtypecode}
+			</if>
+		</where>
+	</select>
+	<!-- 更新病人性质 -->
+	<update id="updateBrxz">
+		UPDATE MPI_CARD
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(ybxz)">
+				BRXZ = #{ybxz},
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(brid)">
+				AND BRID = #{brid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND CARDNO = #{jzkh}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 条件查询卡信息 -->
+    <select id="getMpiCardInfo" resultType="MpiCard">
+		SELECT
+		<include refid="columns" />
+		FROM MPI_CARD
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(cardno)">
+				AND CARDNO = #{cardno}
+			</if>
+		</where>
+	</select>
+
+	<!-- 更改卡状态 -->
+	<update id="updateCardStatus">
+		UPDATE MPI_CARD
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(status)">
+				STATUS = #{status},
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(cardno)">
+				AND CARDNO = #{cardno}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 查询卡号 -->
+	<select id="getCardNo" parameterType="Map" resultType="java.util.Map">
+        select a.cardno  as NO from mpi_card  a , MPI_BRDA  b where a.brid = b.brid  and b.brid =#{BRID} limit 1
+    </select>
+    
+    <select id="getMpiCardInfoByCardNo" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			a.EMPIID AS EMPIID,
+			a.BRID AS BRID,
+			a.CARDTYPECODE AS CARDTYPECODE,
+			a.CARDNO AS CARDNO,
+			a.CARDCODE AS CARDCODE,
+			b.BRXM AS BRXM,
+			b.SFZH AS IDCARD ,
+			a.BRXZ AS BRXZ,
+			a.STATUS as STATUS,
+			a.CARDID as CARDID 
+		FROM
+			MPI_Card a
+			LEFT JOIN MPI_BRDA b ON b.BRID = a.BRID 
+		WHERE
+			a.CARDNO = #{CARDNO} 
+			<!--  AND a.STATUS <![CDATA[ <= ]]> 1-->
+	</select>
+
+    <!-- 获取卡信息-->
+    <select id="getCardInfoByCardNo" resultType="MpiCard">
+        SELECT  EMPIID as EMPIID,
+            BRXZ as BRXZ,
+            CARDNO as CARDNO,
+            CARDID as CARDID,
+            BRID as BRID
+          FROM MPI_CARD
+          where CARDNO=#{cardNo} and STATUS = 0
+    </select>
+
+    <!--更新病人性质 -->
+    <update id="updateBrxzByYb">
+        UPDATE MPI_CARD
+            SET BRXZ = #{brxz} where CARDID = #{cardId}
+    </update>
+
+    <!--判断是否为医保卡号 -->
+    <select id="countIsYb" resultType="long">
+        SELECT count(*) FROM MPI_CARD a,PUB_BRXZ b
+          WHERE A.BRXZ=B.BRXZ AND (A.BRXZ='4001' OR B.SJXZ='6021') AND A.CARDNO=#{#brkh}
+    </select>
+    <select id="checkCardInfo" resultType="java.lang.Boolean">
+        select count(1)
+        from mpi_brda mb
+        left join mpi_card mc on mb.BRID = mc.BRID
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+                AND mc.CARDNO = #{jzkh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(sfz)">
+                AND mb.SFZH = #{sfz}
+            </if>
+        </where>
+    </select>
+    <select id="getWnCardInfo" resultType="com.buit.commons.model.MpiCard">
+        select * from mpi_card_wn where CARDNO = #{jzkh}
+    </select>
+
+</mapper>
+

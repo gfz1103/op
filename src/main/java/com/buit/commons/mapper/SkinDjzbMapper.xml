@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.SkinDjzbDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JGID as jgid,KSDM as ksdm,DJDH as djdh,DJSJ as djsj,BRID as brid,JZKH as jzkh,DJRDM as djrdm,ZT as zt,PSID as psid,PSMC as psmc,PSXH as psxh,KSSJ as kssj,JSSJ as jssj,SJPSSC as sjpssc,PSJG as psjg,TXRDM as txrdm
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SKIN_DJZB (
+            JGID ,
+            KSDM ,
+            DJDH ,
+            DJSJ ,
+            BRID ,
+            JZKH ,
+            DJRDM ,
+            ZT ,
+            PSID ,
+            PSMC ,
+            PSXH ,
+            KSSJ ,
+            JSSJ ,
+            SJPSSC ,
+            PSJG ,
+            TXRDM
+        ) VALUES (
+            #{jgid} ,
+            #{ksdm} ,
+            #{djdh} ,
+            #{djsj} ,
+            #{brid} ,
+            #{jzkh} ,
+            #{djrdm} ,
+            #{zt} ,
+            #{psid} ,
+            #{psmc} ,
+            #{psxh} ,
+            #{kssj} ,
+            #{jssj} ,
+            #{sjpssc} ,
+            #{psjg} ,
+            #{txrdm}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE SKIN_DJZB SET
+            DJSJ = #{djsj} ,
+            BRID = #{brid} ,
+            JZKH = #{jzkh} ,
+            DJRDM = #{djrdm} ,
+            ZT = #{zt} ,
+            PSID = #{psid} ,
+            PSMC = #{psmc} ,
+            PSXH = #{psxh} ,
+            KSSJ = #{kssj} ,
+            JSSJ = #{jssj} ,
+            SJPSSC = #{sjpssc} ,
+            PSJG = #{psjg} ,
+            TXRDM = #{txrdm}
+        WHERE
+            JGID = #{jgid}  AND
+                        KSDM = #{ksdm}  AND
+                        DJDH = #{djdh}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SKIN_DJZB WHERE
+        JGID = #{jgid}  AND
+        KSDM = #{ksdm}  AND
+        DJDH = #{djdh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM SKIN_DJZB <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="SkinDjzb">
+        SELECT <include refid="columns" />
+            FROM SKIN_DJZB
+            WHERE
+        JGID = #{jgid}  AND
+        KSDM = #{ksdm}  AND
+        DJDH = #{djdh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djdh)"> -->
+<!--                     AND DJDH = #{djdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djsj)"> -->
+<!--                     AND DJSJ = #{djsj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzkh)"> -->
+<!--                     AND JZKH = #{jzkh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djrdm)"> -->
+<!--                     AND DJRDM = #{djrdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zt)"> -->
+<!--                     AND ZT = #{zt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psid)"> -->
+<!--                     AND PSID = #{psid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psmc)"> -->
+<!--                     AND PSMC = #{psmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psxh)"> -->
+<!--                     AND PSXH = #{psxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(kssj)"> -->
+<!--                     AND KSSJ = #{kssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jssj)"> -->
+<!--                     AND JSSJ = #{jssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sjpssc)"> -->
+<!--                     AND SJPSSC = #{sjpssc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psjg)"> -->
+<!--                     AND PSJG = #{psjg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(txrdm)"> -->
+<!--                     AND TXRDM = #{txrdm} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SKIN_DJZB
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="SkinDjzb">
+        SELECT <include refid="columns" />
+        FROM SKIN_DJZB
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="doQuerySyDjUser" resultType="SyJydjUser">
+		SELECT
+		brda.BRXM,
+		brda.BRXB,
+		brda.CSNY,
+		brda.BRID,
+		cf01.JZKH
+		FROM OP_CF01 cf01
+		INNER JOIN OP_CF02 cf02 ON cf01.cfsb = cf02.cfsb
+		INNER JOIN MPI_BRDA brda  ON cf01.BRID = brda.BRID
+		<where>
+			cf01.FPHM is not null
+			AND cf01.MZXH is not null
+			AND cf01.ZFPB = 0
+			AND cf01.FYBZ = 1
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND cf01.JZKH = #{jzkh}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fphm)">
+				AND cf01.FPHM = #{fphm}
+			</if>
+		</where>
+	</select>
+
+	<select id="doQueryUnPsxmList" resultType="com.buit.commons.response.QueryUnPsxmResp">
+		SELECT
+			mzxx.SFRQ as sfrq,
+			typk.PSID as psid,
+			cf01.FPHM as fphm,
+			cf01.MZXH as mzhm,
+			skinxm.PSMC as psmc,
+			cf01.KSDM as ksdm,
+			cf01.YSDM as ysdm,
+			cf02.BZMC as bzmc,
+			cf01.FYBZ as fybz
+		FROM
+			OP_CF01 cf01
+			INNER JOIN OP_CF02 cf02 ON cf01.CFSB = cf02.CFSB
+			INNER JOIN v_drugs_typk typk ON cf02.YPXH = typk.YPXH
+			INNER JOIN SKIN_XM skinxm ON typk.PSID = skinxm.PSID
+			INNER JOIN OP_MZXX mzxx ON cf01.FPHM = mzxx.FPHM
+		<where>
+			typk.PSPB = 1
+			AND cf01.FPHM IS NOT NULL
+			AND cf01.MZXH IS NOT NULL
+			AND cf01.ZFPB = 0
+			-- AND cf01.FYBZ = 1
+			AND ifnull(cf02.PSZXZT,0) = 0
+			<if test="@sqlt.Ognl@isNotEmpty(jzkh)">
+				AND cf01.JZKH = #{jzkh}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fphm)">
+				AND cf01.FPHM = #{fphm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sfrq)">
+				AND mzxx.SFRQ BETWEEN #{beginDay} AND #{endDay}
+			</if>
+		</where>
+		GROUP BY mzxx.SFRQ ,
+				typk.PSID ,
+				cf01.FPHM ,
+				cf01.MZXH ,
+				skinxm.PSMC ,
+				cf01.KSDM ,
+				cf01.YSDM ,
+				cf02.BZMC ,
+		        cf01.FYBZ
+		ORDER BY mzxx.SFRQ desc
+	</select>
+
+	<select id="getMaxPsxhByDay" resultType="java.lang.Integer">
+		select ifnull(max(PSXH),0) + 1 as psxh from SKIN_DJZB
+		where DJSJ BETWEEN #{beginDay} AND #{endDay}
+	</select>
+
+	<select id="doQueryUnPsdjmxList" resultType="QueryUnPsdjmxResp">
+		SELECT
+			cf02.CFSB as cfhm,
+			cf02.YPZH as cfzh,
+			cf02.YPXH as ypxh
+		FROM
+			OP_CF01 cf01
+			INNER JOIN OP_CF02 cf02 ON cf01.CFSB = cf02.CFSB
+			INNER JOIN v_drugs_typk typk ON cf02.YPXH = typk.YPXH
+			INNER JOIN SKIN_XM skinxm ON typk.PSID = skinxm.PSID
+			INNER JOIN OP_MZXX mzxx ON cf01.FPHM = mzxx.FPHM
+		<where>
+			typk.PSPB = 1
+			AND cf01.FPHM IS NOT NULL
+			AND cf01.MZXH IS NOT NULL
+			AND cf01.ZFPB = 0
+			AND cf01.FYBZ = 1
+			<if test="@sqlt.Ognl@isNotEmpty(fphm)">
+				AND cf01.FPHM = #{fphm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(psid)">
+				AND typk.PSID = #{psid}
+			</if>
+		</where>
+	</select>
+
+	<select id="doQueryPsDjList" resultType="com.buit.commons.response.PsDjResp">
+		SELECT
+			djzb.PSXH AS psxh,
+			djzb.ZT AS zt,
+			djzb.DJSJ AS djsj,
+			brda.BRXM AS brxm,
+			brda.BRXB AS brxb,
+			brda.CSNY as csny,
+			djzb.PSID AS psid,
+			djzb.PSMC AS psmc,
+			skinxm.PSSC AS pssc,
+			djzb.KSSJ AS kssj,
+			djzb.JSSJ AS jssj,
+			djzb.SJPSSC AS sjpssc,
+			djzb.PSJG AS psjg,
+			djzb.DJDH
+		FROM
+			SKIN_DJZB djzb
+			INNER JOIN MPI_BRDA brda ON djzb.BRID = brda.BRID
+			LEFT JOIN SKIN_XM skinxm ON djzb.PSID = skinxm.PSID
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND djzb.JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+				AND djzb.KSDM = #{ksdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(djsj_ks)">
+				AND DATE_FORMAT(djzb.DJSJ,'%Y-%m-%d') >= #{djsj_ks}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(djsj_js)">
+				AND DATE_FORMAT(djzb.DJSJ,'%Y-%m-%d') &lt;= #{djsj_js}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+				AND djzb.ZT in
+				<foreach item="item" index="index" collection="zt.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		ORDER BY djzb.DJSJ desc
+	</select>
+
+	<update id="updateZt">
+		UPDATE SKIN_DJZB
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(kssj)">
+				KSSJ = #{kssj},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zt)">
+				ZT = #{zt},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jssj)">
+				JSSJ = #{jssj},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sjpssc)">
+				SJPSSC = #{sjpssc},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(psjg)">
+				PSJG = #{psjg},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(txrdm)">
+				TXRDM = #{txrdm},
+			</if>
+		</trim>
+		where JGID = #{jgid} and KSDM = #{ksdm} and DJDH = #{djdh}
+	</update>
+
+    <delete id="deleteByDjdh">
+        DELETE FROM SKIN_DJZB
+        WHERE JGID = #{jgid}  AND  KSDM = #{ksdm}  AND  DJDH = #{djdh}
+    </delete>
+
+    <select id="doQueryPsDjByDjdh" resultType="SkinDjzb">
+		SELECT <include refid="columns" />
+        FROM SKIN_DJZB
+        WHERE JGID = #{jgid}  AND  KSDM = #{ksdm}  AND  DJDH = #{djdh}
+	</select>
+
+	<select id="doQueryPsdjmxList" resultType="QueryUnRegistResp">
+		SELECT
+			t.ypmc,
+			t.kfrq,
+			t.ypgg,
+			t.ypcd,
+			t.ypjl,
+			t.sypc,
+			t.gytj,
+			t.yyts,
+			t.ysdm,
+			t.bzmc
+		FROM
+			(
+			SELECT DISTINCT
+				c.YPMC AS ypmc,
+				a.KFRQ AS kfrq,
+				c.YPGG AS ypgg,
+				b.YPCD AS ypcd,
+				c.YPJL AS ypjl,
+				b.YPYF AS sypc,
+				b.GYTJ AS gytj,
+				b.YYTS AS yyts,
+				a.YSDM AS ysdm,
+				b.BZMC AS bzmc,
+				a.FPHM AS fphm,
+				b.YPZH AS ypzh
+			FROM
+				SKIN_DJZB dj
+				INNER JOIN SKIN_DJMX djmx ON dj.DJDH = djmx.DJDH
+				INNER JOIN OP_CF01 a ON djmx.CFHM = a.CFSB
+				INNER JOIN OP_CF02 b ON a.cfsb = b.cfsb
+				INNER JOIN v_drugs_typk c ON b.YPXH = c.YPXH
+				INNER JOIN SY_GYTJ gytj ON b.gytj = gytj.GYTJDM
+				LEFT JOIN DIC_SYPC sypc ON b.ypyf = sypc.PCBM
+			WHERE
+				dj.DJDH = #{djdh}
+				AND dj.JGID = #{jgid}
+				AND dj.KSDM = #{ksdm}
+			) t
+			ORDER BY
+				t.FPHM,
+				t.YPZH
+    </select>
+
+    <select id="doQueryAllDjCount" resultType="QueryAllPsDjCountResp">
+		SELECT
+			DATE_FORMAT( DJSJ, '%Y-%m-%d' ) AS psrq,
+			count( DJDH ) AS count
+		FROM
+			SKIN_DJZB
+		WHERE
+			JGID = #{jgid} AND KSDM = #{ksdm}
+			AND DJSJ BETWEEN #{beginDay} AND #{endDay}
+		GROUP BY
+			psrq
+	</select>
+
+	<select id="doQueryDjList" resultType="QueryPsDjListResp">
+		SELECT
+			dj.PSXH,
+			brda.BRXM,
+			brda.BRXB,
+			brda.CSNY,
+			dj.DJSJ,
+			skinxm.PSMC as psmc,
+			dj.KSSJ as kssj,
+			skinxm.PSSC as pssc,
+			dj.JSSJ as jssj,
+			dj.SJPSSC as sjpssc,
+			dj.PSJG as psjg,
+			dj.TXRDM as txrdm,
+			dj.ZT as zt
+		FROM
+			SKIN_DJZB dj
+			INNER JOIN SKIN_DJMX djmx ON dj.DJDH = djmx.DJDH
+			INNER JOIN SKIN_XM skinxm ON dj.PSID = skinxm.PSID
+			LEFT JOIN MPI_BRDA brda ON dj.BRID = brda.BRID
+		WHERE
+			DJSJ BETWEEN #{beginDay} AND #{endDay}
+			AND dj.JGID = #{jgid} AND dj.KSDM = #{ksdm}
+		ORDER BY dj.DJSJ desc
+	</select>
+
+	<select id="doQueryPsAllergy" resultType="QueryPsAllergyResp">
+		SELECT
+			PSID AS psid,
+			PSMC AS psmc,
+			count( DJDH ) AS count,
+			sum( CASE PSJG WHEN 3 THEN 1 ELSE 0 END ) AS yxCount,
+			sum( CASE PSJG WHEN 2 THEN 1 ELSE 0 END ) AS yyxCount
+		FROM
+			SKIN_DJZB
+		where DJSJ BETWEEN #{beginDay} AND #{endDay}
+		AND ZT = 2
+		GROUP BY
+			PSID,
+			PSMC
+	</select>
+</mapper>
+

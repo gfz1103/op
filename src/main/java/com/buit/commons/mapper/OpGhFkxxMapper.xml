@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊挂号付款信息 -->
+<mapper namespace="com.buit.commons.dao.OpGhFkxxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,SBXH as sbxh,FKFS as fkfs,FKJE as fkje,FKHM as fkhm,JZLSH as jzlsh 
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_GH_FKXX (
+            JLXH ,
+            SBXH ,
+            FKFS ,
+            FKJE ,
+            FKHM ,
+            JZLSH  
+        ) VALUES (
+            #{jlxh} ,
+            #{sbxh} ,
+            #{fkfs} ,
+            #{fkje} ,
+            #{fkhm} ,
+            #{jzlsh}
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_GH_FKXX SET
+            SBXH = #{sbxh} ,
+            FKFS = #{fkfs} ,
+            FKJE = #{fkje} ,
+            FKHM = #{fkhm} ,
+            JZLSH = #{jzlsh} 
+        WHERE 
+            JLXH = #{jlxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_GH_FKXX WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_GH_FKXX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpGhFkxx">
+        SELECT <include refid="columns" />
+            FROM OP_GH_FKXX 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fkfs)"> -->
+<!--                     AND FKFS = #{fkfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fkje)"> -->
+<!--                     AND FKJE = #{fkje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fkhm)"> -->
+<!--                     AND FKHM = #{fkhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)"> -->
+<!--                     AND JZLSH = #{jzlsh} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_GH_FKXX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpGhFkxx">
+        SELECT <include refid="columns" />
+        FROM OP_GH_FKXX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="doQueryBySbxh" parameterType="Map" resultType="java.util.Map">
+        SELECT <include refid="columns" />
+        FROM OP_GH_FKXX 
+        where SBXH = #{sbxh}
+    </select>
+
+    <delete id="deleteBySbxh">
+        DELETE FROM OP_GH_FKXX WHERE
+        SBXH = #{ssbxh}
+    </delete>
+    
+    <select id="doSumFkjeByFkfs" parameterType="Map" resultType="java.math.BigDecimal">
+    	SELECT
+			SUM( fkxx.FKJE ) AS XJJE 
+		FROM
+			op_gh_fkxx fkxx
+			INNER JOIN op_ghmx ghmx ON fkxx.SBXH = ghmx.SBXH 
+		WHERE
+			fkxx.fkfs = #{fkfs}
+			AND ghmx.ghsj BETWEEN #{beginOfDay} AND #{endOfDay} 
+			AND ghmx.CZGH = #{CZGH}
+    </select>
+</mapper>
+

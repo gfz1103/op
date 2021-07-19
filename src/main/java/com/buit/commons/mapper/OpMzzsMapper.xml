@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊诊室信息 -->
+<mapper namespace="com.buit.commons.dao.OpMzzsDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SBXH as sbxh,GHKS as ghks,ZSID as zsid,ZSMC as zsmc,YYXX as yyxx,PMID as pmid,SFJH as sfjh,SFQY as sfqy, FWTID as fwtid,IP as ip
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_MZZS (
+            SBXH ,
+            GHKS ,
+            ZSID ,
+            ZSMC ,
+            YYXX ,
+            PMID ,
+            SFJH ,
+            SFQY ,
+            IP
+        ) VALUES (
+            #{sbxh} ,
+            #{ghks} ,
+            #{zsid} ,
+            #{zsmc} ,
+            #{yyxx} ,
+            #{pmid} ,
+            #{sfjh} ,
+            #{sfqy} ,
+            #{ip}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE OP_MZZS
+        <trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(ghks)">
+				GHKS = #{ghks} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zsid)">
+				ZSID = #{zsid} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zsmc)">
+				ZSMC = #{zsmc} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yyxx)">
+				YYXX = #{yyxx} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(pmid)">
+				PMID = #{pmid} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sfjh)">
+				SFJH = #{sfjh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sfqy)">
+				SFQY = #{sfqy},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ip)">
+				IP = #{ip},
+			</if>
+		</trim>
+		<where>
+			AND SBXH = #{sbxh}
+		</where>
+    </update>
+    <update id="changeFwtId">
+        UPDATE OP_MZZS
+        SET FWTID = #{fwtid}
+        WHERE
+        SBXH in
+        <foreach item="item" index="index" collection="sbxhList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_MZZS WHERE
+        SBXH = #{sbxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_MZZS <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpMzzs">
+        SELECT <include refid="columns" />
+            FROM OP_MZZS
+            WHERE
+        SBXH = #{sbxh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghks)"> -->
+<!--                     AND GHKS = #{ghks} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(zsid)">
+                    AND ZSID = #{zsid}
+               </if>
+               <if test="@sqlt.Ognl@isNotEmpty(zsmc)">
+                    AND ZSMC LIKE CONCAT(CONCAT('%',#{zsmc}),'%')
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyxx)"> -->
+<!--                     AND YYXX = #{yyxx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pmid)"> -->
+<!--                     AND PMID = #{pmid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfjh)"> -->
+<!--                     AND SFJH = #{sfjh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfqy)"> -->
+<!--                     AND SFQY = #{sfqy} -->
+<!--                </if> -->
+
+                <if test="@sqlt.Ognl@isNotEmpty(fwtid)">
+                    AND FWTID = #{fwtid}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ip)">
+                    AND IP = #{ip}
+                </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_MZZS
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpMzzs">
+        SELECT <include refid="columns" />
+        FROM OP_MZZS
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+
+    <select id="validZsIdExist" resultType="java.lang.Integer">
+        select count(1) from  OP_MZZS
+        <where>
+        	and GHKS = #{ghks}
+        	and (ZSID = #{zsid} or ZSMC = #{zsmc})
+	        <if test="@sqlt.Ognl@isNotEmpty(oldZsId)">
+	        	and ZSID != #{oldZsId}
+	        </if>
+        </where>
+    </select>
+    <select id="queryWaitMs" resultType="com.buit.commons.model.OpMzzs">
+        SELECT <include refid="columns" />
+        FROM OP_MZZS
+        where FWTID is null
+        <if test="@sqlt.Ognl@isNotEmpty(zsmc)">
+            AND ZSMC LIKE CONCAT(CONCAT('%',#{zsmc}),'%')
+        </if>
+    </select>
+    <select id="getSbxhByIp" resultType="java.lang.Integer">
+        select sbxh
+        from OP_MZZS
+        where FIND_IN_SET('192.168.1.1',ip)
+    </select>
+    <select id="getOpMzzsByMzks" resultType="com.buit.commons.model.OpMzzs">
+        SELECT
+           mz.SBXH,
+           mz.GHKS,
+           mz.ZSID,
+           mz.ZSMC,
+           mz.YYXX,
+           mz.PMID,
+           mz.SFJH,
+           mz.FWTID,
+           mz.SFQY,
+           mz.IP
+        FROM op_mzzs mz
+        LEFT JOIN op_ghks gh ON mz.GHKS = gh.KSDM
+        WHERE gh.SFQY = '1' AND mz.SFQY = '1' AND gh.MZKS = #{mzks} AND gh.JGID = #{jgid}
+    </select>
+</mapper>
+

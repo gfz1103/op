@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.SyCfzxqkDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JGID as jgid,CFHM as cfhm,CFZH as cfzh,XYZXZCS as xyzxzcs,YZXCS as yzxcs
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SY_CFZXQK (
+            JGID ,
+            CFHM ,
+            CFZH ,
+            XYZXZCS ,
+            YZXCS 
+        ) VALUES (
+            #{jgid} ,
+            #{cfhm} ,
+            #{cfzh} ,
+            #{xyzxzcs} ,
+            #{yzxcs} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE SY_CFZXQK SET
+            XYZXZCS = #{xyzxzcs} ,
+            YZXCS = #{yzxcs} 
+        WHERE 
+            JGID = #{jgid}  AND 
+                        CFHM = #{cfhm}  AND 
+                        CFZH = #{cfzh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SY_CFZXQK WHERE
+        JGID = #{jgid}  AND 
+        CFHM = #{cfhm}  AND 
+        CFZH = #{cfzh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM SY_CFZXQK <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="SyCfzxqk">
+        SELECT <include refid="columns" />
+            FROM SY_CFZXQK 
+            WHERE 
+        JGID = #{jgid}  AND 
+        CFHM = #{cfhm}  AND 
+        CFZH = #{cfzh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfhm)"> -->
+<!--                     AND CFHM = #{cfhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfzh)"> -->
+<!--                     AND CFZH = #{cfzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xyzxzcs)"> -->
+<!--                     AND XYZXZCS = #{xyzxzcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yzxcs)"> -->
+<!--                     AND YZXCS = #{yzxcs} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SY_CFZXQK 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="SyCfzxqk">
+        SELECT <include refid="columns" />
+        FROM SY_CFZXQK 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <update id="updateZxcs">
+    	update sy_cfzxqk set YZXCS = #{yzxcs}+1 where JGID = #{jgid} and CFHM = #{cfhm} and CFZH = #{cfzh} 
+    </update>
+    
+    <select id="getZxqkCountByCondition" resultType="java.lang.Integer">
+        SELECT count(*) FROM SY_CFZXQK where JGID = #{jgid} and CFHM = #{cfhm} and CFZH = #{cfzh}
+    </select>
+    
+    
+</mapper>
+

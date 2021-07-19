@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- CA签名记录表 -->
+<mapper namespace="com.buit.commons.dao.MkeyRecordDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id as id,user_id as userId,mkey_user_id as mkeyUserId,data_type as dataType,data_id as dataId,sign_data as signData,biz_sn as bizSn,action_type as actionType,msg_wrapper as msgWrapper,mode as mode,sign as sign,ret as ret,msg as msg,sign_alg as signAlg,sign_value as signValue,create_time as createTime,update_time as updateTime,notify_time as notifyTime,status as status
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO MKEY_RECORD (
+            id ,
+            user_id ,
+            mkey_user_id ,
+            data_type ,
+            data_id ,
+            sign_data ,
+            biz_sn ,
+            action_type ,
+            msg_wrapper ,
+            mode ,
+            sign ,
+            ret ,
+            msg ,
+            sign_alg ,
+            sign_value ,
+            create_time ,
+            update_time ,
+            notify_time ,
+            status
+        ) VALUES (
+            #{id} ,
+            #{userId} ,
+            #{mkeyUserId} ,
+            #{dataType} ,
+            #{dataId} ,
+            #{signData} ,
+            #{bizSn} ,
+            #{actionType} ,
+            #{msgWrapper} ,
+            #{mode} ,
+            #{sign} ,
+            #{ret} ,
+            #{msg} ,
+            #{signAlg} ,
+            #{signValue} ,
+            #{createTime} ,
+            #{updateTime} ,
+            #{notifyTime} ,
+            #{status}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE MKEY_RECORD SET
+            user_id = #{userId} ,
+            mkey_user_id = #{mkeyUserId} ,
+            data_type = #{dataType} ,
+            data_id = #{dataId} ,
+            sign_data = #{signData} ,
+            biz_sn = #{bizSn} ,
+            action_type = #{actionType} ,
+            msg_wrapper = #{msgWrapper} ,
+            mode = #{mode} ,
+            sign = #{sign} ,
+            ret = #{ret} ,
+            msg = #{msg} ,
+            sign_alg = #{signAlg} ,
+            sign_value = #{signValue} ,
+            create_time = #{createTime} ,
+            update_time = #{updateTime} ,
+            notify_time = #{notifyTime} ,
+            status = #{status}
+        WHERE
+            id = #{id}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM MKEY_RECORD WHERE
+        id = #{id}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM MKEY_RECORD <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="MkeyRecord">
+        SELECT <include refid="columns" />
+            FROM MKEY_RECORD
+            WHERE
+        id = #{id}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND id = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(userId)"> -->
+<!--                     AND user_id = #{userId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mkeyUserId)"> -->
+<!--                     AND mkey_user_id = #{mkeyUserId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dataType)"> -->
+<!--                     AND data_type = #{dataType} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dataId)"> -->
+<!--                     AND data_id = #{dataId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(signData)"> -->
+<!--                     AND sign_data = #{signData} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bizSn)"> -->
+<!--                     AND biz_sn = #{bizSn} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(actionType)"> -->
+<!--                     AND action_type = #{actionType} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(msgWrapper)"> -->
+<!--                     AND msg_wrapper = #{msgWrapper} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mode)"> -->
+<!--                     AND mode = #{mode} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sign)"> -->
+<!--                     AND sign = #{sign} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ret)"> -->
+<!--                     AND ret = #{ret} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(msg)"> -->
+<!--                     AND msg = #{msg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(signAlg)"> -->
+<!--                     AND sign_alg = #{signAlg} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(signValue)"> -->
+<!--                     AND sign_value = #{signValue} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(createTime)"> -->
+<!--                     AND create_time = #{createTime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(updateTime)"> -->
+<!--                     AND update_time = #{updateTime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(notifyTime)"> -->
+<!--                     AND notify_time = #{notifyTime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(status)"> -->
+<!--                     AND status = #{status} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM MKEY_RECORD
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="MkeyRecord">
+        SELECT <include refid="columns" />
+        FROM MKEY_RECORD
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="selectByBizsn" resultType="com.buit.op.model.mphis.response.MkeyRecord">
+        select <include refid="columns" />
+        from mkey_record
+        where status = 1 and biz_sn = #{bizSn}
+    </select>
+
+    <update id="updateSelectiveById">
+       UPDATE MKEY_RECORD
+       <set>
+           <if test="userId != null">
+               user_id = #{userId},
+           </if>
+           <if test="mkeyUserId != null">
+               mkey_user_id = #{mkeyUserId} ,
+           </if>
+           <if test="dataType != null">
+               data_type = #{dataType} ,
+           </if>
+           <if test="dataId != null">
+               data_id = #{dataId} ,
+           </if>
+           <if test="signData != null">
+               sign_data = #{signData} ,
+           </if>
+           <if test="bizSn != null">
+               biz_sn = #{bizSn} ,
+           </if>
+           <if test="actionType != null">
+               action_type = #{actionType} ,
+           </if>
+           <if test="msgWrapper != null">
+               msg_wrapper = #{msgWrapper} ,
+           </if>
+           <if test="mode != null">
+               mode = #{mode} ,
+           </if>
+           <if test="sign != null">
+               sign = #{sign} ,
+           </if>
+           <if test="ret != null">
+               ret = #{ret} ,
+           </if>
+           <if test="msg != null">
+               msg = #{msg} ,
+           </if>
+           <if test="signAlg != null">
+               sign_alg = #{signAlg} ,
+           </if>
+           <if test="signValue != null">
+               sign_value = #{signValue} ,
+           </if>
+           <if test="createTime != null">
+               create_time = #{createTime} ,
+           </if>
+           <if test="updateTime != null">
+               update_time = #{updateTime} ,
+           </if>
+           <if test="notifyTime != null">
+               notify_time = #{notifyTime} ,
+           </if>
+           <if test="status != null">
+               status = #{status}
+           </if>
+       </set>
+        WHERE
+            id = #{id}
+    </update>
+</mapper>
+

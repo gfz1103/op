@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 充值卡管理 -->
+<mapper namespace="com.buit.commons.dao.MpiKpxxDao">
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		CARDID as cardid,CARDNO as cardno,CARDTYPECODE as cardtypecode,FKSJ as
+		fksj,CZIP as czip,CZGH as czgh,BRID as brid,BRXM as brxm,IDCARD as
+		idcard,KNYE as knye,STATUS as status
+	</sql>
+
+	<insert id="insert">
+		INSERT INTO MPI_KPXX (
+		CARDID ,
+		CARDNO ,
+		CARDTYPECODE ,
+		FKSJ ,
+		CZIP ,
+		CZGH ,
+		BRID ,
+		BRXM ,
+		IDCARD ,
+		KNYE ,
+		STATUS
+		) VALUES (
+		#{cardid} ,
+		#{cardno} ,
+		#{cardtypecode} ,
+		#{fksj} ,
+		#{czip} ,
+		#{czgh} ,
+		#{brid} ,
+		#{brxm} ,
+		#{idcard} ,
+		#{knye} ,
+		#{status}
+		)
+	</insert>
+
+	<update id="update"><!-- UPDATE MPI_KPXX SET CARDNO = #{cardno} , 
+			CARDTYPECODE = #{cardtypecode} , FKSJ = #{fksj} , CZIP = #{czip} , CZGH = 
+			#{czgh} , BRID = #{brid} , BRXM = #{brxm} , IDCARD = #{idcard} , KNYE = #{knye} 
+			, STATUS = #{status} WHERE CARDID = #{cardid} -->
+	</update>
+
+	<delete id="deleteById">
+		DELETE FROM MPI_KPXX WHERE
+		CARDID = #{cardid}
+	</delete>
+
+	<delete id="removeByEntity">
+		DELETE FROM MPI_KPXX
+		<include refid="where" />
+	</delete>
+
+	<select id="getById" resultType="MpiKpxx">
+		SELECT
+		<include refid="columns" />
+		FROM MPI_KPXX
+		WHERE
+		CARDID = #{cardid}
+	</select>
+
+	<sql id="where">
+		<where>
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(cardid)"> -->
+			<!-- AND CARDID = #{cardid} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(cardno)"> -->
+			<!-- AND CARDNO = #{cardno} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(cardtypecode)"> -->
+			<!-- AND CARDTYPECODE = #{cardtypecode} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(fksj)"> -->
+			<!-- AND FKSJ = #{fksj} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(czip)"> -->
+			<!-- AND CZIP = #{czip} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+			<!-- AND CZGH = #{czgh} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+			<!-- AND BRID = #{brid} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(brxm)"> -->
+			<!-- AND BRXM = #{brxm} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(idcard)"> -->
+			<!-- AND IDCARD = #{idcard} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(knye)"> -->
+			<!-- AND KNYE = #{knye} -->
+			<!-- </if> -->
+			<!-- <if test="@sqlt.Ognl@isNotEmpty(status)"> -->
+			<!-- AND STATUS = #{status} -->
+			<!-- </if> -->
+		</where>
+	</sql>
+
+	<select id="findByEntityCount" resultType="long">
+		SELECT count(*) FROM MPI_KPXX
+		<include refid="where" />
+	</select>
+
+	<select id="findByEntity" resultType="MpiKpxx">
+		SELECT
+		<include refid="columns" />
+		FROM MPI_KPXX
+		<include refid="where" />
+
+		<if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	<!-- 充值卡信息 查询 -->
+	<select id="getMpiKpxxInfo" resultType="java.util.Map">
+		SELECT kpxx.CARDNO AS
+		CARDNO,
+		kpxx.KNYE AS KNYE,
+		kpxx.BRID AS BRID,
+		( czjl.AMOUNT ) AS TFJE
+		FROM
+		MPI_KPXX kpxx
+		INNER JOIN OP_CZJL czjl ON kpxx.cardno = czjl.cardno
+		where
+		czjl.FPHM = #{fphm}
+	</select>
+
+	<!-- 更新充值卡信息 -->
+	<update id="updateMsPkxx">
+		update MPI_KPXX
+		set KNYE =#{tfje}
+		where BRID = #{brid} and STATUS = '0'
+	</update>
+
+	<!-- 根据卡号查询充值卡信息 -->
+	<select id="getMpiKpxxByCardNo" parameterType="Map"
+		resultType="java.util.Map">
+		select CARDNO as CARDNO ,KNYE as KNYE,BRID as BRID from MPI_KPXX
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(cardno)">
+				AND CARDNO = #{cardno}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(status)">
+				AND STATUS = #{status}
+			</if>
+		</where>
+	</select>
+
+	<!-- 更新卡内余额 -->
+	<update id="updateKnye" parameterType="Map">
+		UPDATE MPI_KPXX
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(KNYE)">
+				KNYE = #{KNYE},
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(cardno)">
+				AND CARDNO = #{cardno}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(status)">
+				AND STATUS = #{status}
+			</if>
+		</where>
+	</update>
+
+	<!-- 查询卡片信息 -->
+	<select id="getKpInfo" parameterType="Map"
+		resultType="java.util.Map">
+		SELECT
+		a.CARDID AS CARDID,
+		a.CARDNO AS CARDNO,
+		a.BRID AS BRID,
+		a.KNYE AS KNYE,
+		b.AMOUNT AS AMOUNT
+		FROM
+		MPI_KPXX a,
+		OP_CZJL b
+		WHERE
+		a.CARDNO = b.CARDNO
+		AND a.STATUS = 0
+		AND b.FPHM=#{fphm}
+	</select>
+
+	<!--病人id查询卡信息 -->
+	<select id="queryCardInfoByBrid" resultType="java.util.Map">
+		select CARDNO as cardno ,KNYE as knye from MPI_KPXX where BRID= #{brid}
+	</select>
+	<!--通过病人id更新卡内余额 -->
+	<update id="updateKnyeByBrid">
+		update MPI_KPXX set KNYE = #{ysk} where BRID=#{brid} and CARDNO = #{cardno}
+	</update>
+    <!-- 更新充值卡信息 -->
+	<update id="updateKnyeByCondition" parameterType="Map">
+		update MPI_KPXX set KNYE =KNYE+${KNYE}
+		<where>
+			AND BRID = #{BRID}
+			<if test="@sqlt.Ognl@isNotEmpty(status)">
+				AND STATUS = #{status}
+			</if>
+		</where>
+	</update>
+	<!-- 充值卡信息列表 -->
+	<select id="doQueryCzkList" resultType="MpiKpxx">
+		select
+		<include refid="columns" />
+		FROM MPI_KPXX
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(cardno)">
+				AND CARDNO LIKE CONCAT(CONCAT('%',#{cardno}),'%')
+				OR BRXM LIKE CONCAT(CONCAT('%',#{brxm}),'%')
+				OR IDCARD LIKE CONCAT(CONCAT('%',#{idcard}),'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="getKpxxBycardNo" parameterType="Map" resultType="java.util.Map">
+		SELECT
+			a.CARDID AS CARDID,
+			a.CARDNO AS CARDNO,
+			a.CARDTYPECODE AS CARDTYPECODE,
+			a.FKSJ AS FKSJ,
+			a.CZIP AS CZIP,
+			a.CZGH AS CZGH,
+			a.BRID AS BRID,
+			a.BRXM AS BRXM,
+			a.IDCARD AS IDCARD,
+			a.KNYE AS KNYE,
+			a.STATUS AS STATUS 
+		FROM
+			MPI_KPXX a 
+		WHERE
+			a.CARDNO = #{CARDNO}
+			AND a.STATUS = '0'
+	</select>
+	
+	<update id="updateKnyeByCardId" parameterType="Map">
+		update MPI_KPXX set KNYE=KNYE + ${KNYE} where CARDID = #{CARDID}
+	</update>
+	
+	<select id="getknyeByCardId" parameterType="Map" resultType="java.util.Map">
+		select  KNYE as KNYE from MPI_KPXX  where CARDID = #{CARDID}
+	</select>
+	
+	<update id="updateKnyeSubtr" parameterType="Map">
+		update MPI_KPXX set KNYE=KNYE- ${KNYE} where CARDID = #{CARDID}
+	</update>
+    <!--通过发票号码查询预付卡信息-->
+    <select id="queryCardInfoByFphm" resultType="java.util.Map">
+    select a.CARDNO as CARDNO ,a.KNYE as KNYE,a.BRID as BRID,(b.AMOUNT )as TFJE  from MPI_KPXX a,OP_CZJL b where b.fphm =#{fphm} and a.cardno=b.cardno
+    </select>
+    
+    <update id="updateStatus" parameterType="Map">
+    	update MPI_KPXX 
+    	<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(STATUS)">
+				STATUS=#{STATUS},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(CZGH)">
+				CZGH = #{CZGH},
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(CZIP)">
+				CZIP = #{CZIP},
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(CARDID)">
+				AND CARDID = #{CARDID}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(CARDNO)">
+				AND CARDNO = #{CARDNO}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(BRID)">
+				AND BRID = #{BRID}
+			</if>
+		</where>
+	</update>
+</mapper>
+

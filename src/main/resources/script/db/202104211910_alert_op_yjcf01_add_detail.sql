@@ -1,0 +1,2 @@
+ALTER TABLE `op_yjcf01`
+MODIFY COLUMN `FJLB` int NULL DEFAULT NULL COMMENT '附加类别==2 代表处方的皮试项目 3代表处方草药代煎费' AFTER `FJGL`;

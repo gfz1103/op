@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_门诊员工票据 -->
+<mapper namespace="com.buit.commons.dao.OpYgpjDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,YGDM as ygdm,LYRQ as lyrq,PJLX as pjlx,JGID as jgid,QSHM as qshm,ZZHM as zzhm,SYHM as syhm,SYPB as sypb, JQPB as jqpb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_YGPJ (
+            JLXH ,
+            YGDM ,
+            LYRQ ,
+            PJLX ,
+            JGID ,
+            QSHM ,
+            ZZHM ,
+            SYHM ,
+            SYPB ,
+			JQPB
+        ) VALUES (
+            #{jlxh} ,
+            #{ygdm} ,
+            #{lyrq} ,
+            #{pjlx} ,
+            #{jgid} ,
+            #{qshm} ,
+            #{zzhm} ,
+            #{syhm} ,
+            #{sypb} ,
+            #{jqpb}
+        )
+    </insert>
+    
+    <update id="update">
+	UPDATE OP_YGPJ
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(ygdm)">
+				YGDM = #{ygdm} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(lyrq)">
+				LYRQ = #{lyrq} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(pjlx)">
+				PJLX = #{pjlx} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				JGID = #{jgid} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(qshm)">
+				QSHM = #{qshm} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zzhm)">
+				ZZHM = #{zzhm} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(syhm)">
+				SYHM = #{syhm} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sypb)">
+				SYPB = #{sypb}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jqpb)">
+				JQPB = #{jqpb}
+			</if>
+		</trim>
+		WHERE JLXH = #{jlxh}
+	</update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_YGPJ WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_YGPJ <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpYgpj">
+        SELECT <include refid="columns" />
+            FROM OP_YGPJ 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(ygdm)">
+                    AND YGDM = #{ygdm}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(lyrq)"> -->
+<!--                     AND LYRQ = #{lyrq} -->
+<!--                </if> -->
+               <if test="@sqlt.Ognl@isNotEmpty(pjlx)">
+                    AND PJLX = #{pjlx}
+               </if>
+               <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                    AND JGID = #{jgid}
+               </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qshm)"> -->
+<!--                     AND QSHM = #{qshm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zzhm)"> -->
+<!--                     AND ZZHM = #{zzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(syhm)"> -->
+<!--                     AND SYHM = #{syhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sypb)"> -->
+<!--                     AND SYPB = #{sypb} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_YGPJ 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpYgpj">
+        SELECT <include refid="columns" />
+        FROM OP_YGPJ 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!-- 判断所有号码是否重复 -->
+    <select id="doInvoiceNumberValid" resultType="java.lang.Integer">
+		SELECT count(1) FROM OP_YGPJ
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(pjlx)">
+				AND PJLX = #{pjlx}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(qshm)">
+				AND QSHM = #{qshm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zzhm)">
+				AND ZZHM = #{zzhm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(syhm)">
+				AND SYHM = #{syhm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ygdm)">
+				AND YGDM != #{ygdm}
+			</if>
+		</where>
+	</select>
+    <!-- 判断号码段是否冲突 -->
+    <select id="doNumberRangeValidOne" resultType="java.lang.Integer">
+		SELECT count(1) FROM OP_YGPJ
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(pjlx)">
+				AND PJLX = #{pjlx}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(qshm)">
+				AND QSHM <![CDATA[ <= ]]> #{qshm}
+				AND ZZHM <![CDATA[ >= ]]> #{qshm}
+				AND length(QSHM) = #{length}
+			</if>
+		</where>
+	</select>
+	<!-- 判断号码段是否冲突 -->
+    <select id="doNumberRangeValidTwo" resultType="java.lang.Integer">
+		SELECT count(1) FROM OP_YGPJ
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(pjlx)">
+				AND PJLX = #{pjlx}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(qshm)">
+				AND length(QSHM) = #{length}
+				AND ((QSHM between #{qshm} and #{zzhm})
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zzhm)">
+				OR (ZZHM between #{qshm} and #{zzhm}))
+			</if>
+		</where>
+	</select>
+	
+	<!-- 获取记录序号 -->
+	<select id="getJlxhCount" resultType="java.lang.Integer">
+		SELECT count(*) FROM OP_YGPJ
+		<where>
+			AND SYPB = 0 AND JQPB = 0
+			<if test="@sqlt.Ognl@isNotEmpty(pjlx)">
+				AND PJLX = #{pjlx}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ygdm)">
+				AND YGDM = #{ygdm}
+			</if>
+		</where>
+	</select>
+
+	<!-- 获取第一位使用号码 -->
+	<select id="getFirstSyhm" resultType="OpYgpj">
+		SELECT SYHM,JLXH,ZZHM,QSHM FROM OP_YGPJ
+		<where>
+			AND SYPB = 0 AND JQPB = 0
+			<if test="@sqlt.Ognl@isNotEmpty(pjlx)">
+				AND PJLX = #{pjlx}
+			</if>
+			AND SYHM <![CDATA[ <= ]]> ZZHM
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND JGID = #{jgid}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ygdm)">
+				AND YGDM = #{ygdm}
+			</if>
+		</where>
+		ORDER BY LYRQ
+	</select>
+	
+	<!--  -->
+	<update id="updateHm">
+	UPDATE OP_YGPJ
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(syhm)">
+				SYHM = #{syhm} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zzhm)">
+				ZZHM = #{zzhm} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sypb)">
+				SYPB = #{sypb} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jqpb)">
+				JQPB = #{jqpb} ,
+			</if>
+		</trim>
+		WHERE JLXH = #{jlxh}
+	</update>
+	
+	<!-- 票据号码加1 -->
+	<update id="updateSyhm" parameterType="Map">
+		UPDATE OP_YGPJ set SYHM = SYHM + 1 WHERE JGID = #{jgid} and YGDM=#{ygdm} and PJLX = #{pjlx}
+	</update>
+	
+	<select id="getYgpjInfo" resultType="OpYgpj">
+		select
+		ygpj.JLXH,ygpj.YGDM,ygpj.LYRQ,ygpj.PJLX,ygpj.JGID,ygpj.SYPB,ygpj.qshm,ygpj.zzhm,ygpj.syhm,
+		su.PERSONNAME as userName, JQPB as jqpb
+		from OP_YGPJ ygpj left join hr_personnel su on ygpj.YGDM = su.PERSONID
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(ygdm)">
+				AND ygpj.YGDM = #{ygdm}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(pjlx)">
+				AND ygpj.PJLX = #{pjlx}
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				AND ygpj.JGID = #{jgid}
+			</if>
+		</where>
+	</select>
+	<select id="checkSypb" resultType="java.lang.Integer">
+		select count(*) from op_ygpj
+		where JLXH != #{jlxh} and ygdm = #{ygdm} and SYPB = 0 and pjlx = #{pjlx} and jgid = #{jgid}
+	</select>
+</mapper>
+

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 黑名单表 -->
+<mapper namespace="com.buit.commons.dao.MpBlackListDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id,SFZH as sfzh, NAME as name, REMAKE as remake, STATE as state,CJSJ as cjsj,XGSJ as xgsj
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO MP_BLACK_LIST (
+            ID ,
+            SFZH ,
+            NAME ,
+            REMAKE ,
+            STATE ,
+            CJSJ ,
+            XGSJ 
+        ) VALUES (
+            #{id} ,
+            #{sfzh} ,
+            #{name} ,
+            #{remake} ,
+            #{state} ,
+            #{cjsj} ,
+            #{xgsj} 
+        )
+    </insert>
+    
+    <update id="update" >
+        UPDATE MP_BLACK_LIST
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sfzh != null">
+                SFZH = #{sfzh} ,
+            </if>
+            <if test="name != null">
+                NAME = #{name} ,
+            </if>
+            <if test="remake != null">
+                REMAKE = #{remake} ,
+            </if>
+            <if test="state != null">
+                STATE = #{state} ,
+            </if>
+            <if test="cjsj != null">
+                CJSJ = #{cjsj} ,
+            </if>
+            <if test="xgsj != null">
+                XGSJ = #{xgsj}
+            </if>
+        </trim>
+        WHERE
+        ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM MP_BLACK_LIST WHERE
+        ID = #{id} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM MP_BLACK_LIST <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="MpBlackList">
+        SELECT <include refid="columns" />
+            FROM MP_BLACK_LIST 
+            WHERE 
+        ID = #{id} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+                <if test="@sqlt.Ognl@isNotEmpty(id)">
+                     AND ID = #{id}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(sfzh)">
+                     AND SFZH LIKE CONCAT(CONCAT('%',#{sfzh}),'%')
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(name)">
+                    AND NAME LIKE CONCAT(CONCAT('%',#{name}),'%')
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(remake)">
+                    AND REMAKE = #{remake}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(state)">
+                     AND STATE = #{state}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(cjsj)">
+                     AND CJSJ = #{cjsj}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(xgsj)">
+                     AND XGSJ = #{xgsj}
+                </if>
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM MP_BLACK_LIST 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="MpBlackList">
+        SELECT <include refid="columns" />
+        FROM MP_BLACK_LIST 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <!--     业务sql      -->
+    <select id="checkBlackList" resultType="java.lang.Boolean">
+        select count(1) from MP_BLACK_LIST
+        where SFZH = #{sfzh} and STATE = 1
+    </select>
+</mapper>
+

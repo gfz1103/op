@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_门诊收费付款信息 -->
+<mapper namespace="com.buit.commons.dao.OpFkxxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,JGID as jgid,MZXH as mzxh,FKFS as fkfs,FKJE as fkje,FKHM as fkhm,JZLSH as jzlsh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_FKXX (
+            JLXH ,
+            JGID ,
+            MZXH ,
+            FKFS ,
+            FKJE ,
+            FKHM ,
+            JZLSH
+        ) VALUES (
+            #{jlxh} ,
+            #{jgid} ,
+            #{mzxh} ,
+            #{fkfs} ,
+            #{fkje} ,
+            #{fkhm} ,
+            #{jzlsh}
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_FKXX SET
+            JGID = #{jgid} ,
+            MZXH = #{mzxh} ,
+            FKFS = #{fkfs} ,
+            FKJE = #{fkje} ,
+            FKHM = #{fkhm} ,
+            JZLSH = #{jzlsh} 
+        WHERE 
+            JLXH = #{jlxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_FKXX WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_FKXX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpFkxx">
+        SELECT <include refid="columns" />
+            FROM OP_FKXX 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzxh)"> -->
+<!--                     AND MZXH = #{mzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fkfs)"> -->
+<!--                     AND FKFS = #{fkfs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fkje)"> -->
+<!--                     AND FKJE = #{fkje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fkhm)"> -->
+<!--                     AND FKHM = #{fkhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)"> -->
+<!--                     AND JZLSH = #{jzlsh} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_FKXX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpFkxx">
+        SELECT <include refid="columns" />
+        FROM OP_FKXX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    
+    <!-- 查询付款信息 -->
+    <select id="getFkxxByCondition" parameterType="Map" resultType="java.util.Map">
+        select * from OP_FKXX where MZXH= #{MZXH} and FKFS='19'  
+    </select>
+    
+    <select id="getFkxxInfo" parameterType="Map" resultType="java.util.Map">
+        SELECT
+			a.FKFS AS FKFS,
+			b.FKMC AS FKMC,
+			a.FKJE AS FKJE 
+		FROM
+			OP_FKXX a,
+			PUB_FKFS b 
+		WHERE
+			a.MZXH =#{MZXH} 
+			AND a.JGID =#{JGID} 
+			AND a.FKFS = b.FKFS 
+			AND b.SYLX = 1 
+		ORDER BY
+			a.JLXH DESC  
+    </select>
+    
+    <select id="doQueryFkje" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC 
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				OP_FKXX a,
+				OP_MZXX b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ IS NOT NULL 
+				AND b.MZLB = #{mzlb} 
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				( - 1 * a.FKJE ) AS FKJE 
+			FROM
+				OP_FKXX a,
+				OP_ZFFP b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ IS NOT NULL 
+				AND b.MZLB = #{mzlb} 
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				OP_GH_FKXX a,
+				OP_GHMX b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ IS NOT NULL 
+				AND b.MZLB = #{mzlb} 
+				AND b.CZGH = #{czgh} 
+				AND b.JZHM NOT LIKE 'MGH%' 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				( - 1 * a.FKJE ) AS FKJE 
+			FROM
+				OP_GH_FKXX a,
+				OP_THMX b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ IS NOT NULL 
+				AND b.MZLB = #{mzlb}  
+				AND b.CZGH = #{czgh} 
+			) c LEFT outer
+			JOIN PUB_FKFS d ON c.FKFS = d.FKFS 
+		GROUP BY
+			c.FKFS,
+			d.FKMC 
+		ORDER BY
+			c.FKFS
+    </select>
+    
+    <select id="doQueryFkjeA" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC 
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				OP_FKXX a,
+				OP_MZXX b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ IS NULL 
+				AND b.MZLB = #{mzlb} 
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				( - 1 * a.FKJE ) AS FKJE 
+			FROM
+				OP_FKXX a,
+				OP_ZFFP b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ IS NULL 
+				AND b.MZLB = #{mzlb} 
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				OP_GH_FKXX a,
+				OP_GHMX b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ IS NULL 
+				AND b.MZLB = #{mzlb} 
+				AND b.CZGH = #{czgh}  
+				AND b.JZHM NOT LIKE 'MGH%' 
+				AND ifnull( b.zkbz, 0 ) = 0 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				OP_GH_FKXX a,
+				OP_GHMX_ZK b 
+			WHERE
+				a.SBXH = b.GHSB 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ IS NULL 
+				AND b.MZLB = #{mzlb} 
+				AND b.CZGH = #{czgh} 
+				AND b.JZHM NOT LIKE 'MGH%' 
+				AND ifnull( b.zkbz, 0 ) = 0 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				( - 1 * a.FKJE ) AS FKJE 
+			FROM
+				OP_GH_FKXX a,
+				OP_THMX b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ IS NULL 
+				AND b.MZLB = #{mzlb} 
+				AND b.CZGH = #{czgh} 
+			) c LEFT outer
+			JOIN PUB_FKFS d ON c.FKFS = d.FKFS 
+		GROUP BY
+			c.FKFS,
+			d.FKMC 
+		ORDER BY
+			c.FKFS
+    </select>
+    
+    <select id="doQueryFkjeByJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC 
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				OP_FKXX a,
+				OP_MZXX b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ <![CDATA[ >= ]]> #{datefrom} 
+				AND b.JZRQ <![CDATA[ <= ]]> #{dateTo} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				OP_FKXX a,
+				OP_ZFFP b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ <![CDATA[ >= ]]> #{datefrom} 
+				AND b.JZRQ <![CDATA[ <= ]]> #{dateTo} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				OP_GH_FKXX a,
+				OP_GHMX b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ <![CDATA[ >= ]]> #{datefrom} 
+				AND b.JZRQ <![CDATA[ <= ]]> #{dateTo} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				OP_GH_FKXX a,
+				OP_THMX b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.JZRQ <![CDATA[ >= ]]> #{datefrom} 
+				AND b.JZRQ <![CDATA[ <= ]]> #{dateTo} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh} 
+			) c
+			LEFT OUTER JOIN PUB_FKFS d ON c.FKFS = d.FKFS 
+		GROUP BY
+			c.FKFS,
+			d.FKMC 
+		ORDER BY
+			c.FKFS
+    </select>
+    
+    <select id="doQueryFkxxByHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC 
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				OP_FKXX a,
+				OP_MZXX b,
+				OP_HZRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND c.HZRQ IS NULL 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				OP_FKXX a,
+				OP_ZFFP b,
+				OP_HZRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND c.HZRQ IS NULL 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				OP_GH_FKXX a,
+				OP_GHMX b,
+				OP_GHRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND c.HZRQ IS NULL 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				OP_GH_FKXX a,
+				OP_THMX b,
+				OP_GHRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND c.HZRQ IS NULL 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) c
+			LEFT OUTER JOIN PUB_FKFS d ON c.FKFS = d.FKFS 
+		GROUP BY
+			c.FKFS,
+			d.FKMC 
+		ORDER BY
+			c.FKFS;
+    </select>
+
+    <select id="doQueryFkxxFkjeByHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC 
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_fkxx a,
+				op_mzxx b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ = #{hzrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				op_fkxx a,
+				op_zffp b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ = #{hzrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_ghmx b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ = #{hzrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_thmx b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ = #{hzrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.CZGH = #{czgh} 
+			) c
+			LEFT OUTER JOIN pub_fkfs d ON c.FKFS = d.FKFS 
+		GROUP BY
+			c.FKFS,
+			d.FKMC 
+		ORDER BY
+			c.FKFS 
+    </select>
+    
+    <select id="doQueryFkxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC 
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_fkxx a,
+				op_mzxx b,
+				OP_HZRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND c.HZRQ = #{hzrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				op_fkxx a,
+				op_zffp b,
+				OP_HZRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND c.HZRQ = #{hzrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_ghmx b,
+				OP_GHRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND c.HZRQ = #{hzrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_thmx b,
+				OP_GHRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND c.HZRQ = #{hzrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) c
+			LEFT OUTER JOIN pub_fkfs d ON c.FKFS = d.FKFS 
+		GROUP BY
+			c.FKFS,
+			d.FKMC 
+		ORDER BY
+			c.FKFS
+    </select>
+    
+    <select id="doQueryHzcxFkxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC 
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_fkxx a,
+				op_mzxx b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				op_fkxx a,
+				op_zffp b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_ghmx b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_thmx b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+				AND b.MZLB = #{mzlb}
+				AND b.CZGH = #{czgh} 
+			) c
+			LEFT OUTER JOIN pub_fkfs d ON c.FKFS = d.FKFS 
+		GROUP BY
+			c.FKFS,
+			d.FKMC 
+		ORDER BY
+			c.FKFS
+    </select>
+    
+    <select id="doQueryHzcxFkxxA" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC 
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_fkxx a,
+				OP_MZXX b,
+				OP_HZRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				OP_FKXX a,
+				op_zffp b,
+				OP_HZRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_ghmx b,
+				OP_GHRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_thmx b,
+				OP_GHRB c 
+			WHERE
+				c.JZRQ = b.JZRQ 
+				AND c.CZGH = b.CZGH 
+				AND a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			) c
+			LEFT OUTER JOIN pub_fkfs d ON c.FKFS = d.FKFS 
+		GROUP BY
+			c.FKFS,
+			d.FKMC 
+		ORDER BY
+			c.FKFS
+    </select>
+    
+    <select id="doQueryXmflhzFkxx" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			c.FKFS AS FKFS,
+			sum( c.FKJE ) AS FKJE,
+			d.FKMC AS FKMC 
+		FROM
+			(
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_fkxx a,
+				op_mzxx b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				op_fkxx a,
+				op_zffp b 
+			WHERE
+				a.MZXH = b.MZXH 
+				AND b.JGID = #{jgid} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,
+				a.FKJE AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_ghmx b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+			UNION ALL
+			SELECT
+				a.FKFS AS FKFS,(- 1 * a.FKJE 
+				) AS FKJE 
+			FROM
+				op_gh_fkxx a,
+				op_thmx b 
+			WHERE
+				a.SBXH = b.SBXH 
+				AND b.JGID = #{jgid} 
+				AND b.MZLB in 
+				<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+				AND b.HZRQ <![CDATA[ >= ]]> #{ksrq} 
+				AND b.HZRQ <![CDATA[ <= ]]> #{jsrq} 
+			) c
+			LEFT OUTER JOIN pub_fkfs d ON c.FKFS = d.FKFS 
+		GROUP BY
+			c.FKFS,
+			d.FKMC 
+		ORDER BY
+			c.FKFS
+    </select>
+	<select id="queryByMzxh" resultType="com.buit.op.response.IOpFkxxResp">
+		select a.*,b.fkmc as fsmc
+		from op_fkxx a
+		inner join pub_fkfs b on a.fkfs=b.fkfs
+		where a.mzxh=#{mzxh}
+	</select>
+</mapper>
+

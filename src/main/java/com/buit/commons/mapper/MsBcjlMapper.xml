@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_门诊病历 | 病程记录 -->
+<mapper namespace="com.buit.commons.dao.MsBcjlDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JZXH as jzxh,BRID as brid,BLLX as bllx,BLLB as bllb,BLMC as blmc,JZKS as jzks,JZYS as jzys,ZSXX as zsxx,XBS as xbs,JWS as jws,TGJC as tgjc,FZJC as fzjc,CLCS as clcs,T as t,P as p,R as r,SSY as ssy,SZY as szy,CZYS as czys,JGID as jgid,KS as ks,YT as yt,HXKN as hxkn,OT as ot,FT as ft,FX as fx,PZ as pz,QT as qt,BRQX as brqx,JKJY as jkjy,XZZD as xzzd,DYBZ as dybz,W as w,H as h,BMI as bmi,DPY as dpy,RSBZ as rsbz,BQGZ as bqgz,ZZ as zz,LEFTVISION as leftvision,RIGHTVISION as rightvision,LEFTCORRECTEDVISION as leftcorrectedvision,RIGHTCORRECTEDVISION as rightcorrectedvision,QTLCBX as qtlcbx,MXB as mxb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_BCJL (
+            JZXH ,
+            BRID ,
+            BLLX ,
+            BLLB ,
+            BLMC ,
+            JZKS ,
+            JZYS ,
+            ZSXX ,
+            XBS ,
+            JWS ,
+            TGJC ,
+            FZJC ,
+            CLCS ,
+            T ,
+            P ,
+            R ,
+            SSY ,
+            SZY ,
+            CZYS ,
+            JGID ,
+            KS ,
+            YT ,
+            HXKN ,
+            OT ,
+            FT ,
+            FX ,
+            PZ ,
+            QT ,
+            BRQX ,
+            JKJY ,
+            XZZD ,
+            DYBZ ,
+            W ,
+            H ,
+            BMI ,
+            DPY ,
+            RSBZ ,
+            BQGZ ,
+            ZZ ,
+            LEFTVISION ,
+            RIGHTVISION ,
+            LEFTCORRECTEDVISION ,
+            RIGHTCORRECTEDVISION ,
+            QTLCBX ,
+            MXB ,
+            JZLSH
+        ) VALUES (
+            #{jzxh} ,
+            #{brid} ,
+            #{bllx} ,
+            #{bllb} ,
+            #{blmc} ,
+            #{jzks} ,
+            #{jzys} ,
+            #{zsxx} ,
+            #{xbs} ,
+            #{jws} ,
+            #{tgjc} ,
+            #{fzjc} ,
+            #{clcs} ,
+            #{t} ,
+            #{p} ,
+            #{r} ,
+            #{ssy} ,
+            #{szy} ,
+            #{czys} ,
+            #{jgid} ,
+            #{ks} ,
+            #{yt} ,
+            #{hxkn} ,
+            #{ot} ,
+            #{ft} ,
+            #{fx} ,
+            #{pz} ,
+            #{qt} ,
+            #{brqx} ,
+            #{jkjy} ,
+            #{xzzd} ,
+            #{dybz} ,
+            #{w} ,
+            #{h} ,
+            #{bmi} ,
+            #{dpy} ,
+            #{rsbz} ,
+            #{bqgz} ,
+            #{zz} ,
+            #{leftvision} ,
+            #{rightvision} ,
+            #{leftcorrectedvision} ,
+            #{rightcorrectedvision} ,
+            #{qtlcbx} ,
+            #{mxb} ,
+            #{jzlsh}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE OP_BCJL SET
+            BRID = #{brid} ,
+            BLLX = #{bllx} ,
+            BLLB = #{bllb} ,
+            BLMC = #{blmc} ,
+            JZKS = #{jzks} ,
+            JZYS = #{jzys} ,
+            ZSXX = #{zsxx} ,
+            XBS = #{xbs} ,
+            JWS = #{jws} ,
+            TGJC = #{tgjc} ,
+            FZJC = #{fzjc} ,
+            CLCS = #{clcs} ,
+            T = #{t} ,
+            P = #{p} ,
+            R = #{r} ,
+            SSY = #{ssy} ,
+            SZY = #{szy} ,
+            CZYS = #{czys} ,
+            JGID = #{jgid} ,
+            KS = #{ks} ,
+            YT = #{yt} ,
+            HXKN = #{hxkn} ,
+            OT = #{ot} ,
+            FT = #{ft} ,
+            FX = #{fx} ,
+            PZ = #{pz} ,
+            QT = #{qt} ,
+            BRQX = #{brqx} ,
+            JKJY = #{jkjy} ,
+            XZZD = #{xzzd} ,
+            DYBZ = #{dybz} ,
+            W = #{w} ,
+            H = #{h} ,
+            BMI = #{bmi} ,
+            DPY = #{dpy} ,
+            RSBZ = #{rsbz} ,
+            BQGZ = #{bqgz} ,
+            ZZ = #{zz} ,
+            LEFTVISION = #{leftvision} ,
+            RIGHTVISION = #{rightvision} ,
+            LEFTCORRECTEDVISION = #{leftcorrectedvision} ,
+            RIGHTCORRECTEDVISION = #{rightcorrectedvision} ,
+            QTLCBX = #{qtlcbx} ,
+            MXB = #{mxb}
+        WHERE
+            JZXH = #{jzxh}
+
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_BCJL WHERE
+        JZXH = #{jzxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_BCJL <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="MsBcjl">
+        SELECT <include refid="columns" />
+            FROM OP_BCJL
+            WHERE
+        JZXH = #{jzxh}
+    </select>
+
+    <sql id="where">
+        <where>
+                <if test="@sqlt.Ognl@isNotEmpty(jzxh)">
+                     AND JZXH = #{jzxh}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(nojzxh)">
+                    AND JZXH != #{nojzxh}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(brid)">
+                     AND BRID = #{brid}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bllx)"> -->
+<!--                     AND BLLX = #{bllx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bllb)"> -->
+<!--                     AND BLLB = #{bllb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(blmc)"> -->
+<!--                     AND BLMC = #{blmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzks)"> -->
+<!--                     AND JZKS = #{jzks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzys)"> -->
+<!--                     AND JZYS = #{jzys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zsxx)"> -->
+<!--                     AND ZSXX = #{zsxx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xbs)"> -->
+<!--                     AND XBS = #{xbs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jws)"> -->
+<!--                     AND JWS = #{jws} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tgjc)"> -->
+<!--                     AND TGJC = #{tgjc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fzjc)"> -->
+<!--                     AND FZJC = #{fzjc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(clcs)"> -->
+<!--                     AND CLCS = #{clcs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(t)"> -->
+<!--                     AND T = #{t} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(p)"> -->
+<!--                     AND P = #{p} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(r)"> -->
+<!--                     AND R = #{r} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ssy)"> -->
+<!--                     AND SSY = #{ssy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(szy)"> -->
+<!--                     AND SZY = #{szy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czys)"> -->
+<!--                     AND CZYS = #{czys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ks)"> -->
+<!--                     AND KS = #{ks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yt)"> -->
+<!--                     AND YT = #{yt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hxkn)"> -->
+<!--                     AND HXKN = #{hxkn} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ot)"> -->
+<!--                     AND OT = #{ot} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ft)"> -->
+<!--                     AND FT = #{ft} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fx)"> -->
+<!--                     AND FX = #{fx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pz)"> -->
+<!--                     AND PZ = #{pz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qt)"> -->
+<!--                     AND QT = #{qt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brqx)"> -->
+<!--                     AND BRQX = #{brqx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jkjy)"> -->
+<!--                     AND JKJY = #{jkjy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xzzd)"> -->
+<!--                     AND XZZD = #{xzzd} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dybz)"> -->
+<!--                     AND DYBZ = #{dybz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(w)"> -->
+<!--                     AND W = #{w} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(h)"> -->
+<!--                     AND H = #{h} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bmi)"> -->
+<!--                     AND BMI = #{bmi} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dpy)"> -->
+<!--                     AND DPY = #{dpy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(rsbz)"> -->
+<!--                     AND RSBZ = #{rsbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bqgz)"> -->
+<!--                     AND BQGZ = #{bqgz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zz)"> -->
+<!--                     AND ZZ = #{zz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(leftvision)"> -->
+<!--                     AND LEFTVISION = #{leftvision} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(rightvision)"> -->
+<!--                     AND RIGHTVISION = #{rightvision} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(leftcorrectedvision)"> -->
+<!--                     AND LEFTCORRECTEDVISION = #{leftcorrectedvision} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(rightcorrectedvision)"> -->
+<!--                     AND RIGHTCORRECTEDVISION = #{rightcorrectedvision} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtlcbx)"> -->
+<!--                     AND QTLCBX = #{qtlcbx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mxb)"> -->
+<!--                     AND MXB = #{mxb} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_BCJL
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="MsBcjl">
+        SELECT <include refid="columns" />
+        FROM OP_BCJL
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+
+    <update id="updateDybz">
+        UPDATE OP_BCJL
+        SET BRQX = #{BRQX},
+        JKJY = #{JKJY},
+        DYBZ = '1'
+        WHERE
+            JZXH = #{JZXH}
+    </update>
+
+    <update id="updateJzzt">
+        UPDATE OP_BCJL
+        SET BRQX = #{BRQX},
+        JKJY = #{JKJY}
+        WHERE
+            JZXH = #{JZXH}
+    </update>
+    <update id="updateBrqxJkjyDybzByJzxh"></update>
+</mapper>
+

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_就诊历史 -->
+<mapper namespace="com.buit.commons.dao.OpYsJzlsDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JZXH as jzxh,GHXH as ghxh,BRBH as brbh,KSDM as ksdm,YSDM as ysdm,ZYZD as zyzd,KSSJ as kssj,JSSJ as jssj,JZZT as jzzt,YYXH as yyxh,FZRQ as fzrq,GHFZ as ghfz,JGID as jgid,SFDY as sfdy,SFJK as sfjk,SCBZ as scbz
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_YS_JZLS (
+            JZXH ,
+            GHXH ,
+            BRBH ,
+            KSDM ,
+            YSDM ,
+            ZYZD ,
+            KSSJ ,
+            JSSJ ,
+            JZZT ,
+            YYXH ,
+            FZRQ ,
+            GHFZ ,
+            JGID ,
+            SFDY ,
+            SFJK ,
+            SCBZ ,
+            JZLSH ,
+            BIZSN
+        ) VALUES (
+            #{jzxh} ,
+            #{ghxh} ,
+            #{brbh} ,
+            #{ksdm} ,
+            #{ysdm} ,
+            #{zyzd} ,
+            #{kssj} ,
+            #{jssj} ,
+            #{jzzt} ,
+            #{yyxh} ,
+            #{fzrq} ,
+            #{ghfz} ,
+            #{jgid} ,
+            #{sfdy} ,
+            #{sfjk} ,
+            #{scbz} ,
+            #{jzlsh},
+            #{bizsn}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE OP_YS_JZLS SET
+            GHXH = #{ghxh} ,
+            BRBH = #{brbh} ,
+            KSDM = #{ksdm} ,
+            YSDM = #{ysdm} ,
+            ZYZD = #{zyzd} ,
+            KSSJ = #{kssj} ,
+            JSSJ = #{jssj} ,
+            JZZT = #{jzzt} ,
+            YYXH = #{yyxh} ,
+            FZRQ = #{fzrq} ,
+            GHFZ = #{ghfz} ,
+            JGID = #{jgid} ,
+            SFDY = #{sfdy} ,
+            SFJK = #{sfjk} ,
+            SCBZ = #{scbz}
+        WHERE
+            JZXH = #{jzxh}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_YS_JZLS WHERE
+        JZXH = #{jzxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_YS_JZLS <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpYsJzls">
+        SELECT <include refid="columns" />
+            FROM OP_YS_JZLS
+            WHERE
+        JZXH = #{jzxh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzxh)"> -->
+<!--                     AND JZXH = #{jzxh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ghxh)">
+                     AND GHXH = #{ghxh}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(brbh)">
+                     AND BRBH = #{brbh}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+                     AND KSDM = #{ksdm}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ysdm)"> -->
+<!--                     AND YSDM = #{ysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zyzd)"> -->
+<!--                     AND ZYZD = #{zyzd} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(kssj)">
+                     AND DATE_FORMAT(KSSJ,'%Y-%m-%d') >= DATE_FORMAT(#{kssj},'%Y-%m-%d')
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(jssj)">
+                     AND DATE_FORMAT(#{jssj},'%Y-%m-%d') >= DATE_FORMAT(KSSJ,'%Y-%m-%d')
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzzt)"> -->
+<!--                     AND JZZT = #{jzzt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyxh)"> -->
+<!--                     AND YYXH = #{yyxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fzrq)"> -->
+<!--                     AND FZRQ = #{fzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghfz)"> -->
+<!--                     AND GHFZ = #{ghfz} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                     AND JGID = #{jgid}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)">
+                    AND JZLSH = #{jzlsh}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfdy)"> -->
+<!--                     AND SFDY = #{sfdy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfjk)"> -->
+<!--                     AND SFJK = #{sfjk} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(scbz)"> -->
+<!--                     AND SCBZ = #{scbz} -->
+<!--                </if> -->
+            <if test="@sqlt.Ognl@isNotEmpty(querykssj)">
+                AND (KSSJ>#{querykssj} or FZRQ>#{querykssj})
+            </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_YS_JZLS
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpYsJzls">
+        SELECT <include refid="columns" />
+        FROM OP_YS_JZLS
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+
+    <delete id="deleteByjzxh">
+        DELETE FROM OP_YS_JZLS
+        WHERE
+            JZXH = #{JZXH}
+            AND JZZT =1
+    </delete>
+    <update id="updateJzztJssj">
+        UPDATE OP_YS_JZLS
+        SET JZZT = #{jzzt},
+        JSSJ = #{jssj}
+        WHERE
+            JZXH = #{jzxh}
+            AND JZZT =1
+    </update>
+    <update id="updateJzztJssjYsdm">
+        UPDATE OP_YS_JZLS
+        SET JZZT = #{jzzt},
+        JSSJ = #{jssj},
+        YSDM = #{ysdm}
+        WHERE
+          ( JZZT = 1 OR JZZT = 2 )
+           AND JZXH = #{jzxh}
+    </update>
+    <update id="updateJzztKsdm">
+        UPDATE OP_YS_JZLS SET
+            KSDM = #{ksdm} ,
+            JZZT = #{jzzt}
+        WHERE
+            JZXH = #{jzxh}
+    </update>
+    <update id="updateJzztKsdmYsdm">
+        UPDATE OP_YS_JZLS SET
+            KSDM = #{ksdm} ,
+            JZZT = #{jzzt},
+            YSDM = #{ysdm}
+        WHERE
+            JZXH = #{jzxh}
+    </update>
+
+    <!-- 查询jzxh信息 -->
+    <select id="getJzxhInfo" parameterType="Map" resultType="java.util.Map">
+        select JZXH AS JZXH,GHXH AS GHXH, BRBH AS BRBH,KSDM AS KSDM  from OP_YS_JZLS WHERE BRBH =#{BRBH} and GHXH = #{GHXH}
+    </select>
+    <select id="queryJzls" resultType="com.buit.commons.response.OpYsJzlsListResp">
+        SELECT oyj.*, og.JZKH, og.JZHM, og.JZLSH, mb.BRXM, mb.BRXZ, mb.BRXB, mb.CSNY, mb.MZHM, og.JLCH, mb.SFZH
+        FROM OP_YS_JZLS oyj
+        LEFT JOIN OP_GHMX og  ON oyj.GHXH = og.SBXH
+        LEFT JOIN MPI_BRDA mb ON og.BRID = mb.BRID
+        WHERE oyj.jgid = #{jgid}
+        <if test="@sqlt.Ognl@isNotEmpty(ghxh)">
+            AND oyj.ghxh = #{ghxh}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(brbh)">
+            AND oyj.BRBH = #{brbh}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(kssj)">
+            AND oyj.KSSJ >= #{kssj}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jssj)">
+            AND #{jssj} >= oyj.kssj
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(jzlsh)">
+            AND oyj.JZLSH = #{jzlsh}
+        </if>
+        ORDER BY oyj.jzxh DESC
+    </select>
+    <select id="fzyp" resultType="java.lang.Integer">
+        select sum(t.num) from (SELECT COUNT(1) as num
+        FROM op_ys_jzls jz
+        LEFT JOIN mpi_brda da ON jz.BRBH = da.BRID
+        LEFT JOIN op_ghmx ghmx ON jz.GHXH = ghmx.SBXH
+        LEFT JOIN op_ghks ghks on ghmx.KSDM = ghks.KSDM
+        LEFT JOIN dic_kszd dk on dk.ID = ghks.MZKS
+        LEFT JOIN op_ghks xsghks on xsghks.MZKS = dk.ID
+        WHERE xsghks.KSDM = #{ghks}
+        AND DATE_FORMAT(jz.KSSJ,'%Y-%m-%d') >= DATE_SUB(NOW(),INTERVAL #{fzpdsx} MONTH)
+        AND (ghmx.JZKH = #{jzkh}
+        <if test="@sqlt.Ognl@isNotEmpty(sfzjh)">
+            OR da.SFZH = #{sfzjh}
+        </if>
+        )
+        union all
+        select count(*)
+        from op_jzjlb_wn ojw
+        left join op_ghks og on og.KSDM = ojw.JZKSDM
+        left join dic_kszd dk on og.MZKS = dk.ID
+        left join op_ghks xsghks on xsghks.MZKS = dk.ID
+        where JZKH = #{jzkh}
+        and xsghks.KSDM = #{ghks}
+        AND DATE_FORMAT(JZJSSJ,'%Y-%m-%d') >= DATE_SUB(NOW(),INTERVAL #{fzpdsx} MONTH)
+        ) t
+    </select>
+    <select id="queryJzzt" resultType="com.buit.op.model.mphis.response.MphisJzzpdResponse">
+        SELECT ghmx.JZZT
+        FROM op_ys_jzls jz
+        LEFT JOIN op_ghmx ghmx ON jz.GHXH = ghmx.SBXH
+        where jz.JZLSH = #{jzlsh} limit 1
+    </select>
+
+    <select id="queryYsZljl" resultType="com.buit.op.model.OpYsJzls">
+        select <include refid="columns" />
+        from op_ys_jzls
+        where 1=1 and DATE_FORMAT(kssj,'%Y-%m-%d') = DATE_FORMAT(DATE_SUB(#{currentDate},INTERVAL 1 DAY),'%Y-%m-%d')
+        and jzzt != 9
+    </select>
+    <select id="getWnJzls" resultType="com.buit.op.response.MpiBrda">
+        select BRXM as brxm, ZJLX as zjlx, ZJHM as sfzh, DATE_FORMAT(CSNY, '%Y-%m-%d')as csny, BRXB as brxb, LXDH as lxdh, JZKH as jzkh,
+               case FYXZ
+               when '' then 20
+               else 20
+               end as BRXZ
+        from op_jzjlb_wn
+        <where>
+            <if test="sfz != null">
+                AND ZJHM = #{sfz}
+            </if>
+            <if test="jzkh != null">
+                AND JZKH = #{jzkh}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <update id="updatejssjAndZt">
+        update op_ys_jzls
+        set JSSJ = #{jssj},
+            JZZT = #{jzzt}
+        where JZXH = #{jzxh}
+    </update>
+</mapper>
+

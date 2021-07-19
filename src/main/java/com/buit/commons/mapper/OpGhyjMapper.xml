@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_挂号预检 -->
+<mapper namespace="com.buit.commons.dao.OpGhyjDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        YJXH as yjxh,JGID as jgid,BRID as brid,YJRQ as yjrq,ZBLB as zblb,KSDM as ksdm,YSDM as ysdm,GHBZ as ghbz,CZGH as czgh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_GHYJ (
+            YJXH ,
+            JGID ,
+            BRID ,
+            YJRQ ,
+            ZBLB ,
+            KSDM ,
+            YSDM ,
+            GHBZ ,
+            CZGH 
+        ) VALUES (
+            #{yjxh} ,
+            #{jgid} ,
+            #{brid} ,
+            #{yjrq} ,
+            #{zblb} ,
+            #{ksdm} ,
+            #{ysdm} ,
+            #{ghbz} ,
+            #{czgh} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_GHYJ SET
+            JGID = #{jgid} ,
+            BRID = #{brid} ,
+            YJRQ = #{yjrq} ,
+            ZBLB = #{zblb} ,
+            KSDM = #{ksdm} ,
+            YSDM = #{ysdm} ,
+            GHBZ = #{ghbz} ,
+            CZGH = #{czgh} 
+        WHERE 
+            YJXH = #{yjxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_GHYJ WHERE
+        YJXH = #{yjxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_GHYJ <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpGhyj">
+        SELECT <include refid="columns" />
+            FROM OP_GHYJ 
+            WHERE 
+        YJXH = #{yjxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yjxh)"> -->
+<!--                     AND YJXH = #{yjxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)"> -->
+<!--                     AND BRID = #{brid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yjrq)"> -->
+<!--                     AND YJRQ = #{yjrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zblb)"> -->
+<!--                     AND ZBLB = #{zblb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ysdm)"> -->
+<!--                     AND YSDM = #{ysdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghbz)"> -->
+<!--                     AND GHBZ = #{ghbz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_GHYJ 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpGhyj">
+        SELECT <include refid="columns" />
+        FROM OP_GHYJ 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+	<!-- 更新挂号标志 -->
+	<update id="updateMsGhbz" parameterType="Map">
+		UPDATE OP_GHYJ
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(ghbz)">
+				AND GHBZ = #{ghbz}
+			</if>
+		</trim>
+		<where>
+			<if test="@sqlt.Ognl@isNotEmpty(YJXH)">
+				AND YJXH = #{YJXH}
+			</if>
+		</where>
+	</update>
+</mapper>
+

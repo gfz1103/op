@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  -->
+<mapper namespace="com.buit.commons.dao.OpYbipDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SBXH as sbxh,MZLB as mzlb,JGID as jgid,IP as ip
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_YBIP (
+            SBXH ,
+            MZLB ,
+            JGID ,
+            IP 
+        ) VALUES (
+            #{sbxh} ,
+            #{mzlb} ,
+            #{jgid} ,
+            #{ip} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_YBIP SET
+            MZLB = #{mzlb} ,
+            JGID = #{jgid} ,
+            IP = #{ip} 
+        WHERE 
+            SBXH = #{sbxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_YBIP WHERE
+        SBXH = #{sbxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_YBIP <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpYbip">
+        SELECT <include refid="columns" />
+            FROM OP_YBIP 
+            WHERE 
+        SBXH = #{sbxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ip)"> -->
+<!--                     AND IP = #{ip} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_YBIP 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpYbip">
+        SELECT <include refid="columns" />
+        FROM OP_YBIP 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="getIp" parameterType="Map" resultType="java.util.Map">
+        select IP AS IP FROM OP_YBIP where IP=#{IP}   
+    </select>
+    
+    <update id="updateIpBySbxh" parameterType="Map">
+    	update OP_YBIP set IP=#{IP} where SBXH=#{SBXH}
+	</update>
+</mapper>
+

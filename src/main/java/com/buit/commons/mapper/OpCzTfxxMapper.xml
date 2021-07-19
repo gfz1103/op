@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 充值_充值退费信息 -->
+<mapper namespace="com.buit.commons.dao.OpCzTfxxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,CARDID as cardid,JGID as jgid,TFRQ as tfrq,TFFS as tffs,TFJE as tfje,CZGH as czgh,JZRQ as jzrq,HZRQ as hzrq,MZLB as mzlb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_CZ_TFXX (
+            JLXH ,
+            CARDID ,
+            JGID ,
+            TFRQ ,
+            TFFS ,
+            TFJE ,
+            CZGH ,
+            JZRQ ,
+            HZRQ ,
+            MZLB 
+        ) VALUES (
+            #{jlxh} ,
+            #{cardid} ,
+            #{jgid} ,
+            #{tfrq} ,
+            #{tffs} ,
+            #{tfje} ,
+            #{czgh} ,
+            #{jzrq} ,
+            #{hzrq} ,
+            #{mzlb} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_CZ_TFXX SET
+            CARDID = #{cardid} ,
+            JGID = #{jgid} ,
+            TFRQ = #{tfrq} ,
+            TFFS = #{tffs} ,
+            TFJE = #{tfje} ,
+            CZGH = #{czgh} ,
+            JZRQ = #{jzrq} ,
+            HZRQ = #{hzrq} ,
+            MZLB = #{mzlb} 
+        WHERE 
+            JLXH = #{jlxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_CZ_TFXX WHERE
+        JLXH = #{jlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_CZ_TFXX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpCzTfxx">
+        SELECT <include refid="columns" />
+            FROM OP_CZ_TFXX 
+            WHERE 
+        JLXH = #{jlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jlxh)"> -->
+<!--                     AND JLXH = #{jlxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cardid)"> -->
+<!--                     AND CARDID = #{cardid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tfrq)"> -->
+<!--                     AND TFRQ = #{tfrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tffs)"> -->
+<!--                     AND TFFS = #{tffs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tfje)"> -->
+<!--                     AND TFJE = #{tfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzrq)"> -->
+<!--                     AND HZRQ = #{hzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_CZ_TFXX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpCzTfxx">
+        SELECT <include refid="columns" />
+        FROM OP_CZ_TFXX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+</mapper>
+

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_门诊医生组套 | 个人:YGDM值
+科室:KSDM值
+公用:NULL值 -->
+<mapper namespace="com.buit.commons.dao.OpZt01Dao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ZTBH as ztbh,ZTMC as ztmc,ZTLB as ztlb,SSLB as sslb,YGDM as ygdm,GLJB as gljb,PYDM as pydm,XMXQ as xmxq,SFQY as sfqy,JGID as jgid,KSDM as ksdm,PLSX as plsx,ZTLX as ztlx
+    </sql>
+
+    <insert id="insert" keyColumn="ztbh" keyProperty="ztbh" useGeneratedKeys="true">
+        INSERT INTO OP_ZT01 (
+            ZTBH ,
+            ZTMC ,
+            ZTLB ,
+            SSLB ,
+            YGDM ,
+            GLJB ,
+            PYDM ,
+            XMXQ ,
+            SFQY ,
+            JGID ,
+            KSDM ,
+            PLSX ,
+            ZTLX
+        ) VALUES (
+            #{ztbh} ,
+            #{ztmc} ,
+            #{ztlb} ,
+            #{sslb} ,
+            #{ygdm} ,
+            #{gljb} ,
+            #{pydm} ,
+            #{xmxq} ,
+            #{sfqy} ,
+            #{jgid} ,
+            #{ksdm} ,
+            #{plsx} ,
+            #{ztlx}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE OP_ZT01 SET
+            ZTMC = #{ztmc} ,
+            ZTLB = #{ztlb} ,
+            SSLB = #{sslb} ,
+            YGDM = #{ygdm} ,
+            GLJB = #{gljb} ,
+            PYDM = #{pydm} ,
+            XMXQ = #{xmxq} ,
+            SFQY = #{sfqy} ,
+            JGID = #{jgid} ,
+            KSDM = #{ksdm} ,
+            PLSX = #{plsx} ,
+            ZTLX = #{ztlx}
+        WHERE
+            ZTBH = #{ztbh}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_ZT01 WHERE
+        ZTBH = #{ztbh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_ZT01 <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpZt01">
+        SELECT <include refid="columns" />
+            FROM OP_ZT01
+            WHERE
+        ZTBH = #{ztbh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ztbh)"> -->
+<!--                     AND ZTBH = #{ztbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ztmc)"> -->
+<!--                     AND ZTMC = #{ztmc} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ztlb)">
+                     AND ZTLB = #{ztlb}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(sslb)">
+                     AND SSLB = #{sslb}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ygdm)">
+                     AND YGDM = #{ygdm}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(gljb)"> -->
+<!--                     AND GLJB = #{gljb} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                     AND PYDM like concat(concat('%',#{pydm}),'%')
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xmxq)"> -->
+<!--                     AND XMXQ = #{xmxq} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(sfqy)">
+                     AND SFQY = #{sfqy}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                     AND JGID = #{jgid}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ksdm)">
+                     AND KSDM = #{ksdm}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(plsx)"> -->
+<!--                     AND PLSX = #{plsx} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ztlx)">
+                     AND ZTLX = #{ztlx}
+                </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="Integer">
+        SELECT count(*) FROM OP_ZT01
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpZt01">
+        SELECT <include refid="columns" />
+        FROM OP_ZT01
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <update id="updateFlag" >
+        UPDATE OP_ZT01 SET
+            SFQY = #{sfqy}
+        WHERE
+            ZTBH = #{ztbh}
+
+    </update>
+
+    <select id="initPatientSet" resultType="com.buit.commons.response.OpZt01Resp">
+        SELECT <include refid="columns" />
+        FROM OP_ZT01
+        WHERE 1=1
+        <foreach collection="list" item="item" separator="," open=" and ZTBH in( " close=" ) ">
+            #{item}
+        </foreach>
+    </select>
+<!--     开处方 时的组套输入法 -->
+    <select id="ztsrf" resultType="com.buit.commons.response.OpZt01Resp">
+        SELECT <include refid="columns" />  FROM  OP_ZT01
+		  WHERE JGID =  #{jgid}
+		    AND SFQY = 1
+		    AND ZTLB = #{ztlb}
+		    AND (
+		      YGDM = #{ygdm}
+		      AND SSLB = 1
+		      OR SSLB = 2
+		      AND KSDM = #{ksdm}
+		      OR SSLB = 3
+		    )
+		   <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+               AND PYDM like concat(concat('%',#{pydm}),'%')
+          </if>
+    </select>
+
+    <!-- 住院医嘱组套查询  -->
+    <select id="queryMedicalStack" resultType="com.buit.commons.model.OpZt01">
+        select OP_ZT01x0_.ZTBH as ZTBH,
+                 OP_ZT01x0_.ZTMC as ZTMC,
+                 OP_ZT01x0_.ZTLB as ZTLB,
+                 OP_ZT01x0_.SSLB as SSLB,
+                 OP_ZT01x0_.XMXQ as XMXQ,
+                 OP_ZT01x0_.SFQY as SFQY,
+                 OP_ZT01x0_.YGDM as YGDM,
+                 OP_ZT01x0_.JGID as JGID,
+                 OP_ZT01x0_.KSDM as KSDM,
+                 OP_ZT01x0_.PYDM as PYDM
+            from OP_ZT01 OP_ZT01x0_
+           where OP_ZT01x0_.ZTLB &lt; 4
+             and OP_ZT01x0_.JGID = #{jgid}
+             and (OP_ZT01x0_.KSDM = #{ksdm} and
+                 OP_ZT01x0_.SSLB = 2 or
+                 OP_ZT01x0_.YGDM = #{ygdm} and
+                 OP_ZT01x0_.SSLB = 1 or OP_ZT01x0_.SSLB = 3)
+             and OP_ZT01x0_.SFQY = 1
+             <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+               and OP_ZT01x0_.pydm like concat(concat('%',#{pydm}),'%')
+             </if>
+           order by OP_ZT01x0_.ZTLB, OP_ZT01x0_.ZTBH
+    </select>
+
+    <!-- 费用记账查询项目组套  -->
+    <select id="queryProjectStackAccounting" resultType="com.buit.commons.response.OpZt01AccountingSrfResp">
+        select a.ZTBH as FYXH, a.ZTMC as FYMC, 1 as ISZT
+		     from OP_ZT01 a
+		    where a.SFQY = 1
+		      and (a.SSLB = 1 or a.SSLB = 3)
+		      and a.ZTLB = 4
+		      and a.JGID = #{jgid}
+             <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                and a.pydm like concat(concat('%',#{pydm}),'%')
+             </if>
+    </select>
+    <select id="queryZtbhZtmcXmlxSslb" resultType="com.buit.commons.response.QueryMzYsFjZtResp">
+        SELECT
+            a.ZTBH AS ZTBH,
+            a.ZTMC AS ZTMC,- 1 AS XMLX,
+            a.SSLB AS SSLB
+        FROM
+            OP_ZT01 a
+        WHERE
+            a.JGID = #{jgid}
+            AND a.SFQY = 1
+            AND ZTLB = 4
+            AND (
+                a.YGDM = #{ygdm}
+                AND a.SSLB = 1
+                OR a.SSLB = 2
+                AND a.KSDM = #{ksdm}
+                OR a.SSLB = 3
+            )
+            AND a.PYDM LIKE CONCAT(CONCAT('%',UPPER(#{search})),'%')
+    </select>
+
+    <select id="checkZtmcIsExit" resultType="java.lang.Integer">
+        select count(*)
+        from OP_ZT01
+        where sslb = #{sslb} and ztlb = #{ztlb} and ztmc = #{ztmc}
+    </select>
+</mapper>
+

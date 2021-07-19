@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 公用_诊疗方案 -->
+<mapper namespace="com.buit.commons.dao.GyZlfaDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ZLXH as zlxh,ZLMC as zlmc,PYDM as pydm,QYBZ as qybz,SSLB as sslb,YGDM as ygdm,BLMBBH as blmbbh,CFZTBH as cfztbh,XMZTBH as xmztbh,JBXH as jbxh,KSDM as ksdm,JGID as jgid
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO GY_ZLFA (
+            ZLXH ,
+            ZLMC ,
+            PYDM ,
+            QYBZ ,
+            SSLB ,
+            YGDM ,
+            BLMBBH ,
+            CFZTBH ,
+            XMZTBH ,
+            JBXH ,
+            KSDM ,
+            JGID 
+        ) VALUES (
+            #{zlxh} ,
+            #{zlmc} ,
+            #{pydm} ,
+            #{qybz} ,
+            #{sslb} ,
+            #{ygdm} ,
+            #{blmbbh} ,
+            #{cfztbh} ,
+            #{xmztbh} ,
+            #{jbxh} ,
+            #{ksdm} ,
+            #{jgid} 
+        )
+    </insert>
+    
+    <update id="update" >
+        UPDATE GY_ZLFA SET
+            ZLMC = #{zlmc} ,
+            PYDM = #{pydm} ,
+            QYBZ = #{qybz} ,
+            SSLB = #{sslb} ,
+            YGDM = #{ygdm} ,
+            BLMBBH = #{blmbbh} ,
+            CFZTBH = #{cfztbh} ,
+            XMZTBH = #{xmztbh} ,
+            JBXH = #{jbxh} ,
+            KSDM = #{ksdm} ,
+            JGID = #{jgid} 
+        WHERE 
+            ZLXH = #{zlxh} 
+    </update>
+
+
+    <delete id="deleteById">
+        DELETE FROM GY_ZLFA WHERE
+        ZLXH = #{zlxh} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM GY_ZLFA <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="GyZlfa">
+        SELECT <include refid="columns" />
+            FROM GY_ZLFA 
+            WHERE 
+        ZLXH = #{zlxh} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zlxh)"> -->
+<!--                     AND ZLXH = #{zlxh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(zlmc)">
+                     AND ZLMC = #{zlmc}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                     AND PYDM like CONCAT(CONCAT('%',UPPER(#{pydm})),'%')
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(qybz)">
+                     AND QYBZ = #{qybz}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sslb)"> -->
+<!--                     AND SSLB = #{sslb} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ygdm)">
+                     AND YGDM = #{ygdm}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(blmbbh)"> -->
+<!--                     AND BLMBBH = #{blmbbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfztbh)"> -->
+<!--                     AND CFZTBH = #{cfztbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xmztbh)"> -->
+<!--                     AND XMZTBH = #{xmztbh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jbxh)">
+                     AND JBXH = #{jbxh}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                     AND JGID = #{jgid}
+                </if>
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="Integer">
+        SELECT count(*) FROM GY_ZLFA 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="GyZlfa">
+        SELECT <include refid="columns" />
+        FROM GY_ZLFA 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <update id="updateFlag">
+        UPDATE GY_ZLFA SET
+            QYBZ = #{qybz}
+        WHERE
+            ZLXH = #{zlxh}
+    </update>
+</mapper>
+

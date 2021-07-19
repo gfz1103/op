@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 处方皮试 -->
+<mapper namespace="com.buit.commons.dao.OpCfpsDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id,JZXH as jzxh,CFSB as cfsb,PSID as psid,PSMC as psmc,PSSL as pssl,PSJE as psje
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_CF_PS (
+            ID ,
+            JZXH ,
+            CFSB ,
+            PSID ,
+            PSMC ,
+            PSSL ,
+            PSJE 
+        ) VALUES (
+            #{id} ,
+            #{jzxh} ,
+            #{cfsb} ,
+            #{psid} ,
+            #{psmc} ,
+            #{pssl} ,
+            #{psje} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_CF_PS SET
+            JZXH = #{jzxh} ,
+            CFSB = #{cfsb} ,
+            PSID = #{psid} ,
+            PSMC = #{psmc} ,
+            PSSL = #{pssl} ,
+            PSJE = #{psje} 
+        WHERE 
+            ID = #{id} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_CF_PS WHERE
+        ID = #{id} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_CF_PS <include refid="where"/>
+    </delete>
+    <delete id="deleteByCfsb">
+        DELETE FROM OP_CF_PS WHERE
+        CFSB = #{cfsb}
+    </delete>
+
+    <select id="getById" resultType="OpCfps">
+        SELECT <include refid="columns" />
+            FROM OP_CF_PS
+            WHERE 
+        ID = #{id} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND ID = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzxh)"> -->
+<!--                     AND JZXH = #{jzxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfsb)"> -->
+<!--                     AND CFSB = #{cfsb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psid)"> -->
+<!--                     AND PSID = #{psid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psmc)"> -->
+<!--                     AND PSMC = #{psmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(pssl)"> -->
+<!--                     AND PSSL = #{pssl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(psje)"> -->
+<!--                     AND PSJE = #{psje} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_CF_PS
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpCfps">
+        SELECT <include refid="columns" />
+        FROM OP_CF_PS
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+</mapper>
+

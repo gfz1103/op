@@ -1,0 +1,2 @@
+ALTER TABLE `op_bqzm`
+ADD COLUMN `KJZMSJ` datetime NULL COMMENT '开具证明时间' AFTER `JYZ`;

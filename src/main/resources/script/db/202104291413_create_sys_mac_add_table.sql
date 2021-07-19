@@ -1,0 +1,7 @@
+CREATE TABLE `sys_mac`  (
+  `ID` int NOT NULL COMMENT '主键',
+  `JGID` int NOT NULL COMMENT '机构ID',
+  `IP` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT 'IP',
+  `MAC` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT 'IP对应的MAC',
+  PRIMARY KEY (`ID`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'MAC信息表(用于mac地址维护)' ROW_FORMAT = DYNAMIC;

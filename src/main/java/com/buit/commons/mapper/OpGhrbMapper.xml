@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_挂号日报 -->
+<mapper namespace="com.buit.commons.dao.OpGhrbDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        CZGH as czgh,JZRQ as jzrq,JGID as jgid,QZPJ as qzpj,ZJJE as zjje,XJJE as xjje,ZPJE as zpje,ZHJE as zhje,QTYS as qtys,HBWC as hbwc,HZRQ as hzrq,FPZS as fpzs,MZLB as mzlb,THFP as thfp,THSL as thsl,THJE as thje,ZKSL as zksl,ZKFP as zkfp
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_GHRB (
+            CZGH ,
+            JZRQ ,
+            JGID ,
+            QZPJ ,
+            ZJJE ,
+            XJJE ,
+            ZPJE ,
+            ZHJE ,
+            QTYS ,
+            HBWC ,
+            HZRQ ,
+            FPZS ,
+            MZLB ,
+            THFP ,
+            THSL ,
+            THJE ,
+            ZKSL ,
+            ZKFP 
+        ) VALUES (
+            #{czgh} ,
+            #{jzrq} ,
+            #{jgid} ,
+            #{qzpj} ,
+            #{zjje} ,
+            #{xjje} ,
+            #{zpje} ,
+            #{zhje} ,
+            #{qtys} ,
+            #{hbwc} ,
+            #{hzrq} ,
+            #{fpzs} ,
+            #{mzlb} ,
+            #{thfp} ,
+            #{thsl} ,
+            #{thje} ,
+            #{zksl} ,
+            #{zkfp} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_GHRB SET
+            JGID = #{jgid} ,
+            QZPJ = #{qzpj} ,
+            ZJJE = #{zjje} ,
+            XJJE = #{xjje} ,
+            ZPJE = #{zpje} ,
+            ZHJE = #{zhje} ,
+            QTYS = #{qtys} ,
+            HBWC = #{hbwc} ,
+            HZRQ = #{hzrq} ,
+            FPZS = #{fpzs} ,
+            MZLB = #{mzlb} ,
+            THFP = #{thfp} ,
+            THSL = #{thsl} ,
+            THJE = #{thje} ,
+            ZKSL = #{zksl} ,
+            ZKFP = #{zkfp} 
+        WHERE 
+            CZGH = #{czgh}  AND 
+                        JZRQ = #{jzrq} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_GHRB WHERE
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_GHRB <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpGhrb">
+        SELECT <include refid="columns" />
+            FROM OP_GHRB 
+            WHERE 
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qzpj)"> -->
+<!--                     AND QZPJ = #{qzpj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjje)"> -->
+<!--                     AND ZJJE = #{zjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xjje)"> -->
+<!--                     AND XJJE = #{xjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zpje)"> -->
+<!--                     AND ZPJE = #{zpje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhje)"> -->
+<!--                     AND ZHJE = #{zhje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(qtys)"> -->
+<!--                     AND QTYS = #{qtys} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hbwc)"> -->
+<!--                     AND HBWC = #{hbwc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hzrq)"> -->
+<!--                     AND HZRQ = #{hzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fpzs)"> -->
+<!--                     AND FPZS = #{fpzs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(thfp)"> -->
+<!--                     AND THFP = #{thfp} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(thsl)"> -->
+<!--                     AND THSL = #{thsl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(thje)"> -->
+<!--                     AND THJE = #{thje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zksl)"> -->
+<!--                     AND ZKSL = #{zksl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zkfp)"> -->
+<!--                     AND ZKFP = #{zkfp} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_GHRB 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpGhrb">
+        SELECT <include refid="columns" />
+        FROM OP_GHRB 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <delete id="doDeleteByCondition" parameterType="Map">
+        DELETE 
+		FROM
+			OP_GHRB 
+		WHERE
+			CZGH = #{czgh} 
+			AND JGID = #{jgid} 
+			AND JZRQ = #{jzrq} 
+			AND MZLB = #{mzlb}
+    </delete>
+    
+    <select id="doQueryMaxHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( HZRQ ) AS HZRQ 
+		FROM
+			OP_GHRB 
+		WHERE
+			JGID = #{JGID}
+    </select>
+    
+    <select id="doQueryMinJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			min( JZRQ ) AS JZRQ 
+		FROM
+			OP_GHRB 
+		WHERE
+			JGID = #{JGID}
+    </select>
+    
+    <select id="doQueryByJzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			CZGH AS CZGH 
+		FROM
+			OP_GHRB 
+		WHERE
+			JGID = #{JGID} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ <![CDATA[>]]> #{JZRQ}
+    </select>
+    
+    <update id="doUpdateHzrq" parameterType="Map">
+        UPDATE OP_GHRB 
+		SET HZRQ = #{ldt_hzrq} 
+		WHERE
+			JGID = #{gl_jgid} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NOT NULL 
+			AND HZRQ IS NULL
+    </update>
+    
+    <select id="doQueryByHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			max( HZRQ ) AS HZRQ 
+		FROM
+			OP_GHRB 
+		WHERE
+			JGID = #{JGID}
+			AND HZRQ <![CDATA[<]]> #{hzrq}
+    </select>
+    
+    <select id="doQueryHzrq" parameterType="Map" resultType="java.util.Map">
+    	SELECT DISTINCT
+			HZRQ 
+		FROM
+			OP_GHRB  
+		WHERE
+			JGID = #{jgid}
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND HZRQ <![CDATA[>=]]> #{beginDay} 
+			AND HZRQ <![CDATA[<=]]> #{endDay}
+    </select>
+    
+    <select id="doQueryBeforeValid" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			CZGH AS YGDM,
+			sum( ZJJE ) AS GHJE,
+			0.0 AS XJJE,
+			sum( QTYS ) AS QTYS,
+			0.0 AS HBWC,
+			sum( FPZS ) AS GHRC,
+			sum( THSL ) AS THSL 
+		FROM
+			OP_GHRB 
+		WHERE
+			JGID = #{JGID} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND HZRQ IS NULL 
+		GROUP BY
+			CZGH
+    </select>
+    
+    <update id="updateHzrqToNull" parameterType="Map">
+        UPDATE OP_GHRB 
+		SET HZRQ = NULL 
+		WHERE
+			JGID = #{jgid} 
+			AND MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND JZRQ IS NOT NULL 
+			AND HZRQ = #{hzrq}
+    </update>
+    
+    <select id="doQueryGHrbSumje" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			ifnull(sum( b.GHJE ),0) AS GHJE,
+			ifnull(sum( b.ZLJE ),0) AS ZLJE,
+			ifnull(sum( b.ZJFY ),0) AS ZJFY,
+			ifnull(sum( b.BLJE ),0) AS BLJE,
+			ifnull(min( a.HZRQ ),0) AS KSRQ 
+		FROM
+			OP_GHRB a,
+			OP_GRMX b 
+		WHERE
+			a.CZGH = b.CZGH 
+			AND a.JZRQ = b.JZRQ 
+			AND a.JGID = #{al_jgid} 
+			AND a.MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND a.HZRQ <![CDATA[>=]]> #{adt_begin} 
+			AND a.HZRQ <![CDATA[<]]> #{adt_end}
+    </select>
+    
+    <select id="doQuerySumJe" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			ifnull(sum( b.GHJE ),0) AS GHJE,
+			ifnull(sum( b.ZLJE ),0) AS ZLJE,
+			ifnull(sum( b.ZJFY ),0) AS ZJFY,
+			ifnull(sum( b.BLJE ),0) AS BLJE 
+		FROM
+			OP_GHRB a,
+			OP_GRMX b 
+		WHERE
+			a.CZGH = b.CZGH 
+			AND a.JZRQ = b.JZRQ 
+			AND a.JGID = #{al_jgid} 
+			AND a.MZLB in 
+			<foreach item="item" index="index" collection="mzlb.split(',')" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+			AND a.HZRQ <![CDATA[>=]]> #{adt_begin} 
+			AND a.HZRQ <![CDATA[<]]>  #{adt_end}
+    </select>
+</mapper>
+

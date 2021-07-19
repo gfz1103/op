@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 输液/注射接药登记明细表 -->
+<mapper namespace="com.buit.commons.dao.SyJydjmxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JGID as jgid,KSDM as ksdm,DJDH as djdh,XH as xh,CFHM as cfhm,CFZH as cfzh,YPXH as ypxh,MZHM as mzhm,FPHM as fphm,SYTM as sytm
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO SY_JYDJMX (
+            JGID ,
+            KSDM ,
+            DJDH ,
+            XH ,
+            CFHM ,
+            CFZH ,
+            YPXH ,
+            MZHM ,
+            FPHM ,
+            SYTM 
+        ) VALUES (
+            #{jgid} ,
+            #{ksdm} ,
+            #{djdh} ,
+            #{xh} ,
+            #{cfhm} ,
+            #{cfzh} ,
+            #{ypxh} ,
+            #{mzhm} ,
+            #{fphm} ,
+            #{sytm} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE SY_JYDJMX SET
+            XH = #{xh} ,
+            MZHM = #{mzhm} ,
+            FPHM = #{fphm} ,
+            SYTM = #{sytm} 
+        WHERE 
+            JGID = #{jgid}  AND 
+                        KSDM = #{ksdm}  AND 
+                        DJDH = #{djdh}  AND 
+                        CFHM = #{cfhm}  AND 
+                        CFZH = #{cfzh}  AND 
+                        YPXH = #{ypxh} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM SY_JYDJMX WHERE
+        JGID = #{jgid}  AND
+        KSDM = #{ksdm}  AND
+        DJDH = #{djdh}  AND
+        CFHM = #{cfhm}  AND
+        CFZH = #{cfzh}  AND
+        YPXH = #{ypxh}
+    </delete>
+    
+    <delete id="removeByEntity">
+        <!--DELETE FROM SY_JYDJMX <include refid="where"/>-->
+    </delete>
+    
+    <select id="getById" resultType="SyJydjmx">
+        SELECT <include refid="columns" />
+            FROM SY_JYDJMX 
+            WHERE 
+        JGID = #{jgid}  AND 
+        KSDM = #{ksdm}  AND 
+        DJDH = #{djdh}  AND 
+        CFHM = #{cfhm}  AND 
+        CFZH = #{cfzh}  AND 
+        YPXH = #{ypxh} 
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ksdm)"> -->
+<!--                     AND KSDM = #{ksdm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djdh)"> -->
+<!--                     AND DJDH = #{djdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xh)"> -->
+<!--                     AND XH = #{xh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfhm)"> -->
+<!--                     AND CFHM = #{cfhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(cfzh)"> -->
+<!--                     AND CFZH = #{cfzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ypxh)"> -->
+<!--                     AND YPXH = #{ypxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzhm)"> -->
+<!--                     AND MZHM = #{mzhm} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fphm)"> -->
+<!--                     AND FPHM = #{fphm} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM SY_JYDJMX
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="SyJydjmx">
+        SELECT <include refid="columns" />
+        FROM SY_JYDJMX
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+
+    <select id="getMaxSyxh" resultType="java.lang.Integer">
+        SELECT ifnull(max(djmx.XH),0) as syxh  FROM SY_JYDJMX djmx
+        inner join SY_JYDJZB dj on djmx.DJDH = dj.DJDH
+        where dj.DJSJ BETWEEN #{beginDay} AND #{endDay} AND dj.KSLB = #{kslb}
+    </select>
+
+    <select id="doExistSyProcessing" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		FROM SY_JYDJMX djmx
+		INNER JOIN SY_JYDJZB dj ON djmx.DJDH = dj.DJDH
+		WHERE (dj.ZT = '1' OR dj.ZT = '0')
+		AND djmx.CFHM = #{cfhm}
+		AND djmx.CFZH = #{cfzh}
+		AND djmx.YPXH = #{ypxh}
+		AND dj.KSLB = #{kslb}
+    </select>
+
+    <select id="doQueryRegistList" resultType="QueryUnRegistResp">
+    	SELECT
+    		DISTINCT
+    		c.YPMC AS ypmc,
+			djmx.xh as xh,
+			djmx.sytm AS sytm,
+			a.KFRQ AS kfrq,
+			c.YPGG AS ypgg,
+			b.YPCD AS ypcd,
+			b.YCJL AS ypjl,
+			c.JLDW AS jldw,
+			b.YPYF AS sypc,
+			b.GYTJ AS gytj,
+			b.YYTS AS yyts,
+			a.KSDM AS ksdm,
+			a.YSDM AS ysdm,
+			b.BZXX AS bzmc,
+			b.CFSB AS cfhm,
+			b.YPZH AS cfzh,
+			b.SBXH AS sbxh
+		FROM
+			sy_jydjmx djmx
+			INNER JOIN OP_CF01 a ON djmx.CFHM = a.CFSB
+			INNER JOIN OP_CF02 b ON a.cfsb = b.cfsb AND djmx.YPXH = b.YPXH
+			INNER JOIN DRUGS_TYPK c ON b.YPXH = c.YPXH
+			INNER JOIN SY_GYTJ gytj ON b.gytj = gytj.GYTJDM
+		WHERE
+			djmx.DJDH = #{djdh}
+			AND djmx.JGID = #{jgid}
+			AND djmx.KSDM = #{ksdm}
+		ORDER BY b.SBXH,djmx.XH
+    </select>
+</mapper>
+

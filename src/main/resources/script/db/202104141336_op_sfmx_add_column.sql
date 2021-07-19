@@ -1,0 +1,1 @@
+ALTER TABLE  op_sfmx  ADD COLUMN  JMJE  decimal COMMENT '折扣减免金额';

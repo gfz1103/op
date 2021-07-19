@@ -1,0 +1,1 @@
+alter table mp_psxx modify JZKH varchar(50) not null comment '就诊卡号';

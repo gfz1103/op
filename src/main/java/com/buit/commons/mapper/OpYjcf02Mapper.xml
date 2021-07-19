@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_门诊医技单明细表 -->
+<mapper namespace="com.buit.commons.dao.OpYjcf02Dao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        SBXH as sbxh,JGID as jgid,YJXH as yjxh,YLXH as ylxh,XMLX as xmlx,YJZX as yjzx,YLDJ as yldj,YLSL as ylsl,HJJE as hjje,FYGB as fygb,ZFBL as zfbl,BZXX as bzxx,DZBL as dzbl,YJZH as yjzh,ZFPB as zfpb,SPBH as spbh,YXMS as yxms,DJZT as djzt,ZTBH as ztbh,ZXPB as zxpb,SQDH as sqdh,XFLSH as xflsh,ZTBZ as ztbz,ZTYZSBXH as ztyzsbxh,ZKBL as zkbl,ZKJE as zkje,ZHJE as zhje,JZLSH as jzlsh,ZXZT as zxzt,PSID as psid ,PSMC as psmc ,PSSL as pssl ,PSJE as psje
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_YJCF02 (
+            SBXH ,
+            JGID ,
+            YJXH ,
+            YLXH ,
+            XMLX ,
+            YJZX ,
+            YLDJ ,
+            YLSL ,
+            HJJE ,
+            FYGB ,
+            ZFBL ,
+            BZXX ,
+            DZBL ,
+            YJZH ,
+            ZFPB ,
+            SPBH ,
+            YXMS ,
+            DJZT ,
+            ZTBH ,
+            ZXPB ,
+            SQDH ,
+            XFLSH ,
+            ZTBZ ,
+            ZTYZSBXH ,
+            ZKBL ,
+            ZKJE ,
+            ZHJE ,
+            JZLSH,
+            ZXZT,
+            ZXCS ,
+            PSID ,
+            PSMC ,
+            PSSL ,
+            PSJE
+        ) VALUES (
+            #{sbxh} ,
+            #{jgid} ,
+            #{yjxh} ,
+            #{ylxh} ,
+            #{xmlx} ,
+            #{yjzx} ,
+            #{yldj} ,
+            #{ylsl} ,
+            #{hjje} ,
+            #{fygb} ,
+            #{zfbl} ,
+            #{bzxx} ,
+            #{dzbl} ,
+            #{yjzh} ,
+            #{zfpb} ,
+            #{spbh} ,
+            #{yxms} ,
+            #{djzt} ,
+            #{ztbh} ,
+            #{zxpb} ,
+            #{sqdh} ,
+            #{xflsh} ,
+            #{ztbz} ,
+            #{ztyzsbxh} ,
+            #{zkbl} ,
+            #{zkje} ,
+            #{zhje} ,
+            #{jzlsh},
+            #{zxzt},
+            #{zxcs},
+            #{psid},
+            #{psmc},
+            #{pssl},
+            #{psje}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE OP_YJCF02 SET
+            JGID = #{jgid} ,
+            YJXH = #{yjxh} ,
+            YLXH = #{ylxh} ,
+            XMLX = #{xmlx} ,
+            YJZX = #{yjzx} ,
+            YLDJ = #{yldj} ,
+            YLSL = #{ylsl} ,
+            HJJE = #{hjje} ,
+            FYGB = #{fygb} ,
+            ZFBL = #{zfbl} ,
+            BZXX = #{bzxx} ,
+            DZBL = #{dzbl} ,
+            YJZH = #{yjzh} ,
+            ZFPB = #{zfpb} ,
+            SPBH = #{spbh} ,
+            YXMS = #{yxms} ,
+            DJZT = #{djzt} ,
+            ZTBH = #{ztbh} ,
+            ZXPB = #{zxpb} ,
+            SQDH = #{sqdh} ,
+            XFLSH = #{xflsh} ,
+            ZTBZ = #{ztbz} ,
+            ZTYZSBXH = #{ztyzsbxh} ,
+            ZKBL = #{zkbl} ,
+            ZKJE = #{zkje} ,
+            ZHJE = #{zhje} ,
+            JZLSH = #{jzlsh} ,
+            ZXZT = #{zxzt},
+            ZXCS = #{zxcs}
+        WHERE
+            SBXH = #{sbxh}
+    </update>
+    <update id="updateYldjAndHjje">
+        UPDATE OP_YJCF02
+        SET YLDJ = #{YPDJ},
+        HJJE = #{HJJE}
+        WHERE
+            SBXH = #{SBXH}
+    </update>
+    <update id="updateYpdj">
+        UPDATE CIS_HZYZ
+        SET YPDJ = #{YPDJ}
+        WHERE
+            JLXH = #{SBXH}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_YJCF02 WHERE
+        SBXH = #{sbxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_YJCF02 <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpYjcf02">
+        SELECT <include refid="columns" />
+            FROM OP_YJCF02
+            WHERE
+        SBXH = #{sbxh}
+    </select>
+
+    <sql id="where">
+        <where>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbxh)"> -->
+<!--                     AND SBXH = #{sbxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(yjxh)">
+                     AND YJXH = #{yjxh}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ylxh)"> -->
+<!--                     AND YLXH = #{ylxh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xmlx)"> -->
+<!--                     AND XMLX = #{xmlx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yjzx)"> -->
+<!--                     AND YJZX = #{yjzx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yldj)"> -->
+<!--                     AND YLDJ = #{yldj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ylsl)"> -->
+<!--                     AND YLSL = #{ylsl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(hjje)"> -->
+<!--                     AND HJJE = #{hjje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fygb)"> -->
+<!--                     AND FYGB = #{fygb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfbl)"> -->
+<!--                     AND ZFBL = #{zfbl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bzxx)"> -->
+<!--                     AND BZXX = #{bzxx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(dzbl)"> -->
+<!--                     AND DZBL = #{dzbl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yjzh)"> -->
+<!--                     AND YJZH = #{yjzh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zfpb)"> -->
+<!--                     AND ZFPB = #{zfpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(spbh)"> -->
+<!--                     AND SPBH = #{spbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yxms)"> -->
+<!--                     AND YXMS = #{yxms} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(djzt)"> -->
+<!--                     AND DJZT = #{djzt} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ztbh)"> -->
+<!--                     AND ZTBH = #{ztbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zxpb)"> -->
+<!--                     AND ZXPB = #{zxpb} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sqdh)"> -->
+<!--                     AND SQDH = #{sqdh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xflsh)"> -->
+<!--                     AND XFLSH = #{xflsh} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(ztbz)">
+                     AND ZTBZ = #{ztbz}
+                </if>
+                <if test="@sqlt.Ognl@isNotEmpty(ztyzsbxh)">
+                     AND ZTYZSBXH = #{ztyzsbxh}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zkbl)"> -->
+<!--                     AND ZKBL = #{zkbl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zkje)"> -->
+<!--                     AND ZKJE = #{zkje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zhje)"> -->
+<!--                     AND ZHJE = #{zhje} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)">
+                     AND JZLSH = #{jzlsh}
+                </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_YJCF02
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpYjcf02">
+        SELECT <include refid="columns" />
+        FROM OP_YJCF02
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="findObjByObj" resultType="java.util.Map">
+        SELECT
+            a.SBXH AS SBXH,
+            a.YLXH AS FYXH,
+            a.YLSL AS CZSL,
+            d.BZJG AS BZJG,
+            f.JGBZ AS JGBZ,
+            b.BRID AS BRID,
+            c.BRXM AS BRXM,
+            b.JGID AS JGID
+        FROM
+            OP_YJCF02 a,
+            OP_YJCF01 b,
+            MPI_BRDA c,
+            FEE_YLSFXM d,
+            FEE_YLSFXMDJ f
+        WHERE
+            a.YJXH = b.YJXH
+            AND b.BRID = c.BRID
+            AND a.YLXH = d.FYXH
+            AND d.FYXH = f.FYXH
+            AND b.MZXH IS NULL
+            AND f.JGID = #{JGID}
+            AND a.SBXH = #{SBXH}
+    </select>
+
+    <!-- 获取序号 -->
+    <select id="getSbxhInfo" parameterType="Map" resultType="java.util.Map">
+		SELECT a.SBXH as SBXH,a.YLXH as YLXH,a.FYGB as FYGB FROM OP_YJCF02 a WHERE a.YJXH IN
+		<foreach item="item" index="index" collection="yjxhs.split(',')" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<!-- 更新药品序号 -->
+	<update id="updateYlxh" parameterType="Map">
+		UPDATE OP_YJCF02 SET YLXH = #{YLXH}, FYGB = #{FYGB},ZFBL = #{ZFBL} WHERE SBXH = #{SBXH}
+	</update>
+
+	<!-- 根据识别序号更新金额 -->
+	<update id="updateJeBySbxh" parameterType="Map">
+		UPDATE OP_YJCF02 SET ZKBL = #{ZKBL},ZHJE = #{ZHJE},ZKJE = #{ZKJE} WHERE SBXH = #{SBXH}
+	</update>
+
+	<!-- 根据YJXH序号查询数量 -->
+	<select id="getCountByYjxh" parameterType="Map" resultType="java.lang.Integer">
+        SELECT count(1) FROM OP_YJCF02 where YJXH = #{YJXH}
+    </select>
+
+    <!-- 根据主键删除信息 Map -->
+    <delete id="deleteBySbxh" parameterType="Map">
+        DELETE FROM OP_YJCF02 WHERE SBXH = #{SBXH}
+    </delete>
+
+    <!--查询 yj02信息-->
+	<select id="getYj02Info" parameterType="Map" resultType="java.util.Map">
+        SELECT
+			a.SBXH AS SBXH,
+			a.YLXH AS FYXH,
+			a.YLSL AS CZSL,
+			d.BZJG AS BZJG,
+			f.JGBZ AS JGBZ,
+			b.BRID AS BRID,
+			c.BRXM AS BRXM,
+			b.JGID AS JGID
+		FROM
+			OP_YJCF02 a,
+			OP_YJCF01 b,
+			MPI_BRDA c,
+			FEE_YLSFXM d,
+			FEE_YLSFXMDJ f
+		WHERE
+			a.YJXH = b.YJXH
+			AND b.BRID = c.BRID
+			AND a.YLXH = d.FYXH
+			AND d.FYXH = f.FYXH
+			AND f.JGID = #{JGID}
+			AND a.SBXH = #{SBXH}
+			AND b.MZXH IS NULL
+    </select>
+
+    <!-- 根据识别序号更新自负比例-->
+	<update id="updateZfblBySbxh" parameterType="Map">
+		update OP_YJCF02 set ZFBL=#{ZFBL} where SBXH=#{SBXH}
+	</update>
+
+	<select id="getSbxh" parameterType="Map" resultType="java.util.Map">
+		select SBXH as SBXH from OP_YJCF02 where YJXH=#{YJXH}
+    </select>
+
+    <select id="getYj02Cic" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			yj02.*,
+			ylsf.FYMC,
+			ylsf.FYDW,
+			yj01.ZXRQ,
+			yj01.YSDM,
+			yj01.KSDM,
+			yj01.ZXKS,
+			yj01.MZXH,
+			yj01.FPHM,
+			yj01.SQWH,
+			yj01.ZFPB
+		FROM
+			OP_YJCF02 yj02
+			INNER JOIN FEE_YLSFXM ylsf ON yj02.YLXH = ylsf.FYXH
+			INNER JOIN OP_YJCF01 yj01 ON yj02.YJXH = yj01.YJXH
+			where yj02.YJXH = #{YJXH}
+    </select>
+    <select id="loadAddition" resultType="com.buit.commons.response.LoadAdditionResp">
+        SELECT
+                a.SBXH AS sbxh,
+                a.YJZH AS yjzh,
+                a.YJXH AS yjxh,
+                a.YLXH AS ylxh,
+                b.FYMC AS fymc,
+                b.FYDW AS fydw,
+                a.YLSL AS ylsl,
+                a.YLDJ AS yldj,
+                a.HJJE AS hjje,
+                a.ZFBL AS zfbl,
+                a.FYGB,(
+                SELECT
+                    FJGL
+                FROM
+                    OP_YJCF01 t
+                WHERE
+                    t.YJXH = a.YJXH
+                ) AS ypzh
+            FROM
+                OP_YJCF02 a,
+                FEE_YLSFXM b
+            WHERE
+                a.YLXH = b.FYXH
+                AND a.YJXH IN (
+                SELECT
+                    YJXH
+                FROM
+                    OP_YJCF01 t
+                WHERE
+                    JZXH = #{jzxh}
+                AND FJGL IS NOT NULL
+                )
+    </select>
+    <select id="queryDisposalEntryList" resultType="java.util.Map">
+        SELECT
+            a.sbxh as sbxh,
+            a.JZLSH AS jzlsh,
+            b.yjjk as yjjk,
+            a.yjzh as yjzh,
+            a.jgid as jgid,
+            a.yjxh as yjxh,
+            a.ylxh as ylxh,
+            a.xmlx as xmlx,
+            a.yjzx as yjzx,
+            b.fymc as fymc,
+            b.fydw as fydw,
+            a.yldj as yldj,
+            a.ylsl as ylsl,
+            a.hjje as hjje,
+            c.zxrq as zxrq,
+            c.ysdm as ysdm,
+            c.ksdm as ksdm,
+            c.zxks as zxks,
+            c.mzxh as mzxh,
+            c.fphm as fphm,
+            c.sqwh as sqwh,
+            c.zfpb as zfpb,
+            a.fygb as fygb,
+            a.zfbl as zfbl,
+            a.bzxx as bzxx,
+            a.dzbl as dzbl,
+            a.spbh as spbh,
+            a.ztbh as ztbh,
+            a.ztbz as ztbz,
+            a.ztyzsbxh as ztyzsbxh,
+            c.XMLX as djly
+        FROM
+            OP_YJCF02 a,
+            FEE_YLSFXM b,
+            OP_YJCF01 c
+        WHERE
+            (
+                b.FYXH = a.YLXH
+                AND c.YJXH = a.YJXH
+                AND ( ( BRID = #{brid} AND JZXH = #{jzxh} ) AND ( FJLB IS NULL OR FJLB != #{fjlb} ) )
+            )
+        ORDER BY
+            YJXH,
+            SBXH ASC
+    </select>
+    <select id="queryYjxhByCfsb" resultType="java.lang.Integer">
+        SELECT
+            YJXH
+        FROM
+            OP_YJCF01
+        WHERE
+            FJGL IN
+            (
+                SELECT DISTINCT YPZH
+                FROM OP_CF02
+                WHERE CFSB = #{cfsb}
+            )
+    </select>
+    <select id="queryFphmZfbzBySbxh" resultType="com.buit.commons.model.CzData">
+        SELECT DISTINCT
+            a.ZTYZSBXH AS ztyzsbxh,
+            b.FPHM AS FPHM,
+            b.ZFPB AS ZFBZ,
+            a.SBXH AS sbxh,
+            a.ZTBZ AS ztbz,
+            a.YJXH AS yjxh,
+            a.JZLSH as jzlsh,
+            b.XMLX as xmlx,
+            b.SQID as sqid,
+            b.SSSQID as sssqid,
+            b.ZLSQDID as zlsqdid,
+            b.JGID as jgid
+        FROM
+            OP_YJCF02 a
+            LEFT JOIN OP_YJCF01 b ON b.YJXH = a.YJXH
+        WHERE
+            a.SBXH = #{sbxh}
+    </select>
+    <select id="queryZtFphmZfbzBySbxh" resultType="com.buit.commons.model.CzData">
+        SELECT DISTINCT
+            b.FPHM AS FPHM,
+            b.ZFPB AS ZFBZ,
+            a.SBXH AS sbxh,
+            a.ZTBZ AS ztbz,
+            a.YJXH AS yjxh,
+            a.JZLSH as jzlsh,
+            b.XMLX as xmlx,
+            b.SQID as sqid,
+            b.SSSQID as sssqid,
+            b.ZLSQDID as zlsqdid,
+            b.JGID as jgid
+        FROM
+            OP_YJ02_ZT a
+            LEFT JOIN OP_YJCF01 b ON b.YJXH = a.YJXH
+        WHERE
+            a.SBXH = #{sbxh}
+    </select>
+    <select id="queryYlsl" resultType="java.util.Map">
+        SELECT
+            sum( b.YLSL ) AS YLSL
+        FROM
+            OP_YJCF01 a,
+            OP_YJCF02 b
+        WHERE
+            a.yjxh = b.yjxh
+            AND a.brid =: BRID
+            AND a.jgid =: JGID
+            AND a.zfpb = 0
+            AND ylxh =: YLXH
+            AND a.KDRQ > XZTS
+    </select>
+    <delete id="deleteBySbxhList">
+        DELETE from OP_YJCF02
+        WHERE
+            YJXH IN
+            <foreach collection="yjxhList" item="jlxh" open="(" close=")" separator="," >
+                #{jlxh}
+            </foreach>
+    </delete>
+    <delete id="deleteByYjxh">
+        DELETE
+        FROM
+            OP_YJCF02
+        WHERE
+            YJXH IN
+            ( select a.YJXH from ( SELECT YJXH FROM OP_YJCF02 WHERE ZTYZSBXH = #{ztyzsbxh})a )
+    </delete>
+
+    <update id="updateBySaveSettle">
+		UPDATE OP_YJCF02
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(jgid)">
+				JGID = #{jgid} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yjxh)">
+				YJXH = #{yjxh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ylxh)">
+				YLXH = #{ylxh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(xmlx)">
+				XMLX = #{xmlx} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yjzx)">
+				YJZX = #{yjzx} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yldj)">
+				YLDJ = #{yldj} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ylsl)">
+				YLSL = #{ylsl} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(hjje)">
+				HJJE = #{hjje} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(fygb)">
+				FYGB = #{fygb} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zfbl)">
+				ZFBL = #{zfbl} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(bzxx)">
+				BZXX = #{bzxx} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(dzbl)">
+				DZBL = #{dzbl} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yjzh)">
+				YJZH = #{yjzh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zfpb)">
+				ZFPB = #{zfpb} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(spbh)">
+				SPBH = #{spbh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(yxms)">
+				YXMS = #{yxms} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(djzt)">
+				DJZT = #{djzt} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ztbh)">
+				ZTBH = #{ztbh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zxpb)">
+				ZXPB = #{zxpb} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(sqdh)">
+				SQDH = #{sqdh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(xflsh)">
+				XFLSH = #{xflsh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ztbz)">
+				ZTBZ = #{ztbz} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(ztyzsbxh)">
+				ZTYZSBXH = #{ztyzsbxh} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zkbl)">
+				ZKBL = #{zkbl} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zkje)">
+				ZKJE = #{zkje} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zhje)">
+				ZHJE = #{zhje},
+			</if>
+		</trim>
+		WHERE SBXH = #{sbxh}
+	</update>
+    <update id="updateYjzxBySbxh">
+        update OP_YJCF02
+         set YJZX=1 where SBXH= #{sbxh}
+    </update>
+
+    <select id="doQueryMzqd" parameterType="Map" resultType="java.util.Map">
+    	SELECT
+			d.SFMC AS FYDL,
+			c.FYMC AS FYMC,
+			TRIM(c.FYDW) AS DW,
+			a.YLDJ AS DJ,
+			a.YLSL AS SL,
+			a.HJJE AS JE
+		FROM
+			OP_YJCF02 a,
+			OP_YJCF01 b,
+			FEE_YLSFXM c,
+			DIC_SFXMLB d
+		WHERE
+			a.YJXH = b.YJXH
+			AND a.YLXH = c.FYXH
+			AND a.FYGB = d.SFXM
+			AND b.FPHM = #{FPHM}
+			AND b.JGID = #{JGID}
+        ORDER BY a.FYGB
+    </select>
+    <select id="queryFymcYldjHjjeByYjxh" resultType="java.util.Map">
+        SELECT
+        cf.YJXH AS YJXH,
+        yl.FYMC AS FYMC,
+        cf.YLDJ AS YLDJ,
+        cf.ZFBL AS ZFBL,
+        cf.YLSL || '    ' || yl.FYDW AS FYDW,
+        cf.HJJE AS HJJE
+        FROM
+        OP_YJCF02 cf,
+        FEE_YLSFXM yl,
+        OP_YJCF01 YJ01
+        WHERE
+        cf.YLXH = yl.FYXH
+        AND cf.YJXH = #{YJXH}
+        AND cf.YJXH = YJ01.YJXH
+        AND YJ01.ZFPB <![CDATA[ <> ]]> 1
+        ORDER BY
+        cf.YJXH
+    </select>
+
+    <select id="queryFymcHjjeBySbxh" resultType="java.util.Map">
+        SELECT
+        cf.YJXH AS YJXH,
+        yl.FYMC AS FYMC,
+        cf.YLDJ AS YLDJ,
+        cf.ZFBL AS ZFBL,
+        cf.YLSL || '    ' || yl.FYDW AS FYDW,
+        cf.HJJE AS HJJE
+        FROM
+        OP_YJCF02 cf,
+        FEE_YLSFXM yl,
+        OP_YJCF01 YJ01
+        WHERE
+        cf.YLXH = yl.FYXH
+        AND cf.SBXH = #{sbxh}
+        AND cf.YJXH = YJ01.YJXH
+        AND YJ01.ZFPB <![CDATA[ <> ]]> 1
+        ORDER BY
+        cf.YJXH
+    </select>
+
+    <select id="queryFymcByZtysSbxh" resultType="java.util.Map">
+        SELECT
+        cf.YJXH AS YJXH,
+        yl.FYMC AS FYMC,
+        cf.YLDJ AS YLDJ,
+        cf.ZFBL AS ZFBL,
+        cf.YLSL || '    ' || yl.FYDW AS FYDW,
+        cf.HJJE AS HJJE
+        FROM
+        OP_YJCF02 cf,
+        FEE_YLSFXM yl,
+        OP_YJCF01 YJ01
+        WHERE
+        cf.YLXH = yl.FYXH
+        AND cf.ZTYZSBXH = #{sbxh}
+        AND cf.YJXH = YJ01.YJXH
+        AND YJ01.ZFPB <![CDATA[ <> ]]> 1
+        ORDER BY
+        cf.YJXH
+    </select>
+
+    <update id="updateZxztAndZxcs" parameterType="Map">
+		UPDATE OP_YJCF02
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="@sqlt.Ognl@isNotEmpty(zxzt)">
+				ZXZT = #{zxzt} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zxcs)">
+				ZXCS = #{zxcs} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zxrq)">
+				zxrq = #{zxrq} ,
+			</if>
+			<if test="@sqlt.Ognl@isNotEmpty(zxys)">
+				zxys = #{zxys} ,
+			</if>
+		</trim>
+		WHERE SBXH = #{sbxh}
+	</update>
+
+	<select id="doQueryBySBxhOrZtsbxh" resultType="com.buit.op.model.OpYjcf02">
+		 SELECT <include refid="columns" />
+            FROM OP_YJCF02
+            WHERE
+        	<choose>
+            <when test="@sqlt.Ognl@isNotEmpty(ztbz) and ztbz == 0 ">
+                SBXH = #{sbxh}
+            </when>
+            <otherwise>
+            	ZTYZSBXH = #{sbxh}
+            </otherwise>
+        	</choose>
+	</select>
+
+	<update id="updateJmjeBySbxh" >
+    	update OP_YJCF02 set JMJE = #{jmje} where SBXH = #{sbxh}
+    </update>
+    <update id="updateYlslAndJe">
+        update OP_YJCF02
+        set JMJE = #{jmje},
+            YLSL = #{ypsl},
+            HJJE = #{hjje},
+            ZKJE = #{zkje}
+        where SBXH = #{sbxh}
+    </update>
+
+
+    <delete id="deleteByYjxhForSssq">
+        DELETE
+        FROM
+            OP_YJCF02
+        WHERE
+            YJXH = #{yjxh}
+    </delete>
+
+    <!--<select id="queryByYlxhAndJzlsh" resultType="java.lang.Integer">-->
+       <!--SELECT count(*)-->
+       <!--FROM op_yjcf02-->
+       <!--WHERE JZLSH = #{jzlsh} and JGID = #{jgid} and YLXH = #{ylxh}-->
+    <!--</select>-->
+
+    <select id="queryByYlxhAndJzlsh" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM cis_jcsq01 a,cis_jcsq02 b
+        WHERE a.JCXH = b.JCXH and a.JZXH = #{jzlsh}  and b.FYXH = #{ylxh}
+    </select>
+
+    <select id="queryZtDetail" resultType="com.buit.cis.op.dctwork.response.YjztDetailResp">
+        SELECT
+        cf.YJXH AS YJXH,
+        yl.FYMC AS XMMC,
+        cf.YLDJ AS YLDJ,
+        cf.ZFBL AS ZFBL,
+        cf.YLSL AS YLSL,
+        cf.HJJE AS HJJE
+        FROM
+        OP_YJCF02 cf,
+        FEE_YLSFXM yl
+        WHERE
+        cf.YLXH = yl.FYXH
+        AND cf.ZTYZSBXH = #{ztyzsbxh}
+        ORDER BY
+        cf.YJXH
+    </select>
+
+    <select id="queryJysqdMessage" resultType="com.buit.commons.response.QueryJysqdResp">
+        SELECT
+        yjcf01.JGID AS jgid,
+        yjcf01.BRXM AS brxm,
+        yjcf01.KDRQ AS kdrq,
+        yjcf01.KSDM AS ksdm,
+        yjcf01.YSDM AS ysdm,
+        yjcf01.ZXKS AS zxks,
+        yjcf01.DJZT AS djzt,
+        SUM(yjcf02.HJJE) AS hjje,
+        GROUP_CONCAT(yjcf02.SBXH) AS sbxhs,
+        GROUP_CONCAT(sfxm.FYMC) AS xmlbs,
+        yj02zt.FYMC AS ztmc
+        FROM op_yjcf01 yjcf01
+        LEFT JOIN op_yjcf02 yjcf02 ON yjcf01.YJXH = yjcf02.YJXH
+        LEFT JOIN fee_ylsfxm sfxm ON yjcf02.YLXH = sfxm.FYXH
+        LEFT JOIN op_yj02_zt yj02zt ON yjcf02.ZTYZSBXH = yj02zt.SBXH
+        WHERE 1=1 AND yjcf01.XMLX = 4 and yjcf01.JGID = #{jgid}
+        <if test="@sqlt.Ognl@isNotEmpty(jzxh)">
+            AND yjcf01.JZXH = #{jzxh}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(ysdm)">
+            AND yjcf01.YSDM = #{ysdm}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(kdrq_begin)">
+            and DATE_FORMAT(yjcf01.KDRQ,'%Y-%m-%d') >= #{kdrq_begin}
+        </if>
+        <if test="@sqlt.Ognl@isNotEmpty(kdrq_end)">
+            AND DATE_FORMAT(yjcf01.KDRQ,'%Y-%m-%d') &lt;= #{kdrq_end}
+        </if>
+        GROUP BY yjcf01.YJXH,yjcf01.JGID,yjcf01.BRXM,yjcf01.KDRQ,yjcf01.KSDM,yjcf01.YSDM,yjcf01.ZXKS,yjcf01.DJZT,yj02zt.FYMC
+    </select>
+    <select id="getLisRequestUpdate" resultType="com.buit.his.request.RequestUpdateDetail">
+        select SBXH as requestdetail_no, YLXH as Item_code, FYMC as Item_name, YLDJ as Price
+        from op_yj02_zt
+        where YJXH = #{yjxh}
+    </select>
+
+    <select id="updateyJcf02">
+      UPDATE OP_YJCF02 SET
+            YLXH = #{ylxh} ,
+            XMLX = #{xmlx} ,
+            YJZX = #{yjzx} ,
+            YLDJ = #{yldj} ,
+            YLSL = #{ylsl} ,
+            HJJE = #{hjje} ,
+            FYGB = #{fygb} ,
+            ZFBL = #{zfbl} ,
+            BZXX = #{bzxx} ,
+            DZBL = #{dzbl} ,
+            YJZH = #{yjzh} ,
+            ZFPB = #{zfpb} ,
+            SPBH = #{spbh} ,
+            YXMS = #{yxms} ,
+            DJZT = #{djzt} ,
+            ZTBH = #{ztbh} ,
+            ZXPB = #{zxpb} ,
+            XFLSH = #{xflsh} ,
+            ZTBZ = #{ztbz} ,
+            ZTYZSBXH = #{ztyzsbxh} ,
+            ZKBL = #{zkbl} ,
+            ZKJE = #{zkje} ,
+            ZHJE = #{zhje} ,
+            ZXZT = #{zxzt},
+            ZXCS = #{zxcs}
+        WHERE
+            SBXH = #{sbxh}
+    </select>
+
+    <delete id="deleteByZtyzsbxh">
+        DELETE
+        FROM
+            OP_YJCF02
+        WHERE
+            ZTYZSBXH = #{ztyzsbxh}
+    </delete>
+
+    <delete id="deleteByjzlshAndYjzh">
+       DELETE
+       FROM OP_YJCF02
+       WHERE JZLSH = #{jzlsh} AND YJZH = #{yjzh}
+    </delete>
+
+    <select id="getMaxYjzh" resultType="java.lang.Integer">
+        SELECT MAX(YJZH) AS YJZH
+        FROM op_yjcf02
+        WHERE JZLSH = #{jzlsh} AND JGID = #{jgid};
+    </select>
+
+    <select id="getSameGroupZt" resultType="java.lang.Integer">
+       select ZTYZSBXH as  ztyzsbxh
+       from op_yjcf02
+       where JZLSH = #{jzlsh} and YJZH = #{yjzh} and ZTYZSBXH is not null
+    </select>
+
+    <select id="getCzByJzlsh" resultType="com.buit.cis.op.dctwork.response.CzDetailResponse">
+        SELECT
+        fyxm.FYMC AS xmmc,
+        yj02.YLSL AS ylsl,
+        fyxm.FYDW AS xmdw,
+        yj02.YJZH AS yjzh,
+        yj02.YLDJ as yldj,
+        yj02.HJJE as hjje
+        FROM op_yjcf02 yj02
+        left join op_yjcf01 yj01 on  yj02.yjxh = yj01.yjxh
+        LEFT JOIN fee_ylsfxm fyxm ON yj02.YLXH = fyxm.FYXH
+        WHERE yj01.ZFPB = 0 AND yj02.JZLSH = #{jzlsh}
+    </select>
+
+    <select id="getCzByYjzhAndJzlsh" resultType="com.buit.cis.op.dctwork.response.CzDetailResponse">
+        SELECT
+        fyxm.FYMC AS xmmc,
+        yj02.YLSL AS ylsl,
+        fyxm.FYDW AS xmdw,
+        yj02.YJZH AS yjzh,
+        yj02.YLDJ as yldj,
+        yj02.HJJE as hjje
+        FROM op_yjcf02 yj02
+        left join op_yjcf01 yj01 on  yj02.yjxh = yj01.yjxh
+        LEFT JOIN fee_ylsfxm fyxm ON yj02.YLXH = fyxm.FYXH
+        WHERE yj01.ZFPB = 0 AND yj02.JZLSH = #{jzlsh} and yj02.YJZH in
+        <foreach collection="yjzhList" item="yjzh" separator="," close=")" open="(" >
+            #{yjzh}
+        </foreach>
+    </select>
+
+    <select id="getCzByztsbxhAndJzlsh" resultType="com.buit.cis.op.dctwork.response.CzDetailResponse">
+        SELECT
+        fyxm.FYMC AS xmmc,
+        yj02.YLSL AS ylsl,
+        fyxm.FYDW AS xmdw,
+        yj02.YJZH AS yjzh
+        FROM op_yjcf02 yj02
+        left join op_yjcf01 yj01 on  yj02.yjxh = yj01.yjxh
+        LEFT JOIN fee_ylsfxm fyxm ON yj02.YLXH = fyxm.FYXH
+        WHERE yj01.ZFPB = 0 and yj02.JZLSH = #{jzlsh} and yj02.ZTYZSBXH = #{ztsbxh}
+    </select>
+
+    <select id="getCzBySbxhAndJzlsh" resultType="com.buit.cis.op.dctwork.response.CzDetailResponse">
+        SELECT
+        fyxm.FYMC AS xmmc,
+        yj02.YLSL AS ylsl,
+        fyxm.FYDW AS xmdw,
+        yj02.YJZH AS yjzh,
+        yj02.YLDJ as yldj,
+        yj02.HJJE as hjje
+        FROM op_yjcf02 yj02
+        LEFT JOIN fee_ylsfxm fyxm ON yj02.YLXH = fyxm.FYXH
+        WHERE yj02.JZLSH = #{jzlsh} and yj02.SBXH = #{sbxh}
+    </select>
+    <select id="getBySbxhList" resultType="com.buit.op.model.OpYjcf02">
+        select *
+        from op_yjcf02
+        where  SBXH IN
+        <foreach collection="list" item="sbxh" separator="," close=")" open="(" >
+            #{sbxh}
+        </foreach>
+    </select>
+
+    <select id="getDjf" resultType="com.buit.op.model.OpYjcf02">
+        SELECT cf02.YLDJ,cf02.HJJE FROM op_yjcf01 cf01
+        LEFT JOIN op_yjcf02 cf02 ON cf01.YJXH = cf02.YJXH
+        WHERE cf01.JGID = #{jgid} and cf01.CFSB = #{cfsb} AND cf01.XMLX = 3 AND cf01.FJLB = 3 limit 1
+    </select>
+</mapper>
+

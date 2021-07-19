@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 互联网科室HIS挂号科室关联表 -->
+<mapper namespace="com.buit.commons.dao.MpGlksDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ghks as ghks,glks as glks
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO MP_GLKS (
+            ghks ,
+            glks 
+        ) VALUES (
+            #{ghks} ,
+            #{glks} 
+        )
+    </insert>
+    
+    <update id="update" >
+        UPDATE MP_GLKS SET
+            glks = #{glks}
+        WHERE
+            ghks = #{ghks}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM MP_GLKS WHERE
+        ghks = #{ghks} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM MP_GLKS <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="MpGlks">
+        SELECT <include refid="columns" />
+            FROM MP_GLKS 
+            WHERE 
+        ghks = #{ghks} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghks)"> -->
+<!--                     AND ghks = #{ghks} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(glks)"> -->
+<!--                     AND glks = #{glks} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM MP_GLKS 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="MpGlks">
+        SELECT <include refid="columns" />
+        FROM MP_GLKS 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+
+    <!--     业务sql      -->
+    <select id="getList" resultType="com.buit.commons.response.MpGlksResp">
+        select og.KSDM ghks, og.KSMC ghksmc, glks.KSDM glks, glks.KSMC glksmc
+        from op_ghks og
+        left join dic_kszd dk on og.MZKS = dk.ID
+        left join mp_glks mg on mg.ghks = og.KSDM
+        left join op_ghks glks on mg.glks = glks.KSDM
+        where dk.INTERNET = 1
+        <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+            AND og.JGID = #{jgid}
+        </if>
+    </select>
+</mapper>
+

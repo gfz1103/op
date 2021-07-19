@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 诊疗项目 -->
+<mapper namespace="com.buit.commons.daoDicZlxmDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ZLXMID as zlxmid,JGID as jgid,XMMC as xmmc,PYDM as pydm,WBDM as wbdm,MEMO as memo,ZFBZ as zfbz,CZSY as czsy,LZSY as lzsy,MZSY as mzsy,ZYSY as zysy,TJSY as tjsy,YJLX as yjlx,JCZQTYS as jczqtys,ZYSX as zysx,ZXKS as zxks
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO DIC_ZLXM (
+            ZLXMID ,
+            JGID ,
+            XMMC ,
+            PYDM ,
+            WBDM ,
+            MEMO ,
+            ZFBZ ,
+            CZSY ,
+            LZSY ,
+            MZSY ,
+            ZYSY ,
+            TJSY ,
+            YJLX ,
+            JCZQTYS ,
+            ZYSX ,
+            ZXKS 
+        ) VALUES (
+            #{zlxmid} ,
+            #{jgid} ,
+            #{xmmc} ,
+            #{pydm} ,
+            #{wbdm} ,
+            #{memo} ,
+            #{zfbz} ,
+            #{czsy} ,
+            #{lzsy} ,
+            #{mzsy} ,
+            #{zysy} ,
+            #{tjsy} ,
+            #{yjlx} ,
+            #{jczqtys} ,
+            #{zysx} ,
+            #{zxks} 
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE DIC_ZLXM SET
+            XMMC = #{xmmc},
+            PYDM = #{pydm},
+            WBDM = #{wbdm},
+            MEMO = #{memo},
+            ZFBZ = #{zfbz},
+            CZSY = #{czsy},
+            LZSY = #{lzsy},
+            MZSY = #{mzsy},
+            ZYSY = #{zysy},
+            TJSY = #{tjsy},
+            YJLX = #{yjlx},
+            JCZQTYS = #{jczqtys},
+            ZYSX = #{zysx},
+            ZXKS = #{zxks}
+        WHERE
+            ZLXMID = #{zlxmid}
+    </update>
+
+    <delete id="deleteById">
+        update DIC_ZLXM set ZFBZ = '1'
+        where ZLXMID = #{zlxmid}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM DIC_ZLXM
+        <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="com.buit.commons.model.DicZlxm">
+        SELECT
+        <include refid="columns"/>
+        FROM DIC_ZLXM
+        WHERE
+        ZLXMID = #{zlxmid}
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(zlxmid)">
+                AND ZLXMID = #{zlxmid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jgid)">
+                AND JGID = #{jgid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(xmmc)">
+                AND XMMC = #{xmmc}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(pydm)">
+                AND PYDM = #{pydm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(wbdm)">
+                AND WBDM = #{wbdm}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(memo)">
+                AND MEMO = #{memo}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zfbz)">
+                AND ZFBZ = #{zfbz}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(czsy)">
+                AND CZSY = #{czsy}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(lzsy)">
+                AND LZSY = #{lzsy}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(mzsy)">
+                AND MZSY = #{mzsy}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zysy)">
+                AND ZYSY = #{zysy}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(tjsy)">
+                AND TJSY = #{tjsy}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(yjlx)">
+                AND YJLX = #{yjlx}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(jczqtys)">
+                AND JCZQTYS = #{jczqtys}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zysx)">
+                AND ZYSX = #{zysx}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zxks)">
+                AND ZXKS = #{zxks}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM DIC_ZLXM
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="com.buit.commons.model.DicZlxm">
+        SELECT
+        <include refid="columns"/>
+        FROM DIC_ZLXM
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="getFyzh" resultType="java.util.Map">
+        SELECT
+        t.ZLXMID AS ZLXMID,
+        t.ZXKS AS ZXKS,
+        t.XMMC AS XMMC,
+        t.JCZQTYS AS JCZQTYS,
+        t.ZYSX AS ZYSX,(
+        SELECT
+        <if test="bxlx == 1">
+            sum(sbjg * IFNULL ( a.fysl, 1 ))
+        </if>
+        <if test="bxlx == 2">
+            sum(fydj * IFNULL ( a.fysl, 1 ))
+        </if>
+        FROM
+        DICC_ZLSFDZ a
+        LEFT JOIN FEE_YLSFXMDJ b ON a.fyxh = b.fyxh
+        WHERE
+        a.zlxmid = t.zlxmid
+        ) AS FYDJ
+        FROM
+        DIC_ZLXM t
+        WHERE
+        t.YJLX = #{yjlx}
+        AND t.ZFBZ = 0
+        ORDER BY
+        t.XMMC
+    </select>
+    <select id="getFyxhZlxmidFysl" resultType="java.util.Map">
+        SELECT
+            B.FYXH AS FYXH,
+            B.ZLXMID AS ZLXMID,
+            IFNULL( B.FYSL, 1 ) AS FYSL
+        FROM
+            DICC_ZLSFDZ B,
+            DIC_ZLXM C
+        WHERE
+            B.ZLXMID = C.ZLXMID
+            AND C.YJLX = #{yjlx}
+    </select>
+</mapper>
+

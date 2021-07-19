@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 诊疗收费对照 -->
+<mapper namespace="com.buit.commons.dao.DiccZlsfdzDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        JLXH as jlxh,ZLXMID as zlxmid,FYXH as fyxh,FYSL as fysl
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO DICC_ZLSFDZ (
+            JLXH ,
+            ZLXMID ,
+            FYXH ,
+            FYSL
+        ) VALUES (
+            #{jlxh} ,
+            #{zlxmid} ,
+            #{fyxh} ,
+            #{fysl}
+        )
+    </insert>
+
+    <update id="update" ><!--
+        UPDATE DICC_ZLSFDZ SET
+            ZLXMID = #{zlxmid} ,
+            FYXH = #{fyxh} ,
+            FYSL = #{fysl}
+        WHERE
+            JLXH = #{jlxh}
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM DICC_ZLSFDZ WHERE
+        JLXH = #{jlxh}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM DICC_ZLSFDZ <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="com.buit.system.model.DiccZlsfdz">
+        SELECT <include refid="columns" />
+            FROM DICC_ZLSFDZ
+            WHERE
+        JLXH = #{jlxh}
+    </select>
+
+    <sql id="where">
+        <where>
+            <if test="@sqlt.Ognl@isNotEmpty(jlxh)">
+                 AND JLXH = #{jlxh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(zlxmid)">
+                 AND ZLXMID = #{zlxmid}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(fyxh)">
+                 AND FYXH = #{fyxh}
+            </if>
+            <if test="@sqlt.Ognl@isNotEmpty(fysl)">
+                 AND FYSL = #{fysl}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM DICC_ZLSFDZ
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="com.buit.system.model.DiccZlsfdz">
+        SELECT <include refid="columns" />
+        FROM DICC_ZLSFDZ
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="loadSqdDetailInfo" resultType="com.buit.system.response.LoadSqdDetailInfoResp">
+        SELECT
+            a.JLXH AS JLXH,
+            a.ZLXMID AS ZLXMID,
+            a.FYXH AS FYXH,
+            c.FYDW AS FYDW,
+            c.FYMC AS FYMC,
+            b.FYDJ AS FYJE
+        FROM
+            DICC_ZLSFDZ a
+            LEFT JOIN FEE_YLSFXMDJ b ON b.FYXH = a.FYXH
+            LEFT JOIN FEE_YLSFXM c ON c.FYXH = a.FYXH
+        WHERE
+            a.ZLXMID IN (
+            SELECT
+                d.FYXH
+            FROM
+                CIS_JCSQ02 d
+        WHERE
+            d.JCXH = #{jcxh})
+    </select>
+    <!--删除-->
+    <delete id="deleteByZlxmId">
+        DELETE FROM DICC_ZLSFDZ where ZLXMID = #{zlxmId}
+    </delete>
+    <!--诊疗收费对照字典-->
+    <select id="queryZlsfdzDicList" resultType="com.buit.system.response.GyYlxmDicResp">
+        select
+            distinct a.FYXH as fyxh,
+            a.FYMC as fymc,
+            a.FYDW as fydw,
+            a.BZJG as bzjg,
+            a.XMLX as xmlx,
+            c.FYDJ as fydj,
+            c.SBJG as sbjg,
+            a.FYGB as fygb,
+            c.FYKS as fyks
+        from FEE_YLSFXM a,
+             PUB_FYBM b,
+             FEE_YLSFXMDJ c
+        where a.FYXH = b.FYXH
+          and a.FYXH = c.FYXH
+          and c.ZFPB = 0
+          and a.ZFPB = 0
+          and c.JGID = #{jgid}
+          and b.PYDM like '%${pydm}%'
+          and a.YJSY = 1
+        order by a.FYXH ASC
+    </select>
+
+    <!--诊疗收费对照列表-->
+    <select id="queryZlsfdzList" resultType="com.buit.cis.op.dctwork.response.DiccZlsfdzResp">
+        select
+            a.JLXH   as jlxh,
+            a.ZLXMID as zlxmid,
+            a.FYXH   as fyxh,
+            C.FYMC   as fymc,
+            a.FYSL   AS fysl,
+            b.FYDJ   as fydj,
+            b.SBJG   as sbjg
+        from DICC_ZLSFDZ a
+        left join FEE_YLSFXMDJ b on b.FYXH = a.FYXH
+        left join FEE_YLSFXM c on C.FYXH = a.FYXH
+        where A.ZLXMID = #{zlxmid}
+    </select>
+    <select id="getListByZlxmidList" resultType="java.lang.Integer">
+        select FYXH
+        from DICC_ZLSFDZ
+        where zlxmid in
+        <foreach collection="zlxmids" item="item" open="(" close=")" separator="," >
+            #{item}
+        </foreach>
+    </select>
+</mapper>
+

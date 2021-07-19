@@ -1,0 +1,2605 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 充值卡操作记录 -->
+<mapper namespace="com.buit.commons.dao.ShybDzDao">
+
+
+    
+    <select id="getGh" resultType="java.util.Map">
+			SELECT
+			    sum(sh02.curaccountpay) as dnzf,
+				sum(sh02.hisaccountpay+ ifnull(sh02.TCDZHZFS,0 ) + ifnull(sh02.FJDZHZFS ,0)+ ifnull(sh02.ZFDLNZHZFS ,0)) as lnzf,
+				sum(sh02.zfdxjzfs + sh02.tcdxjzfs + sh02.fjdxjzfs) as xjzf,
+				sum(sh02.tczfs) as tczf,
+				sum(sh02.fjzfs) as fjzf,
+				sum(sh02.ybjsfwfyze - sh02.totalexpense) as flzf,
+				sum(sh02.fybjsfwfyze) as czf,
+				count(*) as lsh
+			  FROM
+			    shyb_sh02 sh02,
+			    op_mzlb mzlb
+			  where
+			    sh02.jgid = mzlb.ybjgid and
+			    mzlb.mzlb in ( #{mzlb}) and
+			    sh02.GHSJ LIKE concat(#{querydate},'%')
+    </select>
+
+    <select id="getSf" resultType="java.util.Map">
+			SELECT
+			    sum(si12.curaccountpay) as dnzf,
+				sum(si12.hisaccountpay+ ifnull(si12.TCDZHZFS,0 ) + ifnull(si12.FJDZHZFS ,0)+ ifnull(si12.ZFDLNZHZFS ,0)) as lnzf,
+				sum(si12.zfdxjzfs + si12.tcdxjzfs + si12.fjdxjzfs) as xjzf,
+				sum(si12.tczfs) as tczf,
+				sum(si12.fjzfs) as fjzf,
+				sum(si12.ybjsfwfyze - si12.totalexpense) as flzf,
+				sum(si12.fybjsfwfyze) as czf,
+				count(*) as lsh
+			  FROM
+			    shyb_si12 si12,
+			    op_mzlb mzlb
+			  where
+			    si12.jgid = mzlb.ybjgid and
+			    mzlb.mzlb in (  #{mzlb} ) and
+			    si12.JSSJ LIKE  concat(#{querydate},'%')
+    </select>
+
+    <select id="getZy" resultType="java.util.Map">
+			SELECT
+			    0 as dnzf,
+				(ifnull(SUM(SI52.QFDZHZFS),0) + ifnull(SUM(SI52.TCDZHZFS),0) + ifnull(SUM(SI52.FJDZHZFS),0)) as lnzf,
+				(ifnull(sum(SI52.tcdxjzfs), 0) + ifnull(sum(SI52.fjdxjzfs), 0) + ifnull(sum(SI52.Qfdxjzfs), 0)) as xjzf,
+				ifnull(sum(SI52.tczfs), 0) as tczf,
+				ifnull(sum(SI52.fjzfs), 0) as fjzf,
+				ifnull(sum(SI52.ybjsfwfyze - SI52.totalexpense), 0) as flzf,
+				ifnull(sum(SI52.fybjsfwfyze), 0) as czf,
+				count(*) as lsh
+			  FROM
+			    shyb_SI52 SI52,
+			    op_mzlb mzlb
+			  WHERE
+			    SI52.jgid = mzlb.ybjgid and
+			    mzlb.mzlb in (#{mzlb}) and
+			    SI52.ZYSFJSSJ LIKE concat(#{querydate},'%')
+    </select>
+
+    <select id="getTfmz" resultType="java.util.Map">
+			SELECT
+			    ifnull(sum(case when substr(sk01.accountattr,12,1)='Y' then sk01.TCHISACCOUNT  else sk01.CURACCOUNT   end),0) as dnzf,
+				ifnull(sum(sk01.HISACCOUNT  ),0) as lnzf,
+				ifnull(sum(sk01.ZFCASH  + sk01.TCCASH  + sk01.DFFJCASH ),0) as xjzf,
+				ifnull(sum(sk01.TC    ),0) as tczf,
+				ifnull(sum(sk01.DFFJ    ),0) as fjzf,
+				ifnull(sum(sk01.ybjsfwfyze - sk01.totalexpense),0) as flzf,
+				ifnull(sum(sk01.fybjsfwfyze),0) as czf,
+				count(*) as lsh
+			  FROM
+			    shyb_sk01 sk01,
+			    op_mzlb mzlb
+			  where
+			    sk01.tflx in ('110','120') and
+			    sk01.jgid = mzlb.ybjgid and
+			    mzlb.mzlb in (#{mzlb}) and
+			    sk01.JSSJ LIKE concat(#{querydate},'%')
+    </select>
+
+    <select id="getZytfmz" resultType="java.util.Map">
+			SELECT
+			    ifnull(sum(sk01.CURACCOUNT  ),0) as dnzf,
+				ifnull(sum(sk01.HISACCOUNT  ),0) as lnzf,
+				ifnull(sum(sk01.ZFCASH  + sk01.TCCASH  + sk01.DFFJCASH ),0) as xjzf,
+				ifnull(sum(sk01.TC    ),0) as tczf,
+				ifnull(sum(sk01.DFFJ    ),0) as fjzf,
+				ifnull(sum(sk01.YBJSFWFYZE     - sk01.TOTALEXPENSE  ),0) as flzf,
+				ifnull(sum(sk01.FYBJSFWFYZE       ),0) as czf,
+				count(*) as lsh
+			  FROM
+			    shyb_sk01 sk01,
+			    op_mzlb mzlb
+			  where
+			    sk01.tflx = '610' AND
+			    sk01.jgid = mzlb.ybjgid and
+			    mzlb.mzlb in (#{mzlb}) and
+			    sk01.JSSJ LIKE concat(#{querydate},'%')
+    </select>
+
+
+	<select id="queryYbCityNormalList" resultType="CzptSbbResp">
+		SELECT 	brda.brxm as NAME, #{daa} as DAA,
+				brda.sfzh as BXID,
+				sh01.cardid as YBID,
+				ifnull(ksdm.ksdm,'03') as KSID,
+				ifnull(ksdm.ksmc,'内科') as KSNA,
+				substr(sh02.ghsj, 1, 8) as JZDATE,
+				1 as JZNUM,
+				substr(sh01.accountattr, 1, 1) as GRXZ,
+				sh02.totalexpense as JYTOTFY,
+				sh02.zfdxjzfs + sh02.tcdxjzfs + sh02.fjdxjzfs as GRXJ,
+				sh02.curaccountpay as GRZFD,
+				sh02.hisaccountpay  + ifnull( sh02.tcdzhzfs,0)+ifnull(sh02.fjdzhzfs,0) + ifnull(sh02.zfdlnzhzfs,0) as GRZFL,
+				sh02.fjzfs as FJBX,
+				sh02.ybjsfwfyze as TOTFY,
+				(case when sh01.jmjsbz = 1 then ghmx.ghje + ghmx.zlje
+				when sh01.jmjsbz = 2 then 0
+				else   ghmx.zlje end) as FY00,
+				0.00 as FY01,
+				0.00 as FY02,
+				0.00 as FY03,
+				0.00 as FY04,
+				0.00 as FY05,
+				0.00 as FY06,
+				0.00 as FY07,
+				0.00 as FY08,
+				0.00 as FY09,
+				0.00 as FY10,
+				sh02.ybjsfwfyze - sh02.totalexpense as FLGRZF,
+				0.00 as FY20,
+				0.00 as FY21,  0.00 as FY22, 0.00 as FY23, 0.00 as FY24,
+				0.00 as FY25,  0.00 as FY26, 0.00 as FY27, 0.00 as FY28,
+				0.00 as FY29, 0.00 as FY30,
+				sh02.fybjsfwfyze as ZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				substr(sh01.accountattr, 2, 1) as BJQK,
+				sh02.jgid as YYID ,
+				sh02.lsh as LSH,
+				0.00 as CZ
+				FROM shyb_sh02 sh02,
+				op_ghmx ghmx
+				left join
+				mpi_brda  brda
+				on ghmx.brid = brda.brid,
+				shyb_sh01 sh01,
+				yb_ksdm ksdm,
+				dic_kszd office,
+				op_ghks ghks
+				WHERE sh02.ghxh = ghmx.sbxh
+				and sh01.jssqxh = sh02.jssqxh
+				and ghmx.mzlb in (#{mzlb})
+				and ghmx.ksdm = ghks.ksdm
+				and ghks.mzks = office.id
+				AND SUBSTR(sH01.accountattr, 4, 1) = 0
+				AND ( substr(sh01.accountattr,12,1)='0' or substr(sh01.accountattr,12,1)='1')
+				and office.ybks = trim(ksdm.ksdm)
+				and str_to_date(sh02.ghsj,'%Y%m%d') &gt;= #{datefrom}
+				and str_to_date(sh02.ghsj,'%Y%m%d') &lt;= #{dateto}
+				and ifnull(sh02.GSRDH,'') =''
+		union
+		SELECT 	brda.brxm as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				sk01.cardid as YBID,
+				ifnull(ksdm.ksdm,'03') as KSID,
+				ifnull(ksdm.ksmc,'内科') as KSNA,
+				substr(sk01.jssj, 1, 8) as JZDATE,
+				-1 as JZNUM,
+				substr(sk01.accountattr, 1, 1) as GRXZ,
+				-ABS(sk01.totalexpense) as JYTOTFY,
+				-ABS(sk01.ZFCASH + sk01.TCCASH + sk01.DFFJCASH) as GRXJ,
+				-ABS(sk01.CURACCOUNT) as GRZFD,
+				-ABS(sk01.HISACCOUNT) as GRZFL,
+				-ABS(sk01.DFFJ) as FJBX,
+				-ABS(sk01.YBJSFWFYZE) as TOTFY,
+				(case
+				when  sh01.jmjsbz = 1 then -ABS(ghmx.ghje + ghmx.zlje)
+				when  sh01.jmjsbz = 2 then  0
+				else
+				-ABS(ghmx.zlje)
+				end) as FY00,
+				0 as FY01,
+				0 as FY02,
+				0 as FY03,
+				0 as FY04,
+				0 as FY05,
+				0 as FY06,
+				0 as FY07,
+				0 as FY08,
+				0 as FY09,
+				0 as FY10,
+				(sk01.YBJSFWFYZE - sk01.totalexpense) * -1 as FLGRZF,
+				0 as FY20,
+				0 as FY21,
+				0 as FY22,
+				0 as FY23,
+				0 as FY24,
+				0 as FY25,
+				0 as FY26,
+				0 as FY27,
+				0 as FY28,
+				0 as FY29,
+				0 as FY30,
+				sk01.FYBJSFWFYZE * -1 as ZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				substr(SK01.accountattr, 2, 1) as BJQK, sk01.jgid as YYID ,
+				sk01.translsh as LSH, 0 as CZ
+				FROM shyb_sk01    sk01,
+				op_ghmx    ghmx
+				left join
+				mpi_brda  brda
+				on ghmx.brid = brda.brid,
+				yb_ksdm    ksdm,
+				dic_kszd office,
+				op_ghks    ghks,
+				shyb_sh01     sh01,
+				shyb_sh02     sh02
+				WHERE sk01.glxh = ghmx.sbxh
+				and sk01.tflx = '110'    and ghmx.ksdm = ghks.ksdm
+				and ghks.mzks = office.id    and office.ybks = trim(ksdm.ksdm)
+				AND SUBSTR( sh01.accountattr, 4, 1) = '0'
+				and ghmx.mzlb in (#{mzlb})  AND ( substr( sh01.accountattr,12,1)='0' or substr( sh01.accountattr,12,1)='1')
+				and  sh01.jssqxh =  sh02.jssqxh
+				and  sh02.ghxh = sk01.glxh
+				and str_to_date(sk01.jssj,'%Y%m%d') &gt;= #{datefrom}
+				and str_to_date(sk01.jssj,'%Y%m%d') &lt;= #{dateto}
+				and ifnull(sh02.GSRDH,'') =''
+		union
+		SELECT si11.personname as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				ifnull(si11.YBKS,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				SUBSTR(si11.accountattr, 1, 1) as GRXZ,
+				si12.totalexpense as JYTOTFY,
+				si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS as GRXJ,
+				si12.curaccountpay as GRZFD,
+				si12.hisaccountpay + ifnull( si12.tcdzhzfs,0)+ifnull(si12.fjdzhzfs,0) + ifnull(si12.zfdlnzhzfs,0) as GRZFL,
+				si12.fjzfs as FJBX,
+				si12.YBJSFWFYZE as TOTFY,
+				si12.FYBJSFWFYZE as ZF,
+				si12.YBJSFWFYZE - si12.totalexpense as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, si12.jgid as YYID ,
+				si12.LSH as lsh,
+				0 as FY00,
+				fymx.FY01 as FY01,
+				fymx.FY02 as FY02,
+				fymx.FY03 as FY03,
+				fymx.FY04 as FY04,
+				fymx.FY05 as FY05,
+				fymx.FY06 as FY06,
+				fymx.FY07 as FY07,
+				fymx.FY08 as FY08,
+				fymx.FY09 as FY09,
+				fymx.FY10 as FY10,
+				0 as FY20,
+				fymx.FY21 as FY21,
+				fymx.FY22 as FY22,
+				fymx.FY23 as FY23,
+				fymx.FY24 as FY24,
+				fymx.FY25 as FY25,
+				fymx.FY26 as FY26,
+				fymx.FY27 as FY27,
+				fymx.FY28 as FY28,
+				fymx.FY29 as FY29,
+				fymx.FY30 as FY30, (si12.YBJSFWFYZE - si12.totalexpense - fymx.FLGRZF) AS CZ
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, op_MZXX mzxx left join mpi_BRDA brda on mzxx.BRID = brda.BRID, V_SHYBMZ_FYMX fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				and mzxx.mzlb in (#{mzlb})
+				AND SUBSTR(si11.accountattr, 4, 1) = '0'
+				AND ( substr(si11.accountattr,12,1) = '0' or substr(si11.accountattr,12,1) = '1')
+				AND str_to_date(si12.jssj,'%Y%m%d') &gt;=#{datefrom}
+				AND str_to_date(si12.jssj,'%Y%m%d') &lt;= #{dateto}
+				and ifnull(si12.GSRDH,'') =''
+		union
+
+		SELECT si11.personname as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				ifnull(si11.YBKS,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				SUBSTR(si11.accountattr, 1, 1) as GRXZ,
+				si12.totalexpense * -1 as JYTOTFY,
+				(si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS) * -1 as GRXJ,
+				si12.curaccountpay * -1 as GRZFD,
+				 (si12.hisaccountpay+ ifnull( si12.tcdzhzfs,0)+ifnull(si12.fjdzhzfs,0) + ifnull(si12.zfdlnzhzfs,0))  * -1 as GRZFL,
+				si12.fjzfs * -1 as FJBX,
+				si12.YBJSFWFYZE * -1 as TOTFY,
+				si12.FYBJSFWFYZE * -1 as ZF,
+				(si12.YBJSFWFYZE - si12.totalexpense) * -1 as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, sk01.jgid as YYID ,
+				sk01.TRANSLSH as lsh,
+				0 as FY00,
+				fymx.FY01 * -1 as FY01,
+				fymx.FY02 * -1 as FY02,
+				fymx.FY03 * -1 as FY03,
+				fymx.FY04 * -1 as FY04,
+				fymx.FY05 * -1 as FY05,
+				fymx.FY06 * -1 as FY06,
+				fymx.FY07 * -1 as FY07,
+				fymx.FY08 * -1 as FY08,
+				fymx.FY09 * -1 as FY09,
+				fymx.FY10 * -1 as FY10,
+				0 as FY20,
+				fymx.FY21 * -1  as FY21,
+				fymx.FY22 * -1 as FY22,
+				fymx.FY23 * -1 as FY23,
+				fymx.FY24 * -1 as FY24,
+				fymx.FY25 * -1 as FY25,
+				fymx.FY26 * -1 as FY26,
+				fymx.FY27 * -1 as FY27,
+				fymx.FY28 * -1 as FY28,
+				fymx.FY29 * -1 as FY29,
+				fymx.FY30 * -1 as FY30, (si12.YBJSFWFYZE - si12.totalexpense - fymx.FLGRZF)* -1 AS CZ
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID,SHYB_sk01 sk01, V_SHYBMZ_FYMX fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				and mzxx.mzlb in (   #{mzlb}    )
+				and si12.MZXH = sk01.GLXH and sk01.TFLX = '120'
+				AND SUBSTR(si11.accountattr, 4, 1) = '0'
+				AND ( substr(si11.accountattr,12,1)= '0' or substr(si11.accountattr,12,1)= '1')
+				AND str_to_date(sk01.jssj,'%Y%m%d') &gt;= #{datefrom}
+				AND str_to_date(sk01.jssj,'%Y%m%d') &lt;= #{dateto}
+				 and ifnull(si12.GSRDH,'') =''
+    </select>
+
+	<select id="queryMxscJyjlkList" resultType="java.util.Map">
+		SELECT yb_sh02.lsh as zxlsh,
+			yb_sh02.jgid as jgid,
+			yb_sh02.cardid as brkh,
+			yb_sh01.accountattr as zhbz,
+			'0' as brlx,
+			'1' as jzdnum,
+			yb_sh02.ghsj as jysj,
+			'110' as JSLX,
+			yb_sh02.totalexpense as JYTOTFY,
+			yb_sh02.curaccountpay as DNZH,
+			yb_sh02.hisaccountpay as LNZH,
+			yb_sh02.zfdxjzfs as ZFDXJ,
+			0 as QFDXJ,
+			0 as QFDZH,
+			yb_sh02.tcdxjzfs as TCDXJ,
+			0 as TCDZH,
+			yb_sh02.tczfs as TCZF,
+			yb_sh02.fjdxjzfs as FJDXJ,
+			0 as FJZH,
+			yb_sh02.FJZFS as FJZF,
+			yb_sh02.ybjsfwfyze as TOTFY,
+			yb_sh02.fybjsfwfyze as zf,
+			op_ghmx.jzhm as fphm,
+			'1' as TFBZ,
+			substr(yb_sh02.ghsj, 0, 8) as KSRQ
+			FROM shyb_sh01 yb_sh01, shyb_sh02 yb_sh02 left join op_ghmx op_ghmx on yb_sh02.ghxh = op_ghmx.sbxh
+			WHERE yb_sh01.jssqxh = yb_sh02.jssqxh
+			and substr(yb_sh01.accountattr, 12, 1) != 'A'
+			and op_ghmx.mzlb in (  #{mzlb}  )
+			and yb_sh02.ghsj like concat(#{date},'%')
+		union
+		SELECT yb_si12.lsh as ZXLSH,
+			yb_si12.jgid as JGID,
+			yb_si12.cardid as BRKH,
+			yb_si11.accountattr as ZHBZ,
+			'0' as BRLX,
+			'0' as JZDNUM,
+			yb_si12.jssj as JYSJ,
+			'120' as JSLX,
+			yb_si12.totalexpense as JYTOTFY,
+			yb_si12.curaccountpay as DNZH,
+			yb_si12.hisaccountpay as LNZH,
+			yb_si12.zfdxjzfs as ZFDXJ,
+			0 as QFDXJ,
+			0 as QFDZH,
+			yb_si12.tcdxjzfs as TCDXJ,
+			0 as TCDZH,
+			yb_si12.tczfs as TCZF,
+			yb_si12.fjdxjzfs as FJDXJ,
+			0 as FJZH,
+			yb_si12.fjzfs as FJZF,
+			yb_si12.ybjsfwfyze as TOTFY,
+			yb_si12.fybjsfwfyze as ZF,
+			op_mzxx.fphm as FPHM,
+			'1' as TFBZ,
+			substr(yb_si12.jssj, 0, 8) as KSRQ
+			FROM shyb_si11 yb_si11, shyb_si12 yb_si12 left join op_mzxx op_mzxx on op_mzxx.mzxh = yb_si12.mzxh
+			WHERE yb_si11.jssqxh = yb_si12.jssqxh
+			and substr(yb_si11.accountattr, 12, 1) != 'A'
+			and op_mzxx.mzlb in (   #{mzlb}  )
+			and yb_si12.jssj like concat(#{date},'%')
+		union
+		SELECT yb_si52.lsh as zxlsh,
+			yb_si52.jgid as jgid,
+			yb_si52.cardid as brkh,
+			yb_si51.accountattr as zhbz,
+			'0' as brlx,
+			ifnull(yb_si51.zyf/22,0) as JZDNUM,
+			yb_si52.zysfjssj as JYSJ,
+			'610' as JSLX,
+			yb_si52.totalexpense as JYTOTFY,
+			0 as DNZH,
+			0 AS LNZH,
+			0 as ZFDXJ,
+			yb_si52.qfdxjzfs as QFDXJ,
+			yb_si52.qfdzhzfs as QFDZH,
+			yb_si52.tcdxjzfs as TCDXJ,
+			yb_si52.TCDZHZFS as TCDZH,
+			yb_si52.tczfs as TCZF,
+			yb_si52.fjdxjzfs as FJDXJ,
+			'0' as FJZH,
+			yb_si52.fjzfs as FJZF,
+			yb_si52.ybjsfwfyze as TOTFY,
+			yb_si52.fybjsfwfyze as ZF,
+			im_zyjs.fphm as fphm,
+			'1' as TFBZ,
+			substr(yb_si52.zysfjssj, 0, 8) as KSRQ
+			FROM shyb_si51 yb_si51, shyb_si52 yb_si52
+			left join im_zyjs im_zyjs on im_zyjs.zyh = yb_si52.zyhm and
+			im_zyjs.zfpb = yb_si52.zfpb and im_zyjs.jscs = yb_si52.jscs
+			WHERE yb_si51.jssqxh = yb_si52.jssqxh
+			and substr(yb_si51.accountattr, 12, 1) != 'A'
+			and im_zyjs.mzlb in (  #{mzlb}  )
+			and yb_si52.zysfjssj like   concat(#{date},'%')
+		union
+		SELECT distinct sk01.translsh as ZXLSH,
+			sk01.jgid as jgid,
+			sk01.cardid as brkh,
+			sk01.accountattr as zhbz,
+			'0' as brlx,
+			ifnull(sk01.jzcs,0) as JZDNUM,
+			sk01.jssj as JYSJ,
+			sk01.tflx as JSLX,
+			sk01.totalexpense as jytotfy,
+			case when substr(sk01.accountattr,12,1)='Y' then sk01.TCHISACCOUNT else sk01.CURACCOUNT end as DNZH,
+			case when tflx in ('610','410') then 0 else sk01.HISACCOUNT end as LNZH,
+			case when tflx ='610' then 0 else sk01.ZFCASH end as ZFDXJ,
+			case when tflx ='610' then sk01.ZFCASH else 0 end as QFDXJ,
+			case when tflx ='610' then sk01.HISACCOUNT-TCHISACCOUNT else 0 end as QFDZH,
+			sk01.TCCASH as TCDXJ,
+			case when substr(sk01.accountattr,12,1)='Y' then sk01.CURACCOUNT else sk01.TCHISACCOUNT end as TCDZH,
+			sk01.TC as TCZF,
+			sk01.DFFJ as FJZF,
+			sk01.DFFJHISACCOUNT as FJZH,
+			sk01.DFFJCASH as FJDXJ,
+			sk01.YBJSFWFYZE as TOTFY,
+			sk01.FYBJSFWFYZE as zf,
+			sk01.fphm,
+			'2' as TFBZ,
+			substr(sk01.jssj, 0, 8) as KSRQ
+			FROM shyb_sk01 sk01, op_mzlb mzlb
+			where substr(sk01.accountattr, 12, 1) != 'A' and sk01.jgid = mzlb.ybjgid
+			and mzlb.mzlb in (  #{mzlb}  )
+			and sk01.jssj like   concat(#{date},'%')
+	</select>
+
+	<select id="queryMxscDbghkList" resultType="MxscDbghkResp">
+		SELECT yb_sh02.lsh as zxlsh,
+			yb_sh02.cardid as BRKH,
+			yb_sh01.accountattr as zhbz,
+			yb_ksdm.ksdm as KSBM,
+			yb_ksdm.ksmc as KSMC,
+			op_ghmx.ghje as ghf,
+			op_ghmx.zlje as zlf,
+			yb_sh02.totalexpense+0 as JYTOTFY,
+			yb_sh02.ybjsfwfyze+0 as TOTFY,
+			yb_sh02.fybjsfwfyze+0 as ZF,
+			yb_sh02.ghsj as JYSJ,
+			'110' as jslx,
+			'1' as TFBZ,
+			yb_sh01.jmjsbz,
+			yb_sh02.ghxh as JZLSH
+			FROM shyb_sh01  yb_sh01,
+			shyb_sh02  yb_sh02
+			left join op_ghmx  op_ghmx on yb_sh02.ghxh = op_ghmx.sbxh
+			left join op_ghks  op_ghks on op_ghmx.ksdm = op_ghks.ksdm
+			left join dic_kszd sys_office on op_ghks.mzks = sys_office.id
+			left join yb_ksdm  yb_ksdm on sys_office.ybks = trim(yb_ksdm.ksdm)
+			WHERE yb_sh01.jssqxh = yb_sh02.jssqxh
+			and op_ghmx.mzlb in ( #{mzlb} )
+			and substr(yb_sh01.accountattr, 12, 1) != 'A'
+			and yb_sh02.ghsj like concat(#{date},'%')
+	union
+		SELECT sk01.translsh as zxlsh,
+			sk01.cardid as brkh,
+			sk01.accountattr as zhbz,
+			yb_ksdm.ksdm as ksbm,
+			yb_ksdm.ksmc as ksmc,
+			op_ghmx.ghje as ghf,
+			op_ghmx.zlje as zlf,
+			sk01.totalexpense+0 as JYTOTFY,
+			sk01.ybjsfwfyze+0 as TOTFY,
+			sk01.fybjsfwfyze+0 as ZF,
+			sk01.jssj as ZXDJYSJ,
+			'110' as jslx,
+			'2' as TFBZ,
+			'3' as jmjsbz,
+			trim(op_ghmx.sbxh) as JZLSH
+			FROM shyb_sk01    sk01
+			left join op_ghmx  op_ghmx on sk01.glxh = op_ghmx.sbxh
+			left join op_ghks  op_ghks on op_ghmx.ksdm = op_ghks.ksdm
+			left join dic_kszd sys_office on op_ghks.mzks = sys_office.id
+			left join yb_ksdm  yb_ksdm on sys_office.ybks = trim(yb_ksdm.ksdm)
+			WHERE sk01.tflx = '110'
+			and op_ghmx.mzlb in ( #{mzlb} )
+			and substr(sk01.accountattr, 12, 1) != 'A'
+			and sk01.jssj like  concat(#{date},'%')
+	</select>
+
+	<select id="queryMxscZyjsjlkList" resultType="MxscZyjsjlkResp">
+		SELECT si52.lsh as LSH,
+					si51.cardid as BRKH,
+					si52.zyhm as ZYHM,
+					ifnull(si51.bcjszyts,zyjs.zyts) as ZYDNUM,
+					date_format(zyjs.zzrq,'%Y-%m-%d') zzrq1 ,
+					date_format(brry.ryrq,'%Y-%m-%d') ryrq1 ,
+					ifnull(si51.zyjsksrq,date_format(zyjs.ksrq, '%Y%m%d')) as KSRQ,
+					ifnull(date_format(zyjs.zzrq, '%Y%m%d'),date_format(zyjs.jsrq, '%Y%m%d')) as zzrq,
+					ifnull(si51.zyjsjsrq,date_format(zyjs.zzrq, '%Y%m%d')) as JSRQ,
+					(select jbbm.icd10 from dic_jbbm jbbm, im_ryzd ryzd where
+						jbbm.jbxh = ryzd.zdxh  and  ryzd.zdlb = 2 and ryzd.zyh = si52.zyhm limit 1) as RYZDBM,
+					(select jbbm.jbmc from dic_jbbm jbbm, im_ryzd ryzd where
+						jbbm.jbxh = ryzd.zdxh and  ryzd.zdlb = 2 and ryzd.zyh = si52.zyhm limit 1) as RYZDMC,
+					'1' as ZYJGBZ,
+					zyjs.jslx,
+					si52.zysfjssj as JYSJ
+			  FROM shyb_si51 si51, shyb_si52 si52
+					left join im_zyjs zyjs on zyjs.zyh = si52.zyhm and zyjs.jscs = si52.jscs
+					left join im_hzry brry on brry.zyh = si52.zyhm
+			  WHERE si51.jssqxh = si52.jssqxh
+					and zyjs.mzlb in ( #{mzlb}  )
+					and substr(SI51.accountattr, 12, 1)  !='A'
+					and si52.zysfjssj LIKE   concat(#{date},'%')
+	  union
+	  SELECT sk01.translsh as lsh,
+				sk01.cardid as brkh,
+				sk01.glxh as zyhm,
+				ifnull(si51.bcjszyts,zyjs.zyts) as ZYDNUM,
+				DATE_FORMAT(zyjs.zzrq,'%Y-%m-%d') zzrq1,
+				DATE_FORMAT(brry.ryrq,'%Y-%m-%d') ryrq1,
+				ifnull(si51.zyjsksrq,DATE_FORMAT(zyjs.ksrq, '%Y%m%d')) as ksrq,
+				ifnull(DATE_FORMAT(zyjs.zzrq, '%Y%m%d'),DATE_FORMAT(zyjs.jsrq, '%Y%m%d')) as zzrq,
+				ifnull(si51.zyjsjsrq,DATE_FORMAT(zyjs.zzrq, '%Y%m%d')) as jsrq,
+				(select jbbm.icd10 from dic_jbbm jbbm, im_ryzd ryzd where
+						jbbm.jbxh = ryzd.zdxh and  ryzd.zdlb = 2 and ryzd.zyh = si52.zyhm limit 1) as RYZDBM,
+				(select jbbm.jbmc from dic_jbbm jbbm, im_ryzd ryzd where
+						jbbm.jbxh = ryzd.zdxh  and  ryzd.zdlb = 2 and ryzd.zyh = si52.zyhm limit 1) as RYZDMC,
+				'1' as ZYJGBZ,
+				zyjs.jslx,
+				sk01.jssj as JYSJ
+			FROM shyb_sk01 sk01
+			   left join im_zyjs zyjs on zyjs.zyh = sk01.glxh and zyjs.jscs = sk01.jscs and sk01.tflx = '610'
+			   left join im_hzry brry on brry.zyh = zyjs.zyh,
+			   shyb_si52 si52,
+			   shyb_si51 si51
+			  WHERE substr(SK01.accountattr, 12, 1) != 'A'
+				and zyjs.jscs = si52.jscs
+				and si51.jssqxh = si52.jssqxh
+				and sk01.glxh = si52.zyhm
+				and sk01.tflx = '610'
+					and zyjs.mzlb in (  #{mzlb} )
+				and sk01.jssj LIKE  concat(#{date},'%')
+	</select>
+
+	<select id="queryMxscZyfymxkList" resultType="java.util.Map">
+		SELECT FYMX.JLXH AS SBXH,
+				        FYMX.FYXH AS YJXH,
+				        SI52.LSH AS ZXLSH,
+				        FYMX.XFLSH AS XFLSH
+				   FROM IM_FEE_FYMX_JS  FYMX,
+				        fee_ylsfxm  YLSF,
+				        im_ZYJS  ZYJS,
+				        SHYB_SI52  SI52,
+				        SHYB_SI51  SI51
+				  WHERE SI52.JSSQXH = SI51.JSSQXH AND
+				        SI52.ZYHM = ZYJS.ZYH AND
+				        SI52.JSCS = ZYJS.JSCS AND
+				        FYMX.ZYH = ZYJS.ZYH AND
+				        FYMX.JSCS = ZYJS.JSCS AND
+				        SUBSTR(SI51.accountattr, 12, 1) != 'A' AND
+				        FYMX.FYXH = YLSF.FYXH AND
+				        FYMX.YPLX = 0 AND
+				        YLSF.CLBZ = 1 AND
+				        FYMX.XFLSH IS NULL AND
+				        ZYJS.mzlb in ( #{mzlb}  ) AND
+				        SI52.ZYSFFSSJ like concat(#{date},'%')
+				        ORDER BY SI52.LSH,FYMX.JLXH
+	</select>
+
+	<update id="updateXflsh" >
+        UPDATE IM_FEE_FYMX_JS SET
+            XFLSH = #{XFLSH}  WHERE
+            JLXH = #{SBXH}
+    </update>
+
+	<select id="queryYp" resultType="MxscZyfymxkResp">
+		SELECT si52.lsh as lsh,
+				si51.cardid as YBID,
+				KSDM.KSDM as KSBM,
+				KSDM.KSMC as KSMC,
+				person.zybh as YSGH,
+				person.zyysxm as YSXM,
+				ybxx.ybbm as XMBM,
+				ypxx.yptym as YBSPMC,
+				ypxx.bzdw as XMDW,
+				sfxm.ybzyxm as FYLB,
+				fymx.fyxh as FYXH,
+				fymx.fydj/typk.bfbz*typk.zxbz as XMDJ,
+				ABS(fymx.fysl)*typk.bfbz/typk.zxbz as XMSL,
+				ABS(fymx.zjje) as XMJE,
+				ABS(fymx.zjje) as zjje,
+				ABS(fymx.zfje) as zfje,
+				CASE WHEN ZFBL = 1 THEN ABS(fymx.zfje) ELSE 0 END as czfje,
+				fymx.zfbl,
+				(CASE
+				WHEN fymx.ZFBL = 1 THEN
+				'1'
+				ELSE
+				'0'
+				END) as BXBZ,
+				si52.zysfjssj as JYSJ,
+				si51.accountattr,
+				'610' as JSLX,
+				(CASE
+				WHEN fymx.zjje > 0 THEN
+				'1'
+				ELSE
+				'2'
+				END) as TFBZ,
+				'0' as jfbz,
+				' ' as XFXMLSH,
+				ypxx.yptym as TYMC,
+				' ' as ZCZH,
+				ypxx.GG as MXXMGG,
+				case when fymx.fyrq > zyjs.zzrq then date_format(zyjs.zzrq,'%Y%m%d') else date_format(fymx.fyrq,'%Y%m%d') end as MXXMSYRQ
+				FROM shyb_si51       si51,
+				shyb_si52       si52,
+				im_fee_fymx_js    fymx
+				left join drugs_ybyp  YBXX on YBXX.YPCD = FYMX.YPCD AND   YBXX.YPXH = FYMX.FYXH
+				left join shyb_ypjcxx ypxx on ypxx.tbdm=YBXX.ybbm AND  date_format(FYMX.FYRQ,'%Y%m%d') >= ypxx.QYRQ
+				AND date_format(FYMX.FYRQ,'%Y%m%d') &lt; ifnull(ypxx.YXRQ,date_format(DATE_ADD(CURRENT_DATE(),INTERVAL 1 DAY),'%Y%m%d'))
+				left join hr_personnel person on ifnull(fymx.ysgh,fymx.qrgh) = person.personid
+				left join dic_sfxmlb sfxm on sfxm.sfxm = fymx.fyxm
+				left join drugs_typk   typk  on typk.ypxh = fymx.fyxh,
+				im_zyjs       zyjs
+				left join  im_hzry  brry  on  brry.zyh = zyjs.zyh
+				left join dic_kszd  OFFICE on brry.BRKS = OFFICE.ID
+				left join YB_KSDM     KSDM   on OFFICE.YBKS = TRIM(KSDM.KSDM)
+				WHERE si51.jssqxh = si52.jssqxh
+				and fymx.zyh = si52.zyhm  and  fymx.jscs  = si52.jscs
+				and zyjs.zyh = fymx.zyh and fymx.jscs  = zyjs.jscs
+				and fymx.yplx  != 0
+				and zyjs.mzlb in ( #{mzlb} )
+				and substr(si51.accountattr, 12, 1) != 'A'
+				and si52.zysffssj like  concat(#{date},'%')
+	</select>
+
+	<select id="queryYj" resultType="java.util.Map">
+		SELECT si52.lsh as lsh,
+						        si51.cardid as YBID,
+						        KSDM.KSDM as KSBM,
+						        KSDM.KSMC as KSMC,
+						        person.zybh as YSGH,
+						        person.zyysxm as YSXM,
+						        ifnull(ylsf.ybbm,' ') as XMBM,
+						        ifnull(ylsf.ybmc,' ') as YBSPMC,
+						        ifnull(ylsf.ybdw,' ') as XMDW,
+						        sfxm.ybzyxm as FYLB,
+						        fymx.fyxh as FYXH,
+						        fymx.fydj as XMDJ,
+						        ABS(fymx.fysl) as XMSL,
+						        ABS(fymx.zjje) as XMJE,
+						        ABS(fymx.zjje) as zjje,
+						        ABS(fymx.zfje) as zfje,
+						        CASE WHEN ZFBL = 1 THEN ABS(fymx.zfje) ELSE 0 END as czfje,
+						        fymx.zfbl,
+						        (CASE
+						          WHEN fymx.ZFBL = 1 THEN
+						           '1'
+						          ELSE
+						           '0'
+						        END) as BXBZ,
+						        si52.zysfjssj as JYSJ,
+						        si51.accountattr,
+						        '610' as JSLX,
+						        (CASE
+						          WHEN fymx.zjje > 0 THEN
+						           '1'
+						          ELSE
+						           '2'
+						        END) as TFBZ,
+						        '0' as jfbz,
+						        fymx.xflsh as XFXMLSH,
+						        (case when ylsf.YYPP is null THEN ' ' else ylsf.YYPP END) as TYMC,
+						        (case when ylsf.ZCZH is null THEN ' ' else ylsf.ZCZH END) as ZCZH,
+						        (case when ylsf.YYCLGG is null THEN ' ' else ylsf.YYCLGG END) as MXXMGG,
+						        case when fymx.fyrq > zyjs.zzrq then date_format(zyjs.zzrq,'%Y%m%d') else date_format(fymx.fyrq,'%Y%m%d') end as MXXMSYRQ
+						   FROM shyb_si51       si51,
+						        shyb_si52       si52,
+						        im_fee_fymx_js    fymx
+						        left join hr_personnel person on  person.personid = ifnull(fymx.ysgh,fymx.qrgh)
+						        left join dic_sfxmlb sfxm on sfxm.sfxm = fymx.fyxm
+						        left join fee_ylsfxm ylsf on ylsf.fyxh = fymx.fyxh,
+										im_zyjs       zyjs
+						        left join im_hzry brry on brry.zyh = zyjs.zyh
+						        left join dic_kszd  OFFICE on brry.BRKS = OFFICE.ID
+						        left join YB_KSDM     KSDM   on OFFICE.YBKS = TRIM(KSDM.KSDM)
+						  WHERE si51.jssqxh = si52.jssqxh
+						    and fymx.zyh = si52.zyhm and fymx.jscs  = si52.jscs
+						    and zyjs.zyh = fymx.zyh and fymx.jscs  = zyjs.jscs
+						    and fymx.yplx = 0
+						    and zyjs.mzlb in (  #{mzlb}  )
+						    and substr(si51.accountattr, 12, 1) != 'A'
+						    and si52.zysffssj like  concat(#{date},'%')
+	</select>
+
+	<select id="queryYptf" resultType="java.util.Map">
+		SELECT sk01.translsh as lsh,
+				sk01.cardid as YBID,
+				KSDM.KSDM as KSBM,
+				KSDM.KSMC as KSMC,
+				person.zybh as YSGH,
+				person.zyysxm as YSXM,
+				ybxx.ybbm as XMBM,
+				ypxx.yptym as YBSPMC,
+				ypxx.bzdw as XMDW,
+				sfxm.ybzyxm as FYLB,
+				fymx.fyxh as FYXH,
+				fymx.fydj/typk.bfbz*typk.zxbz as XMDJ,
+				ABS(fymx.fysl)*typk.bfbz/typk.zxbz as XMSL,
+				ABS(fymx.zjje) as XMJE,
+				ABS(fymx.zjje) as zjje,
+				ABS(fymx.zfje) as zfje,
+				CASE WHEN ZFBL = 1 THEN ABS(fymx.zfje) ELSE 0 END as czfje,
+				fymx.zfbl,
+				(CASE
+				WHEN fymx.ZFBL = 1 THEN
+				'1'
+				ELSE
+				'0'
+				END) as BXBZ,
+				sk01.jssj as JYSJ,
+				sk01.accountattr,
+				'610' as JSLX,
+				(CASE
+				WHEN fymx.zjje > 0 THEN
+				'2'
+				ELSE
+				'1'
+				END) as TFBZ,
+				'0' as jfbz,
+				fymx.xflsh as XFXMLSH,
+				ypxx.yptym as TYMC,
+				' ' as ZCZH,
+				ypxx.GG as MXXMGG,
+				case when fymx.fyrq > zyjs.zzrq then date_format(zyjs.zzrq,'%Y%m%d') else date_format(fymx.fyrq,'%Y%m%d') end as MXXMSYRQ
+				FROM shyb_sk01       sk01,
+				im_fee_fymx_js    fymx
+				left join drugs_YBYP  YBXX on YBXX.YPCD = FYMX.YPCD AND YBXX.YPXH = FYMX.FYXH
+				left join shyb_ypjcxx ypxx on ypxx.tbdm=YBXX.ybbm AND date_format(FYMX.FYRQ,'%Y%m%d') >= ypxx.QYRQ AND
+				date_format(FYMX.FYRQ,'%Y%m%d') &lt; ifnull(ypxx.YXRQ,date_format(DATE_ADD(CURRENT_DATE(),INTERVAL 1 DAY),'%Y%m%d'))
+				left join hr_personnel person on ifnull(fymx.ysgh,fymx.qrgh) = person.personid
+				left join dic_sfxmlb sfxm on sfxm.sfxm = fymx.fyxm
+				left join drugs_typk typk on typk.ypxh = fymx.fyxh,
+				im_zyjs       zyjs
+				left join im_hzry brry on brry.zyh = zyjs.zyh
+				left join dic_kszd  OFFICE on brry.BRKS = OFFICE.ID
+				left join YB_KSDM  KSDM   on OFFICE.YBKS = TRIM(KSDM.KSDM)
+				WHERE substr(sk01.accountattr, 12, 1) != 'A'
+				and fymx.zyh = sk01.glxh and fymx.jscs  = sk01.jscs
+				and zyjs.zyh = sk01.glxh and sk01.jscs  = zyjs.jscs
+				and fymx.yplx  != 0
+				and sk01.tflx  = '610'
+				and zyjs.mzlb in ( #{mzlb}  )
+				and sk01.jssj like concat(#{date},'%')
+	</select>
+
+	<select id="queryYjtf" resultType="java.util.Map">
+		SELECT sk01.translsh as lsh,
+			sk01.cardid as YBID,
+			KSDM.KSDM as KSBM,
+			KSDM.KSMC as KSMC,
+			person.zybh as YSGH,
+			person.zyysxm as YSXM,
+			ifnull(ylsf.ybbm, ' ') as XMBM,
+			ifnull(ylsf.ybmc, ' ') as YBSPMC,
+			ifnull(ylsf.ybdw, ' ') as XMDW,
+			sfxm.ybzyxm as FYLB,
+			fymx.fyxh as FYXH,
+			fymx.fydj as XMDJ,
+			ABS(fymx.fysl) as XMSL,
+			ABS(fymx.zjje) as XMJE,
+			ABS(fymx.zjje) as zjje,
+			ABS(fymx.zfje) as zfje,
+			CASE WHEN ZFBL = 1 THEN ABS(fymx.zfje) ELSE 0 END as czfje,
+			fymx.zfbl,
+			(CASE
+			WHEN fymx.ZFBL = 1 THEN
+			'1'
+			ELSE
+			'0'
+			END) as BXBZ,
+			sk01.jssj as JYSJ,
+			sk01.accountattr,
+			'610' as JSLX,
+			(CASE
+			WHEN fymx.zjje > 0 THEN
+			'2'
+			ELSE
+			'1'
+			END) as TFBZ,
+			'0' as jfbz,
+			fymx.xflsh as XFXMLSH,
+			(case when ylsf.YYPP is null THEN ' ' else ylsf.YYPP END) as TYMC,
+			(case when ylsf.ZCZH is null THEN ' ' else ylsf.ZCZH END) as ZCZH,
+			(case when ylsf.YYCLGG is null THEN ' ' else ylsf.YYCLGG END) as MXXMGG,
+			case when fymx.fyrq > zyjs.zzrq then date_format(zyjs.zzrq,'%Y%m%d') else date_format(fymx.fyrq,'%Y%m%d') end as MXXMSYRQ
+			FROM shyb_sk01       sk01,
+			im_fee_fymx_js    fymx
+			left join hr_personnel person on ifnull(fymx.ysgh,fymx.qrgh) = person.personid
+			left join dic_sfxmlb sfxm on sfxm.sfxm = fymx.fyxm
+			left join fee_ylsfxm ylsf on ylsf.fyxh = fymx.fyxh,
+			im_zyjs       zyjs
+			left join im_hzry  brry on brry.zyh = zyjs.zyh
+			left join dic_kszd  OFFICE on brry.BRKS = OFFICE.ID
+			left join YB_KSDM     KSDM   on OFFICE.YBKS = TRIM(KSDM.KSDM)
+			WHERE substr(sk01.accountattr, 12, 1) != 'A'
+			and zyjs.zyh = sk01.glxh and sk01.jscs  = zyjs.jscs
+			and fymx.zyh = zyjs.zyh and fymx.jscs  = zyjs.jscs
+			and fymx.yplx = 0
+			and sk01.tflx  = '610'
+			and zyjs.mzlb in ( #{mzlb} )
+			and sk01.jssj like  concat(#{date},'%')
+	</select>
+
+	<select id="queryMxscCyzdkList" resultType="MxscCyzdkResp">
+		SELECT si52.lsh as lsh,
+				si51.cardid as YBID,
+				si52.zyhm as zyhm,
+				date_format(zyjs.jsrq,'%Y%m%d') as jsrq,
+				(select jbbm.icd9 from dic_jbbm jbbm, im_ryzd ryzd where
+						jbbm.jbxh = ryzd.zdxh  and  ryzd.zdlb = 2 and ryzd.zyh = si52.zyhm limit 1) as CYZDBM,
+				(select jbbm.jbmc from dic_jbbm jbbm, im_ryzd ryzd where
+						jbbm.jbxh = ryzd.zdxh and  ryzd.zdlb = 2 and ryzd.zyh = si52.zyhm limit 1) as CYZDMC,
+				'1' as ZYJGBZ,
+			case when brry.cyfs is null then '2'
+																when brry.cyfs=5 then '9'
+																when brry.cyfs=6 then '9'
+																when brry.cyfs=7 then '2'
+																when brry.cyfs=0 then '9'
+															else 	brry.cyfs end as ZLJG,
+				zyjs.jslx,
+				si52.zysfjssj as JYSJ
+				FROM shyb_si51 si51, shyb_si52 si52
+				left join im_zyjs zyjs on zyjs.zyh = si52.zyhm and zyjs.jscs = si52.jscs
+				left join im_hzry brry on brry.zyh = si52.zyhm
+				WHERE si51.jssqxh = si52.jssqxh
+				and substr(si51.accountattr, 12, 1) != 'A'
+				and zyjs.jslx != 1
+				and zyjs.mzlb in (   #{mzlb}  )
+				and si52.zysfjssj LIKE concat(#{date},'%')
+	</select>
+
+	<select id="queryOpyjsql" resultType="MxscMxxmxfkResp">
+			SELECT SI12.LSH as LSH,   yj02.yjxh as JZLSH,
+                        ylsf.ybbm as MXXMBM,
+                        yj02.xflsh as XFLSH,
+                        ylsf.ybbm as MXXMZLBM,
+                        ylsf.ybmc as MXXMMC,
+                        ylsf.ybdw as MXXMDW,
+                        yj02.yldj as MXXMDJ,
+                        yj02.ylsl as MXXMSL,
+                        yj02.ylsl * yj02.yldj as MXXMJE,
+                        (CASE WHEN yj02.ZFBL=1 THEN '1' ELSE '0' END) as BXBZ,
+                        ylsf.yypp as TYMC,
+                        ylsf.zczh as ZCZH,
+                        ylsf.yyclgg as MXXMGG,
+                        '1' as TFBZ,
+                        DATE_FORMAT(mzxx.sfrq,'%y%m%d') as XMSYRQ
+              FROM SHYB_SI11       SI11,
+                        SHYB_SI12       SI12,
+                        op_mzxx       mzxx,
+                        op_yjcf02       yj02
+                        left join dic_sfxmlb  SFXM on yj02.FYGB = SFXM.SFXM
+                        left join fee_ylsfxm  ylsf on ylsf.fyxh = yj02.ylxh,
+                        op_yjcf01       yj01
+              WHERE SI11.JSSQXH = SI12.JSSQXH
+                    AND SI12.MZXH = yj01.MZXH
+                    AND yj01.yjxh = yj02.yjxh
+                   -- AND ylsf.clbz = 1
+                    and substr(SI11.accountattr, 12, 1) != 'A'
+                    AND MZXX.mzxh = yj01.mzxh
+               	    and mzxx.mzlb in ( #{mzlb}  )
+                	and SI12.jssj like  concat(#{date},'%')
+		union all
+			   SELECT sk01.TRANSLSH as LSH,
+						  yj02.yjxh as JZLSH,
+						  ylsf.ybbm as MXXMBM,
+						  yj02.xflsh as XFLSH,
+						  ylsf.ybbm as MXXMZLBM,
+						  ylsf.ybmc as MXXMMC,
+						  ylsf.ybdw as MXXMDW,
+						  yj02.yldj as MXXMDJ,
+						  yj02.ylsl as MXXMSL,
+						  yj02.ylsl * yj02.yldj as MXXMJE,
+						  (CASE WHEN yj02.ZFBL=1 THEN '1' ELSE '0' END) as BXBZ,
+						  ylsf.yypp as TYMC,
+						  ylsf.zczh as ZCZH,
+						  ylsf.yyclgg as MXXMGG,
+						  '2' as TFBZ,
+						  date_format(zffp.zfrq,'%Y%m%d') as XMSYRQ
+					 FROM SHYB_SK01       sk01,
+						  op_mzxx       mzxx,
+						  op_zffp       zffp,
+						  op_yjcf02       yj02
+						  left join dic_sfxmlb  SFXM on yj02.FYGB = SFXM.SFXM
+						  left join fee_ylsfxm  ylsf on ylsf.fyxh = yj02.ylxh,
+						  op_yjcf01       yj01
+					WHERE SK01.FPHM = yj01.FPHM
+					  AND SK01.TFLX = '120'
+					  AND yj01.yjxh = yj02.yjxh
+					 -- AND ylsf.clbz = 1
+					  and substr(SK01.accountattr, 12, 1) != 'A'
+					  AND MZXX.mzxh = yj01.mzxh
+					  AND MZXX.mzxh = zffp.mzxh
+					  and mzxx.mzlb in (#{mzlb} )
+					  and SK01.jssj like   concat(#{date},'%')
+			  union all
+			  SELECT si52.LSH as LSH,
+						            '' as JZLSH,
+						            ylsf.ybbm as MXXMBM,
+						            FYMX.xflsh as XFLSH,
+						            ylsf.ybbm as MXXMZLBM,
+						            ylsf.ybmc as MXXMMC,
+						            ylsf.ybdw as MXXMDW,
+						            ABS(FYMX.FYDJ) as MXXMDJ,
+						            ABS(FYMX.FYSL) as MXXMSL,
+						            ABS(FYMX.ZJJE) as MXXMJE,
+						            (CASE WHEN FYMX.ZFBL=1 THEN '1' ELSE '0' END) as BXBZ,
+						            ylsf.yypp as TYMC,
+						            ylsf.zczh as ZCZH,
+						            ylsf.yyclgg as MXXMGG,
+						            CASE WHEN fymx.zjje > 0 THEN '1' ELSE '2' END as TFBZ,
+						            date_format(FYMX.JFRQ,'%Y%m%d') as XMSYRQ
+						       FROM shyb_si51       si51,
+						            shyb_si52       si52,
+						            im_zyjs       zyjs,
+						            im_fee_fymx_js    fymx
+						            left join dic_sfxmlb  SFXM on FYMX.FYXM = SFXM.SFXM
+						            left join fee_ylsfxm  ylsf on YLSF.FYXH = FYMX.FYXH
+						      WHERE si51.JSSQXH = si52.JSSQXH
+						        AND si52.ZYHM = zyjs.ZYH
+						        AND si52.JSCS = zyjs.JSCS
+						        AND zyjs.ZYH = FYMX.ZYH and zyjs.JSCS = FYMX.JSCS
+						        AND FYMX.YPLX = 0
+						 --       AND ylsf.clbz = 1
+						        and substr(si51.accountattr, 12, 1) != 'A'
+						        and zyjs.mzlb in ( #{mzlb} )
+						        and si52.zysffssj like concat(#{date},'%')
+						 union all
+						 SELECT sk01.TRANSLSH as LSH,
+						            '' as JZLSH,
+						            ylsf.ybbm as MXXMBM,
+						            FYMX.xflsh as XFLSH,
+						            ylsf.ybbm as MXXMZLBM,
+						            ylsf.ybmc as MXXMMC,
+						            ylsf.ybdw as MXXMDW,
+						            ABS(FYMX.FYDJ) as MXXMDJ,
+						            ABS(FYMX.FYSL) as MXXMSL,
+						            ABS(FYMX.ZJJE) as MXXMJE,
+						            (CASE WHEN FYMX.ZFBL=1 THEN '1' ELSE '0' END) as BXBZ,
+						            ylsf.yypp as TYMC,
+						            ylsf.zczh as ZCZH,
+						            ylsf.yyclgg as MXXMGG,
+						            CASE WHEN fymx.zjje > 0 THEN '1' ELSE '2' END as TFBZ,
+						            date_format(FYMX.JFRQ,'%Y%m%d') as XMSYRQ
+						       FROM shyb_sk01       sk01,
+						            im_zyjs       zyjs,
+						            im_fee_fymx_js    fymx
+						            left join dic_SFXMLB  SFXM on FYMX.FYXM = SFXM.SFXM
+						            left join fee_ylsfxm  ylsf on YLSF.FYXH = FYMX.FYXH
+						      WHERE zyjs.fphm = sk01.fphm
+						        AND sk01.tflx  = '610'
+						        AND zyjs.ZYH = FYMX.ZYH and zyjs.JSCS = FYMX.JSCS
+						        AND FYMX.YPLX = 0
+						   --     AND ylsf.clbz = 1
+						        and substr(sk01.accountattr, 12, 1) != 'A'
+						        and zyjs.mzlb in ( #{mzlb} )
+						        and sk01.jssj like concat(#{date},'%')
+	</select>
+
+	<select id="queryYbDbCityNormalList" resultType="CzdbSbbResp">
+		SELECT brda.brxm as NAME, brda.sfzh as BXID, sh01.cardid as YBID,#{daa} as DAA,
+				ifnull(ksdm.ksdm,'03') as KSID,ifnull(ksdm.ksmc,'内科') as KSNA,
+				substr(sh02.ghsj, 1, 8) as JZDATE, 1 as JZNUM,
+				sh01.dbxm as DBXM,
+				substr(sh01.accountattr, 1, 1) as GRXZ,            sh02.totalexpense as JYTOTFY,
+				sh02.zfdxjzfs + sh02.tcdxjzfs + sh02.fjdxjzfs as GRXJ,            sh02.tczfs as  TCZF,
+				sh02.hisaccountpay as GRZFL,            sh02.fjzfs as FJBX,
+				sh02.ybjsfwfyze as TOTFY,
+				(case when sh01.jmjsbz = 1 then ghmx.ghje + ghmx.zlje  when sh01.jmjsbz = 2 then  0 else  ghmx.zlje  end) as FY00,
+				0.00 as FY01,
+				0.00 as FY02,            0.00 as FY03,            0.00 as FY04,            0.00 as FY05,
+				0.00 as FY06,            0.00 as FY07,            0.00 as FY08,            0.00 as FY09,
+				0.00 as FY10,            sh02.ybjsfwfyze - sh02.totalexpense as FLGRZF,   0.00 as FY20,
+				0.00 as FY21,            0.00 as FY22,            0.00 as FY23,            0.00 as FY24,
+				0.00 as FY25,            0.00 as FY26,            0.00 as FY27,            0.00 as FY28,
+				0.00 as FY29,            0.00 as FY30,            sh02.fybjsfwfyze as ZF,
+				'' as ZDICD,            '' as ZDNAME,            substr(sh01.accountattr, 2, 1) as BJQK, sh02.jgid as YYID ,
+				sh02.lsh as LSH, 0 as CZ
+				FROM shyb_sh02    sh02,
+				op_ghmx    ghmx left join  mpi_brda  brda  on ghmx.brid = brda.brid,
+				shyb_sh01    sh01,   yb_ksdm    ksdm,
+				dic_kszd office,            op_ghks    ghks      WHERE sh02.ghxh = ghmx.sbxh
+				and sh01.jssqxh = sh02.jssqxh
+				and ghmx.mzlb in ( #{mzlb})
+				and ghmx.ksdm = ghks.ksdm        and ghks.mzks = office.id
+				AND SUBSTR(sH01.accountattr, 4, 1) = 0
+				AND ( substr(sh01.accountattr,12,1)='0' or substr(sh01.accountattr,12,1)='1')
+				AND ifnull(sh02.DBBZ,0) = 1
+				and office.ybks = trim(ksdm.ksdm) and str_to_date(sh02.ghsj,'%Y%m%d') >=   #{datefrom}
+				and str_to_date(sh02.ghsj,'%Y%m%d') &lt;=  #{dateto}
+		union
+		SELECT brda.brxm as NAME,        brda.sfzh as BXID,        sk01.cardid as YBID,#{daa} as DAA,
+				ifnull(ksdm.ksdm,'03') as KSID,        ifnull(ksdm.ksmc,'内科') as KSNA,
+				substr(sk01.jssj, 1, 8) as JZDATE,        -1 as JZNUM,
+				sh01.dbxm as DBXM,
+				substr(sk01.accountattr, 1, 1) as GRXZ,        -ABS(sk01.totalexpense) as JYTOTFY,
+				-ABS(sk01.ZFCASH + sk01.TCCASH + sk01.DFFJCASH) as GRXJ,
+				-ABS( sk01.TC) as  TCZF ,        -ABS(sk01.HISACCOUNT) as GRZFL,
+				-ABS(sk01.DFFJ) as FJBX,        -ABS(sk01.ybjsfwfyze) as TOTFY,        (case
+				when sh01.jmjsbz = 1 then           -ABS(ghmx.ghje + ghmx.zlje)
+				when sh01.jmjsbz = 2 then           0          else
+				-ABS(ghmx.zlje)        end) as FY00,        0 as FY01,
+				0 as FY02,        0 as FY03,        0 as FY04,        0 as FY05,
+				0 as FY06,        0 as FY07,        0 as FY08,        0 as FY09,
+				0 as FY10,        (sk01.totalexpense - sk01.ybjsfwfyze) * -1 as FLGRZF,        0 as FY20,
+				0 as FY21,        0 as FY22,        0 as FY23,        0 as FY24,
+				0 as FY25,        0 as FY26,        0 as FY27,        0 as FY28,
+				0 as FY29,        0 as FY30,        sk01.fybjsfwfyze * -1 as ZF,        '' as ZDICD,
+				'' as ZDNAME,        substr(SK01.accountattr, 2, 1) as BJQK, sk01.jgid as YYID ,        sk01.translsh as LSH, 0 as CZ
+				FROM shyb_sk01    sk01,        op_ghmx    ghmx left join mpi_brda  brda on ghmx.brid = brda.brid,
+				yb_ksdm    ksdm,        dic_kszd office,        op_ghks    ghks,
+				shyb_sh01    sh01,        shyb_sh02    sh02  WHERE sk01.glxh = ghmx.sbxh
+				and sk01.tflx = '313'    and ghmx.ksdm = ghks.ksdm
+				and ghks.mzks = office.id    and office.ybks = trim(ksdm.ksdm)
+				AND SUBSTR(sH01.accountattr, 4, 1) = '0'
+				and ghmx.mzlb in (1 )  AND
+				( substr(sh01.accountattr,12,1)='0' or substr(sh01.accountattr,12,1)='1')
+				AND ifnull(sh02.DBBZ,0) = 1
+				and sh01.jssqxh = sh02.jssqxh    and sh02.ghxh = sk01.glxh and
+				str_to_date(sk01.jssj,'%Y%m%d') >= #{datefrom}
+				and str_to_date(sk01.jssj,'%Y%m%d') &lt;= #{dateto}
+			union
+			SELECT si11.personname as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				ifnull(si11.YBKS,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				si11.dbxm as DBXM,
+				SUBSTR(si11.accountattr, 1, 1) as GRXZ,
+				si12.totalexpense as JYTOTFY,
+				si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS as GRXJ,
+				si12.tczfs as  TCZF,
+				si12.hisaccountpay as GRZFL,
+				si12.fjzfs as FJBX,
+				si12.YBJSFWFYZE as TOTFY,
+				si12.FYBJSFWFYZE as ZF,
+				si12.YBJSFWFYZE - si12.totalexpense as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, si12.jgid as YYID ,
+				si12.LSH as lsh,
+				0 as FY00,
+				fymx.FY01 as FY01,
+				fymx.FY02 as FY02,
+				fymx.FY03 as FY03,
+				fymx.FY04 as FY04,
+				fymx.FY05 as FY05,
+				fymx.FY06 as FY06,
+				fymx.FY07 as FY07,
+				fymx.FY08 as FY08,
+				fymx.FY09 as FY09,
+				fymx.FY10 as FY10,
+				0 as FY20,
+				fymx.FY21 as FY21,
+				fymx.FY22 as FY22,
+				fymx.FY23 as FY23,
+				fymx.FY24 as FY24,
+				fymx.FY25 as FY25,
+				fymx.FY26 as FY26,
+				fymx.FY27 as FY27,
+				fymx.FY28 as FY28,
+				fymx.FY29 as FY29,
+				fymx.FY30 as FY30, (si12.YBJSFWFYZE - si12.totalexpense - fymx.FLGRZF) AS CZ
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID, V_SHYBMZ_FYMX fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				AND SUBSTR(si11.accountattr, 4, 1) = '0'
+				AND ( substr(si11.accountattr,12,1) = '0' or substr(si11.accountattr,12,1) = '1')
+				AND ifnull(si12.DBBZ,0) = 1
+				and mzxx.mzlb in ( #{mzlb}  )
+				AND str_to_date(si12.jssj,'%Y%m%d') >=   #{datefrom}
+				AND str_to_date(si12.jssj, '%Y%m%d') &lt;=   #{dateto}
+			union
+		SELECT si11.personname as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				ifnull(si11.YBKS,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				si11.dbxm as DBXM,
+				SUBSTR(si11.accountattr, 1, 1) as GRXZ,
+				si12.totalexpense * -1 as JYTOTFY,
+				(si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS) * -1 as GRXJ,
+				si12.tczfs * -1 as  TCZF,
+				si12.hisaccountpay * -1 as GRZFL,
+				si12.fjzfs * -1 as FJBX,
+				si12.YBJSFWFYZE * -1 as TOTFY,
+				si12.FYBJSFWFYZE * -1 as ZF,
+				(si12.YBJSFWFYZE - si12.totalexpense) * -1 as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, sk01.jgid as YYID ,
+				sk01.TRANSLSH as lsh,
+				0 as FY00,
+				fymx.FY01 * -1 as FY01,
+				fymx.FY02 * -1 as FY02,
+				fymx.FY03 * -1 as FY03,
+				fymx.FY04 * -1 as FY04,
+				fymx.FY05 * -1 as FY05,
+				fymx.FY06 * -1 as FY06,
+				fymx.FY07 * -1 as FY07,
+				fymx.FY08 * -1 as FY08,
+				fymx.FY09 * -1 as FY09,
+				fymx.FY10 * -1 as FY10,
+				0 as FY20,
+				fymx.FY21 * -1  as FY21,
+				fymx.FY22 * -1 as FY22,
+				fymx.FY23 * -1 as FY23,
+				fymx.FY24 * -1 as FY24,
+				fymx.FY25 * -1 as FY25,
+				fymx.FY26 * -1 as FY26,
+				fymx.FY27 * -1 as FY27,
+				fymx.FY28 * -1 as FY28,
+				fymx.FY29 * -1 as FY29,
+				fymx.FY30 * -1 as FY30, (si12.YBJSFWFYZE - si12.totalexpense - fymx.FLGRZF)* -1 AS CZ
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID,shyb_sk01 sk01, V_SHYBMZ_FYMX fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				and si12.MZXH = sk01.GLXH and sk01.TFLX = '323'
+				AND ifnull(si12.DBBZ,0) = 1
+				AND SUBSTR(si11.accountattr, 4, 1) = '0'
+				AND ( substr(si11.accountattr,12,1)= '0' or substr(si11.accountattr,12,1)= '1')
+				and mzxx.mzlb in ( #{mzlb} )
+				AND str_to_date(sk01.jssj, '%Y%m%d') >=  #{datefrom}
+				AND str_to_date(sk01.jssj, '%Y%m%d') &lt;=  #{dateto}
+	</select>
+
+	<select id="queryYbZyCityNormalList" resultType="CzzySbbResp">
+		SELECT ZYID,   NAME,   BRXZ,   BXID,   YBID,   CYDATE,   ZYDNUM,   ZYJGBZ,   KSID,
+		KSNA,   GRXZ,   JYTOTFY,   GRXJD,   GRXJQ,   TCZF,   GRZFLD,   GRZFLQ,   FJBX,
+		TOTFY,   v_shybzy_zyjs_hz.FLGRZF,   ZF,   ZDICD,   ZDNAME,   BJQK,   DAA,   YYID,
+		LSH,   JSRQ,   v_shybzy_zyjs_hz.ZYH AS ZYH,   FY01,   FY02,   FY03,   FY04,   FY05,
+		FY06,   FY07,   FY08,   FY09,   FY10,   FY11,   FY12,   FY13,   FY14,   FY15,   FY20,
+		FY21,   FY22,   FY23,   FY24,   FY25,   FY26,   FY27,   FY28,   FY29,   FY30,   FY31,
+		FY32,   FY33,   FY34 ,   (v_shybzy_zyjs_hz.flgrzf-v_shybzy_zyjs_mx.flgrzf) as CZ
+		FROM v_shybzy_zyjs_hz left join v_shybzy_zyjs_mx on v_shybzy_zyjs_hz.ZYH = v_shybzy_zyjs_mx.ZYH
+		and v_shybzy_zyjs_hz.jscs = v_shybzy_zyjs_mx.jscs and v_shybzy_zyjs_hz.zfpb = v_shybzy_zyjs_mx.zfpb
+		where  GRXZ IN (1,2) and
+		v_shybzy_zyjs_hz.mzlb in (#{mzlb} )
+		AND JSRQ >= #{datefrom}  AND JSRQ &lt;= #{dateto}
+	</select>
+
+	<select id="queryYbTsCityNormalList" resultType="CztsSbbResp">
+		SELECT brda.brxm as NAME,       brda.sfzh as BXID,       sh01.cardid as YBID, #{daa} as DAA,
+				ifnull(ksdm.ksdm,'03') as KSID,  ifnull(ksdm.ksmc,'内科') as KSNA,
+				substr(sh02.ghsj, 1, 8) as JZDATE,       1 as JZNUM,
+				substr(sh01.accountattr, 4, 1) as GRXZ,       sh02.totalexpense as JYTOTFY,
+				(sh02.zfdxjzfs + sh02.tcdxjzfs + sh02.fjdxjzfs) as GRXJ,       sh02.curaccountpay as GRZFD,
+				sh02.hisaccountpay as GRZFL,       sh02.fjzfs as FJBX,
+				sh02.ybjsfwfyze as TOTFY,
+				(case  when sh01.jmjsbz = 1 then ghmx.ghje + ghmx.zlje
+				          when sh01.jmjsbz = 2 then 0 else  ghmx.zlje    end ) as FY00,
+				0.00 as FY01,
+				0.00 as FY02,       0.00 as FY03,       0.00 as FY04,       0.00 as FY05,
+				0.00 as FY06,       0.00 as FY07,       0.00 as FY08,       0.00 as FY09,           1.00 as FY11,
+				0.00 as FY10,       sh02.ybjsfwfyze - sh02.totalexpense as FLGRZF,       0.00 as FY20,
+				0.00 as FY21,       0.00 as FY22,       0.00 as FY23,       0.00 as FY24,
+				0.00 as FY25,       0.00 as FY26,       0.00 as FY27,       0.00 as FY28,
+				0.00 as FY29,       0.00 as FY30,       sh02.fybjsfwfyze as ZF,
+				'' as ZDICD,       '' as ZDNAME,       substr(sh01.accountattr, 2, 1) as BJQK, sh02.JGID as YYID,
+				sh02.lsh as LSH,  sh02.tczfs as tczf  FROM shyb_sh02    sh02,
+				op_ghmx    ghmx  left join mpi_brda  brda on ghmx.brid = brda.brid, shyb_sh01 sh01, yb_ksdm    ksdm,
+				dic_kszd office,  op_ghks ghks WHERE sh02.ghxh = ghmx.sbxh
+				and sh01.jssqxh = sh02.jssqxh
+				and ghmx.ksdm = ghks.ksdm   and ghks.mzks = office.id
+				AND SUBSTR(sH01.accountattr, 4, 1) != 0
+				AND ( substr(sh01.accountattr,12,1)='0' or substr(sh01.accountattr,12,1)='1')
+				and ghmx.mzlb in (#{mzlb} )
+				and office.ybks = trim(ksdm.ksdm) and str_to_date(sh02.ghsj,'%Y%m%d') >=#{datefrom}
+				and str_to_date(sh02.ghsj,'%Y%m%d') &lt;= #{dateto}
+		union all
+				SELECT brda.brxm as NAME,       brda.sfzh as BXID,       ghmx.jzkh as YBID,#{daa} as DAA,
+				ifnull(ksdm.ksdm,'03') as KSID,       ifnull(ksdm.ksmc,'内科') as KSNA,
+				DATE_FORMAT(ghmx.ghsj,'%Y%m%d') as JZDATE,       1 as JZNUM,
+				'1' as GRXZ,       (ghmx.ghje+ghmx.zlje) as JYTOTFY,
+				0 as GRXJ,       0 as GRZFD,
+				0 as GRZFL,       0 as FJBX,
+				(ghmx.ghje+ghmx.zlje) as TOTFY,      ghmx.zlje  as FY00,       0 as FY01,
+				0 as FY02,       0 as FY03,       0 as FY04,       0 as FY05,
+				0 as FY06,       0 as FY07,       0 as FY08,       0 as FY09,           ghmx.ghje as FY11,
+				0 as FY10,       0 as FLGRZF,     0 as FY20,
+				0 as FY21,       0 as FY22,       0 as FY23,       0 as FY24,
+				0 as FY25,       0 as FY26,       0 as FY27,       0 as FY28,
+				0 as FY29,       0 as FY30,       0 as ZF,
+				'' as ZDICD,       '' as ZDNAME,       '0' as BJQK,  mzlb.ybjgid as YYID,
+				'' as LSH,   (ghmx.ghje+ghmx.zlje) as tczf FROM
+				op_ghmx    ghmx       left join mpi_brda  brda on ghmx.brid = brda.brid,    yb_ksdm    ksdm,
+				dic_kszd office,       op_ghks    ghks,  op_mzlb  mzlb  WHERE
+				ghmx.brxz='23' and length(ghmx.jzkh) = 5 and mzlb.mzlb = ghmx.mzlb
+				and ghmx.ksdm = ghks.ksdm   and ghks.mzks = office.id
+				and ghmx.mzlb in (#{mzlb})
+				and office.ybks = trim(ksdm.ksdm) and ghmx.ghsj >= #{datefrom}
+				and ghmx.ghsj &lt;= #{dateto}
+		union all
+		SELECT brda.brxm as NAME,       brda.sfzh as BXID,       ghmx.jzkh as YBID,#{daa} as DAA,
+				ifnull(ksdm.ksdm,'03') as KSID,       ifnull(ksdm.ksmc,'内科') as KSNA,
+				date_format(ghmx.ghsj,'%Y%m%d') as JZDATE,       1 as JZNUM,
+				'3' as GRXZ,       (ghmx.ghje+ghmx.zlje) as JYTOTFY,
+				0 as GRXJ,       0 as GRZFD,
+				0 as GRZFL,       0 as FJBX,
+				(ghmx.ghje+ghmx.zlje) as TOTFY,      ghmx.zlje  as FY00,       0 as FY01,
+				0 as FY02,       0 as FY03,       0 as FY04,       0 as FY05,
+				0 as FY06,       0 as FY07,       0 as FY08,       0 as FY09,           ghmx.ghje as FY11,
+				0 as FY10,       0 as FLGRZF,     0 as FY20,
+				0 as FY21,       0 as FY22,       0 as FY23,       0 as FY24,
+				0 as FY25,       0 as FY26,       0 as FY27,       0 as FY28,
+				0 as FY29,       0 as FY30,       0 as ZF,
+				'' as ZDICD,       '' as ZDNAME,       '0' as BJQK,  mzlb.ybjgid as YYID,
+				'' as LSH,   (ghmx.ghje+ghmx.zlje) as tczf FROM
+				op_ghmx    ghmx       left join mpi_brda  brda on ghmx.brid = brda.brid,    yb_ksdm    ksdm,
+				dic_kszd office,       op_ghks    ghks,  op_mzlb  mzlb  WHERE
+				ghmx.brxz='18' and mzlb.mzlb = ghmx.mzlb
+				and ghmx.ksdm = ghks.ksdm   and ghks.mzks = office.id
+				and office.ybks = trim(ksdm.ksdm)
+				and ghmx.mzlb in (#{mzlb} )
+				and ghmx.ghsj >= #{datefrom}
+				and ghmx.ghsj &lt;= #{dateto}
+		union all
+
+		SELECT brda.brxm as NAME,         brda.sfzh as BXID,         sk01.cardid as YBID,#{daa} as DAA,
+				ksdm.ksdm as KSID,         ksdm.ksmc as KSNA,
+				substr(sk01.jssj, 1, 8) as JZDATE,         -1 as JZNUM,
+				substr(sk01.accountattr, 4, 1) as GRXZ,         -ABS(sk01.totalexpense) as JYTOTFY,
+				-ABS(sk01.zfcash + sk01.tccash + sk01.dffjcash) as GRXJ,
+				-ABS(sk01.curaccount) as GRZFD,         -ABS(sk01.hisaccount) as GRZFL,
+				-ABS(sk01.dffj) as FJBX,         -ABS(sk01.ybjsfwfyze) as TOTFY,         (case
+				when sh01.jmjsbz = 1 then            -ABS(ghmx.ghje + ghmx.zlje)
+				when sh01.jmjsbz = 2 then            0           else
+				-ABS(ghmx.zlje)         end) as FY00,         0 as FY01,
+				0 as FY02,         0 as FY03,         0 as FY04,         0 as FY05,
+				0 as FY06,         0 as FY07,         0 as FY08,         0 as FY09,         -1 as FY11,
+				0 as FY10,         (sk01.ybjsfwfyze - sk01.totalexpense) * -1 as FLGRZF,         0 as FY20,
+				0 as FY21,         0 as FY22,         0 as FY23,         0 as FY24,
+				0 as FY25,         0 as FY26,         0 as FY27,         0 as FY28,
+				0 as FY29,         0 as FY30,         sk01.fybjsfwfyze * -1 as ZF,         '' as ZDICD,
+				'' as ZDNAME,         substr(SK01.accountattr, 2, 1) as BJQK,  sk01.JGID as YYID ,         sk01.translsh as LSH,
+				-ABS(sh02.tczfs) as tczf  FROM shyb_sk01    sk01,     op_ghmx    ghmx left join mpi_brda  brda on ghmx.brid = brda.brid,
+				yb_ksdm    ksdm,  dic_kszd office,         op_ghks    ghks,
+				shyb_sh01    sh01,         shyb_sh02    sh02   WHERE sk01.glxh = ghmx.sbxh
+				and sk01.tflx = '110'     and ghmx.ksdm = ghks.ksdm
+				and ghks.mzks = office.id     and office.ybks = trim(ksdm.ksdm)
+				AND SUBSTR(sH01.accountattr, 4, 1) != 0
+				AND ( substr(sh01.accountattr,12,1)='0' or substr(sh01.accountattr,12,1)='1')
+				and sh01.jssqxh = sh02.jssqxh     and sh02.ghxh = sk01.glxh
+				and ghmx.mzlb in ( #{mzlb})
+				and  str_to_date(sk01.jssj,'%Y%m%d') >=#{datefrom}
+				and str_to_date(sk01.jssj,'%Y%m%d') &lt;= #{dateto}
+		union all
+		SELECT brda.brxm as NAME,         brda.sfzh as BXID,         ghmx.jzkh as YBID,#{daa} as DAA,
+				ksdm.ksdm as KSID,         ksdm.ksmc as KSNA,
+				date_format(thmx.thrq,'%Y%m%d') as JZDATE,         -1 as JZNUM,
+				'1' as GRXZ,         -ABS(ghmx.ghje+ghmx.zlje) as JYTOTFY,
+				0 as GRXJ,
+				0 as GRZFD,         0 as GRZFL,
+				0 as FJBX,         -ABS(ghmx.ghje+ghmx.zlje) as TOTFY,        -ABS(ghmx.zlje)  as FY00,         0 as FY01,
+				0 as FY02,         0 as FY03,         0 as FY04,         0 as FY05,
+				0 as FY06,         0 as FY07,         0 as FY08,         0 as FY09,         -ABS(ghmx.ghje) as FY11,
+				0 as FY10,         0 as FLGRZF,       0 as FY20,
+				0 as FY21,         0 as FY22,         0 as FY23,         0 as FY24,
+				0 as FY25,         0 as FY26,         0 as FY27,         0 as FY28,
+				0 as FY29,         0 as FY30,         0 as ZF,         '' as ZDICD,
+				'' as ZDNAME,         '0' as BJQK,  mzlb.ybjgid as YYID ,          '' as LSH,
+				-ABS(ghmx.ghje+ghmx.zlje) as tczf  FROM          op_ghmx    ghmx left join mpi_brda  brda on ghmx.brid = brda.brid,
+				yb_ksdm    ksdm,  dic_kszd office,         op_ghks    ghks,   op_mzlb  mzlb,
+				op_thmx    thmx   WHERE
+				ghmx.ksdm = ghks.ksdm     and ghmx.sbxh = thmx.sbxh and mzlb.mzlb = ghmx.mzlb
+				and ghks.mzks = office.id     and office.ybks = trim(ksdm.ksdm)
+				and ghmx.brxz='23' and  length(ghmx.jzkh) = 5
+				and ghmx.mzlb in (#{mzlb})
+				and thmx.thrq >= #{datefrom}
+				and thmx.thrq &lt;= #{dateto}
+		union all
+		SELECT brda.brxm as NAME,         brda.sfzh as BXID,         ghmx.jzkh as YBID,#{daa} as DAA,
+				ksdm.ksdm as KSID,         ksdm.ksmc as KSNA,
+				date_format(thmx.thrq,'%Y%m%d') as JZDATE,         -1 as JZNUM,
+				'3' as GRXZ,         -ABS(ghmx.ghje+ghmx.zlje) as JYTOTFY,
+				0 as GRXJ,
+				0 as GRZFD,         0 as GRZFL,
+				0 as FJBX,         -ABS(ghmx.ghje+ghmx.zlje) as TOTFY,        -ABS(ghmx.zlje)  as FY00,         0 as FY01,
+				0 as FY02,         0 as FY03,         0 as FY04,         0 as FY05,
+				0 as FY06,         0 as FY07,         0 as FY08,         0 as FY09,         -ABS(ghmx.ghje) as FY11,
+				0 as FY10,         0 as FLGRZF,       0 as FY20,
+				0 as FY21,         0 as FY22,         0 as FY23,         0 as FY24,
+				0 as FY25,         0 as FY26,         0 as FY27,         0 as FY28,
+				0 as FY29,         0 as FY30,         0 as ZF,         '' as ZDICD,
+				'' as ZDNAME,         '0' as BJQK,  mzlb.ybjgid as YYID ,          '' as LSH,
+				-ABS(ghmx.ghje+ghmx.zlje) as tczf  FROM  op_ghmx  ghmx left join mpi_brda  brda on ghmx.brid = brda.brid,
+				yb_ksdm    ksdm,   dic_kszd office, op_ghks ghks, op_mzlb  mzlb,
+				op_thmx    thmx   WHERE
+				ghmx.ksdm = ghks.ksdm     and ghmx.sbxh = thmx.sbxh and mzlb.mzlb = ghmx.mzlb
+				and ghks.mzks = office.id     and office.ybks = trim(ksdm.ksdm)
+				and ghmx.brxz='18'
+				and ghmx.mzlb in (#{mzlb} )
+				and thmx.thrq >= #{datefrom}
+				and thmx.thrq &lt;= #{dateto}
+
+		union all
+		SELECT si11.personname as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				ifnull(si11.YBKS,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				1 as JZNUM,
+				SUBSTR(si11.accountattr, 4, 1) as GRXZ,
+				si12.totalexpense as JYTOTFY,
+				(si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS) as GRXJ,
+				si12.curaccountpay as GRZFD,
+				si12.hisaccountpay as GRZFL,
+				si12.fjzfs as FJBX,
+				si12.YBJSFWFYZE as TOTFY,
+				si12.FYBJSFWFYZE as ZF,
+				si12.YBJSFWFYZE - si12.totalexpense as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, si12.jgid as YYID,
+				si12.LSH as lsh,
+				si12.TCZFS as tczf,
+				fymx.FY00 as FY00,
+				fymx.FY01 as FY01,
+				fymx.FY02 as FY02,
+				fymx.FY03 as FY03,
+				fymx.FY04 as FY04,
+				fymx.FY05 as FY05,
+				fymx.FY06 as FY06,
+				fymx.FY07 as FY07,
+				fymx.FY08 as FY08,
+				fymx.FY09 as FY09,
+				fymx.FY10 as FY10,
+				0 as FY11,
+				0 as FY20,
+				fymx.FY21 FY21,
+				fymx.FY22 as FY22,
+				fymx.FY23 as FY23,
+				fymx.FY23 as FY24,
+				fymx.FY25 as FY25,
+				fymx.FY26 as FY26,
+				fymx.FY27 as FY27,
+				fymx.FY28 as FY28,
+				fymx.FY29 as FY29,
+				fymx.FY30 as FY30
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID, v_shybmz_fymx fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				AND SUBSTR(si11.accountattr, 4, 1) != 0
+				AND ( substr(si11.accountattr,12,1)='0' or substr(si11.accountattr,12,1)='1')
+				and mzxx.mzlb in ( #{mzlb} )
+				AND str_to_date(si12.jssj, '%Y%m%d') >=  #{datefrom}
+				AND str_to_date(si12.jssj, '%Y%m%d') &lt;=  #{dateto}
+		union all
+		SELECT brda.BRXM as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				mzxx.jzkh as YBID,
+				'03' as KSID,
+				'内科' as KSNA,
+				date_format(mzxx.sfrq,'%Y%m%d') as JZDATE,
+				1 as JZNUM,
+				'1' as GRXZ,
+				(select sum(zjje-flzf-czf) from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as JYTOTFY,
+				0 as GRXJ,
+				0 as GRZFD,
+				0 as GRZFL,
+				0 as FJBX,
+				(select sum(zjje-czf) from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as TOTFY,
+				(select sum(czf) from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as ZF,
+				(select sum(flzf) from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				'0' as BJQK, mzlb.ybjgid as YYID,
+				'' as lsh,
+				mzxx.qtys as tczf,
+				fymx.FY00 as FY00,
+				fymx.FY01 as FY01,
+				fymx.FY02 as FY02,
+				fymx.FY03 as FY03,
+				fymx.FY04 as FY04,
+				fymx.FY05 as FY05,
+				fymx.FY06 as FY06,
+				fymx.FY07 as FY07,
+				fymx.FY08 as FY08,
+				fymx.FY09 as FY09,
+				fymx.FY10 as FY10,
+				0 as FY11,
+				0 as FY20,
+				fymx.FY21 FY21,
+				fymx.FY22 as FY22,
+				fymx.FY23 as FY23,
+				fymx.FY23 as FY24,
+				fymx.FY25 as FY25,
+				fymx.FY26 as FY26,
+				fymx.FY27 as FY27,
+				fymx.FY28 as FY28,
+				fymx.FY29 as FY29,
+				fymx.FY30 as FY30
+				FROM op_MZXX mzxx left join Mpi_BRDA brda on mzxx.BRID = brda.BRID, v_shybmz_fymx fymx, op_mzlb mzlb
+				WHERE
+				fymx.MZXH = mzxx.MZXH AND mzxx.XJJE != mzxx.ZJJE
+				and mzxx.brxz='23' and  length(mzxx.jzkh) = 5 and mzlb.mzlb = mzxx.mzlb
+				and mzxx.mzlb in (  #{mzlb}  )
+				AND mzxx.sfrq >= #{datefrom}
+				AND mzxx.sfrq &lt;= #{dateto}
+		union all
+		SELECT brda.BRXM as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				mzxx.jzkh as YBID,
+				'03' as KSID,
+				'内科' as KSNA,
+				date_format(mzxx.sfrq,'%Y%m%d') as JZDATE,
+				1 as JZNUM,
+				'3' as GRXZ,
+				(select sum(zjje-flzf-czf) from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as JYTOTFY,
+				0 as GRXJ,
+				0 as GRZFD,
+				0 as GRZFL,
+				0 as FJBX,
+				(select sum(zjje-czf) from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as TOTFY,
+				(select sum(czf) from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as ZF,
+				(select sum(flzf) from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				'0' as BJQK, mzlb.ybjgid as YYID,
+				'' as lsh,
+				mzxx.qtys as tczf,
+				fymx.FY00 as FY00,
+				fymx.FY01 as FY01,
+				fymx.FY02 as FY02,
+				fymx.FY03 as FY03,
+				fymx.FY04 as FY04,
+				fymx.FY05 as FY05,
+				fymx.FY06 as FY06,
+				fymx.FY07 as FY07,
+				fymx.FY08 as FY08,
+				fymx.FY09 as FY09,
+				fymx.FY10 as FY10,
+				0 as FY11,
+				0 as FY20,
+				fymx.FY21 FY21,
+				fymx.FY22 as FY22,
+				fymx.FY23 as FY23,
+				fymx.FY23 as FY24,
+				fymx.FY25 as FY25,
+				fymx.FY26 as FY26,
+				fymx.FY27 as FY27,
+				fymx.FY28 as FY28,
+				fymx.FY29 as FY29,
+				fymx.FY30 as FY30
+				FROM op_MZXX mzxx left join Mpi_BRDA brda on mzxx.BRID = brda.BRID, v_shybmz_fymx fymx, op_mzlb mzlb
+				WHERE
+				fymx.MZXH = mzxx.MZXH AND mzxx.XJJE != mzxx.ZJJE
+				and mzxx.brxz='18' and mzlb.mzlb = mzxx.mzlb
+				and mzxx.mzlb in ( #{mzlb} )
+				AND mzxx.sfrq >= #{datefrom}
+				AND mzxx.sfrq &lt;=   #{dateto}
+
+	union all
+		SELECT brda.BRXM as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				mzxx.jzkh as YBID,
+				ifnull(si11.cardid,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				-1 as JZNUM,
+				SUBSTR(si11.accountattr, 4, 1) as GRXZ,
+				si12.totalexpense * -1 as JYTOTFY,
+				(si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS) * -1 as GRXJ,
+				si12.curaccountpay * -1 as GRZFD,
+				si12.hisaccountpay * -1 as GRZFL,
+				si12.fjzfs * -1 as FJBX,
+				si12.YBJSFWFYZE * -1 as TOTFY,
+				si12.FYBJSFWFYZE * -1 as ZF,
+				(si12.YBJSFWFYZE - si12.totalexpense) * -1 as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, sk01.jgid as YYID,
+				sk01.TRANSLSH as lsh,
+				si12.TCZFS * -1 as tczf,
+				fymx.FY00 * -1 as FY00,
+				fymx.FY01 * -1 as FY01,
+				fymx.FY02 * -1 as FY02,
+				fymx.FY03 * -1 as FY03,
+				fymx.FY04 * -1 as FY04,
+				fymx.FY05 * -1 as FY05,
+				fymx.FY06 * -1 as FY06,
+				fymx.FY07 * -1 as FY07,
+				fymx.FY08 * -1 as FY08,
+				fymx.FY09 * -1 as FY09,
+				fymx.FY10 * -1 as FY10,
+				0 as FY11,
+				0 as FY20,
+				fymx.FY21 * -1  as FY21,
+				fymx.FY22 * -1 as FY22,
+				fymx.FY23 * -1 as FY23,
+				fymx.FY24 * -1 as FY24,
+				fymx.FY25 * -1 as FY25,
+				fymx.FY26 * -1 as FY26,
+				fymx.FY27 * -1 as FY27,
+				fymx.FY28 * -1 as FY28,
+				fymx.FY29 * -1 as FY29,
+				fymx.FY30 * -1 as FY30
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID, SHYB_sk01 sk01 , v_shybmz_fymx fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				and si12.MZXH = sk01.GLXH and sk01.TFLX = '120'
+				AND SUBSTR(si11.accountattr, 4, 1) != 0
+				AND ( substr(si11.accountattr,12,1)='0' or substr(si11.accountattr,12,1)='1')
+				and mzxx.mzlb in (#{mzlb} )
+				AND str_to_date(sk01.jssj, '%Y%m%d') >=   #{datefrom}
+				AND str_to_date(sk01.jssj, '%Y%m%d') &lt;=   #{dateto}
+		union all
+				SELECT brda.BRXM as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				mzxx.jzkh as YBID,
+				'03' as KSID,
+				'内科' as KSNA,
+				date_format(zffp.zfrq,'%Y%m%d') as JZDATE,
+				-1 as JZNUM,
+				'1' as GRXZ,
+				(select sum(zjje-flzf-czf) * -1 from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as JYTOTFY,
+				0 as GRXJ,
+				0 as GRZFD,
+				0 as GRZFL,
+				0 as FJBX,
+				(select sum(zjje-czf) * -1 from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as TOTFY,
+				(select sum(czf) * -1 from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as ZF,
+				(select sum(flzf) * -1 from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				'0' as BJQK, mzlb.ybjgid as YYID,
+				'' as lsh,
+				mzxx.qtys * -1 as tczf,
+				fymx.FY00 * -1 as FY00,
+				fymx.FY01 * -1 as FY01,
+				fymx.FY02 * -1 as FY02,
+				fymx.FY03 * -1 as FY03,
+				fymx.FY04 * -1 as FY04,
+				fymx.FY05 * -1 as FY05,
+				fymx.FY06 * -1 as FY06,
+				fymx.FY07 * -1 as FY07,
+				fymx.FY08 * -1 as FY08,
+				fymx.FY09 * -1 as FY09,
+				fymx.FY10 * -1 as FY10,
+				0 as FY11,
+				0 as FY20,
+				fymx.FY21 * -1  as FY21,
+				fymx.FY22 * -1 as FY22,
+				fymx.FY23 * -1 as FY23,
+				fymx.FY24 * -1 as FY24,
+				fymx.FY25 * -1 as FY25,
+				fymx.FY26 * -1 as FY26,
+				fymx.FY27 * -1 as FY27,
+				fymx.FY28 * -1 as FY28,
+				fymx.FY29 * -1 as FY29,
+				fymx.FY30 * -1 as FY30
+				FROM op_MZXX mzxx left join Mpi_BRDA brda on mzxx.BRID = brda.BRID, op_zffp zffp , v_shybmz_fymx fymx , op_mzlb mzlb
+				WHERE
+				zffp.MZXH = mzxx.MZXH AND mzxx.XJJE != mzxx.ZJJE
+				and fymx.MZXH = mzxx.MZXH and mzlb.mzlb = mzxx.mzlb
+				and mzxx.brxz='23' and  length(mzxx.jzkh) = 5
+				and mzxx.mzlb in ( #{mzlb}  )
+				AND zffp.zfrq >=  #{datefrom}
+				AND zffp.zfrq &lt;=   #{dateto}
+		union all
+				SELECT brda.BRXM as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				mzxx.jzkh as YBID,
+				'03' as KSID,
+				'内科' as KSNA,
+				date_format(zffp.zfrq,'%Y%m%d') as JZDATE,
+				-1 as JZNUM,
+				'3' as GRXZ,
+				(select sum(zjje-flzf-czf) * -1 from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as JYTOTFY,
+				0 as GRXJ,
+				0 as GRZFD,
+				0 as GRZFL,
+				0 as FJBX,
+				(select sum(zjje-czf) * -1 from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as TOTFY,
+				(select sum(czf) * -1 from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as ZF,
+				(select sum(flzf) * -1 from op_sfmx sfxm where sfxm.mzxh = mzxx.mzxh) as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				'0' as BJQK, mzlb.ybjgid as YYID,
+				'' as lsh,
+				mzxx.qtys * -1 as tczf,
+				fymx.FY00 * -1 as FY00,
+				fymx.FY01 * -1 as FY01,
+				fymx.FY02 * -1 as FY02,
+				fymx.FY03 * -1 as FY03,
+				fymx.FY04 * -1 as FY04,
+				fymx.FY05 * -1 as FY05,
+				fymx.FY06 * -1 as FY06,
+				fymx.FY07 * -1 as FY07,
+				fymx.FY08 * -1 as FY08,
+				fymx.FY09 * -1 as FY09,
+				fymx.FY10 * -1 as FY10,
+				0 as FY11,
+				0 as FY20,
+				fymx.FY21 * -1  as FY21,
+				fymx.FY22 * -1 as FY22,
+				fymx.FY23 * -1 as FY23,
+				fymx.FY24 * -1 as FY24,
+				fymx.FY25 * -1 as FY25,
+				fymx.FY26 * -1 as FY26,
+				fymx.FY27 * -1 as FY27,
+				fymx.FY28 * -1 as FY28,
+				fymx.FY29 * -1 as FY29,
+				fymx.FY30 * -1 as FY30
+				FROM op_MZXX mzxx left join Mpi_BRDA brda on mzxx.BRID = brda.BRID, op_zffp zffp , v_shybmz_fymx fymx , op_mzlb mzlb
+				WHERE
+				zffp.MZXH = mzxx.MZXH AND mzxx.XJJE != mzxx.ZJJE
+				and fymx.MZXH = mzxx.MZXH and mzlb.mzlb = mzxx.mzlb
+				and mzxx.brxz='18'
+				and mzxx.mzlb in ( #{mzlb}  )
+				AND zffp.zfrq >=  #{datefrom}
+				AND zffp.zfrq &lt;=   #{dateto}
+	</select>
+
+<select id="queryYbJmCityNormalList" resultType="CzjmjsSbbResp">
+	SELECT brda.brxm as NAME,#{daa} as DAA,
+			brda.sfzh as BXID,
+			sh01.cardid as YBID,
+			ksdm.ksdm as KSID,
+			ksdm.ksmc as KSNA,
+			substr( sh02.ghsj, 1, 8) as JZDATE,
+			1 as JZNUM,
+			case
+			when substr( sh01.accountattr, 12, 1) = 'H' then
+			'F'
+			else
+			substr( sh01.accountattr, 12, 1)
+			end as GRXZ,
+			sh02.totalexpense as JYTOTFY,
+			( sh02.zfdxjzfs +  sh02.tcdxjzfs +  sh02.fjdxjzfs) as GRXJ,
+			sh02.curaccountpay as GRZFD,
+			sh02.hisaccountpay + ifnull(  sh02.tcdzhzfs,0)+ifnull( sh02.fjdzhzfs,0) + ifnull( sh02.ZFDLNZHZFS,0) as GRZFL,
+			sh02.tczfs as YBZF,
+			sh02.ybjsfwfyze as TOTFY,
+			(case when  sh01.jmjsbz = 1 then ghmx.ghje + ghmx.zlje
+			        when  sh01.jmjsbz = 2 then 0 else ghmx.zlje end) as FY00,
+			0.00 as FY01,
+			0.00 as FY02,
+			0.00 as FY03,
+			0.00 as FY04,
+			0.00 as FY05,
+			0.00 as FY06,
+			0.00 as FY07,
+			0.00 as FY08,
+			0.00 as FY09,
+			0.00 as FY10,
+			sh02.ybjsfwfyze -  sh02.totalexpense as FLGRZF,
+			0.00 as FY20,
+			0.00 as FY21,
+			0.00 as FY22,
+			0.00 as FY23,
+			0.00 as FY24,
+			0.00 as FY25,
+			0.00 as FY26,
+			0.00 as FY27,
+			0.00 as FY28,
+			0.00 as FY29,
+			0.00 as FY30,
+			sh02.fybjsfwfyze as ZF,
+			'' as ZDICD,
+			'' as ZDNAME,
+			substr( sh01.accountattr, 2, 1) as BJQK,
+			sh02.jgid as YYID,
+			sh02.lsh as LSH
+			FROM shyb_sh02  sh02, op_ghmx ghmx
+			left join mpi_brda brda
+			on ghmx.brid = brda.brid, shyb_sh01  sh01,
+			op_ghks ghks, dic_kszd office left join yb_ksdm ksdm on office.ybks = trim(ksdm.ksdm)
+			WHERE  sh02.ghxh = ghmx.sbxh
+			and  sh01.jssqxh =  sh02.jssqxh
+			and ghmx.ksdm = ghks.ksdm
+			and ghks.mzks = office.id
+			and substr( sh01.accountattr, 12, 1) in ('B', 'C', 'D', 'E', 'F', 'H')
+			and ghmx.mzlb in ( #{mzlb})
+			and str_to_date( sh02.ghsj,'%Y%m%d') >= #{datefrom}
+			and str_to_date( sh02.ghsj,'%Y%m%d') &lt;= #{dateto}
+	union all
+	SELECT brda.brxm as NAME,        brda.sfzh as BXID,        sk01.cardid as YBID, #{daa} as DAA,
+			ksdm.ksdm as KSID,        ksdm.ksmc as KSNA,
+			substr(sk01.jssj, 1, 8) as JZDATE,        -1 as JZNUM,
+			case when substr(sk01.accountattr, 12, 1) = 'H' then 'F' else substr(sk01.accountattr, 12, 1) end as GRXZ,
+			-ABS(sk01.totalexpense) as JYTOTFY,
+			-ABS(sk01.zfcash + sk01.tccash + sk01.dffjcash) as GRXJ,
+			-ABS(sk01.curaccount) as GRZFD,        -ABS(sk01.hisaccount) as GRZFL,
+			-ABS(sk01.tc) as YBZF,        -ABS(sk01.ybjsfwfyze) as TOTFY,        (case
+			when sh01.jmjsbz = 1 then           -ABS(ghmx.ghje + ghmx.zlje)
+			when sh01.jmjsbz = 2 then           0          else
+			-ABS(ghmx.zlje)        end) as FY00,        0 as FY01,
+			0 as FY02,        0 as FY03,        0 as FY04,        0 as FY05,
+			0 as FY06,        0 as FY07,        0 as FY08,        0 as FY09,
+			0 as FY10,        (sk01.ybjsfwfyze - sk01.totalexpense) * -1 as FLGRZF,        0 as FY20,
+			0 as FY21,        0 as FY22,        0 as FY23,        0 as FY24,
+			0 as FY25,        0 as FY26,        0 as FY27,        0 as FY28,
+			0 as FY29,        0 as FY30,        sk01.fybjsfwfyze * -1 as ZF,        '' as ZDICD,
+			'' as ZDNAME,        substr(SK01.accountattr, 2, 1) as BJQK, sk01.jgid as YYID,        sk01.translsh as LSH
+			FROM shyb_sk01    sk01,        op_ghmx    ghmx
+			left join mpi_brda  brda on ghmx.brid = brda.brid,
+			yb_ksdm    ksdm,        dic_kszd office,        op_ghks    ghks,
+			shyb_sh01    sh01,        shyb_sh02    sh02  WHERE sk01.glxh = ghmx.sbxh
+			and sk01.tflx = '110'    and ghmx.ksdm = ghks.ksdm
+			and ghks.mzks = office.id    and office.ybks = trim(ksdm.ksdm)
+			and substr(sk01.accountattr, 12, 1) in ('B','C','D','E','F','H')
+			and sh01.jssqxh = sh02.jssqxh    and sh02.ghxh = sk01.glxh
+			and ghmx.mzlb in ( #{mzlb} )
+			and str_to_date(sk01.jssj,'%Y%m%d') >= #{datefrom}
+			and str_to_date(sk01.jssj,'%Y%m%d') &lt;= #{dateto}
+	union all
+	SELECT si11.personname as NAME, #{daa} as DAA,
+			brda.sfzh as BXID,
+			si11.cardid as YBID,
+			ifnull(si11.YBKS,'03') as KSID,
+			ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+			substr(si12.jssj, 0, 8) as JZDATE,
+			0 as JZNUM,
+			case when substr(si11.accountattr, 12, 1) = 'H' then 'F' else  substr(si11.accountattr, 12, 1) end as GRXZ,
+			si12.totalexpense as JYTOTFY,
+			(si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS +SI12.curaccountpay + SI12.hisaccountpay) as GRXJ,
+			si12.curaccountpay as GRZFD,
+			si12.hisaccountpay + ifnull( si12.tcdzhzfs,0)+ifnull(si12.fjdzhzfs,0) + ifnull(si12.zfdlnzhzfs,0) as GRZFL,
+			si12.tczfs as YBZF,
+			si12.YBJSFWFYZE as TOTFY,
+			si12.FYBJSFWFYZE as ZF,
+			si12.YBJSFWFYZE - si12.totalexpense as FLGRZF,
+			'' as ZDICD,
+			'' as ZDNAME,
+			SUBSTR(si11.accountattr, 2, 1) as BJQK, si12.jgid as YYID ,
+			si12.LSH as lsh,
+			0 as FY00,
+			fymx.FY01 as FY01,
+			fymx.FY02 as FY02,
+			fymx.FY03 as FY03,
+			fymx.FY04 as FY04,
+			fymx.FY05 as FY05,
+			fymx.FY06 as FY06,
+			fymx.FY07 as FY07,
+			fymx.FY08 as FY08,
+			fymx.FY09 as FY09,
+			fymx.FY10-fymx.FY30 as FY10,
+			0 as FY20,
+			fymx.FY21 as FY21,
+			fymx.FY22 as FY22,
+			fymx.FY23 as FY23,
+			fymx.FY24 as FY24,
+			fymx.FY25 as FY25,
+			fymx.FY26 as FY26,
+			fymx.FY27 as FY27,
+			fymx.FY28 as FY28,
+			fymx.FY29 as FY29,
+			0 as FY30
+			FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID, v_shybmz_fymx fymx
+			WHERE si11.JSSQXH = si12.JSSQXH
+			and si12.MZXH = mzxx.MZXH
+			and fymx.MZXH = mzxx.MZXH
+			and substr(si11.accountattr, 12, 1) in ('B','C','D','E','F','H')
+			and mzxx.mzlb in ( #{mzlb} )
+			AND str_to_date(si12.jssj, '%Y%m%d') >=  #{datefrom}
+			AND str_to_date(si12.jssj, '%Y%m%d') &lt;=  #{dateto}
+	union all
+	SELECT si11.personname as NAME,#{daa} as DAA,
+			brda.sfzh as BXID,
+			si11.cardid as YBID,
+			ifnull(si11.YBKS,'03') as KSID,
+			ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+			substr(si12.jssj, 0, 8) as JZDATE,
+			0 as JZNUM,
+			case when substr(sk01.accountattr, 12, 1) = 'H' then 'F' else  substr(sk01.accountattr, 12, 1) end as GRXZ,
+			si12.totalexpense * -1 as JYTOTFY,
+			(si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS + SI12.curaccountpay + SI12.hisaccountpay) * -1 as GRXJ,
+			si12.curaccountpay * -1 as GRZFD,
+			  (si12.hisaccountpay+ ifnull( si12.tcdzhzfs,0)+ifnull(si12.fjdzhzfs,0) + ifnull(si12.zfdlnzhzfs,0))* -1 as GRZFL,
+			si12.tczfs * -1 as YBZF,
+			si12.YBJSFWFYZE * -1 as TOTFY,
+			si12.FYBJSFWFYZE * -1 as ZF,
+			(si12.YBJSFWFYZE - si12.totalexpense) * -1 as FLGRZF,
+			'' as ZDICD,
+			'' as ZDNAME,
+			SUBSTR(si11.accountattr, 2, 1) as BJQK, sk01.jgid as YYID,
+			sk01.TRANSLSH as lsh,
+			0 as FY00,
+			fymx.FY01 * -1 as FY01,
+			fymx.FY02 * -1 as FY02,
+			fymx.FY03 * -1 as FY03,
+			fymx.FY04 * -1 as FY04,
+			fymx.FY05 * -1 as FY05,
+			fymx.FY06 * -1 as FY06,
+			fymx.FY07 * -1 as FY07,
+			fymx.FY08 * -1 as FY08,
+			fymx.FY09 * -1 as FY09,
+			(fymx.FY10-fymx.FY30) * -1 as FY10,
+			0 as FY20,
+			fymx.FY21 * -1  as FY21,
+			fymx.FY22 * -1 as FY22,
+			fymx.FY23 * -1 as FY23,
+			fymx.FY24 * -1 as FY24,
+			fymx.FY25 * -1 as FY25,
+			fymx.FY26 * -1 as FY26,
+			fymx.FY27 * -1 as FY27,
+			fymx.FY28 * -1 as FY28,
+			fymx.FY29 * -1 as FY29,
+			0 as FY30
+			FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID, shyb_sk01 sk01, v_shybmz_fymx_test fymx
+			WHERE si11.JSSQXH = si12.JSSQXH
+			and si12.MZXH = mzxx.MZXH
+			and fymx.MZXH = mzxx.MZXH
+			and si12.MZXH = sk01.GLXH and sk01.TFLX = '120'
+			and substr(sk01.accountattr, 12, 1) in ('B','C','D','E','F','H')
+			and mzxx.mzlb in ( #{mzlb} )
+			AND str_to_date(sk01.jssj, '%Y%m%d') >= #{datefrom}
+			AND str_to_date(sk01.jssj, '%Y%m%d') &lt;= #{dateto}
+</select>
+
+<select id="queryYbJmzyCityNormalList" resultType="CzjmzySbbResp">
+	select ZYID, NAME, BRXZ, BXID, YBID, CYDATE, ZYDNUM, ZYJGBZ, KSID, KSNA, GRXZ, JYTOTFY,
+			GRXJD, GRXJQ, TCZF as YBZF, TOTFY, v_shybzy_zyjs_JB.FLGRZF, ZF, ZDICD, ZDNAME, DAA,
+			YYID, LSH, JSRQ, v_shybzy_zyjs_jb.ZYH AS ZYH, FY01, FY02, FY03, FY04, FY05, FY06, FY07,
+			FY08, FY09, FY10, FY11, FY12, FY13, FY14, FY15, FY20, FY21, FY22, FY23, FY24, FY25, FY26,
+			FY27, FY28, FY29, FY30, FY31, FY32, FY33, FY34
+			from v_shybzy_zyjs_jb left join v_shybzy_zyjs_mx on v_shybzy_zyjs_jb.ZYH = v_shybzy_zyjs_mx.ZYH
+			and v_shybzy_zyjs_JB.jscs = v_shybzy_zyjs_mx.jscs and v_shybzy_zyjs_JB.zfpb = v_shybzy_zyjs_mx.zfpb
+			where   GRXZ in ('B','C','D','E','F','H')
+			and v_shybzy_zyjs_JB.mzlb in (#{mzlb} )
+			AND str_to_date(JSRQ,'%Y%m%d' )>= #{datefrom}
+			AND str_to_date(JSRQ,'%Y%m%d') &lt;= #{dateto}
+</select>
+
+	<select id="queryYbGsbxopList" resultType="YbOpGsbxbResp">
+		SELECT brda.brxm as NAME,        brda.sfzh as BXID,         sh01.cardid as YBID,   brda.gsrdh as GSID, #{daa} as DAA,
+				ksdm.ksdm as KSID,        ksdm.ksmc as KSNA,
+				substr( sh02.ghsj, 1, 8) as JZDATE,        1 as JZNUM,
+				substr( sh01.accountattr, 1, 1) as GRXZ,         sh02.tczfs as TCZF,
+				sh02.ybjsfwfyze as TOTFY,    (ghmx.ghje+ghmx.zlje)  as FY00,
+				0.00 as FY01,
+				0.00 as FY02,        0.00 as FY03,        0.00 as FY04,        0.00 as FY05,
+				0.00 as FY06,        0.00 as FY07,        0.00 as FY08,        0.00 as FY09,
+				0.00 as FY10,         sh02.fybjsfwfyze as ZF,
+				'' as ZDICD,        '' as ZDNAME,        substr( sh01.accountattr, 2, 1) as BJQK,  sh02.jgid as YYID,
+				sh02.lsh as LSH   FROM shyb_sh02 sh02,
+				op_ghmx  ghmx   left join mpi_brda  brda on ghmx.brid = brda.brid,
+				shyb_sh01 sh01,  yb_ksdm ksdm,
+				dic_kszd office, op_ghks  ghks  WHERE  sh02.ghxh = ghmx.sbxh
+				and  sh01.jssqxh =  sh02.jssqxh
+				and ghmx.ksdm = ghks.ksdm    and ghks.mzks = office.id
+				and brda.gsrdh is not null
+				and office.ybks = trim(ksdm.ksdm)
+				and ghmx.mzlb in (#{mzlb} )
+				and str_to_date( sh02.ghsj,'%Y%m%d') >=#{datefrom}
+				and str_to_date( sh02.ghsj,'%Y%m%d') &lt;=#{dateto}
+				and sh02.gsrdh is not null
+		union all
+		SELECT brda.brxm as NAME,        brda.sfzh as BXID,     sk01.cardid as YBID,     brda.gsrdh as GSID,#{daa} as DAA,
+				ksdm.ksdm as KSID,        ksdm.ksmc as KSNA,
+				substr(sk01.jssj, 1, 8) as JZDATE,        -1 as JZNUM,
+				substr(sk01.accountattr, 1, 1) as GRXZ,        -ABS(sk01.totalexpense) as TCZF,
+				-ABS(sk01.ybjsfwfyze) as TOTFY,      (ghmx.ghje+ghmx.zlje)* -1  as FY00,        0 as FY01,
+				0 as FY02,        0 as FY03,        0 as FY04,        0 as FY05,
+				0 as FY06,        0 as FY07,        0 as FY08,        0 as FY09,
+				0 as FY10,        sk01.fybjsfwfyze * -1 as ZF,        '' as ZDICD,
+				'' as ZDNAME,        substr(SK01.accountattr, 2, 1) as BJQK, sk01.jgid as YYID,  sk01.translsh as LSH
+				FROM shyb_sk01 sk01,  op_ghmx ghmx   left join mpi_brda  brda on ghmx.brid = brda.brid,
+				yb_ksdm    ksdm,        dic_kszd office,        op_ghks    ghks,
+				shyb_sh01    sh01,        shyb_sh02    sh02  WHERE sk01.glxh = ghmx.sbxh
+				and sk01.tflx = '110'    and ghmx.ksdm = ghks.ksdm
+				and ghks.mzks = office.id    and office.ybks = trim(ksdm.ksdm)
+				and brda.gsrdh is not null
+				and sh01.jssqxh = sh02.jssqxh
+				and sh02.ghxh = sk01.glxh
+				and ghmx.mzlb in (#{mzlb} )
+				and str_to_date(sk01.jssj,'%Y%m%d') >= #{datefrom}
+				and str_to_date(sk01.jssj,'%Y%m%d') &lt;= #{dateto}
+				and sh02.gsrdh is not null
+		union all
+		SELECT si11.personname as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				brda.gsrdh as GSID,
+				ifnull(si11.YBKS,'50.10') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'骨伤科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				SUBSTR(si11.accountattr, 1, 1) as GRXZ,
+				si12.tczfs as TCZF,
+				si12.YBJSFWFYZE as TOTFY,
+				si12.FYBJSFWFYZE as ZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, si12.jgid as YYID,
+				si12.LSH as lsh,
+				0 as FY00,
+				fymx.FY01 as FY01,
+				fymx.FY02 as FY02,
+				fymx.FY03 as FY03,
+				fymx.FY04 as FY04,
+				fymx.FY05 as FY05,
+				fymx.FY06 as FY06,
+				fymx.FY07 as FY07,
+				fymx.FY08 as FY08,
+				fymx.FY09 as FY09,
+				fymx.FY10 as FY10
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID, v_shybmz_fymx fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				and brda.gsrdh is not null
+				and mzxx.mzlb in (#{mzlb} )
+				AND str_to_date(si12.jssj,'%Y%m%d') >= #{datefrom}
+				AND str_to_date(si12.jssj, '%Y%m%d') &lt;= #{dateto}
+				and si12.GSRDH is not null
+		union all
+		SELECT si11.personname as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				brda.gsrdh as GSID,
+				ifnull(si11.YBKS,'50.10') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'骨伤科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				SUBSTR(si11.accountattr, 1, 1) as GRXZ,
+				si12.tczfs * -1 as TCZF,
+				si12.YBJSFWFYZE * -1 as TOTFY,
+				si12.FYBJSFWFYZE * -1 as ZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, sk01.jgid as YYID,
+				sk01.TRANSLSH as lsh,
+				0 as FY00,
+				fymx.FY01 * -1 as FY01,
+				fymx.FY02 * -1 as FY02,
+				fymx.FY03 * -1 as FY03,
+				fymx.FY04 * -1 as FY04,
+				fymx.FY05 * -1 as FY05,
+				fymx.FY06 * -1 as FY06,
+				fymx.FY07 * -1 as FY07,
+				fymx.FY08 * -1 as FY08,
+				fymx.FY09 * -1 as FY09,
+				fymx.FY10 * -1 as FY10
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID ,shyb_sk01 sk01, v_shybmz_fymx fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				and si12.MZXH = sk01.GLXH and sk01.TFLX = '120'
+				and brda.gsrdh is not null
+				and mzxx.mzlb in (#{mzlb} )
+				AND str_to_date(sk01.jssj, '%Y%m%d') >= #{datefrom}
+				AND str_to_date(sk01.jssj, '%Y%m%d') &lt;=  #{dateto}
+				and si12.GSRDH is not null
+	</select>
+
+	<select id="queryYbYlhzbkList" resultType="YbbbYlhzbkResp">
+		SELECT brda.brxm as NAME,        brda.sfzh as BXID,        sh01.cardid as YBID, #{daa} as DAA,
+				ksdm.ksdm as KSID,        ksdm.ksmc as KSNA,
+				substr(sh02.ghsj, 1, 8) as JZDATE,        1 as JZNUM,
+				substr(sh01.accountattr, 12, 1) as GRXZ,        sh02.totalexpense as JYTOTFY,
+				sh02.zfdxjzfs + sh02.tcdxjzfs + sh02.fjdxjzfs as GRXJ,        sh02.curaccountpay as GRZFD,
+				sh02.hisaccountpay + ifnull( sh02.tcdzhzfs,0)+ifnull(sh02.fjdzhzfs,0) + ifnull(sh02.zfdlnzhzfs,0) as GRZFL,
+				sh02.tczfs as YBZF,
+				sh02.ybjsfwfyze as TOTFY,
+				(case when sh01.jmjsbz = 1 then ghmx.ghje + ghmx.zlje  when sh01.jmjsbz = 2 then 0 else  ghmx.zlje  end) as FY00,
+				0.00 as FY01,
+				0.00 as FY02,        0.00 as FY03,        0.00 as FY04,        0.00 as FY05,
+				0.00 as FY06,        0.00 as FY07,        0.00 as FY08,        0.00 as FY09,
+				0.00 as FY10,        sh02.ybjsfwfyze - sh02.totalexpense as FLGRZF, 0.00 as CZ,   0.00 as FY20,
+				0.00 as FY21,        0.00 as FY22,        0.00 as FY23,        0.00 as FY24,
+				0.00 as FY25,        0.00 as FY26,        0.00 as FY27,        0.00 as FY28,
+				0.00 as FY29,        0.00 as FY30,        sh02.fybjsfwfyze as ZF,
+				'' as ZDICD,        '' as ZDNAME,        substr(sh01.accountattr, 2, 1) as BJQK, sh02.jgid as YYID,
+				sh02.lsh as LSH   FROM shyb_sh02 sh02,
+				op_ghmx ghmx   left join mpi_brda  brda on ghmx.brid = brda.brid,
+				shyb_sh01    sh01,        yb_ksdm    ksdm,
+				dic_kszd office,  op_ghks    ghks  WHERE sh02.ghxh = ghmx.sbxh
+				and sh01.jssqxh = sh02.jssqxh
+				and ghmx.ksdm = ghks.ksdm    and ghks.mzks = office.id
+				AND substr(sh01.accountattr,12,1)= 'G'
+				and office.ybks = trim(ksdm.ksdm)
+				and ghmx.mzlb in (#{mzlb}  )
+				and str_to_date(sh02.ghsj,'%Y%m%d') >= #{datefrom}
+				and str_to_date(sh02.ghsj,'%Y%m%d') &lt;= #{dateto}
+		union all
+		SELECT brda.brxm as NAME,        brda.sfzh as BXID,        sk01.cardid as YBID, #{daa} as DAA,
+				ksdm.ksdm as KSID,        ksdm.ksmc as KSNA,
+				substr(sk01.jssj, 1, 8) as JZDATE,        -1 as JZNUM,
+				substr(sk01.accountattr, 12, 1) as GRXZ,        -ABS(sk01.totalexpense) as totalexpense,
+				-ABS(sk01.zfcash + sk01.tccash + sk01.dffjcash) as GRXJ,
+				-ABS(sk01.curaccount) as GRZFD,        -ABS(sk01.hisaccount) as GRZFL,
+				-ABS(sk01.tc) as YBZF,        -ABS(sk01.ybjsfwfyze) as TOTFY,        (case
+				when sh01.jmjsbz = 1 then           -ABS(ghmx.ghje + ghmx.zlje)
+				when sh01.jmjsbz = 2 then           0          else
+				-ABS(ghmx.zlje)        end) as FY00,        0 as FY01,
+				0 as FY02,        0 as FY03,        0 as FY04,        0 as FY05,
+				0 as FY06,        0 as FY07,        0 as FY08,        0 as FY09,
+				0 as FY10,        (sk01.ybjsfwfyze - sk01.totalexpense) * -1 as FLGRZF, 0 as CZ,         0 as FY20,
+				0 as FY21,        0 as FY22,        0 as FY23,        0 as FY24,
+				0 as FY25,        0 as FY26,        0 as FY27,        0 as FY28,
+				0 as FY29,        0 as FY30,        sk01.fybjsfwfyze * -1 as ZF,        '' as ZDICD,
+				'' as ZDNAME,        substr(SK01.accountattr, 2, 1) as BJQK, sk01.jgid as YYID,        sk01.translsh as LSH
+				FROM shyb_sk01    sk01, op_ghmx    ghmx   left join mpi_brda  brda on ghmx.brid = brda.brid,
+				yb_ksdm    ksdm,  dic_kszd office,  op_ghks    ghks,
+				shyb_sh01    sh01,        shyb_sh02    sh02  WHERE sk01.glxh = ghmx.sbxh
+				and sk01.tflx = '110'    and ghmx.ksdm = ghks.ksdm
+				and ghks.mzks = office.id    and office.ybks = trim(ksdm.ksdm)
+				AND substr(sh01.accountattr,12,1)= 'G'
+				and sh01.jssqxh = sh02.jssqxh
+				and sh02.ghxh = sk01.glxh
+				and ghmx.mzlb in (#{mzlb} )
+				and str_to_date(sk01.jssj,'%Y%m%d') >= #{datefrom}
+				and str_to_date(sk01.jssj,'%Y%m%d') &lt;= #{dateto}
+		union all
+		SELECT si11.personname as NAME, #{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				ifnull(si11.YBKS,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				SUBSTR(si11.accountattr, 12, 1) as GRXZ,
+				si12.totalexpense as JYTOTFY,
+				si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS as GRXJ,
+				si12.curaccountpay as GRZFD,
+				si12.hisaccountpay + ifnull( si12.tcdzhzfs,0)+ifnull(si12.fjdzhzfs,0) + ifnull(si12.zfdlnzhzfs,0)  as GRZFL,
+				si12.tczfs as YBZF,
+				si12.YBJSFWFYZE as TOTFY,
+				si12.FYBJSFWFYZE as ZF,
+				si12.YBJSFWFYZE - si12.totalexpense as FLGRZF,
+				si12.YBJSFWFYZE - si12.totalexpense - fymx.FLGRZF as CZ,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, si12.jgid as YYID,
+				si12.LSH as lsh,
+				0 as FY00,
+				fymx.FY01 as FY01,
+				fymx.FY02 as FY02,
+				fymx.FY03 as FY03,
+				fymx.FY04 as FY04,
+				fymx.FY05 as FY05,
+				fymx.FY06 as FY06,
+				fymx.FY07 as FY07,
+				fymx.FY08 as FY08,
+				fymx.FY09 as FY09,
+				fymx.FY10 as FY10,
+				0 as FY20,
+				fymx.FY21 as FY21,
+				fymx.FY22 as FY22,
+				fymx.FY23 as FY23,
+				fymx.FY24 as FY24,
+				fymx.FY25 as FY25,
+				fymx.FY26 as FY26,
+				fymx.FY27 as FY27,
+				fymx.FY28 as FY28,
+				fymx.FY29 as FY29,
+				fymx.FY30 as FY30
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID, v_shybmz_fymx fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				AND substr(si11.accountattr,12,1) = 'G'
+				and mzxx.mzlb in (#{mzlb} )
+				AND str_to_date(si12.jssj, '%Y%m%d') >= #{datefrom}
+				AND str_to_date(si12.jssj, '%Y%m%d') &lt;= #{dateto}
+		union all
+		SELECT si11.personname as NAME,#{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				ifnull(si11.YBKS,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				SUBSTR(si11.accountattr, 12, 1) as GRXZ,
+				si12.totalexpense * -1 as JYTOTFY,
+				(si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS) * -1 as GRXJ,
+				si12.curaccountpay * -1 as GRZFD,
+				 (si12.hisaccountpay+ ifnull( si12.tcdzhzfs,0)+ifnull(si12.fjdzhzfs,0) + ifnull(si12.zfdlnzhzfs,0)) * -1 as GRZFL,
+				si12.tczfs * -1 as YBZF,
+				si12.YBJSFWFYZE * -1 as TOTFY,
+				si12.FYBJSFWFYZE * -1 as ZF,
+				(si12.YBJSFWFYZE - si12.totalexpense) * -1 as FLGRZF,
+				(si12.YBJSFWFYZE - si12.totalexpense - fymx.FLGRZF) * -1 as CZ,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK, sk01.jgid as YYID,
+				sk01.TRANSLSH as lsh,
+				0 as FY00,
+				fymx.FY01 * -1 as FY01,
+				fymx.FY02 * -1 as FY02,
+				fymx.FY03 * -1 as FY03,
+				fymx.FY04 * -1 as FY04,
+				fymx.FY05 * -1 as FY05,
+				fymx.FY06 * -1 as FY06,
+				fymx.FY07 * -1 as FY07,
+				fymx.FY08 * -1 as FY08,
+				fymx.FY09 * -1 as FY09,
+				fymx.FY10 * -1 as FY10,
+				0 as FY20,
+				fymx.FY21 * -1  as FY21,
+				fymx.FY22 * -1 as FY22,
+				fymx.FY23 * -1 as FY23,
+				fymx.FY24 * -1 as FY24,
+				fymx.FY25 * -1 as FY25,
+				fymx.FY26 * -1 as FY26,
+				fymx.FY27 * -1 as FY27,
+				fymx.FY28 * -1 as FY28,
+				fymx.FY29 * -1 as FY29,
+				fymx.FY30 * -1 as FY30
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID, shyb_sk01 sk01, v_shybmz_fymx fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				and si12.MZXH = sk01.GLXH and sk01.TFLX = '120'
+				AND substr(si11.accountattr,12,1)= 'G'
+				and mzxx.mzlb in (#{mzlb} )
+				AND str_to_date(sk01.jssj, '%Y%m%d') >= #{datefrom}
+				AND str_to_date(sk01.jssj, '%Y%m%d') &lt;= #{dateto}
+
+	</select>
+
+	<select id="queryYbPkjsbList" resultType="ybbbpkjsbResp">
+		SELECT MZHM,BRID,BRXM as name, (case BRXB when 1 then '男' when 2 then '女' else '' end) BRXB ,
+				FYZH YLZH,SUM(GHJE+ZLJE+ZJJE) AS TOTFY,SUM(AA.GHJE+AA.GHF_ZJ) AS GHF,SUM(AA.ZLJE+AA.ZLF_ZJ) AS ZLF,
+				SUM(YF_ZJ) AS ZYF,SUM(YF_ZF) AS ZFYF,SUM(ZLF01_ZJ) AS ZLF_Z,SUM(JYF_ZJ) AS JYF,SUM(JCF_ZJ) AS JCF,SUM(QT_ZJ) AS QTF
+				FROM
+				(
+				select op_ghmx.jzkh as mzhm,
+				mpi_brda.BRid as brid,
+				mpi_brda.brxm as brxm,
+				mpi_brda.brxb as brxb,
+				op_ghmx.jzkh as fyzh,
+				op_ghmx.ghje as ghje,
+				op_ghmx.zlje as zlje,
+				0.00            AS ZJJE,
+				0.00            as GHF_ZJ,
+				0.00            as ZLF_ZJ,
+				0.00            as YF_ZJ,
+				0.00            as YF_ZF,
+				0.00            as ZLF01_ZJ,
+				0.00            as JYF_ZJ,
+				0.00            as JCF_ZJ,
+				0.00            as QT_ZJ
+				from op_ghmx, mpi_brda
+				where op_ghmx.BRid = mpi_brda.BRid
+				and op_ghmx.brxz = '25'
+				and op_ghmx.jzkh is not null
+				and date_format(op_ghmx.ghsj,'%Y-%m-%d') >= #{datefrom}
+				and date_format(op_ghmx.ghsj,'%Y-%m-%d') &lt;=  #{dateto}
+		union all
+		select op_ghmx.jzkh  as mzhm,
+				mpi_brda.BRid  as brid,
+				mpi_brda.brxm  as brxm,
+				mpi_brda.brxb  as brxb,
+				op_ghmx.jzkh  as fyzh,
+				-op_ghmx.ghje as ghje,
+				-op_ghmx.zlje as zlje,
+				0             AS ZJJE,
+				0             as GHF_ZJ,
+				0             as ZLF_ZJ,
+				0             as YF_ZJ,
+				0             as YF_ZF,
+				0             as ZLF01_ZJ,
+				0             as JYF_ZJ,
+				0             as JCF_ZJ,
+				0             as QT_ZJ
+				from op_ghmx, mpi_brda, op_thmx
+				where op_ghmx.BRid = mpi_brda.BRid
+				and op_ghmx.sbxh = op_thmx.sbxh
+				and op_ghmx.brxz = '25'
+				and op_ghmx.jzkh is not null
+				and date_format(op_thmx.thrq,'%Y-%m-%d') >= #{datefrom}
+				and date_format(op_thmx.thrq,'%Y-%m-%d') &lt;= #{dateto}
+				union all
+				SELECT OP_MZXX.jzkh AS MZHM,
+				MPI_BRDA.BRID AS BRID,
+				MPI_BRDA.BRXM AS BRXM,
+				MPI_brda.brxb as brxb,
+				OP_MZXX.JZKH AS FYZH,
+				0 as ghje,
+				0 as zlje,
+				OP_SFMX.ZJJE AS ZJJE,
+				(CASE WHEN OP_SFMX.SFXM= 35 THEN OP_SFMX.ZJJE ELSE 0 END) as GHF_ZJ,
+				(CASE WHEN op_SFMX.SFXM= 36 THEN OP_SFMX.ZJJE ELSE 0 END) as ZLF_ZJ,
+				((CASE WHEN OP_SFMX.SFXM= 2 THEN OP_SFMX.ZJJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 3 THEN OP_SFMX.ZJJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 4 THEN OP_SFMX.ZJJE ELSE 0 END)) as YF_ZJ,
+				((CASE WHEN OP_SFMX.SFXM= 2 THEN OP_SFMX.ZFJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 3 THEN OP_SFMX.ZFJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 4 THEN OP_SFMX.ZFJE ELSE 0 END)) as YF_ZF,
+				(CASE WHEN OP_SFMX.SFXM= 6 THEN OP_SFMX.ZJJE ELSE 0 END) as ZLF01_ZJ,
+				(CASE WHEN OP_SFMX.SFXM= 9 THEN OP_SFMX.ZJJE ELSE 0 END) as JYF_ZJ,
+				((CASE WHEN OP_SFMX.SFXM= 5 THEN OP_SFMX.ZJJE ELSE 0 END)+
+					(CASE WHEN OP_SFMX.SFXM= 7 THEN OP_SFMX.ZJJE ELSE 0 END)+
+					(CASE WHEN OP_SFMX.SFXM= 8 THEN OP_SFMX.ZJJE ELSE 0 END)+
+					(CASE WHEN OP_SFMX.SFXM= 10 THEN OP_SFMX.ZJJE ELSE 0 END)+
+					(CASE WHEN OP_SFMX.SFXM= 11 THEN OP_SFMX.ZJJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 12 THEN OP_SFMX.ZJJE ELSE 0 END)) as JCF_ZJ,
+				((CASE WHEN OP_SFMX.SFXM= 13 THEN OP_SFMX.ZJJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 1 THEN OP_SFMX.ZJJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 15 THEN OP_SFMX.ZJJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 16 THEN OP_SFMX.ZJJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 18 THEN OP_SFMX.ZJJE ELSE 0 END) +
+					(CASE WHEN OP_SFMX.SFXM= 71 THEN OP_SFMX.ZJJE ELSE 0 END)) as QT_ZJ
+				FROM OP_SFMX, OP_MZXX, MPI_BRDA
+				WHERE OP_MZXX.FPHM = OP_SFMX.FPHM
+				and OP_MZXX.BRXZ = '25'
+				AND OP_MZXX.JZKH IS NOT NULL
+				AND OP_MZXX.BRID = MPI_BRDA.BRID
+				AND date_format(OP_MZXX.SFRQ,'%Y-%m-%d') >= #{datefrom}
+				and date_format(OP_MZXX.SFRQ,'%Y-%m-%d') &lt;= #{dateto}
+		UNION ALL
+		SELECT OP_MZXX.jzkh AS MZHM,
+				MPI_BRDA.BRID AS BRID,
+				MPI_BRDA.BRXM AS BRXM,
+				MPI_brda.brxb as brxb,
+				OP_MZXX.JZKH AS FYZH,
+				0 as ghje,
+				0 as zlje,
+				-1 * (OP_SFMX.ZJJE) AS ZJJE,
+				-1 * (CASE WHEN OP_SFMX.SFXM= 35 THEN OP_SFMX.ZJJE ELSE 0 END) as GHF_ZJ,
+				-1 * (CASE WHEN OP_SFMX.SFXM= 36 THEN OP_SFMX.ZJJE ELSE 0 END) as ZLF_ZJ,
+				-1 * ((CASE WHEN OP_SFMX.SFXM= 2 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 3 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 4 THEN OP_SFMX.ZJJE ELSE 0 END)) as YF_ZJ,
+				-1 * ((CASE WHEN OP_SFMX.SFXM= 2 THEN OP_SFMX.ZFJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 3 THEN OP_SFMX.ZFJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 4 THEN OP_SFMX.ZFJE ELSE 0 END)) as YF_ZF,
+				-1 * (CASE WHEN OP_SFMX.SFXM= 6 THEN OP_SFMX.ZJJE ELSE 0 END) as ZLF_ZJ,
+				-1 * (CASE WHEN OP_SFMX.SFXM= 9 THEN OP_SFMX.ZJJE ELSE 0 END) as JYF_ZJ,
+				-1 * ((CASE WHEN OP_SFMX.SFXM= 5 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 7 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 8 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 10 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 11 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 12 THEN OP_SFMX.ZJJE ELSE 0 END)) as JCF_ZJ,
+				-1 * ((CASE WHEN OP_SFMX.SFXM= 13 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 1 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 15 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 16 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 18 THEN OP_SFMX.ZJJE ELSE 0 END) +
+				(CASE WHEN OP_SFMX.SFXM= 71 THEN OP_SFMX.ZJJE ELSE 0 END)) as QT_ZJ
+				FROM OP_SFMX, OP_ZFFP, OP_MZXX, MPI_BRDA
+				WHERE OP_ZFFP.FPHM = OP_SFMX.FPHM
+				AND OP_MZXX.FPHM = OP_ZFFP.FPHM
+				AND OP_MZXX.BRID = MPI_BRDA.BRID
+				AND OP_MZXX.ZFPB = 1
+				and OP_mzxx.brxz = '25'
+				AND OP_MZXX.JZKH IS NOT NULL
+				and date_format(OP_MZXX.SFRQ,'%Y-%m-%d') >= #{datefrom}
+				and date_format(OP_MZXX.SFRQ,'%Y-%m-%d') &lt;= #{dateto}
+		) AA
+		GROUP BY  AA.MZHM,AA.BRID,AA.BRXM,AA.BRXB,AA.FYZH
+
+	</select>
+
+	<select id="queryYbMzbkList" resultType="YbbbMzbkResp">
+		SELECT brda.brxm as NAME,        brda.sfzh as BXID,        sh01.cardid as YBID,#{daa} as DAA,
+				ksdm.ksdm as KSID,        ksdm.ksmc as KSNA,
+				substr(sh02.ghsj, 1, 8) as JZDATE,        1 as JZNUM,
+				substr(sh01.accountattr, 1, 1) as GRXZ,        sh02.totalexpense as JYTOTFY,
+				sh02.zfdxjzfs + sh02.tcdxjzfs + sh02.fjdxjzfs as GRXJ,        sh02.curaccountpay as GRZFD,
+				sh02.hisaccountpay + ifnull( sh02.tcdzhzfs,0)+ifnull(sh02.fjdzhzfs,0) + ifnull(sh02.zfdlnzhzfs,0)  as GRZFL,
+				sh02.fjzfs as FJBX,
+				sh02.ybjsfwfyze as TOTFY,        (case          when sh01.jmjsbz = 1 then
+				ghmx.ghje + ghmx.zlje          when sh01.jmjsbz = 2 then           0
+				else           ghmx.zlje        end) as FY00,        0.00 as FY01,
+				0.00 as FY02,        0.00 as FY03,        0.00 as FY04,        0.00 as FY05,
+				0.00 as FY06,        0.00 as FY07,        0.00 as FY08,        0.00 as FY09,
+				0.00 as FY10,        sh02.ybjsfwfyze - sh02.totalexpense as FLGRZF,        0.00 as FY20,
+				0.00 as FY21,        0.00 as FY22,        0.00 as FY23,        0.00 as FY24,
+				0.00 as FY25,        0.00 as FY26,        0.00 as FY27,        0.00 as FY28,
+				0.00 as FY29,        0.00 as FY30,        sh02.fybjsfwfyze as ZF,
+				'' as ZDICD,        '' as ZDNAME,        substr(sh01.accountattr, 2, 1) as BJQK, sh02.jgid as YYID,
+				sh02.lsh as LSH   FROM shyb_sh02    sh02,
+				op_ghmx    ghmx  left join mpi_brda  brda on ghmx.brid = brda.brid,
+				shyb_sh01    sh01,        yb_ksdm    ksdm,
+				dic_kszd office,        op_ghks    ghks  WHERE sh02.ghxh = ghmx.sbxh
+				and sh01.jssqxh = sh02.jssqxh
+				and ghmx.ksdm = ghks.ksdm    and ghks.mzks = office.id
+				and substr(sh01.accountattr, 12, 1)  = 'A'
+				and office.ybks = trim(ksdm.ksdm)
+				and str_to_date(sh02.ghsj,'%Y%m%d') >= #{datefrom}
+				and str_to_date(sh02.ghsj,'%Y%m%d') &lt;= #{dateto}
+		union all
+		SELECT brda.brxm as NAME,        brda.sfzh as BXID,        sk01.cardid as YBID, #{daa} as DAA,
+				ksdm.ksdm as KSID,        ksdm.ksmc as KSNA,
+				substr(sk01.jssj, 1, 8) as JZDATE,        -1 as JZNUM,
+				substr(sk01.accountattr, 1, 1) as GRXZ,        -ABS(sk01.totalexpense) as JYTOTFY,
+				-ABS(sk01.zfcash + sk01.tccash + sk01.dffjcash) as GRXJ,
+				-ABS(sk01.curaccount) as GRZFD,        -ABS(sk01.hisaccount) as GRZFL,
+				-ABS(sk01.dffj) as FJBX,        -ABS(sk01.ybjsfwfyze) as TOTFY,        (case
+				when sh01.jmjsbz = 1 then           -ABS(ghmx.ghje + ghmx.zlje)
+				when sh01.jmjsbz = 2 then           0          else
+				-ABS(ghmx.zlje)        end) as FY00,        0 as FY01,
+				0 as FY02,        0 as FY03,        0 as FY04,        0 as FY05,
+				0 as FY06,        0 as FY07,        0 as FY08,        0 as FY09,
+				0 as FY10,        (sk01.ybjsfwfyze - sk01.totalexpense) * -1 as FLGRZF,        0 as FY20,
+				0 as FY21,        0 as FY22,        0 as FY23,        0 as FY24,
+				0 as FY25,        0 as FY26,        0 as FY27,        0 as FY28,
+				0 as FY29,        0 as FY30,        sk01.fybjsfwfyze * -1 as ZF,        '' as ZDICD,
+				'' as ZDNAME,        substr(SK01.accountattr, 2, 1) as BJQK,  sk01.jgid as YYID,         sk01.translsh as LSH
+				FROM shyb_sk01    sk01,        op_ghmx    ghmx  left join mpi_brda  brda on ghmx.brid = brda.brid,
+				yb_ksdm    ksdm,        dic_kszd office,        op_ghks    ghks,
+				shyb_sh01    sh01,        shyb_sh02    sh02  WHERE sk01.glxh = ghmx.sbxh
+				and sk01.tflx = '110'    and ghmx.ksdm = ghks.ksdm
+				and ghks.mzks = office.id    and office.ybks = trim(ksdm.ksdm)
+				and substr(sk01.accountattr, 12, 1)  = 'A'
+				and sh01.jssqxh = sh02.jssqxh
+				and sh02.ghxh = sk01.glxh
+				and str_to_date(sk01.jssj,'%Y%m%d') >= #{datefrom}
+				and str_to_date(sk01.jssj,'%Y%m%d') &lt;= #{dateto}
+		union all
+		SELECT si11.personname as NAME, #{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				ifnull(si11.YBKS,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(si12.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				SUBSTR(si11.accountattr, 1, 1) as GRXZ,
+				si12.totalexpense as JYTOTFY,
+				si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS as GRXJ,
+				si12.curaccountpay as GRZFD,
+				si12.hisaccountpay + ifnull( si12.tcdzhzfs,0)+ifnull(si12.fjdzhzfs,0) + ifnull(si12.zfdlnzhzfs,0)  as GRZFL,
+				si12.fjzfs as FJBX,
+				si12.YBJSFWFYZE as TOTFY,
+				si12.FYBJSFWFYZE as ZF,
+				si12.YBJSFWFYZE - si12.totalexpense as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(si11.accountattr, 2, 1) as BJQK,  si12.jgid as YYID,
+				si12.LSH as lsh,
+				0 as FY00,
+				fymx.FY01 as FY01,
+				fymx.FY02 as FY02,
+				fymx.FY03 as FY03,
+				fymx.FY04 as FY04,
+				fymx.FY05 as FY05,
+				fymx.FY06 as FY06,
+				fymx.FY07 as FY07,
+				fymx.FY08 as FY08,
+				fymx.FY09 as FY09,
+				fymx.FY10 as FY10,
+				0 as FY20,
+				fymx.FY21 as FY21,
+				fymx.FY22 as FY22,
+				fymx.FY23 as FY23,
+				fymx.FY24 as FY24,
+				fymx.FY25 as FY25,
+				fymx.FY26 as FY26,
+				fymx.FY27 as FY27,
+				fymx.FY28 as FY28,
+				fymx.FY29 as FY29,
+				fymx.FY30 as FY30
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID,v_shybmz_fymx fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				and substr(si11.accountattr, 12, 1)  = 'A'
+				AND str_to_date(si12.jssj, '%Y%m%d') >= #{datefrom}
+				AND str_to_date(si12.jssj, '%Y%m%d') &lt;= #{dateto}
+		union all
+		SELECT si11.personname as NAME, #{daa} as DAA,
+				brda.sfzh as BXID,
+				si11.cardid as YBID,
+				ifnull(si11.YBKS,'03') as KSID,
+				ifnull((select ybks.KSMC from yb_ksdm ybks where ybks.ksdm = si11.ybks),'内科') as KSNA,
+				substr(sk01.jssj, 0, 8) as JZDATE,
+				0 as JZNUM,
+				SUBSTR(sk01.accountattr, 1, 1) as GRXZ,
+				si12.totalexpense * -1 as JYTOTFY,
+				(si12.ZFDXJZFS + si12.TCDXJZFS + si12.FJDXJZFS) * -1 as GRXJ,
+				si12.curaccountpay * -1 as GRZFD,
+				(si12.hisaccountpay + ifnull( si12.tcdzhzfs,0)+ifnull(si12.fjdzhzfs,0) + ifnull(si12.zfdlnzhzfs,0)) * -1 as GRZFL,
+				si12.fjzfs * -1 as FJBX,
+				sk01.ybjsfwfyze * -1 as TOTFY,
+				sk01.fybjsfwfyze * -1 as ZF,
+				(si12.YBJSFWFYZE - si12.totalexpense) * -1 as FLGRZF,
+				'' as ZDICD,
+				'' as ZDNAME,
+				SUBSTR(sk01.accountattr, 2, 1) as BJQK,  sk01.jgid as YYID,
+				sk01.TRANSLSH as lsh,
+				0 as FY00,
+				fymx.FY01 * -1 as FY01,
+				fymx.FY02 * -1 as FY02,
+				fymx.FY03 * -1 as FY03,
+				fymx.FY04 * -1 as FY04,
+				fymx.FY05 * -1 as FY05,
+				fymx.FY06 * -1 as FY06,
+				fymx.FY07 * -1 as FY07,
+				fymx.FY08 * -1 as FY08,
+				fymx.FY09 * -1 as FY09,
+				fymx.FY10 * -1 as FY10,
+				0 as FY20,
+				fymx.FY21 * -1  as FY21,
+				fymx.FY22 * -1 as FY22,
+				fymx.FY23 * -1 as FY23,
+				fymx.FY24 * -1 as FY24,
+				fymx.FY25 * -1 as FY25,
+				fymx.FY26 * -1 as FY26,
+				fymx.FY27 * -1 as FY27,
+				fymx.FY28 * -1 as FY28,
+				fymx.FY29 * -1 as FY29,
+				fymx.FY30 * -1 as FY30
+				FROM SHYB_SI11 si11, SHYB_SI12 si12, OP_MZXX mzxx left join MPI_BRDA brda on mzxx.BRID = brda.BRID, shyb_sk01 sk01,v_shybmz_fymx fymx
+				WHERE si11.JSSQXH = si12.JSSQXH
+				and si12.MZXH = mzxx.MZXH
+				and fymx.MZXH = mzxx.MZXH
+				and si12.MZXH = sk01.GLXH and sk01.TFLX = '120'
+				and substr(sk01.accountattr, 12, 1)  = 'A'
+				AND str_to_date(sk01.jssj, '%Y%m%d') >= #{datefrom}
+				AND str_to_date(sk01.jssj, '%Y%m%d') &lt;= #{dateto}
+	</select>
+
+	<select id="queryYbYdybList" resultType="YbbbYdybResp">
+		SELECT ZYID,  NAME,  BRXZ,  BXID,  YBID,
+				CYDATE,  ZYDNUM,  ZYJGBZ,  KSID,  KSNA,
+				GRXZ,  JYTOTFY,  GRXJD, GRXJQ, TCZF,
+				GRZFLD,  GRZFLQ,  FJBX, TOTFY, v_ydybzy_zyjs_hz.FLGRZF,
+				ZF,  ZDICD , ZDNAME,  BJQK, DAA,
+				YYID,  LSH, JSRQ,  v_ydybzy_zyjs_hz.ZYH AS ZYH,
+				FY01,  FY02,  FY03, FY04, FY05,
+				FY06,  FY07, FY08,  FY09, FY10,
+				FY11, FY12, FY13,  FY14,  FY15,
+				FY20, FY21,  FY22, FY23,  FY24,
+				FY25, FY26, FY27,  FY28,  FY29,
+				FY30,  FY31,  FY32, FY33,  FY34,
+				(v_ydybzy_zyjs_hz.flgrzf - v_ydybzy_zyjs_mx.flgrzf) as CZ
+				FROM v_ydybzy_zyjs_hz, v_ydybzy_zyjs_mx
+				WHERE v_ydybzy_zyjs_hz.ZYH = v_ydybzy_zyjs_mx.ZYH
+				and v_ydybzy_zyjs_hz.jscs = v_ydybzy_zyjs_mx.jscs
+				and v_ydybzy_zyjs_hz.zfpb = v_ydybzy_zyjs_mx.zfpb
+				and v_ydybzy_zyjs_hz.mzlb in (#{mzlb})
+				AND date_format(JSRQ,'%Y-%m-%d') >= #{datefrom}
+				AND date_format(JSRQ,'%Y-%m-%d') &lt;= #{dateto}
+	</select>
+
+	<select id="queryYbFssscopList" resultType="YbbbFssscopResp">
+		SELECT ghmx.jzkh as YBID,
+				ghmx.sbxh as MZHM,
+				brda.sfzh as BXID,
+				ifnull(ksdm.ksdm, '03') as KSID,
+				ifnull(ksdm.ksmc, '内科') as KSNA,
+				personnel.zybh as YSGH,
+				personnel.zyysxm as YSXM,
+				'0001' as CFHM,
+				'01' as FYLB,
+				'S110200001a0010' as XMBM,
+				'普通门诊诊查费(一级医院)' as XMMC,
+				'次' as XMDW,
+				(ghmx.ghje + ghmx.zlje) as XMDJ,
+				' ' as TYMC,
+				' ' as ZCZH,
+				' ' as MXGG,
+				1 as XMSL,
+				(ghmx.ghje + ghmx.zlje) as XMJE,
+				(ghmx.ghje + ghmx.zlje) as JYTOTFY,
+				(ghmx.ghje + ghmx.zlje) as TOTFY,
+				'0' as BXBZ,
+				1 as RYLX,
+				thbz+1 as TFBZ,
+				date_format(ghmx.ghsj,'%Y-%m-%d') as JZDATE
+				from op_ghmx ghmx
+				left join mpi_brda brda
+				on ghmx.brid = brda.brid, yb_ksdm ksdm, dic_kszd office, op_ghks ghks,hr_personnel personnel
+				where ghmx.brxz = '23'
+				and length(ghmx.jzkh) = 5
+				and ghmx.ksdm = ghks.ksdm
+				and ghks.mzks = office.id
+				and ghmx.ysdm = personnel.personid
+				and office.ybks = trim(ksdm.ksdm)
+				and ghmx.mzlb in (  #{mzlb}  )
+				and str_to_date(ghmx.ghsj,'%Y%m%d') >= #{datefrom}
+				and str_to_date(ghmx.ghsj,'%Y%m%d') &lt;= #{dateto}
+		union all
+		select mzxx.jzkh as YBID,
+				mzxx.mzxh as MZHM,  brda.sfzh as BXID,
+				ksdm.ksdm as KSID,  ksdm.ksmc as KSNA,
+				personnel.zybh as YSGH, personnel.zyysxm as YSXM,
+				substr(abs(cf01.cfhm),0,4) as CFHM,
+				sfxm.ybmzxm as FYLB,
+				ybxx.ybbm as XMBM,   ypxx.yptym as XMMC,
+				ypxx.bzdw as XMDW,   cf02.ypdj as XMDJ,
+				ypxx.yptym as TYMC,
+				' ' as ZCZH,
+				ypxx.gg as MXGG,
+				cf02.ypsl*cf02.cfts as XMSL,
+				cf02.ypsl*cf02.ypdj*cf02.cfts as XMJE,
+				mzxx.qtys as JYTOTFY,
+				mzxx.qtys as TOTFY,
+				(case when cf02.zfbl=1 then '1' else '0' end) as BXBZ,
+				1 as RYLX,
+				mzxx.zfpb+1 as TFBZ,
+				date_format(mzxx.sfrq, '%Y%m%d') as JZDATE
+				from op_mzxx  mzxx left join mpi_brda brda
+				on mzxx.brid = brda.brid,
+				op_cf01       cf01
+				left join op_cf02  cf02 on cf01.cfsb = cf02.cfsb
+				left join drugs_ybyp  ybxx on ybxx.ypcd = cf02.ypcd
+				left join shyb_ypjcxx ypxx on ypxx.tbdm=ybxx.ybbm
+				and cf01.kfrq &lt; ifnull(date_format(ypxx.yxrq,''),DATE_ADD(now(),INTERVAL 1 DAY)) and ybxx.ypxh = cf02.ypxh
+				left join dic_kszd  office on cf01.ksdm = office.id
+				left join yb_ksdm     ksdm   on office.ybks = trim(ksdm.ksdm)
+				left join hr_personnel personnel on personnel.personid = cf01.ysdm
+				left join dic_sfxmlb     sfxm   on cf02.fygb = sfxm.sfxm
+				left join drugs_typk     typk   on cf02.ypxh = typk.ypxh
+				where mzxx.brxz = '23' and cf02.zfyp != 1
+				and length(mzxx.jzkh) = 5
+				and mzxx.mzxh = cf01.mzxh
+				and mzxx.mzlb in ( #{mzlb}  )
+				and str_to_date(mzxx.sfrq,'%Y%m%d') >= #{datefrom}
+				and str_to_date(mzxx.sfrq,'%Y%m%d') &lt;= #{dateto}
+		union all
+		select mzxx.jzkh as YBID,
+			mzxx.mzxh as MZHM,
+			brda.sfzh as BXID,
+			ksdm.ksdm as KSID,
+			ksdm.ksmc as KSNA,
+			personnel.zybh as YSGH,
+			personnel.zyysxm as YSXM,
+			substr(abs(yj01.yjxh),0,4) as CFHM,
+			sfxm.ybmzxm as FYLB,
+			ylsf.ybbm as XMBM,
+			ylsf.ybmc as XMMC,
+			ylsf.ybdw as XMDW,
+			yj02.yldj as XMDJ,
+			ylsf.yypp as TYMC,
+			ylsf.zczh as ZCZH,
+			ylsf.yyclgg as MXGG,
+			yj02.ylsl as XMSL,
+			yj02.ylsl * yj02.yldj as XMJE,
+			mzxx.qtys as JYTOTFY,
+			mzxx.qtys as TOTFY,
+			(case when yj02.zfbl=1 then '1' else '0' end) as BXBZ,
+			1 as RYLX,
+			mzxx.zfpb+1 as TFBZ,
+			str_to_date(mzxx.sfrq, '%Y%m%d') as JZDATE
+			from op_mzxx  mzxx left join mpi_brda brda
+			on mzxx.brid = brda.brid,
+			op_yjcf02       yj02
+			left join dic_sfxmlb  sfxm on yj02.fygb = sfxm.sfxm
+			left join fee_ylsfxm  ylsf on ylsf.fyxh = yj02.ylxh,
+			op_yjcf01       yj01
+			left join dic_kszd  office on yj01.ksdm = office.id
+			left join yb_ksdm  ksdm on office.ybks = trim(ksdm.ksdm)
+			left join hr_personnel personnel on personnel.personid = yj01.ysdm
+			where mzxx.brxz = '23'
+			and length(mzxx.jzkh) = 5
+			and mzxx.mzxh = yj01.mzxh
+			and yj01.yjxh = yj02.yjxh
+			and mzxx.mzlb in (  #{mzlb}  )
+			and str_to_date(mzxx.sfrq,'%Y%m%d') >= #{datefrom}
+			and str_to_date(mzxx.sfrq,'%Y%m%d') &lt;= #{dateto}
+	</select>
+
+</mapper>
+

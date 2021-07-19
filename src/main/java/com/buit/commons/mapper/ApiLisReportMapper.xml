@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 接口检验 -->
+<mapper namespace="com.buit.commons.dao.ApiLisReportDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id,REQ_NO as reqNo, REQ_DOCTOR as reqDoctor, BR_ID as brId,REQ_DATA as reqData,ITEM_PRICE as itemPrice,PAT_TYPE as patType,AUDITOR as auditor,AUDITTIME as audittime,ITEM_REOMPT as itemReompt,LAB_DOCTOR as labDoctor,ITEM_NO as itemNo,REPORT_ITEM_ID as reportItemId,REPORT_ITEM_NAME as reportItemName,REPORT_ITEM_CODE as reportItemCode,RESULT as result,UNITS as units,ABNORMAL_INDICATOR as abnormalIndicator,RESULT_DATE_TIME as resultDateTime,TEXT_RANGE as textRange,ITEM_CODE as itemCode,ITEM_NAME as itemName,SAMPLE_NO as sampleNo,REMARK as remark,REPORT_NO as reportNo,DANGER as danger,SPECIMEN_TYPE as specimenType,EXAMINE_TYPE as examineType,JZLSH as jzlsh,
+        BARCODE as barcode, JZKH as jzkh, SAMPLINGDATE as samplingDate, RECEIPTDATE as receiptDate,
+        RECEIPTDATE1 as receiptDate1, TESTDATE as testDate, TESTDOCTOR as testDoctor, REPORTTYPE as reportType,
+        GERMRESULT as germResult, GERMRESULTTYPE as germResultType, ANTIGERMCODE as antiGermCode, ANTIGERMNAME as antiGermName,
+        ANTICODE as antiCode, ANTINAME as antiName, ANTIRESULT as antiResult, ANTIRESULT1 as antiResult1, CANCEL as cancel,
+        JGID as jgid,BGDLBBM as bgdlbbm,BGDLB as bgdlb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO API_LIS_REPORT (
+            ID ,
+            REQ_NO ,
+            REQ_DOCTOR,
+            BR_ID ,
+            REQ_DATA ,
+            ITEM_PRICE ,
+            PAT_TYPE ,
+            AUDITOR ,
+            AUDITTIME ,
+            ITEM_REOMPT ,
+            LAB_DOCTOR ,
+            ITEM_NO ,
+            REPORT_ITEM_ID ,
+            REPORT_ITEM_NAME ,
+            REPORT_ITEM_CODE ,
+            RESULT ,
+            UNITS ,
+            ABNORMAL_INDICATOR ,
+            RESULT_DATE_TIME ,
+            TEXT_RANGE ,
+            ITEM_CODE ,
+            ITEM_NAME ,
+            SAMPLE_NO ,
+            REMARK ,
+            REPORT_NO ,
+            DANGER ,
+            SPECIMEN_TYPE ,
+            EXAMINE_TYPE ,
+            JZLSH ,
+            BARCODE,
+            JZKH,
+            SAMPLINGDATE,
+            RECEIPTDATE ,
+            RECEIPTDATE1,
+            TESTDATE,
+            TESTDOCTOR,
+            REPORTTYPE,
+            GERMRESULT,
+            GERMRESULTTYPE,
+            ANTIGERMCODE,
+            ANTIGERMNAME,
+            ANTICODE,
+            ANTINAME,
+            ANTIRESULT,
+            ANTIRESULT1,
+            CANCEL,
+            JGID,
+            BGDLBBM,
+            BGDLB
+        ) VALUES (
+            #{id} ,
+            #{reqNo} ,
+            #{reqDoctor},
+            #{brId} ,
+            #{reqData} ,
+            #{itemPrice} ,
+            #{patType} ,
+            #{auditor} ,
+            #{audittime} ,
+            #{itemReompt} ,
+            #{labDoctor} ,
+            #{itemNo} ,
+            #{reportItemId} ,
+            #{reportItemName} ,
+            #{reportItemCode} ,
+            #{result} ,
+            #{units} ,
+            #{abnormalIndicator} ,
+            #{resultDateTime} ,
+            #{textRange} ,
+            #{itemCode} ,
+            #{itemName} ,
+            #{sampleNo} ,
+            #{remark} ,
+            #{reportNo} ,
+            #{danger} ,
+            #{specimenType} ,
+            #{examineType} ,
+            #{jzlsh} ,
+            #{barcode} ,
+            #{jzkh} ,
+            #{samplingDate} ,
+            #{receiptDate} ,
+            #{receiptDate1} ,
+            #{testDate} ,
+            #{testDoctor} ,
+            #{reportType} ,
+            #{germResult} ,
+            #{germResultType} ,
+            #{antiGermCode} ,
+            #{antiGermName} ,
+            #{antiCode} ,
+            #{antiName} ,
+            #{antiResult} ,
+            #{antiResult1} ,
+            #{cancel},
+            #{jgid},
+            #{bgdlbbm},
+            #{bgdlb}
+        )
+    </insert>
+
+    <update id="update"><!--
+        UPDATE API_LIS_REPORT SET
+            REQ_NO = #{reqNo} ,
+            BR_ID = #{brId} ,
+            REQ_DATA = #{reqData} ,
+            ITEM_PRICE = #{itemPrice} ,
+            PAT_TYPE = #{patType} ,
+            AUDITOR = #{auditor} ,
+            AUDITTIME = #{audittime} ,
+            ITEM_REOMPT = #{itemReompt} ,
+            LAB_DOCTOR = #{labDoctor} ,
+            ITEM_NO = #{itemNo} ,
+            REPORT_ITEM_ID = #{reportItemId} ,
+            REPORT_ITEM_NAME = #{reportItemName} ,
+            REPORT_ITEM_CODE = #{reportItemCode} ,
+            RESULT = #{result} ,
+            UNITS = #{units} ,
+            ABNORMAL_INDICATOR = #{abnormalIndicator} ,
+            RESULT_DATE_TIME = #{resultDateTime} ,
+            TEXT_RANGE = #{textRange} ,
+            ITEM_CODE = #{itemCode} ,
+            ITEM_NAME = #{itemName} ,
+            SAMPLE_NO = #{sampleNo} ,
+            REMARK = #{remark} ,
+            REPORT_NO = #{reportNo} ,
+            DANGER = #{danger} ,
+            SPECIMEN_TYPE = #{specimenType} ,
+            EXAMINE_TYPE = #{examineType} ,
+            JZLSH = #{jzlsh} 
+        WHERE 
+            ID = #{id} 
+            -->
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM API_LIS_REPORT WHERE
+        ID = #{id} 
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM API_LIS_REPORT
+        <include refid="where"/>
+    </delete>
+    <update id="cancel">
+        DELETE FROM API_LIS_REPORT where REPORT_NO = #{report_id}
+    </update>
+
+    <select id="getById" resultType="ApiLisReport">
+        SELECT
+        <include refid="columns"/>
+        FROM API_LIS_REPORT
+        WHERE
+        ID = #{id}
+    </select>
+
+    <sql id="where">
+        <where>
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+            <!--                     AND ID = #{id} -->
+            <!--                </if> -->
+            <if test="@sqlt.Ognl@isNotEmpty(reqNo)">
+                AND REQ_NO = #{reqNo}
+            </if>
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(brId)">-->
+            <!--                     AND BR_ID = #{brId}-->
+            <!--                </if>-->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(reqData)"> -->
+            <!--                     AND REQ_DATA = #{reqData} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(itemPrice)"> -->
+            <!--                     AND ITEM_PRICE = #{itemPrice} -->
+            <!--                </if> -->
+            <if test="@sqlt.Ognl@isNotEmpty(patType)">
+                AND PAT_TYPE = #{patType}
+            </if>
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(auditor)"> -->
+            <!--                     AND AUDITOR = #{auditor} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(audittime)"> -->
+            <!--                     AND AUDITTIME = #{audittime} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(itemReompt)"> -->
+            <!--                     AND ITEM_REOMPT = #{itemReompt} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(labDoctor)"> -->
+            <!--                     AND LAB_DOCTOR = #{labDoctor} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(itemNo)"> -->
+            <!--                     AND ITEM_NO = #{itemNo} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(reportItemId)"> -->
+            <!--                     AND REPORT_ITEM_ID = #{reportItemId} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(reportItemName)"> -->
+            <!--                     AND REPORT_ITEM_NAME = #{reportItemName} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(reportItemCode)"> -->
+            <!--                     AND REPORT_ITEM_CODE = #{reportItemCode} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(result)"> -->
+            <!--                     AND RESULT = #{result} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(units)"> -->
+            <!--                     AND UNITS = #{units} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(abnormalIndicator)"> -->
+            <!--                     AND ABNORMAL_INDICATOR = #{abnormalIndicator} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(resultDateTime)"> -->
+            <!--                     AND RESULT_DATE_TIME = #{resultDateTime} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(textRange)"> -->
+            <!--                     AND TEXT_RANGE = #{textRange} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(itemCode)"> -->
+            <!--                     AND ITEM_CODE = #{itemCode} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(itemName)"> -->
+            <!--                     AND ITEM_NAME = #{itemName} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(sampleNo)"> -->
+            <!--                     AND SAMPLE_NO = #{sampleNo} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(remark)"> -->
+            <!--                     AND REMARK = #{remark} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(reportNo)"> -->
+            <!--                     AND REPORT_NO = #{reportNo} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(danger)"> -->
+            <!--                     AND DANGER = #{danger} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(specimenType)"> -->
+            <!--                     AND SPECIMEN_TYPE = #{specimenType} -->
+            <!--                </if> -->
+            <!--                <if test="@sqlt.Ognl@isNotEmpty(examineType)"> -->
+            <!--                     AND EXAMINE_TYPE = #{examineType} -->
+            <!--                </if> -->
+            <if test="@sqlt.Ognl@isNotEmpty(jzlsh)">
+                AND JZLSH = #{jzlsh}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM API_LIS_REPORT
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="ApiLisReport">
+        SELECT
+        <include refid="columns"/>
+        FROM API_LIS_REPORT
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="queryLisPage" resultType="com.buit.op.response.ApiLisReportResp">
+        SELECT
+            BR_ID AS brId,
+            REQ_NO AS reqNo,
+            REQ_DATA AS reqData,
+            ITEM_NAME AS itemName,
+            EXAMINE_TYPE AS examineType,
+            REQ_DOCTOR AS reqDoctor,
+            ITEM_PRICE AS itemPrice
+        FROM
+            API_LIS_REPORT
+        WHERE
+            BR_ID = #{brId}
+        GROUP BY
+            BR_ID,
+            REQ_NO,
+            REQ_DATA,
+            ITEM_NAME,
+            EXAMINE_TYPE,
+            REQ_DOCTOR,
+            ITEM_PRICE
+    </select>
+    <!--查询检验报告-->
+    <select id="queryLisReport" resultType="ApiLisReportResp">
+        select
+            JZLSH jzlsh,
+            BR_ID brId,
+            BARCODE reportItemId,
+            REPORT_ITEM_NAME reportItemName,
+            req_data reqData,
+            AUDITTIME audittime
+        from api_lis_report
+        where BR_ID = #{brid}
+        and PAT_TYPE = #{patType}
+        group by JZLSH,BARCODE,REPORT_ITEM_NAME,REQ_DATA
+        order by DATE(req_data) desc
+    </select>
+    <!--查询检验报告明细-->
+    <select id="queryLisReportDetail" resultType="ApiLisReportResp">
+        select
+            ID id,
+            BR_ID brid,
+            ITEM_NAME itemName,
+            result,
+            units,
+            TEXT_RANGE textRange,
+            ITEM_REOMPT itemReompt
+        from api_lis_report
+        where BARCODE = #{reportItemId}
+        order by ID
+    </select>
+</mapper>
+

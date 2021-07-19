@@ -1,0 +1,1 @@
+alter table mp_hxzh modify `WZFS` varchar(20)  not null COMMENT '问诊方式';

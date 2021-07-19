@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 接口检查 -->
+<mapper namespace="com.buit.commons.dao.ApiPacsReportDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        ID as id,BRID as brid,REQ_ID as reqId,CHKIT_ID as chkitId,PAT_TYPE as patType,REPORT_ID as reportId,PATIENT_NO as patientNo,REPORTER as reporter,AUDITOR as auditor,WRITEDATE as writedate,WRITETIME as writetime,AUDITDATE as auditdate,AUDITTIME as audittime,BODYPART as bodypart,EXAMNAME as examname,EXAMMETHOD as exammethod,DIAGDESC as diagdesc,DIAGNAME as diagname,MEDICAL_TECHNOLOGY_TYPE as medicalTechnologyType,IMG_URL as imgUrl,EXAMINE_TYPE as examineType,RESERVATION_DATE as reservationDate,REQ_DATA as reqData,JZLSH as jzlsh
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO API_PACS_REPORT (
+            ID ,
+            BRID ,
+            REQ_ID ,
+            CHKIT_ID ,
+            PAT_TYPE ,
+            REPORT_ID ,
+            PATIENT_NO ,
+            REPORTER ,
+            AUDITOR ,
+            WRITEDATE ,
+            WRITETIME ,
+            AUDITDATE ,
+            AUDITTIME ,
+            BODYPART ,
+            EXAMNAME ,
+            EXAMMETHOD ,
+            DIAGDESC ,
+            DIAGNAME ,
+            MEDICAL_TECHNOLOGY_TYPE ,
+            IMG_URL ,
+            EXAMINE_TYPE ,
+            RESERVATION_DATE ,
+            REQ_DATA ,
+            JZLSH,
+            ZYH
+        ) VALUES (
+            #{id} ,
+            #{brid} ,
+            #{reqId} ,
+            #{chkitId} ,
+            #{patType} ,
+            #{reportId} ,
+            #{patientNo} ,
+            #{reporter} ,
+            #{auditor} ,
+            #{writedate} ,
+            #{writetime} ,
+            #{auditdate} ,
+            #{audittime} ,
+            #{bodypart} ,
+            #{examname} ,
+            #{exammethod} ,
+            #{diagdesc} ,
+            #{diagname} ,
+            #{medicalTechnologyType} ,
+            #{imgUrl} ,
+            #{examineType} ,
+            #{reservationDate} ,
+            #{reqData} ,
+            #{jzlsh},
+            #{zyh}
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE API_PACS_REPORT SET
+            BRID = #{brid} ,
+            REQ_ID = #{reqId} ,
+            CHKIT_ID = #{chkitId} ,
+            PAT_TYPE = #{patType} ,
+            REPORT_ID = #{reportId} ,
+            PATIENT_NO = #{patientNo} ,
+            REPORTER = #{reporter} ,
+            AUDITOR = #{auditor} ,
+            WRITEDATE = #{writedate} ,
+            WRITETIME = #{writetime} ,
+            AUDITDATE = #{auditdate} ,
+            AUDITTIME = #{audittime} ,
+            BODYPART = #{bodypart} ,
+            EXAMNAME = #{examname} ,
+            EXAMMETHOD = #{exammethod} ,
+            DIAGDESC = #{diagdesc} ,
+            DIAGNAME = #{diagname} ,
+            MEDICAL_TECHNOLOGY_TYPE = #{medicalTechnologyType} ,
+            IMG_URL = #{imgUrl} ,
+            EXAMINE_TYPE = #{examineType} ,
+            RESERVATION_DATE = #{reservationDate} ,
+            REQ_DATA = #{reqData} ,
+            JZLSH = #{jzlsh} 
+        WHERE 
+            ID = #{id} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM API_PACS_REPORT WHERE
+        ID = #{id} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM API_PACS_REPORT <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="ApiPacsReport">
+        SELECT <include refid="columns" />
+            FROM API_PACS_REPORT 
+            WHERE 
+        ID = #{id} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(id)"> -->
+<!--                     AND ID = #{id} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brid)">-->
+<!--                     AND BRID = #{brid}-->
+<!--                </if>-->
+                <if test="@sqlt.Ognl@isNotEmpty(reqId)">
+                     AND REQ_ID = #{reqId}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(chkitId)"> -->
+<!--                     AND CHKIT_ID = #{chkitId} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(patType)">
+                     AND PAT_TYPE = #{patType}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(reportId)"> -->
+<!--                     AND REPORT_ID = #{reportId} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(patientNo)"> -->
+<!--                     AND PATIENT_NO = #{patientNo} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(reporter)"> -->
+<!--                     AND REPORTER = #{reporter} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(auditor)"> -->
+<!--                     AND AUDITOR = #{auditor} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(writedate)"> -->
+<!--                     AND WRITEDATE = #{writedate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(writetime)"> -->
+<!--                     AND WRITETIME = #{writetime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(auditdate)"> -->
+<!--                     AND AUDITDATE = #{auditdate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(audittime)"> -->
+<!--                     AND AUDITTIME = #{audittime} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(bodypart)"> -->
+<!--                     AND BODYPART = #{bodypart} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(examname)"> -->
+<!--                     AND EXAMNAME = #{examname} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(exammethod)"> -->
+<!--                     AND EXAMMETHOD = #{exammethod} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(diagdesc)"> -->
+<!--                     AND DIAGDESC = #{diagdesc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(diagname)"> -->
+<!--                     AND DIAGNAME = #{diagname} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(medicalTechnologyType)"> -->
+<!--                     AND MEDICAL_TECHNOLOGY_TYPE = #{medicalTechnologyType} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(imgUrl)"> -->
+<!--                     AND IMG_URL = #{imgUrl} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(examineType)"> -->
+<!--                     AND EXAMINE_TYPE = #{examineType} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(reservationDate)"> -->
+<!--                     AND RESERVATION_DATE = #{reservationDate} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(reqData)"> -->
+<!--                     AND REQ_DATA = #{reqData} -->
+<!--                </if> -->
+                <if test="@sqlt.Ognl@isNotEmpty(jzlsh)">
+                     AND JZLSH = #{jzlsh}
+                </if>
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM API_PACS_REPORT 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="ApiPacsReport">
+        SELECT <include refid="columns" />
+        FROM API_PACS_REPORT 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <!-- 查询检查报告 -->
+    <select id="queryPacsReport" resultType="com.buit.op.response.ApiPacsReportResp">
+        select
+            id,
+            EXAMNAME ,
+            WRITEDATE,
+            DIAGDESC,
+            DIAGNAME,
+            img_url imgUrl
+        from api_pacs_report r
+        join cis_jcsq01 c
+        on r.REQ_ID = c.JCXH
+        where 1=1
+        <if test='patType == "0"'>
+            and c.JZLSH = #{jzlsh}
+        </if>
+        <if test='patType == "1"'>
+            and c.ZYH = #{zyh}
+        </if>
+        order by DATE(WRITEDATE) desc
+    </select>
+
+    <delete id="delByReportId">
+        DELETE FROM API_PACS_REPORT WHERE
+        REPORT_ID = #{reportId}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 门诊_挂号日报明细 -->
+<mapper namespace="com.buit.commons.dao.OpGrmxDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        CZGH as czgh,JZRQ as jzrq,BRXZ as brxz,JGID as jgid,SFJE as sfje,FPZS as fpzs,GHJE as ghje,ZLJE as zlje,ZJFY as zjfy,BLJE as blje,MZLB as mzlb
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_GRMX (
+            CZGH ,
+            JZRQ ,
+            BRXZ ,
+            JGID ,
+            SFJE ,
+            FPZS ,
+            GHJE ,
+            ZLJE ,
+            ZJFY ,
+            BLJE ,
+            MZLB 
+        ) VALUES (
+            #{czgh} ,
+            #{jzrq} ,
+            #{brxz} ,
+            #{jgid} ,
+            #{sfje} ,
+            #{fpzs} ,
+            #{ghje} ,
+            #{zlje} ,
+            #{zjfy} ,
+            #{blje} ,
+            #{mzlb} 
+        )
+    </insert>
+    
+    <update id="update" ><!--  
+        UPDATE OP_GRMX SET
+            JGID = #{jgid} ,
+            SFJE = #{sfje} ,
+            FPZS = #{fpzs} ,
+            GHJE = #{ghje} ,
+            ZLJE = #{zlje} ,
+            ZJFY = #{zjfy} ,
+            BLJE = #{blje} ,
+            MZLB = #{mzlb} 
+        WHERE 
+            CZGH = #{czgh}  AND 
+                        JZRQ = #{jzrq}  AND 
+                        BRXZ = #{brxz} 
+            -->            
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_GRMX WHERE
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq}  AND 
+        BRXZ = #{brxz} 
+    </delete>
+    
+    <delete id="removeByEntity">
+        DELETE FROM OP_GRMX <include refid="where"/>  
+    </delete>
+    
+    <select id="getById" resultType="OpGrmx">
+        SELECT <include refid="columns" />
+            FROM OP_GRMX 
+            WHERE 
+        CZGH = #{czgh}  AND 
+        JZRQ = #{jzrq}  AND 
+        BRXZ = #{brxz} 
+    </select>
+    
+    <sql id="where">
+        <where>                          
+<!--                <if test="@sqlt.Ognl@isNotEmpty(czgh)"> -->
+<!--                     AND CZGH = #{czgh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jzrq)"> -->
+<!--                     AND JZRQ = #{jzrq} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(brxz)"> -->
+<!--                     AND BRXZ = #{brxz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jgid)"> -->
+<!--                     AND JGID = #{jgid} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sfje)"> -->
+<!--                     AND SFJE = #{sfje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(fpzs)"> -->
+<!--                     AND FPZS = #{fpzs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(ghje)"> -->
+<!--                     AND GHJE = #{ghje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zlje)"> -->
+<!--                     AND ZLJE = #{zlje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zjfy)"> -->
+<!--                     AND ZJFY = #{zjfy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(blje)"> -->
+<!--                     AND BLJE = #{blje} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzlb)"> -->
+<!--                     AND MZLB = #{mzlb} -->
+<!--                </if> -->
+        </where>
+    </sql>
+        
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_GRMX 
+        <include refid="where"/>    
+    </select>
+    
+    <select id="findByEntity" resultType="OpGrmx">
+        SELECT <include refid="columns" />
+        FROM OP_GRMX 
+        <include refid="where"/>
+        
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <delete id="doDeleteByCondition" parameterType="Map">
+        DELETE 
+		FROM
+			OP_GRMX 
+		WHERE
+			CZGH = #{czgh} 
+			AND JGID = #{jgid} 
+			AND JZRQ = #{jzrq} 
+			AND MZLB = #{mzlb}
+    </delete>
+</mapper>
+

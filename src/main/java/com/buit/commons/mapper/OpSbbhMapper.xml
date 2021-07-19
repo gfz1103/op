@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 设备编号表 -->
+<mapper namespace="com.buit.commons.dao.OpSbbhDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        BHID as bhid,SBBH as sbbh,SBMC as sbmc,JKLX as jklx,YYZS as yyzs,SWKSSJ as swkssj,SWJSSJ as swjssj,SWJGFZ as swjgfz,XWKSSJ as xwkssj,XWJSSJ as xwjssj,XWJGFZ as xwjgfz,SBDZ as sbdz,MZSY as mzsy,ZYSY as zysy,TJSY as tjsy
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO OP_SBBH (
+            BHID ,
+            SBBH ,
+            SBMC ,
+            JKLX ,
+            YYZS ,
+            SWKSSJ ,
+            SWJSSJ ,
+            SWJGFZ ,
+            XWKSSJ ,
+            XWJSSJ ,
+            XWJGFZ ,
+            SBDZ ,
+            MZSY ,
+            ZYSY ,
+            TJSY
+        ) VALUES (
+            #{bhid} ,
+            #{sbbh} ,
+            #{sbmc} ,
+            #{jklx} ,
+            #{yyzs} ,
+            #{swkssj} ,
+            #{swjssj} ,
+            #{swjgfz} ,
+            #{xwkssj} ,
+            #{xwjssj} ,
+            #{xwjgfz} ,
+            #{sbdz} ,
+            #{mzsy} ,
+            #{zysy} ,
+            #{tjsy}
+        )
+    </insert>
+
+    <update id="update" >
+        UPDATE OP_SBBH SET
+            SBBH = #{sbbh} ,
+            SBMC = #{sbmc} ,
+            JKLX = #{jklx} ,
+            YYZS = #{yyzs} ,
+            SWKSSJ = #{swkssj} ,
+            SWJSSJ = #{swjssj} ,
+            SWJGFZ = #{swjgfz} ,
+            XWKSSJ = #{xwkssj} ,
+            XWJSSJ = #{xwjssj} ,
+            XWJGFZ = #{xwjgfz} ,
+            SBDZ = #{sbdz} ,
+            MZSY = #{mzsy} ,
+            ZYSY = #{zysy} ,
+            TJSY = #{tjsy}
+        WHERE
+            BHID = #{bhid}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM OP_SBBH WHERE
+        BHID = #{bhid}
+    </delete>
+
+    <delete id="removeByEntity">
+        DELETE FROM OP_SBBH <include refid="where"/>
+    </delete>
+
+    <select id="getById" resultType="OpSbbh">
+        SELECT <include refid="columns" />
+            FROM OP_SBBH
+            WHERE
+        BHID = #{bhid}
+    </select>
+
+    <sql id="where">
+        <where>
+                <if test="@sqlt.Ognl@isNotEmpty(bhid)">
+                    AND BHID = #{bhid}
+                </if>
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbbh)"> -->
+<!--                     AND SBBH = #{sbbh} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbmc)"> -->
+<!--                     AND SBMC = #{sbmc} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(jklx)"> -->
+<!--                     AND JKLX = #{jklx} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(yyzs)"> -->
+<!--                     AND YYZS = #{yyzs} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(swkssj)"> -->
+<!--                     AND SWKSSJ = #{swkssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(swjssj)"> -->
+<!--                     AND SWJSSJ = #{swjssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(swjgfz)"> -->
+<!--                     AND SWJGFZ = #{swjgfz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xwkssj)"> -->
+<!--                     AND XWKSSJ = #{xwkssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xwjssj)"> -->
+<!--                     AND XWJSSJ = #{xwjssj} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(xwjgfz)"> -->
+<!--                     AND XWJGFZ = #{xwjgfz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(sbdz)"> -->
+<!--                     AND SBDZ = #{sbdz} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(mzsy)"> -->
+<!--                     AND MZSY = #{mzsy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(zysy)"> -->
+<!--                     AND ZYSY = #{zysy} -->
+<!--                </if> -->
+<!--                <if test="@sqlt.Ognl@isNotEmpty(tjsy)"> -->
+<!--                     AND TJSY = #{tjsy} -->
+<!--                </if> -->
+        </where>
+    </sql>
+
+    <select id="findByEntityCount" resultType="long">
+        SELECT count(*) FROM OP_SBBH
+        <include refid="where"/>
+    </select>
+
+    <select id="findByEntity" resultType="OpSbbh">
+        SELECT <include refid="columns" />
+        FROM OP_SBBH
+        <include refid="where"/>
+
+        <if test="@sqlt.Ognl@orderIsNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+    </select>
+    <!--     业务sql      -->
+    <select id="getJklx" resultType="java.util.Map">
+        SELECT
+            a.jklx,
+            (
+            CASE
+
+                    WHEN a.JKLX = 1 THEN
+                    'CT'
+                    WHEN a.JKLX = 2 THEN
+                    'MRI'
+                    WHEN a.JKLX = 3 THEN
+                    'X线检查'
+                    WHEN a.JKLX = 4 THEN
+                    '钼靶'
+                    WHEN a.JKLX = 5 THEN
+                    '动态心电'
+                    WHEN a.JKLX = 10 THEN
+                    '超声'
+                    WHEN a.JKLX = 20 THEN
+                    '内镜'
+                END
+                ) AS jklx_text,
+                count( a.bhid ) AS count
+            FROM
+                OP_SBBH a
+            GROUP BY
+                a.JKLX
+        ORDER BY
+            a.JKLX
+    </select>
+</mapper>
+
